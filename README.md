@@ -8,8 +8,13 @@
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
+A Swift library for Base Project framework.
+
 
 ## Requirements
+
+- iOS 9.0+
+
 
 ## Installation
 
@@ -20,9 +25,27 @@ it, simply add the following line to your Podfile:
 pod "SwiftyBase"
 ```
 
+## Get started
+
+
+```swift
+    import SwiftyBase
+```
+
+In Base Project included :
+1. BaseViewController.swift
+2. BaseView.swift
+3. BaseNavigationController.swift
+
+
+## In Progress
+
+- Description after some time added.(In Progress)
+
+
 ## Author
 
-patelvirajd78@gmail.com, mspviraj@hotmail.com
+Viraj Patel, mspviraj@hotmail.com
 
 ## License
 

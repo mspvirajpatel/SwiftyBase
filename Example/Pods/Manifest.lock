@@ -1,0 +1,23 @@
+PODS:
+  - FBSnapshotTestCase (2.1.4):
+    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
+  - FBSnapshotTestCase/Core (2.1.4)
+  - FBSnapshotTestCase/SwiftSupport (2.1.4):
+    - FBSnapshotTestCase/Core
+  - SwiftyBase (0.1.0)
+
+DEPENDENCIES:
+  - FBSnapshotTestCase
+  - SwiftyBase (from `../`)
+
+EXTERNAL SOURCES:
+  SwiftyBase:
+    :path: ../
+
+SPEC CHECKSUMS:
+  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
+  SwiftyBase: 79d457afbb8cb5a40acaf2c40c5e31f3390ff08f
+
+PODFILE CHECKSUM: 003b6d9a4b61cb54cf74b50c16b76af4fb902248
+
+COCOAPODS: 1.2.1.beta.1

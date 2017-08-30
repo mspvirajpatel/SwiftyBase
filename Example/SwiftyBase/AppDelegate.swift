@@ -7,15 +7,27 @@
 //
 
 import UIKit
+import SwiftyBase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var navigation: BaseNavigationController!
+    var listView: ListController!
+    
+    // MARK: - Lifecycle -
+    
+    override init() {
+        super.init()
+        
+        //before didFinishLaunchingWithOptions
+        
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        self.loadUI()
         return true
     }
 
@@ -41,6 +53,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
+    
+    fileprivate func loadUI(){
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        
+        self.displayListOnWindow()
+        
+        window?.makeKeyAndVisible()
+        
+    }
+    
+    func displayListOnWindow() {
+        
+        self.loadView()
+        
+        self.window!.rootViewController = self.navigation!
+    }
+    
+    func loadView() {
+        
+        listView = nil
+        navigation = nil
+        
+        self.listView = ListController()
+        
+        self.navigation = BaseNavigationController(rootViewController: self.listView)
+        
+    }
+    
+    
 }
 
