@@ -1,6 +1,6 @@
 # SwiftyBase
 
-[![CI Status](http://img.shields.io/travis/patelvirajd78@gmail.com/SwiftyBase.svg?style=flat)](https://travis-ci.org/patelvirajd78@gmail.com/SwiftyBase)
+[![BuddyBuild](https://dashboard.buddybuild.com/api/statusImage?appID=59a6f3aeb749970001234046&branch=master&build=latest)](https://dashboard.buddybuild.com/apps/59a6f3aeb749970001234046/build/latest?branch=master)
 [![Version](https://img.shields.io/cocoapods/v/SwiftyBase.svg?style=flat)](http://cocoapods.org/pods/SwiftyBase)
 [![License](https://img.shields.io/cocoapods/l/SwiftyBase.svg?style=flat)](http://cocoapods.org/pods/SwiftyBase)
 [![Platform](https://img.shields.io/cocoapods/p/SwiftyBase.svg?style=flat)](http://cocoapods.org/pods/SwiftyBase)
