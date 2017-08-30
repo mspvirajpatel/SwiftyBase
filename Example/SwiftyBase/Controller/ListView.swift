@@ -13,8 +13,6 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
     
     // MARK: - Attributes -
     
-    var testView : UIView!
-    
     var personListTableView : UITableView!
     
     // MARK: - Lifecycle -
@@ -45,16 +43,10 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
     override func loadViewControls(){
         super.loadViewControls()
         
-        testView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: Int(UIScreen.main.bounds.width), height: 200))
-        
-        //testView.translatesAutoresizingMaskIntoConstraints = false
-        testView.backgroundColor = UIColor.red
-        testView.layer.setValue("testView", forKey: ControlConstant.name)
-        self.addSubview(testView)
-        
-        
-        personListTableView = UITableView(frame: CGRect.zero, style: .grouped)
+        personListTableView = UITableView(frame: CGRect.zero, style: .plain)
         personListTableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        //must required for self.getDictionaryOfVariableBindings funcation Used
         personListTableView.layer.setValue("personListTableView", forKey: ControlConstant.name)
         
         personListTableView.register(UITableViewCell.self, forCellReuseIdentifier: CellIdentifire.defaultCell)
@@ -93,44 +85,16 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
         
         baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|[personListTableView]|", options:NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: baseLayout.viewDictionary)
         
-        baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|-[testView]-[personListTableView]-|", options:[.alignAllLeading , .alignAllTrailing], metrics: nil, views: baseLayout.viewDictionary)
+        baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|[personListTableView]|", options:[.alignAllLeading , .alignAllTrailing], metrics: nil, views: baseLayout.viewDictionary)
         
         self.addConstraints(baseLayout.control_H)
         self.addConstraints(baseLayout.control_V)
-        
-        generateDiagonal(view: testView)
+      
         
         self.layoutSubviews()
         
-        
-        
-        // baseLayout.expandView(personListTableView, insideView: self)
-        
     }
     
-    func generateDiagonal(view: UIView?) {
-        let maskLayer : CAShapeLayer = CAShapeLayer()
-        maskLayer.fillRule = kCAFillRuleEvenOdd
-        maskLayer.frame = (view?.bounds)!
-        
-        UIGraphicsBeginImageContext((view?.bounds.size)!);
-        let path = UIBezierPath()
-        
-        path.move(to: CGPoint.init(x: 0, y: 0))
-        path.addLine(to: CGPoint.init(x: (view?.bounds.size.width)!, y: 0))
-        
-        
-        path.addLine(to: CGPoint.init(x: (view?.bounds.size.width)!, y: (view?.bounds.size.height)! / 2))
-        
-        path.addLine(to: CGPoint.init(x: 0, y: (view?.bounds.size.height)!))
-        
-        path.close()
-        path.fill()
-        
-        maskLayer.path = path.cgPath;
-        UIGraphicsEndImageContext();
-        view!.layer.mask = maskLayer;
-    }
     
     // MARK: - Public Interface -
     
@@ -146,12 +110,9 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
     
     // MARK: - UITableView DataSource Methods -
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
+   
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return 0
+        return 25
         
     }
     

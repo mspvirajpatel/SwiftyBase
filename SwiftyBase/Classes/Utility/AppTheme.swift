@@ -164,7 +164,7 @@ public extension Color{
             break
             
         case .navigationTitle: // This will use for set navigation title color
-            instanceColor = UIColor(rgbValue: 0xffffff, alpha: 1.0)
+            instanceColor = UIColor(rgbValue: 0x000000, alpha: 1.0)
             break
             
         case .navigationBottomBorder:

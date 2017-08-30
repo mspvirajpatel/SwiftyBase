@@ -37,11 +37,17 @@ class ListController: BaseViewController {
     }
     
     required init(iView: BaseView) {
-        fatalError("init(iView:) has not been implemented")
+        listView = ListView(frame: CGRect.zero)
+        super.init(iView: listView, andNavigationTitle: "List")
+        self.loadViewControls()
+        self.setViewlayout()
     }
     
     required init(iView: BaseView, andNavigationTitle titleString: String) {
-        fatalError("init(iView:andNavigationTitle:) has not been implemented")
+        listView = ListView(frame: CGRect.zero)
+        super.init(iView: listView, andNavigationTitle: "List")
+        self.loadViewControls()
+        self.setViewlayout()
     }
     
     override func viewDidLoad() {

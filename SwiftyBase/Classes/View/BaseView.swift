@@ -203,29 +203,26 @@ open class BaseView: UIView {
     /**
      This is will check the TextControl is first in its SuperView
      */
-    open class func isFirstTextControlInSuperview(_ superview: UIView?, textControl: UIView) -> Bool{
+    open class func isFirstTextControlInSuperview(_ superview: UIView, textControl: UIView) -> Bool{
         
         var isFirstTextControl : Bool = true
         
         var textControlIndex : Int = -1
         var viewControlIndex : Int = -1
+       
+        if((superview.subviews.contains(textControl))){
+            textControlIndex = superview.subviews.index(of: textControl)!
+        }
         
-        if(superview != nil){
+        for view in (superview.subviews) {
             
-            if((superview?.subviews.contains(textControl))!){
-                textControlIndex = superview!.subviews.index(of: textControl)!
-            }
-            
-            for view in (superview?.subviews)! {
+            if(view.isTextControl() && textControl != view){
                 
-                if(view.isTextControl() && textControl != view){
-                    
-                    viewControlIndex = superview!.subviews.index(of: view)!
-                    
-                    if(viewControlIndex < textControlIndex){
-                        isFirstTextControl = false
-                        break
-                    }
+                viewControlIndex = superview.subviews.index(of: view)!
+                
+                if(viewControlIndex < textControlIndex){
+                    isFirstTextControl = false
+                    break
                 }
             }
         }
@@ -237,32 +234,30 @@ open class BaseView: UIView {
     /**
      This is will check the TextControl is last in its SuperView
      */
-    open class func isLastTextControlInSuperview(_ superview: UIView?, textControl: UIView) -> Bool{
+    open class func isLastTextControlInSuperview(_ superview: UIView, textControl: UIView) -> Bool{
         
         var isLastTextControl : Bool = true
         
         var textControlIndex : Int = -1
         var viewControlIndex : Int = -1
+       
+        if((superview.subviews.contains(textControl))){
+            textControlIndex = superview.subviews.index(of: textControl)!
+        }
         
-        if(superview != nil){
+        for view in (superview.subviews) {
             
-            if((superview?.subviews.contains(textControl))!){
-                textControlIndex = superview!.subviews.index(of: textControl)!
-            }
-            
-            for view in (superview?.subviews)! {
+            if(view.isTextControl() && textControl != view){
                 
-                if(view.isTextControl() && textControl != view){
-                    
-                    viewControlIndex = superview!.subviews.index(of: view)!
-                    
-                    if(viewControlIndex > textControlIndex){
-                        isLastTextControl = false
-                        break
-                    }
+                viewControlIndex = superview.subviews.index(of: view)!
+                
+                if(viewControlIndex > textControlIndex){
+                    isLastTextControl = false
+                    break
                 }
             }
         }
+        
         return isLastTextControl
     }
     

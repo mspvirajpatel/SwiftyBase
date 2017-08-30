@@ -47,16 +47,16 @@ open class AppBaseLayout: NSObject {
     }
     
     
-    open func expandViewInsideView(_ mainView: UIView){
-        
-        let dictionary: Dictionary! = ["view" : view]
-        
-        self.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|[view]|", options:NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dictionary)
-        self.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|[view]|", options:NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dictionary)
-        
-        mainView.addConstraints(self.control_H)
-        mainView.addConstraints(self.control_V)
-    }
+//    open func expandViewInsideView(_ mainView: UIView){
+//        
+//        let dictionary: Dictionary! = ["view" : view]
+//        
+//        self.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|[view]|", options:NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dictionary)
+//        self.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|[view]|", options:NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dictionary)
+//        
+//        mainView.addConstraints(self.control_H)
+//        mainView.addConstraints(self.control_V)
+//    }
     
     open func expandView(_ containerView: UIView, insideView mainView: UIView){
         
