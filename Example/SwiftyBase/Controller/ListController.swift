@@ -9,14 +9,6 @@
 import UIKit
 import SwiftyBase
 
-public struct ControlConstant {
-    
-    static let controlKey : String = "ControlRequestKey"
-    static let name : String = "controlName"
-
-}
-
-
 class ListController: BaseViewController {
 
     // MARK: - Attributes -

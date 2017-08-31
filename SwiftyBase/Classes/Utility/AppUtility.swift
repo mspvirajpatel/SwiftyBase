@@ -13,7 +13,7 @@ open class AppUtility: NSObject {
     
     //  MARK: - Network Connection Methods
     
-    class func isNetworkAvailableWithBlock(_ completion: @escaping (_ wasSuccessful: Bool) -> Void) {
+    public class func isNetworkAvailableWithBlock(_ completion: @escaping (_ wasSuccessful: Bool) -> Void) {
         
         var zeroAddress = sockaddr_in()
         zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
@@ -33,37 +33,36 @@ open class AppUtility: NSObject {
         completion(isReachable && !needsConnection )
     }
     
-    
     //  MARK: - User Defaults Methods
     
-    class func getUserDefaultsObjectForKey(_ key: String)->AnyObject{
+    public class func getUserDefaultsObjectForKey(_ key: String)->AnyObject{
         let object: AnyObject? = UserDefaults.standard.object(forKey: key) as AnyObject?
         return object!
     }
     
-    class func setUserDefaultsObject(_ object: AnyObject, forKey key: String) {
+    public class func setUserDefaultsObject(_ object: AnyObject, forKey key: String) {
         UserDefaults.standard.set(object, forKey:key)
         UserDefaults.standard.synchronize()
     }
     
-    class func clearUserDefaultsForKey(_ key: String) {
+    public class func clearUserDefaultsForKey(_ key: String) {
         UserDefaults.standard.removeObject(forKey: key)
         UserDefaults.standard.synchronize()
     }
     
-    class func clearUserDefaults(){
+    public class func clearUserDefaults(){
         let appDomain: String = Bundle.main.bundleIdentifier!
         UserDefaults.standard.removePersistentDomain(forName: appDomain)
         UserDefaults.standard.synchronize()
     }
     
-    class func getDocumentDirectoryPath() -> String
+    public class func getDocumentDirectoryPath() -> String
     {
         let arrPaths : NSArray = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
         return arrPaths[0] as! String
     }
     
-    class func stringByPathComponet(fileName : String , Path : String) -> String
+    public class func stringByPathComponet(fileName : String , Path : String) -> String
     {
         var tmpPath : NSString = Path as NSString
         tmpPath = tmpPath.appendingPathComponent(fileName) as NSString
@@ -72,7 +71,7 @@ open class AppUtility: NSObject {
     
     //  MARK: - UIDevice Methods
     
-    class func getDeviceIdentifier()->String{
+    public class func getDeviceIdentifier()->String{
         let deviceUUID: String = UIDevice.current.identifierForVendor!.uuidString
         return deviceUUID
     }
@@ -81,19 +80,19 @@ open class AppUtility: NSObject {
    
     //  MARK: - Time-Date Methods
     
-    class func convertDateToLocalTime(_ iDate: Date) -> Date {
+    public class func convertDateToLocalTime(_ iDate: Date) -> Date {
         let timeZone: TimeZone = TimeZone.autoupdatingCurrent
         let seconds: Int = timeZone.secondsFromGMT(for: iDate)
         return Date(timeInterval: TimeInterval(seconds), since: iDate)
     }
     
-    class func convertDateToGlobalTime(_ iDate: Date) -> Date {
+    public class func convertDateToGlobalTime(_ iDate: Date) -> Date {
         let timeZone: TimeZone = TimeZone.autoupdatingCurrent
         let seconds: Int = -timeZone.secondsFromGMT(for: iDate)
         return Date(timeInterval: TimeInterval(seconds), since: iDate)
     }
     
-    class func getCurrentDateInFormat(_ format: String)->String{
+    public class func getCurrentDateInFormat(_ format: String)->String{
         
         let usLocale: Locale = Locale(identifier: "en_US")
         
@@ -109,7 +108,7 @@ open class AppUtility: NSObject {
         return stringFromDate
     }
     
-    class func getDate(_ date: Date, inFormat format: String) -> String {
+    public class func getDate(_ date: Date, inFormat format: String) -> String {
         
         let usLocale: Locale = Locale(identifier: "en_US")
         let timeFormatter: DateFormatter = DateFormatter()
@@ -125,7 +124,7 @@ open class AppUtility: NSObject {
     }
     
     
-    class func convertStringDateFromFormat(_ inputFormat:String, toFormat outputFormat:String, fromString dateString:String)->String{
+    public class func convertStringDateFromFormat(_ inputFormat:String, toFormat outputFormat:String, fromString dateString:String)->String{
         
         let usLocale: Locale = Locale(identifier: "en_US")
         
@@ -144,54 +143,54 @@ open class AppUtility: NSObject {
         return resultedDateString
     }
     
-    class func getTimeStampForCurrentTime()->String{
+    public class func getTimeStampForCurrentTime()->String{
         let timestampNumber: NSNumber = NSNumber(value: (Date().timeIntervalSince1970) * 1000 as Double)
         return timestampNumber.stringValue
     }
     
-    class func getTimeStampFromDate(_ iDate: Date) -> String {
+    public class func getTimeStampFromDate(_ iDate: Date) -> String {
         let timestamp: String = String(iDate.timeIntervalSince1970)
         return timestamp
     }
     
-    class func getCurrentTimeStampInGMTFormat() -> String {
+    public class func getCurrentTimeStampInGMTFormat() -> String {
         return AppUtility.getTimeStampFromDate(AppUtility.convertDateToGlobalTime(Date()))
     }
     
     //  MARK: - GCD Methods
     
-    class func executeTaskAfterDelay(_ delay: CGFloat, completion completionBlock: @escaping () -> Void)
+    public class func executeTaskAfterDelay(_ delay: CGFloat, completion completionBlock: @escaping () -> Void)
     {
         DispatchQueue.global(qos: .default).asyncAfter(deadline: DispatchTime.now() + Double(Int64(delay * CGFloat(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)) {
             completionBlock()
         }
     }
     
-    class func executeTaskInMainThreadAfterDelay(_ delay: CGFloat, completion completionBlock: @escaping () -> Void) {
+    public class func executeTaskInMainThreadAfterDelay(_ delay: CGFloat, completion completionBlock: @escaping () -> Void) {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(delay * CGFloat(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {() -> Void in
             completionBlock()
         })
     }
     
-    class func executeTaskInGlobalQueueWithCompletion(_ completionBlock: @escaping () -> Void) {
+    public class func executeTaskInGlobalQueueWithCompletion(_ completionBlock: @escaping () -> Void) {
         DispatchQueue.global(qos: .default).async(execute: {() -> Void in
             completionBlock()
         })
     }
     
-    class func executeTaskInMainQueueWithCompletion(_ completionBlock: @escaping () -> Void) {
+    public class func executeTaskInMainQueueWithCompletion(_ completionBlock: @escaping () -> Void) {
         DispatchQueue.main.async(execute: {() -> Void in
             completionBlock()
         })
     }
     
-    class func executeTaskInGlobalQueueWithSyncCompletion(_ completionBlock: () -> Void) {
+    public class func executeTaskInGlobalQueueWithSyncCompletion(_ completionBlock: () -> Void) {
         DispatchQueue.global(qos: .default).sync(execute: {() -> Void in
             completionBlock()
         })
     }
     
-    class func executeTaskInMainQueueWithSyncCompletion(_ completionBlock: () -> Void) {
+    public class func executeTaskInMainQueueWithSyncCompletion(_ completionBlock: () -> Void) {
         DispatchQueue.main.sync(execute: {() -> Void in
             completionBlock()
         })
@@ -199,66 +198,56 @@ open class AppUtility: NSObject {
     
     //  MARK: - Data Validation Methods
     
-    class func isValidEmail(_ checkString: String)->Bool{
-        
-        //let stricterFilter: Bool = false
-        
-        //let stricterFilterString: String = "^[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}$"
+    public class func isValidEmail(_ checkString: String)->Bool{
+    
         let laxString: String = "^.+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*$"
         
         let emailRegex: String = laxString
         
         let emailTest: NSPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
+        
         return emailTest.evaluate(with: checkString)
     }
     
-    class func isValidPhone(_ phoneNumber: String) -> Bool {
+    public class func isValidPhone(_ phoneNumber: String) -> Bool {
         let phoneRegex: String = "^((\\+)|(00))[0-9]{6,14}$"
         let phoneTest: NSPredicate = NSPredicate(format: "SELF MATCHES %@",phoneRegex)
         return phoneTest.evaluate(with: phoneNumber)
     }
     
-    class func isValidURL(_ candidate: String) -> Bool {
+    public class func isValidURL(_ candidate: String) -> Bool {
         let urlRegEx: String = "(http|https)://((\\w)*|([0-9]*)|([-|_])*)+([\\.|/]((\\w)*|([0-9]*)|([-|_])*))+"
         let urlTest: NSPredicate = NSPredicate(format: "SELF MATCHES %@",urlRegEx)
         return urlTest.evaluate(with: candidate)
     }
     
-    class func isTextFieldBlank(_ textField : UITextField) -> Bool    {
+    public class func isTextFieldBlank(_ textField : UITextField) -> Bool    {
         return (textField.text?.trimmingCharacters(in: CharacterSet.whitespaces).isEmpty)!
     }
     
-    class func validateMobileNo(_ mobileNo : String) -> Bool    {
+    public class func isValidPhoneNoCountTen(_ mobileNo : String) -> Bool    {
         return mobileNo.characters.count == 10 ? true : false
     }
     
-    func validateCharCount(_ name: String,minLimit : Int,maxLimit : Int) -> Bool    {
-        // check the name is between 4 and 16 characters
+    // check the name is between 4 and 16 characters
+    public func validateCharCount(_ name: String,minLimit : Int,maxLimit : Int) -> Bool    {
         if !(minLimit...maxLimit ~= name.characters.count) {
             return false
         }
-        
-        // check that name doesn't contain whitespace or newline characters
-        //        let range = name.rangeOfCharacter(from: .whitespacesAndNewlines())
-        //        if let range = range , range.lowerBound != range.upperBound {
-        //            return false
-        //        }
-        
         return true
     }
     
-    func isRunningSimulator() -> Bool {
+    public func isSimulator() -> Bool {
         return TARGET_OS_SIMULATOR != 0 // Use this line in Xcode 7 or newer
-        
     }
     
     ///Change file size
     
-    //    myImageView.image =  ResizeImage(myImageView.image!, targetSize: CGSizeMake(600.0, 450.0))
+    //myImageView.image =  ResizeImage(myImageView.image!, targetSize: CGSizeMake(600.0, 450.0))
     //
-    //    let imageData = UIImageJPEGRepresentation(myImageView.image!,0.50)
+    //let imageData = UIImageJPEGRepresentation(myImageView.image!,0.50)
     
-    func ResizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+    public func ResizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
         let size = image.size
         
         let widthRatio  = targetSize.width  / image.size.width
@@ -284,45 +273,4 @@ open class AppUtility: NSObject {
         return newImage!
     }
     
-    
-    // MARK: - Validation
-    
-    class func validateEmailWithString(email: String) -> Bool
-    {
-        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
-        let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegex)
-        return emailTest.evaluate(with: email)
-    }
-    
-    class func validateMobileNo(mobileNo : String) -> Bool
-    {
-        return mobileNo.characters.count == 10 ? true : false
-        //        let phoneRegex = "[0-9]{10}$"
-        //        let phoneTest =  NSPredicate(format: "SELF MATCHES %@", phoneRegex)
-        //        return phoneTest.evaluateWithObject(phoneRegex)
-    }
-    class func isValidEmail(checkString: String)->Bool{
-        
-        //let stricterFilter: Bool = false
-        
-        //let stricterFilterString: String = "^[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}$"
-        let laxString: String = "^.+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*$"
-        
-        let emailRegex: String = laxString
-        
-        let emailTest: NSPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
-        return emailTest.evaluate(with: checkString)
-    }
-    
-    class func isValidPhone(phoneNumber: String) -> Bool {
-        let phoneRegex: String = "^((\\+)|(00))[0-9]{6,14}$"
-        let phoneTest: NSPredicate = NSPredicate(format: "SELF MATCHES %@",phoneRegex)
-        return phoneTest.evaluate(with: phoneNumber)
-    }
-    
-    class func isValidURL(candidate: String) -> Bool {
-        let urlRegEx: String = "(http|https)://((\\w)*|([0-9]*)|([-|_])*)+([\\.|/]((\\w)*|([0-9]*)|([-|_])*))+"
-        let urlTest: NSPredicate = NSPredicate(format: "SELF MATCHES %@",urlRegEx)
-        return urlTest.evaluate(with: candidate)
-    }
 }

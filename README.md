@@ -37,6 +37,20 @@ In Base Project included :
 2. BaseView.swift
 3. BaseNavigationController.swift
 
+Utilities :
+
+-AppConstants 
+-AppInterFaceUtility 
+-AppLocationManager
+-AppTimer
+-AppAlert
+
+Controls : 
+
+-BaseImageView - with set Url image with catch support & Clear Catch
+-BaseButton - Multiple Button with single class access
+-Full screen Image Viewer  (ImageViewer)
+
 
 ## In Progress
 

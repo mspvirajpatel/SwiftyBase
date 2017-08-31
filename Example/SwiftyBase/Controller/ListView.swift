@@ -14,6 +14,9 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
     // MARK: - Attributes -
     
     var personListTableView : UITableView!
+    var imgView : BaseImageView!
+    var btnPrimary : BaseButton!
+    var btnSecondary : BaseButton!
     
     // MARK: - Lifecycle -
     
@@ -43,6 +46,24 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
     override func loadViewControls(){
         super.loadViewControls()
         
+        imgView = BaseImageView(type: .profile, superView: self)
+        imgView.backgroundColor = UIColor.clear
+        imgView.layer.setValue("imgView", forKey: ControlConstant.name)
+        imgView.contentMode = .scaleAspectFill
+        imgView.clipsToBounds = true
+        imgView.setImageURL("https://www.planwallpaper.com/static/images/79438-blue-world-map_nJEOoUQ.jpg")
+        
+        //For Full Screen Image Show
+        imgView.setupForImageViewer()
+        
+        btnPrimary = BaseButton.init(ibuttonType: .primary, iSuperView: self)
+        btnPrimary.layer.setValue("btnPrimary", forKey: ControlConstant.name)
+        btnPrimary.setTitle("Primary Button", for: UIControlState())
+        
+        btnSecondary = BaseButton.init(ibuttonType: .secondary, iSuperView: self)
+        btnSecondary.layer.setValue("btnSecondary", forKey: ControlConstant.name)
+        btnSecondary.setTitle("Secondary Button", for: UIControlState())
+
         personListTableView = UITableView(frame: CGRect.zero, style: .plain)
         personListTableView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -75,8 +96,8 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
         
         baseLayout.viewDictionary = self.getDictionaryOfVariableBindings(superView: self, viewDic: NSDictionary()) as! [String : AnyObject]
         
-        let controlTopBottomPadding : CGFloat = ControlLayout.verticalPadding
-        let controlLeftRightPadding : CGFloat = ControlLayout.horizontalPadding
+        let controlTopBottomPadding : CGFloat = ControlConstant.verticalPadding
+        let controlLeftRightPadding : CGFloat = ControlConstant.horizontalPadding
         
         
         baseLayout.metrics = ["controlTopBottomPadding" : controlTopBottomPadding,
@@ -85,7 +106,7 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
         
         baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|[personListTableView]|", options:NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: baseLayout.viewDictionary)
         
-        baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|[personListTableView]|", options:[.alignAllLeading , .alignAllTrailing], metrics: nil, views: baseLayout.viewDictionary)
+        baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|[imgView(180)][btnPrimary][btnSecondary][personListTableView]|", options:[.alignAllLeading , .alignAllTrailing], metrics: nil, views: baseLayout.viewDictionary)
         
         self.addConstraints(baseLayout.control_H)
         self.addConstraints(baseLayout.control_V)

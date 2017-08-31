@@ -9,13 +9,6 @@
 import Foundation
 
 // MARK: - UIView Extension -
-//  MARK: - Server Constants -
-public struct ControlConstant {
-    
-    static let controlKey : String = "ControlRequestKey"
-    static let name : String = "controlName"
-
-}
 
 public extension UIView {
     
@@ -35,47 +28,47 @@ public extension UIView {
     var bottom:     CGFloat { return self.frame.origin.y + self.frame.size.height }
     
     
-    func setSize(_ size:CGSize)
+    public func setSize(_ size:CGSize)
     {
         self.frame.size = size
     }
     
-    func setOrigin(_ point:CGPoint)
+    public func setOrigin(_ point:CGPoint)
     {
         self.frame.origin = point
     }
     
-    func setX(_ x:CGFloat) //only change the origin x
+    public func setX(_ x:CGFloat) //only change the origin x
     {
         self.frame.origin = CGPoint(x: x, y: self.frame.origin.y)
     }
     
-    func setY(_ y:CGFloat) //only change the origin x
+    public func setY(_ y:CGFloat) //only change the origin x
     {
         self.frame.origin = CGPoint(x: self.frame.origin.x, y: y)
     }
     
-    func roundCorner(_ radius:CGFloat)
+    public func roundCorner(_ radius:CGFloat)
     {
         self.layer.cornerRadius = radius
     }
     
-    func setTop(_ top:CGFloat)
+    public func setTop(_ top:CGFloat)
     {
         self.frame.origin.y = top
     }
     
-    func setLeft(_ left:CGFloat)
+    public func setLeft(_ left:CGFloat)
     {
         self.frame.origin.x = left
     }
     
-    func setRight(_ right:CGFloat)
+    public func setRight(_ right:CGFloat)
     {
         self.frame.origin.x = right - self.frame.size.width
     }
     
-    func setBottom(_ bottom:CGFloat)
+    public func setBottom(_ bottom:CGFloat)
     {
         self.frame.origin.y = bottom - self.frame.size.height
     }
@@ -135,7 +128,7 @@ public extension UIView {
         
     }
     
-    func getDictionaryOfVariableBindings(superView : UIView , viewDic : NSDictionary) -> NSDictionary
+    public func getDictionaryOfVariableBindings(superView : UIView , viewDic : NSDictionary) -> NSDictionary
     {
         var dicView : NSMutableDictionary = viewDic.mutableCopy() as! NSMutableDictionary
         
@@ -171,7 +164,7 @@ public extension UIView {
     }
     
     
-    func getDictionaryOfVariableBindings(viewArray : [UIView]) -> NSDictionary{
+    public func getDictionaryOfVariableBindings(viewArray : [UIView]) -> NSDictionary{
         
         let dicView : NSMutableDictionary = NSMutableDictionary()
         

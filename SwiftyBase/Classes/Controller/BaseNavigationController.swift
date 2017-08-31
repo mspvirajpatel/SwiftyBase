@@ -8,6 +8,7 @@
 
 import UIKit
 
+@IBDesignable
 open class BaseNavigationController: UINavigationController,UIGestureRecognizerDelegate{
     
     // MARK: - Interface
@@ -86,7 +87,7 @@ open class BaseNavigationController: UINavigationController,UIGestureRecognizerD
 
 extension BaseNavigationController {
     
-    func controlClearBackTitle() {
+    open func controlClearBackTitle() {
         if self.clearBackTitle {
             topViewController?.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         }

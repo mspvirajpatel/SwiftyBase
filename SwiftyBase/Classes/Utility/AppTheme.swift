@@ -30,8 +30,6 @@ public enum Font{
     case medium
 }
 
-
-
 public extension Color{
     
     var value: UIColor {
@@ -62,7 +60,7 @@ public extension Color{
             break
             
         case .barButtonBorder:
-            instanceColor = UIColor(rgbValue: 0x000000, alpha: 0.5)
+            instanceColor = UIColor(rgbValue: 0xffffff, alpha: 0.5)
             break
             
         case .border: // This will general border color in whole application
@@ -125,7 +123,7 @@ public extension Color{
             break
             
         case .buttonBorder:
-            instanceColor = UIColor(rgbValue: 0x6648da, alpha: 1.0)
+            instanceColor = UIColor(rgbValue: 0xffffff, alpha: 1.0)
             break
             
         // TODO: UILable Color

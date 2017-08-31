@@ -8,12 +8,12 @@
 
 import UIKit
 
-typealias ControlTouchUpInsideEvent = (_ sender : AnyObject?, _ object : AnyObject?) -> ()
-typealias TableCellSelectEvent = (_ sender : AnyObject?, _ object : AnyObject?) -> ()
+public typealias ControlTouchUpInsideEvent = (_ sender : AnyObject?, _ object : AnyObject?) -> ()
+public typealias TableCellSelectEvent = (_ sender : AnyObject?, _ object : AnyObject?) -> ()
 
-typealias ScrollViewDidScrollEvent = (_ scrollView : UIScrollView?, _ object : AnyObject?) -> ()
-typealias TaskFinishedEvent = (_ successFlag : Bool?, _ object : AnyObject?) -> ()
-typealias SwitchStateChangedEvent = (_ sender : AnyObject?, _ state : Bool?) -> ()
+public typealias ScrollViewDidScrollEvent = (_ scrollView : UIScrollView?, _ object : AnyObject?) -> ()
+public typealias TaskFinishedEvent = (_ successFlag : Bool?, _ object : AnyObject?) -> ()
+public typealias SwitchStateChangedEvent = (_ sender : AnyObject?, _ state : Bool?) -> ()
 
 @IBDesignable
 open class BaseView: UIView {

@@ -27,7 +27,8 @@ public extension String {
     }
     
     // https://gist.github.com/stevenschobert/540dd33e828461916c11
-    func camelize() -> String {
+   
+    public func camelize() -> String {
         let source = clean(with: " ", allOf: "-", "_")
         if source.characters.contains(" ") {
             let first = source.substring(to: source.characters.index(source.startIndex, offsetBy: 1))
@@ -41,15 +42,15 @@ public extension String {
         }
     }
     
-    func capitalize() -> String {
+    public func capitalize() -> String {
         return capitalized
     }
     
-    func contains(_ substring: String) -> Bool {
+    public func contains(_ substring: String) -> Bool {
         return range(of: substring) != nil
     }
     
-    func chompLeft(_ prefix: String) -> String {
+    public func chompLeft(_ prefix: String) -> String {
         if let prefixRange = range(of: prefix) {
             if prefixRange.upperBound >= endIndex {
                 return self[startIndex..<prefixRange.lowerBound]
@@ -60,7 +61,7 @@ public extension String {
         return self
     }
     
-    func chompRight(_ suffix: String) -> String {
+    public func chompRight(_ suffix: String) -> String {
         if let suffixRange = range(of: suffix, options: .backwards) {
             if suffixRange.upperBound >= endIndex {
                 return self[startIndex..<suffixRange.lowerBound]
@@ -71,12 +72,12 @@ public extension String {
         return self
     }
     
-    func collapseWhitespace() -> String {
+    public func collapseWhitespace() -> String {
         let components = self.components(separatedBy: CharacterSet.whitespacesAndNewlines).filter { !$0.isEmpty }
         return components.joined(separator: " ")
     }
     
-    func clean(with: String, allOf: String...) -> String {
+    public func clean(with: String, allOf: String...) -> String {
         var string = self
         for target in allOf {
             string = string.replacingOccurrences(of: target, with: with)
@@ -84,15 +85,15 @@ public extension String {
         return string
     }
     
-    func count(_ substring: String) -> Int {
+    public func count(_ substring: String) -> Int {
         return components(separatedBy: substring).count-1
     }
     
-    func endsWith(_ suffix: String) -> Bool {
+    public func endsWith(_ suffix: String) -> Bool {
         return hasSuffix(suffix)
     }
     
-    func ensureLeft(_ prefix: String) -> String {
+    public func ensureLeft(_ prefix: String) -> String {
         if startsWith(prefix) {
             return self
         } else {
@@ -100,7 +101,7 @@ public extension String {
         }
     }
     
-    func ensureRight(_ suffix: String) -> String {
+    public func ensureRight(_ suffix: String) -> String {
         if endsWith(suffix) {
             return self
         } else {
@@ -108,14 +109,14 @@ public extension String {
         }
     }
     
-    func indexOf(_ substring: String) -> Int? {
+    public func indexOf(_ substring: String) -> Int? {
         if let range = range(of: substring) {
             return characters.distance(from: startIndex, to: range.lowerBound)
         }
         return nil
     }
     
-    func isAlpha() -> Bool {
+    public func isAlpha() -> Bool {
         for chr in characters {
             if (!(chr >= "a" && chr <= "z") && !(chr >= "A" && chr <= "Z") ) {
                 return false
@@ -124,46 +125,46 @@ public extension String {
         return true
     }
     
-    func isAlphaNumeric() -> Bool {
+    public func isAlphaNumeric() -> Bool {
         let alphaNumeric = CharacterSet.alphanumerics
         return components(separatedBy: alphaNumeric).joined(separator: "").lengthOfString == 0
     }
     
-    func isEmpty() -> Bool {
+    public func isEmpty() -> Bool {
         return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).lengthOfString == 0
     }
     
-    func join<S: Sequence>(_ elements: S) -> String {
+    public func join<S: Sequence>(_ elements: S) -> String {
         return elements.map{String(describing: $0)}.joined(separator: self)
     }
     
-    func latinize() -> String {
+    public func latinize() -> String {
         return self.folding(options: .diacriticInsensitive, locale: Locale.current)
     }
     
-    func lines() -> [String] {
+    public func lines() -> [String] {
         return self.components(separatedBy: CharacterSet.newlines)
     }
     
-    var lengthOfString: Int {
+    public var lengthOfString: Int {
         get {
             return self.characters.count
         }
     }
     
-    func pad(_ n: Int, _ string: String = " ") -> String {
+    public func pad(_ n: Int, _ string: String = " ") -> String {
         return "".join([string.times(n), self, string.times(n)])
     }
     
-    func padLeft(_ n: Int, _ string: String = " ") -> String {
+    public func padLeft(_ n: Int, _ string: String = " ") -> String {
         return "".join([string.times(n), self])
     }
     
-    func padRight(_ n: Int, _ string: String = " ") -> String {
+    public func padRight(_ n: Int, _ string: String = " ") -> String {
         return "".join([self, string.times(n)])
     }
     
-    func slugify(withSeparator separator: Character = "-") -> String {
+    public func slugify(withSeparator separator: Character = "-") -> String {
         let slugCharacterSet = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\(separator)")
         return latinize().lowercased()
             .components(separatedBy: slugCharacterSet.inverted)
@@ -171,35 +172,33 @@ public extension String {
             .joined(separator: String(separator))
     }
     
-    func split(_ separator: Character) -> [String] {
+    public func split(_ separator: Character) -> [String] {
         return characters.split{$0 == separator}.map(String.init)
     }
     
-    func startsWith(_ prefix: String) -> Bool {
+    public func startsWith(_ prefix: String) -> Bool {
         return hasPrefix(prefix)
     }
     
-    
-    func times(_ n: Int) -> String {
+    public func times(_ n: Int) -> String {
         return (0..<n).reduce("") { $0.0 + self }
     }
     
-    func toFloat() -> Float? {
+    public func toFloat() -> Float? {
         if let number = defaultNumberFormatter().number(from: self) {
             return number.floatValue
         }
         return nil
     }
     
-    func toInt() -> Int? {
+    public func toInt() -> Int? {
         if let number = defaultNumberFormatter().number(from: self) {
             return number.intValue
         }
         return nil
     }
     
-    
-    func toBool() -> Bool? {
+    public func toBool() -> Bool? {
         let trimmed = self.trimmed().lowercased()
         if trimmed == "true" || trimmed == "false" {
             return (trimmed as NSString).boolValue
@@ -207,33 +206,33 @@ public extension String {
         return nil
     }
     
-    func toDate(_ format: String = "yyyy-MM-dd") -> Date? {
+    public func toDate(_ format: String = "yyyy-MM-dd") -> Date? {
         return dateFormatter(format).date(from: self)
     }
     
-    func toDateTime(_ format: String = "yyyy-MM-dd HH:mm:ss") -> Date? {
+    public func toDateTime(_ format: String = "yyyy-MM-dd HH:mm:ss") -> Date? {
         return toDate(format)
     }
     
-    func trimmedLeft() -> String {
+    public func trimmedLeft() -> String {
         if let range = rangeOfCharacter(from: CharacterSet.whitespacesAndNewlines.inverted) {
             return self[range.lowerBound..<endIndex]
         }
         return self
     }
     
-    func trimmedRight() -> String {
+    public func trimmedRight() -> String {
         if let range = rangeOfCharacter(from: CharacterSet.whitespacesAndNewlines.inverted, options: NSString.CompareOptions.backwards) {
             return self[startIndex..<range.upperBound]
         }
         return self
     }
     
-    func trimmed() -> String {
+    public func trimmed() -> String {
         return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
     }
     
-    subscript(r: Range<Int>) -> String {
+    public subscript(r: Range<Int>) -> String {
         get {
             let startIndex = self.characters.index(self.startIndex, offsetBy: r.lowerBound)
             let endIndex = self.characters.index(self.startIndex, offsetBy: r.upperBound - r.lowerBound)
@@ -241,13 +240,13 @@ public extension String {
         }
     }
     
-    func substring(_ startIndex: Int, length: Int) -> String {
+    public func substring(_ startIndex: Int, length: Int) -> String {
         let start = self.characters.index(self.startIndex, offsetBy: startIndex)
         let end = self.characters.index(self.startIndex, offsetBy: startIndex + length)
         return self[start..<end]
     }
     
-    subscript(i: Int) -> Character {
+    public subscript(i: Int) -> Character {
         get {
             let index = self.characters.index(self.startIndex, offsetBy: i)
             return self[index]
@@ -255,19 +254,19 @@ public extension String {
     }
     
     // Returns true if the string has at least one character in common with matchCharacters.
-    func containsCharactersIn(_ matchCharacters: String) -> Bool {
+    public func containsCharactersIn(_ matchCharacters: String) -> Bool {
         let characterSet = CharacterSet(charactersIn: matchCharacters)
         return self.rangeOfCharacter(from: characterSet) != nil
     }
     
     // Returns true if the string contains only characters found in matchCharacters.
-    func containsOnlyCharactersIn(_ matchCharacters: String) -> Bool {
+    public func containsOnlyCharactersIn(_ matchCharacters: String) -> Bool {
         let disallowedCharacterSet = CharacterSet(charactersIn: matchCharacters).inverted
         return self.rangeOfCharacter(from: disallowedCharacterSet) == nil
     }
     
     // Returns true if the string has no characters in common with matchCharacters.
-    func doesNotContainCharactersIn(_ matchCharacters: String) -> Bool {
+    public func doesNotContainCharactersIn(_ matchCharacters: String) -> Bool {
         let characterSet = CharacterSet(charactersIn: matchCharacters)
         return self.rangeOfCharacter(from: characterSet) == nil
     }
@@ -275,7 +274,7 @@ public extension String {
     // Returns true if the string represents a proper numeric value.
     // This method uses the device's current locale setting to determine
     // which decimal separator it will accept.
-    func isNumeric() -> Bool
+    public func isNumeric() -> Bool
     {
         let scanner = Scanner(string: self)
         
