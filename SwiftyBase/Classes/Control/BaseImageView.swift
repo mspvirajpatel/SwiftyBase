@@ -409,10 +409,14 @@ public class ImageDownloader: NSObject {
         }
         return "\(hash)"
     }
+    
     func imagePathAtURL(_ url: String) -> String? {
         
         var cacheFolder: NSString = ""
-        if let documentDir: NSString = NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true)[0] as NSString? {
+        
+        let documentDirs:NSString! = NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true)[0] as NSString
+        
+        if let documentDir = documentDirs  {
             cacheFolder = documentDir.appendingPathComponent("cached") as NSString
             var directory: ObjCBool = false
             
