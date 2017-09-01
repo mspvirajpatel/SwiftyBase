@@ -1,30 +1,23 @@
-# references:
-# * http://www.objc.io/issue-6/travis-ci.html
-# * https://github.com/supermarin/xcpretty#usage
-
 osx_image: xcode7.3
 language: objective-c
-#xcode_project: <PROJECT_PLACEHOLDER>
 xcode_workspace: SwiftyBase.xcworkspace
 xcode_scheme: SwiftyBase_Tests
 xcode_sdk: iphonesimulator9.3
 env:
   global:
-    - FRAMEWORK_NAME=SwitfyBase
+  - FRAMEWORK_NAME=SwitfyBase
 before_install:
-  - brew update
-  - brew outdated carthage || brew upgrade carthage
+- brew update
+- brew outdated carthage || brew upgrade carthage
 before_script:
-  # bootstrap the dependencies for the project
-  # you can remove if you don't have dependencies
-  - carthage bootstrap
+- carthage bootstrap
 before_deploy:
-  - carthage build --no-skip-current
-  - carthage archive $FRAMEWORK_NAME
+- carthage build --no-skip-current
+- carthage archive $FRAMEWORK_NAME
 deploy:
   provider: releases
-  api_key: "25RAE2X7Ltq2hUFsp4u8"
-  file: "FILE TO UPLOAD"
-  skip_cleanup: true
+  api_key:
+    secure: eBzvbr4GifXhscq/3vErihMU3rjQ9uxcIPJHUpjihx7lGagHe5DNbYUXM0uzxgjhgVSDvPRu08F0c70yij3Q0W/E7aX4gwQ+gO/bJf8MZxrIi7hJKCjmPe4vOlbRM31DyHs9ygYhNls7ASZ3c5TtNjCd4GrPIFaYJPwesrnixaKRhXH7UFgpdO134bAnUZ6r9+sofLrEQ71e7vgtXEGBKZvA3daNs8O77l4w2hPb/TfQ3afTBxTpUzrEZelNzL0oHjYAIc02QfnGc0CM1KjUpkDqFLLeJQGx+Zl0D/hlQR3MsdK4VujkmwDa8FqQy8qHDBE9ymqeNxSXt4MDq7j+poW01Mh2xMv0O4PfjY1G8SI8xyobGCva5D2XMEHEu+ZnoLXnEmfY6I5DTuBHNExPXiLFsL/vQi3V5oS18yj3Yjyywpet+6T20KeGikQpriU/cP8gr4BzUkaR1CfFOsP+xS/j7o3I8SEyy0XVqoQAutCLTDrPHHlcv4wBjQKca8oRgEnslMIWsbq2FJfKyJsX/C6FOTm6NDDfGlhgkNBsbWZfPYJ+1WRdobf2IbQD6Nj1i435Z+A4jjSh+/WjW7db1ljXQfqokYfLLkPj7ZPi3+cjnkNBDyChieKSK0lZ4Qy6pFFjm9SDEWiAWFElVSRuTTFJF501JBnDFcVTPXfQB8E=
+  file: SwiftyBase.framework.zip
   on:
-    tags: true
+    repo: mspvirajpatel/SwiftyBase
