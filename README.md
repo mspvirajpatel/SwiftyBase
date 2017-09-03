@@ -1,4 +1,4 @@
-# SwiftyBase
+﻿# SwiftyBase
 
 [![BuddyBuild](https://dashboard.buddybuild.com/api/statusImage?appID=59a6f3aeb749970001234046&branch=master&build=latest)](https://dashboard.buddybuild.com/apps/59a6f3aeb749970001234046/build/latest?branch=master)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
@@ -142,6 +142,41 @@ let listview : ListController = ListController()
 let baseNavigation : BaseNavigationController = BaseNavigationController(rootViewController: listview)
 
 ```
+
+
+#### BaseImageView
+
+```swift
+//using BaseImageView for set Image Local or Remote URL
+
+let imgView : BaseImageView = BaseImageView(type: .profile, superView: self)
+imgView.layer.setValue("imgView", forKey: ControlConstant.name)
+
+//Set Remote URL for Download and set in Image View
+imgView.setImageURL("Enter Your URL")
+        
+//For Full Screen Image Show on tap on Image
+imgView.setupForImageViewer()
+
+```
+
+
+#### BaseButton 
+
+```swift
+//using BaseButton for set Button with case primary, secondary, radio, rounded Close, close, checkbox, dropdown, transparent 
+ 
+let btnPrimary : BaseButton = BaseButton.init(ibuttonType: .primary, iSuperView: self)
+btnPrimary.layer.setValue("btnPrimary", forKey: ControlConstant.name)
+btnPrimary.setTitle("Primary Button", for: UIControlState())
+        
+let btnSecondary : BaseButton = BaseButton.init(ibuttonType: .secondary, iSuperView: self)
+btnSecondary.layer.setValue("btnSecondary", forKey: ControlConstant.name)
+btnSecondary.setTitle("Secondary Button", for: UIControlState())
+
+
+```
+
 
 
 ## In Progress
