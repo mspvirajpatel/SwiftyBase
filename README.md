@@ -18,6 +18,8 @@ SwiftyBase makes it easy to deal with new Project create in Swift.
    - [BaseViewController](#baseViewController)
    - [BaseView](#baseView)
    - [BaseNavigationController](#baseNavigationController)
+   - [BaseImageView](#baseImageView)
+   - [BaseButton](#baseButton)
 5. [In Progress](#in-progress)
 6. [Author](#author)
 
