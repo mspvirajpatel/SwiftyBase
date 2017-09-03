@@ -7,39 +7,32 @@
 [![License](https://img.shields.io/cocoapods/l/SwiftyBase.svg?style=flat)](http://cocoapods.org/pods/SwiftyBase)
 [![Platform](https://img.shields.io/cocoapods/p/SwiftyBase.svg?style=flat)](http://cocoapods.org/pods/SwiftyBase)
 
-## Example
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
-A Swift library for Base Project framework.
+SwiftyBase makes it easy to deal with new Project create in Swift.
 
-
-## Requirements
-
-- iOS 9.0+
-
-
-## Installation
-
-SwiftyBase is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
-
-```ruby
-pod "SwiftyBase"
-```
-
-## Get started
+1. [Why use the SwiftyBase](#why-use-the-swiftyBase)
+2. [Requirements](#requirements)
+3. [Integration](#integration)
+4. [Usage](#usage)
+   - [Initialization](#initialization)
+   - [BaseViewController](#baseViewController)
+   - [BaseView](#baseView)
+   - [BaseNavigationController](#baseNavigationController)
+5. [In Progress](#in-progress)
+6. [Author](#author)
 
 
-```swift
-    import SwiftyBase
-```
+## Why use the SwiftyBase?
 
-In Base Project included :
+- In software development we all know that we have to reuse code as per as requirement so we have to utilise our code with less effort I will show you one demo on that first make one viewcontroller of baseviewcontroller then make one view of base view initialize this view in controller we can use this view in another controller too ...that’s the main purpose of baseview In storyboard or in one view controller have its own view..We all know that if we have work in owns view, then it will not use for another controller so we can implement on baseview & use it another times with simple initialize.
+
+
+In Base Project included:
 1. BaseViewController.swift
 2. BaseView.swift
 3. BaseNavigationController.swift
 
-Utilities :
+Utilities:
 
 1. AppConstants 
 2. AppInterFaceUtility 
@@ -47,18 +40,114 @@ Utilities :
 4. AppTimer
 5. AppAlert
 
-Controls : 
+Controls: 
 
 1. BaseImageView - with set Url image with catch support & Clear Catch
 2. BaseButton - Multiple Button with single class access
 3. Full screen Image Viewer  (ImageViewer)
 
 
+## Requirements
+
+- iOS 9.0+ 
+- Xcode 8	
+
+
+## Integration
+
+#### CocoaPods (iOS 9)
+
+You can use [CocoaPods](http://cocoapods.org/) to install `SwiftyBase`by adding it to your `Podfile`:
+
+```ruby
+platform :ios, '9.0'
+use_frameworks!
+
+target 'MyApp' do
+	pod 'SwiftyBase'
+end
+```
+
+Note that this requires CocoaPods version 36, and your iOS deployment target to be at least 9.0:
+
+
+#### Carthage (iOS 9+)
+
+You can use [Carthage](https://github.com/Carthage/Carthage) to install `SwiftyBase` by adding it to your `Cartfile`:
+
+```
+github "mspvirajpatel/SwiftyBase"
+```
+
+#### Manually (iOS 9+)
+
+To use this library in your project manually you may:  
+
+1. Just drag ‘SwiftyBase/’ to the project tree
+
+
+
+## Usage
+
+#### Initialization
+
+```swift
+import SwiftyBase
+```
+
+#### BaseViewController
+
+```swift
+//If Create ViewContoller using BaseViewController
+
+class ListController: BaseViewController {
+
+    // MARK: - Attributes -
+    
+    // MARK: - Lifecycle -
+    
+    init() {
+
+    }
+    
+}
+```
+
+#### BaseView
+
+```swift
+//If Create ListView using BaseView
+
+class ListView: BaseView{
+    
+    // MARK: - Attributes -
+    
+    // MARK: - Lifecycle -
+    
+    override init(frame: CGRect) {
+        super.init(frame:frame) 
+        
+    }
+}
+
+```
+ 
+
+#### BaseNavigationController
+
+```swift
+//using BaseNavigationController
+let listview : ListController = ListController()
+        
+let baseNavigation : BaseNavigationController = BaseNavigationController(rootViewController: listview)
+
+```
+
+
 ## In Progress
 
 - Description after some time added.(In Progress)
 
-- In software development we all know that we have to reuse code as per as requirement so we have to utilise our code with less efort i ll show you one demo on that first make one viewcontroller of baseviewcontroller then make one view of base view initialize this view in controller we can use this view in another controller too ...thats the main purpose of baseview In storyboard or in one viewcontroller have its own view ..we all know that if we have work in own's view,then it will not use for another controller so we can implement on baseview & use it another times with simple initialize.
 
 ## Author
 
