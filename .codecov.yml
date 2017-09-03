@@ -7,3 +7,6 @@ coverage:
     project: true
     patch: true
     changes: true
+    
+codecov:
+  token: 72d6a7fd-074b-4d10-88e3-dba13351976c
