@@ -1,6 +1,7 @@
 ﻿# SwiftyBase
 
 [![BuddyBuild](https://dashboard.buddybuild.com/api/statusImage?appID=59a6f3aeb749970001234046&branch=master&build=latest)](https://dashboard.buddybuild.com/apps/59a6f3aeb749970001234046/build/latest?branch=master)
+[![Build Status](https://travis-ci.org/mspvirajpatel/SwiftyBase.svg?branch=master)](https://travis-ci.org/mspvirajpatel/SwiftyBase)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![codecov](https://codecov.io/gh/mspvirajpatel/SwiftyBase/branch/master/graph/badge.svg)](https://codecov.io/gh/mspvirajpatel/SwiftyBase)
 [![Version](https://img.shields.io/cocoapods/v/SwiftyBase.svg?style=flat)](http://cocoapods.org/pods/SwiftyBase)
