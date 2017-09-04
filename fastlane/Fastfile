@@ -31,7 +31,7 @@ platform :ios do
         changelog = changelog_from_git_commits
         github_release = set_github_release(
             repository_name: "mspvirajpatel/SwiftyBase",
-            api_token: ENV['GITHUB_TOKEN'],
+            api_token: "e1f9b5d08660f354c7f5463bc345437f512d7ccc",
             name: version,
             tag_name: version,
             description: changelog,
