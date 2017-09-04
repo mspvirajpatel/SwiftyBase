@@ -95,8 +95,6 @@ open class BaseImageView: UIImageView {
             
         case BaseImageViewType.logo:
             
-            self.image = UIImage(named: "logo")!
-            
             self.contentMode = .scaleAspectFit
             self.setBorder(Color.border.withAlpha(0.5), width: 0.0, radius: 2.0)
             self.clipsToBounds = true

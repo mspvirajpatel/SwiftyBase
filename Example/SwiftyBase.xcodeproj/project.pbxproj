@@ -148,11 +148,11 @@
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				7E962F1C1F56C5BD007F8D82 /* Controller */,
 				7E962F1D1F56C5BE007F8D82 /* Model */,
+				7E962F431F56CFA1007F8D82 /* Constants.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
-				7E962F431F56CFA1007F8D82 /* Constants.swift */,
 			);
 			name = "Example for SwiftyBase";
 			path = SwiftyBase;
