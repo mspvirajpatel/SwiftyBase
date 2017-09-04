@@ -16,7 +16,17 @@ import UIKit
 
 
 //  MARK: - Server Constants -
-
+struct API {
+    
+    //  Main Domain
+    
+    static let baseURL = "https://api.printful.com/" // Enter Your API Base
+    
+    //  API - Sub Domain
+    
+    static let subURL1 = "sub URL"
+    static let countries = "countries" // sub domain
+}
 
 //  MARK: - layoutTime Constants -
 

@@ -412,7 +412,7 @@ public class ImageDownloader: NSObject {
     
     func imagePathAtURL(_ url: String) -> String? {
         
-        var cacheFolder: NSString = ""
+        var cacheFolder: NSString! = ""
         
         let documentDirs:NSString! = NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true)[0] as NSString
         

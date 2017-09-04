@@ -25,7 +25,7 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
         
         self.loadViewControls()
         self.setViewlayout()
-        
+        self.getListServerRequest()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -93,7 +93,6 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
     override func setViewlayout(){
         super.setViewlayout()
         
-        
         baseLayout.viewDictionary = self.getDictionaryOfVariableBindings(superView: self, viewDic: NSDictionary()) as! [String : AnyObject]
         
         let controlTopBottomPadding : CGFloat = ControlConstant.verticalPadding
@@ -111,7 +110,6 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
         self.addConstraints(baseLayout.control_H)
         self.addConstraints(baseLayout.control_V)
       
-        
         self.layoutSubviews()
         
     }
@@ -127,12 +125,33 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
     
     // MARK: - Server Request -
     
+    func getListServerRequest(){
+        APIManager.shared.getRequest(URL: API.countries, Parameter: NSDictionary(), completionHandler:{(result) in
+            
+            switch result{
+            case .Success(let object, _):
+                
+                print("API Get DATA - \(object!)")
+                
+                break
+            case .Error(let error):
+                
+                print(error ?? "")
+                
+                break
+            case .Internet(let isOn):
+                print("Internet is  \(isOn)")
+                break
+            }
+        })
+    }
     
     
     // MARK: - UITableView DataSource Methods -
     
    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+      
         return 25
         
     }

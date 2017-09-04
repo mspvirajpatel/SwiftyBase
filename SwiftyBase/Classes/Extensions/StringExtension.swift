@@ -12,7 +12,8 @@ import Foundation
 
 public extension String {
     
-    public func stringToFloat() -> CGFloat{
+    /// Converted into CGFloat
+    public func toFloat() -> CGFloat{
         
         var floatNumber : CGFloat = 0.0
         
@@ -21,9 +22,67 @@ public extension String {
             floatNumber = CGFloat(number)
             
         }
-        
         return floatNumber
-        
+    }
+    
+    /// Converted into Int
+    public func toUInt() -> UInt? {
+        return UInt(self)
+    }
+    
+    /// Converted into Double
+    public var toDouble: Double? {
+        let numberFormatter = NumberFormatter()
+        return numberFormatter.number(from: self)?.doubleValue
+    }
+    
+    
+    /// Converted into Bool
+    ///
+    ///		"1".bool -> true
+    ///		"False".bool -> false
+    ///		"Hello".bool = nil
+    ///
+    public var bool: Bool? {
+        let selfLowercased = trimmed.lowercased()
+        if selfLowercased == "true" || selfLowercased == "1" {
+            return true
+        } else if selfLowercased == "false" || selfLowercased == "0" {
+            return false
+        }
+        return nil
+    }
+    
+    /// True if it is palindrome, false otherwise.
+    public func isPalindrome() -> Bool {
+        let selfString = self.lowercased().replacingOccurrences(of: " ", with: "")
+        let otherString = String(selfString.characters.reversed())
+        return selfString == otherString
+    }
+    
+    /// Cut blank and newline characters
+    public mutating func trim() {
+        self = trimmed
+    }
+    
+    /// Cut a space and a newline character, returning a new string.
+    public var trimmed: String {
+        return trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    
+    /// Delete two or more duplicate spaces
+    public func removeExtraSpaces() -> String {
+        let squashed = replacingOccurrences(of: "[ ]+", with: " ", options: .regularExpression, range: nil)
+        return squashed.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+    }
+    
+    /// Converted into Data
+    public var data: Data? {
+        return self.data(using: .utf8)
+    }
+    
+    public func addToPasteboard() {
+        UIPasteboard.general.string = self
     }
     
     // https://gist.github.com/stevenschobert/540dd33e828461916c11
@@ -106,6 +165,96 @@ public extension String {
             return self
         } else {
             return "\(self)\(suffix)"
+        }
+    }
+    
+    //Calculate the number of symbols
+    
+    public func countSymbols() -> Int {
+        var countSymbol = 0
+        for i in 0 ..< self.lengthOfString {
+            guard let character = UnicodeScalar((NSString(string: self)).character(at: i)) else {
+                return 0
+            }
+            let isSymbol = CharacterSet(charactersIn: "`~!?@#$€£¥§%^&*()_+-={}[]:\";.,<>'•\\|/").contains(character)
+            if isSymbol {
+                countSymbol += 1
+            }
+        }
+        
+        return countSymbol
+    }
+    
+    /// Calculate the number of Numbers
+    public func countNumbers() -> Int {
+        var countNumber = 0
+        for i in 0 ..< self.lengthOfString {
+            guard let character = UnicodeScalar((NSString(string: self)).character(at: i)) else {
+                return 0
+            }
+            let isNumber = CharacterSet(charactersIn: "0123456789").contains(character)
+            if isNumber {
+                countNumber += 1
+            }
+        }
+        
+        return countNumber
+    }
+    
+    /// Returns the inverted string
+    ///
+    /// - parameter preserveFormat: If set to true preserve the String format.
+    ///                             The default value is false.
+    ///                             **Example:**
+    ///                                 "Let's try this function?" ->
+    ///                                 "?noitcnuf siht yrt S'tel"
+    public func reversed(preserveFormat: Bool = false) -> String {
+        guard !self.characters.isEmpty else {
+            return ""
+        }
+        
+        var reversed = String(self.removeExtraSpaces().characters.reversed())
+        
+        if !preserveFormat {
+            return reversed
+        }
+        
+        let words = reversed.components(separatedBy: " ").filter { $0 != "" }
+        
+        reversed.removeAll()
+        for word in words {
+            if let char = word.unicodeScalars.last {
+                if CharacterSet.uppercaseLetters.contains(char) {
+                    reversed += word.lowercased().uppercased()
+                } else {
+                    reversed += word.lowercased()
+                }
+            } else {
+                reversed += word.lowercased()
+            }
+            
+            if word != words[words.count - 1] {
+                reversed += " "
+            }
+        }
+        
+        return reversed
+    }
+    
+    /// Converts self to an UUID APNS valid (No "<>" or "-" or spaces).
+    ///
+    /// - Returns: Converts self to an UUID APNS valid (No "<>" or "-" or spaces).
+    public func readableUUID() -> String {
+        return self.trimmingCharacters(in: CharacterSet(charactersIn: "<>")).replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "-", with: "")
+    }
+    
+    public static func random(ofLength length: Int) -> String {
+        guard length > 0 else { return "" }
+        let base = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        return (0..<length).reduce("") {
+            let randomIndex = arc4random_uniform(UInt32(base.characters.count))
+            let randomCharacter = "\(base[base.index(base.startIndex, offsetBy: IndexDistance(randomIndex))])"
+            return $0.0 + randomCharacter
         }
     }
     
@@ -199,7 +348,7 @@ public extension String {
     }
     
     public func toBool() -> Bool? {
-        let trimmed = self.trimmed().lowercased()
+        let trimmed = self.trimmed.lowercased()
         if trimmed == "true" || trimmed == "false" {
             return (trimmed as NSString).boolValue
         }
@@ -226,10 +375,6 @@ public extension String {
             return self[startIndex..<range.upperBound]
         }
         return self
-    }
-    
-    public func trimmed() -> String {
-        return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
     }
     
     public subscript(r: Range<Int>) -> String {
@@ -289,6 +434,167 @@ public extension String {
         return scanner.scanDecimal(nil) && scanner.isAtEnd
     }
     
+    
+    /// String size
+    public func toSize(size: CGSize, fontSize: CGFloat, maximumNumberOfLines: Int = 0) -> CGSize {
+        let font = UIFont.systemFont(ofSize: fontSize)
+        var size = self.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes:[NSFontAttributeName : font], context: nil).size
+        if maximumNumberOfLines > 0 {
+            size.height = min(size.height, CGFloat(maximumNumberOfLines) * font.lineHeight)
+        }
+        return size
+    }
+    
+    /// String width
+    public func toWidth(fontSize: CGFloat, maximumNumberOfLines: Int = 0) -> CGFloat {
+        let size = CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
+        return toSize(size: size, fontSize: fontSize, maximumNumberOfLines: maximumNumberOfLines).width
+    }
+    
+    /// String Height
+    public func toHeight(width: CGFloat, fontSize: CGFloat, maximumNumberOfLines: Int = 0) -> CGFloat {
+        let size = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
+        return toSize(size: size, fontSize: fontSize, maximumNumberOfLines: maximumNumberOfLines).height
+    }
+    
+    /// Calculate the height of the string and limit the width
+    public func heightWithConstrainedWidth(_ width: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let boundingBox = self.boundingRect(
+            with: constraintRect,
+            options: .usesLineFragmentOrigin,
+            attributes: [NSFontAttributeName: font],
+            context: nil)
+        return boundingBox.height
+    }
+    
+    /// Underline
+    public func underline() -> NSAttributedString {
+        let underlineString = NSAttributedString(string: self, attributes: [NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue])
+        return underlineString
+    }
+    
+    // italic
+    public func italic() -> NSAttributedString {
+        let italicString = NSMutableAttributedString(string: self, attributes: [NSFontAttributeName: UIFont.italicSystemFont(ofSize: UIFont.systemFontSize)])
+        return italicString
+    }
+    
+    /// Set the specified text color
+    public func makeSubstringColor(_ text: String, color: UIColor) -> NSAttributedString {
+        let attributedText = NSMutableAttributedString(string: self)
+        
+        let range = (self as NSString).range(of: text)
+        if range.location != NSNotFound {
+            attributedText.setAttributes([NSForegroundColorAttributeName: color], range: range)
+        }
+        
+        return attributedText
+    }
+    
+}
+
+//Validation
+public extension String {
+    
+    /// Whether it is a mailbox
+    public func isEmail() -> Bool {
+        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
+        //        let emailRegex = "^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\\.[a-zA-Z0-9_-]{2,3}){1,2})$"
+        let testPredicate = NSPredicate(format:"SELF MATCHES %@", emailRegex)
+        return testPredicate.evaluate(with: self)
+    }
+    
+    
+    /// Whether it is a mobile phone number at the beginning
+    public func isPhoneNumber() -> Bool {
+        let regex = "^1\\d{10}$"
+        let testPredicate = NSPredicate(format:"SELF MATCHES %@", regex)
+        return testPredicate.evaluate(with: self)
+    }
+    
+    
+    /// Regular match phone number
+    public func checkMobile() -> Bool {
+        /**
+         * cellphone number:
+         * 13[0-9], 14[5,7], 15[0, 1, 2, 3, 5, 6, 7, 8, 9], 17[6, 7, 8], 18[0-9], 170[0-9]
+         * Mobile number: 134,135,136,137,138,139,150,151,152,157,158,159,182,183,184,187,188,147,178,1705
+         * Unicom number: 130,131,132,155,156,185,186,145,176,1709
+         * Signal section: 133,153,180,181,189,177,1700
+         */
+        let MOBIL = "^1((3[0-9]|4[57]|5[0-35-9]|7[0678]|8[0-9])\\d{8}$)"
+        /**
+         * China Mobile
+         * 134,135,136,137,138,139,150,151,152,157,158,159,182,183,184,187,188,147,178,1705
+         */
+        let CM = "(^1(3[4-9]|4[7]|5[0-27-9]|7[8]|8[2-478])\\d{8}$)|(^1705\\d{7}$)"
+        /**
+         * China Unicom
+         * 130,131,132,155,156,185,186,145,176,1709
+         */
+        let CU = "(^1(3[0-2]|4[5]|5[56]|7[6]|8[56])\\d{8}$)|(^1709\\d{7}$)"
+        /**
+         * China Telecom
+         * 133,153,180,181,189,177,1700
+         */
+        let CT = "(^1(33|53|77|8[019])\\d{8}$)|(^1700\\d{7}$)"
+        let regextestmobile = NSPredicate(format: "SELF MATCHES %@", MOBIL)
+        let regextestcm = NSPredicate(format: "SELF MATCHES %@", CM)
+        let regextestcu = NSPredicate(format: "SELF MATCHES %@", CU)
+        let regextestct = NSPredicate(format: "SELF MATCHES %@", CT)
+        if regextestmobile.evaluate(with: self) || regextestcm.evaluate(with: self) || regextestcu.evaluate(with: self) || regextestct.evaluate(with: self) {
+            return true
+        }
+        return false
+    }
+    
+
+    /// Regular match user password 6-18 digits and letter combination
+    public func checkPassword() -> Bool {
+        let pattern = "^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,18}"
+        let pred = NSPredicate(format: "SELF MATCHES %@", pattern)
+        return pred.evaluate(with: self)
+    }
+    
+    /// Regular match URL
+    public func checkURL() -> Bool {
+        let pattern = "^[0-9A-Za-z]{1,50}"
+        let pred = NSPredicate(format: "SELF MATCHES %@", pattern)
+        return pred.evaluate(with: self)
+    }
+    
+    /// Regular match user name, 20 English
+    public func checkUserName() -> Bool {
+        let pattern = "^[a-zA-Z\\u4E00-\\u9FA5]{1,20}"
+        let pred = NSPredicate(format: "SELF MATCHES %@", pattern)
+        return pred.evaluate(with: self)
+    }
+    
+    /// Verify that it is a number
+    public func isNumber() -> Bool {
+        let cs: CharacterSet = CharacterSet(charactersIn: "0123456789")
+        
+        let specialrang: NSRange = (self as NSString).rangeOfCharacter(from: cs)
+        
+        return specialrang.location != NSNotFound
+    }
+    
+    ///Verify that it contains "special characters"
+    public func isSpecialCharacter() -> Bool {
+        let character = CharacterSet(charactersIn: "@／:;（）¥「」!,.?<>£＂、[]{}#%-*+=_\\|~＜＞$€^•'@#$%^&*()_+'\"/" +
+            "")
+        
+        let specialrang: NSRange = (self as NSString).rangeOfCharacter(from: character)
+        
+        return specialrang.location != NSNotFound
+    }
+    
+    public func containerWD() -> Bool {
+        let regex = "^\\w+:\\d+:\\w+;$"
+        let testPredicate = NSPredicate(format:"SELF MATCHES %@", regex)
+        return testPredicate.evaluate(with: self)
+    }
 }
 
 

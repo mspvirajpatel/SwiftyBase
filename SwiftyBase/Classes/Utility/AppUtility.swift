@@ -196,6 +196,12 @@ open class AppUtility: NSObject {
         })
     }
     
+    public static func synced(_ lock: AnyObject, closure: () -> Void) {
+        objc_sync_enter(lock)
+        closure()
+        objc_sync_exit(lock)
+    }
+    
     //  MARK: - Data Validation Methods
     
     public class func isValidEmail(_ checkString: String)->Bool{

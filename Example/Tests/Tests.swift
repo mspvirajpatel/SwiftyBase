@@ -1,6 +1,7 @@
 import UIKit
 import XCTest
 import SwiftyBase
+@testable import SwiftyBase
 
 class Tests: XCTestCase {
     
@@ -18,6 +19,32 @@ class Tests: XCTestCase {
         ImageDownloader.clearAllTheCachedImages()
     }
     
+    func testApiCall() {
+        
+        let expection : XCTestExpectation = expectation(description: "Completion handler invoked")
+        
+        APIManager.shared.getRequest(URL: API.countries, Parameter: NSDictionary(), completionHandler:{(result) in
+            
+            switch result{
+            case .Success(let object, _):
+                print(object ?? "")
+                XCTAssert(true , "Sucess")
+                expection.fulfill()
+                break
+            case .Error(let error):
+                
+                print(error?.alertMessage! ?? "")
+                XCTAssert(false , "Sucess")
+                expection.fulfill()
+                break
+            case .Internet(let isOn):
+                print("Internet is  \(isOn)")
+                break
+            }
+        })
+        waitForExpectations(timeout: 30, handler: nil)
+        
+    }
     
     func testExample() {
         // This is an example of a functional test case.
