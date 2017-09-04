@@ -27,18 +27,11 @@ platform :ios do
         ensure_git_branch
         version = version_bump_podspec(path: "SwiftyBase.podspec")
         git_commit(path: ["./SwiftyBase.podspec", "./Example/Podfile.lock"], message: "Bumped to version #{version}")
-
-        push_to_git_remote(
-            remote: "origin",         # optional, default: "origin"
-            local_branch: "HEAD",  # optional, aliased by "branch", default: "master"
-            remote_branch: "master", # optional, default is set to local_branch
-            force: true,    # optional, default: false
-            tags: true     # optional, default: true
-        )
+        push_to_git_remote(remote_branch: 'master', force: false, tags: true)
         changelog = changelog_from_git_commits
         github_release = set_github_release(
             repository_name: "mspvirajpatel/SwiftyBase",
-            api_token: "e1f9b5d08660f354c7f5463bc345437f512d7ccc",
+            api_token: ENV['GITHUB_TOKEN'],
             name: version,
             tag_name: version,
             description: changelog,
