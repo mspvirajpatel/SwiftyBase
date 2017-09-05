@@ -23,7 +23,7 @@ platform :ios do
   end
 
     lane :changlog do
-        fastlane add_plugin changelog
+        github_changelog_generator
     end
 
     #Pushing the library
