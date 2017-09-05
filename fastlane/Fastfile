@@ -21,11 +21,6 @@ platform :ios do
     
     
   end
-
-    lane :changlog do
-        github_changelog_generator
-    end
-
     #Pushing the library
     lane :deploy do
         ensure_git_branch
