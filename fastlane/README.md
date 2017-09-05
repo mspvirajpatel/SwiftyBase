@@ -30,11 +30,6 @@ xcode-select --install
 
 # Available Actions
 ## iOS
-### ios changlog
-```
-fastlane ios changlog
-```
-
 ### ios deploy
 ```
 fastlane ios deploy
