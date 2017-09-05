@@ -6,7 +6,11 @@
 //
 //
 
-import UIKit
+#if os(macOS)
+    import Cocoa
+#else
+    import UIKit
+#endif
 
 /**
  This is list of ImageView Type which are define in BaseImageView Class. We can add new type in this and handle in BaseImageView.

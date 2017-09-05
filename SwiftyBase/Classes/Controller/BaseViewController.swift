@@ -6,7 +6,11 @@
 //
 //
 
-import UIKit
+#if os(macOS)
+    import Cocoa
+#else
+    import UIKit
+#endif
 
 @IBDesignable
 open class BaseViewController: UIViewController , UINavigationControllerDelegate {

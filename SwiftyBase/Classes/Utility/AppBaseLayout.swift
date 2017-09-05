@@ -6,7 +6,11 @@
 //
 //
 
-import UIKit
+#if os(macOS)
+    import Cocoa
+#else
+    import UIKit
+#endif
 
 open class AppBaseLayout: NSObject {
    

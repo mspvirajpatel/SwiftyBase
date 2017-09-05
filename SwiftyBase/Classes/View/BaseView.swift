@@ -6,7 +6,11 @@
 //
 //
 
-import UIKit
+#if os(macOS)
+    import Cocoa
+#else
+    import UIKit
+#endif
 
 public typealias ControlTouchUpInsideEvent = (_ sender : AnyObject?, _ object : AnyObject?) -> ()
 public typealias TableCellSelectEvent = (_ sender : AnyObject?, _ object : AnyObject?) -> ()

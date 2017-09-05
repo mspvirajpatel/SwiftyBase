@@ -6,7 +6,11 @@
 //
 //
 
-import UIKit
+#if os(macOS)
+    import Cocoa
+#else
+    import UIKit
+#endif
 
 /**
  This is List of Base Button Type. If want to add new type just define in this and Handle that type in BaseButton Class.

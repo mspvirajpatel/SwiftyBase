@@ -6,7 +6,11 @@
 //  Copyright (c) 2017 patelvirajd78@gmail.com. All rights reserved.
 //
 
-import UIKit
+#if os(macOS)
+    import Cocoa
+#else
+    import UIKit
+#endif
 import SwiftyBase
 
 @UIApplicationMain

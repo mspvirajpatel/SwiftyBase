@@ -1,4 +1,8 @@
-import UIKit
+#if os(macOS)
+    import Cocoa
+#else
+    import UIKit
+#endif
 import XCTest
 import SwiftyBase
 @testable import SwiftyBase

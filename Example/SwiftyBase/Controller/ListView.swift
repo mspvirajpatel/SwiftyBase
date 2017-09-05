@@ -6,7 +6,11 @@
 //  Copyright © 2017 CocoaPods. All rights reserved.
 //
 
-import UIKit
+#if os(macOS)
+    import Cocoa
+#else
+    import UIKit
+#endif
 import SwiftyBase
 
 class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
