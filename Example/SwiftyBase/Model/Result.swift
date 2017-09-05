@@ -12,7 +12,7 @@ class Result: NSObject, NSCoding{
     
     var code : String!
     var name : String!
-    var states : AnyObject!
+    var states : Any!
     
     
     /**
@@ -21,7 +21,7 @@ class Result: NSObject, NSCoding{
     init(fromDictionary dictionary: [String:Any]){
         code = dictionary["code"] as? String
         name = dictionary["name"] as? String
-        states = dictionary["states"] as? AnyObject
+        states = dictionary["states"]
     }
     
     /**
@@ -50,7 +50,7 @@ class Result: NSObject, NSCoding{
     {
         code = aDecoder.decodeObject(forKey: "code") as? String
         name = aDecoder.decodeObject(forKey: "name") as? String
-        states = aDecoder.decodeObject(forKey: "states") as? AnyObject
+        states = aDecoder.decodeObject(forKey: "states")
         
     }
     

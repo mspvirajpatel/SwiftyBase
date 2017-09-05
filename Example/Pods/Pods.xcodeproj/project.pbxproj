@@ -22,6 +22,7 @@
 		69DA8B003216466C60F029CBD79897F1 /* UIImage+Compare.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5E22F9517F21D3A0251F88FCAB281E /* UIImage+Compare.m */; };
 		75271A5CD2E2C35BF8AEC1D513303CA0 /* SwiftyBase-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A030A98BF0D003F26E3ECD5D78BF3091 /* SwiftyBase-dummy.m */; };
 		756564ABAF2892FE7140C92A1CDDCF65 /* UIImage+Snapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DBFBDCC891B770A2AC9EF0FB164B751 /* UIImage+Snapshot.m */; };
+		7E82C5711F5EAB2C0031B8E0 /* BaseRoundMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E82C5701F5EAB2C0031B8E0 /* BaseRoundMenu.swift */; };
 		7E962F2E1F56C79A007F8D82 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E962F061F56BA89007F8D82 /* BaseViewController.swift */; };
 		7E962F301F56C7B1007F8D82 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E962F081F56BAAF007F8D82 /* BaseView.swift */; };
 		7E962F311F56C7B5007F8D82 /* AppBaseLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E962F0B1F56BB0C007F8D82 /* AppBaseLayout.swift */; };
@@ -122,6 +123,7 @@
 		73D037B3C804B9E1BB70538E342E5104 /* FBSnapshotTestCase-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FBSnapshotTestCase-umbrella.h"; sourceTree = "<group>"; };
 		757D076331E93FAC7DA7EF4AF11B88F2 /* Pods-SwiftyBase_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SwiftyBase_Example-resources.sh"; sourceTree = "<group>"; };
 		7E3DB4D092B985E76E227F7F313C6981 /* FBSnapshotTestCasePlatform.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSnapshotTestCasePlatform.h; path = FBSnapshotTestCase/FBSnapshotTestCasePlatform.h; sourceTree = "<group>"; };
+		7E82C5701F5EAB2C0031B8E0 /* BaseRoundMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseRoundMenu.swift; sourceTree = "<group>"; };
 		7E962F061F56BA89007F8D82 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		7E962F081F56BAAF007F8D82 /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		7E962F0B1F56BB0C007F8D82 /* AppBaseLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppBaseLayout.swift; sourceTree = "<group>"; };
@@ -338,6 +340,7 @@
 				7EC758C31F580FBA00C54A9F /* FullScreenImage */,
 				7EC758E41F58160400C54A9F /* BaseImageView.swift */,
 				7EC758EA1F58308F00C54A9F /* BaseButton.swift */,
+				7E82C5701F5EAB2C0031B8E0 /* BaseRoundMenu.swift */,
 			);
 			path = Control;
 			sourceTree = "<group>";
@@ -650,6 +653,7 @@
 				7E9A8D171F5D69F8008DFCF9 /* BaseError.swift in Sources */,
 				7EC758C51F58107B00C54A9F /* ImageViewer.swift in Sources */,
 				7EC758E91F582F2500C54A9F /* AppAlert.swift in Sources */,
+				7E82C5711F5EAB2C0031B8E0 /* BaseRoundMenu.swift in Sources */,
 				7E962F341F56C7B8007F8D82 /* UIColorExtension.swift in Sources */,
 				7E9A8D101F5D678B008DFCF9 /* UITableViewExtension.swift in Sources */,
 				7E9A8D061F5D6761008DFCF9 /* DictionaryExtension.swift in Sources */,

@@ -23,6 +23,8 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
     var btnSecondary : BaseButton!
     var countrylist : AllContry!
     
+    let roundMenuButton = BaseRoundMenu(withPosition: .bottomRight, size: 50.0, numberOfPetals: 4, images:[])
+    
     // MARK: - Lifecycle -
     
     override init(frame: CGRect) {
@@ -92,6 +94,12 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
         
         personListTableView.delegate = self
         personListTableView.dataSource = self
+       
+        self.addSubview(roundMenuButton)
+        
+        roundMenuButton.buttonActionDidSelected = { (indexSelected) in
+            print("Selected Index: \(indexSelected)")
+        }
         
     }
     
@@ -123,8 +131,6 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
     // MARK: - Public Interface -
     
     // MARK: - User Interaction -
-    
-    
     
     // MARK: - Internal Helpers -
     
