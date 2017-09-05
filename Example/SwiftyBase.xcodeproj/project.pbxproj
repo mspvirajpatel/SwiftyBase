@@ -16,6 +16,8 @@
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		7E387A501F599F7F00500813 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E962F431F56CFA1007F8D82 /* Constants.swift */; };
+		7E82C56C1F5E9E680031B8E0 /* AllContry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E82C56B1F5E9E680031B8E0 /* AllContry.swift */; };
+		7E82C56E1F5E9EA70031B8E0 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E82C56D1F5E9EA70031B8E0 /* Result.swift */; };
 		7E962F1F1F56C5F7007F8D82 /* ListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E962F1E1F56C5F7007F8D82 /* ListController.swift */; };
 		7E962F211F56C607007F8D82 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E962F201F56C607007F8D82 /* ListView.swift */; };
 		7E962F441F56CFA1007F8D82 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E962F431F56CFA1007F8D82 /* Constants.swift */; };
@@ -55,6 +57,8 @@
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		7431382FB02A341941296E40 /* Pods-SwiftyBase_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftyBase_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftyBase_Tests/Pods-SwiftyBase_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		7E82C56B1F5E9E680031B8E0 /* AllContry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllContry.swift; sourceTree = "<group>"; };
+		7E82C56D1F5E9EA70031B8E0 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		7E962F1E1F56C5F7007F8D82 /* ListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListController.swift; sourceTree = "<group>"; };
 		7E962F201F56C607007F8D82 /* ListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		7E962F431F56CFA1007F8D82 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -216,6 +220,8 @@
 		7E962F1D1F56C5BE007F8D82 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7E82C56B1F5E9E680031B8E0 /* AllContry.swift */,
+				7E82C56D1F5E9EA70031B8E0 /* Result.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -422,7 +428,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E82C56E1F5E9EA70031B8E0 /* Result.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				7E82C56C1F5E9E680031B8E0 /* AllContry.swift in Sources */,
 				7E962F1F1F56C5F7007F8D82 /* ListController.swift in Sources */,
 				7E962F211F56C607007F8D82 /* ListView.swift in Sources */,
 				7E962F441F56CFA1007F8D82 /* Constants.swift in Sources */,

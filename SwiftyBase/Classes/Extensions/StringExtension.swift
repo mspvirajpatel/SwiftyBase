@@ -12,6 +12,36 @@ import Foundation
 
 public extension String {
     
+    public var parseJSONString: AnyObject?
+    {
+        let data = self.data(using: String.Encoding.utf8, allowLossyConversion: false)
+        if let jsonData = data
+        {
+            // Will return an object or nil if JSON decoding fails
+            do
+            {
+                let message = try JSONSerialization.jsonObject(with: jsonData, options:.mutableContainers)
+                if let jsonResult = message as? NSMutableArray {
+                    return jsonResult //Will return the json array output
+                } else if let jsonResult = message as? NSMutableDictionary {
+                    return jsonResult //Will return the json dictionary output
+                } else {
+                    return nil
+                }
+            }
+            catch let error as NSError
+            {
+                print("An error occurred: \(error)")
+                return nil
+            }
+        }
+        else
+        {
+            // Lossless conversion of the string was not possible
+            return nil
+        }
+    }
+    
     /// Converted into CGFloat
     public func toFloat() -> CGFloat{
         
@@ -496,7 +526,7 @@ public extension String {
 
 //Validation
 public extension String {
-    
+   
     /// Whether it is a mailbox
     public func isEmail() -> Bool {
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"

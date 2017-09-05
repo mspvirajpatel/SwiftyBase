@@ -21,6 +21,7 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
     var imgView : BaseImageView!
     var btnPrimary : BaseButton!
     var btnSecondary : BaseButton!
+    var countrylist : AllContry!
     
     // MARK: - Lifecycle -
     
@@ -135,7 +136,11 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
             switch result{
             case .Success(let object, _):
                 
-                print("API Get DATA - \(object!)")
+                let jsonData = (object as! String).parseJSONString
+                
+                self.countrylist = AllContry.init(fromDictionary: jsonData as! [String : Any])
+                
+                self.personListTableView.reloadData()
                 
                 break
             case .Error(let error):
@@ -156,7 +161,10 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
       
-        return 25
+        if self.countrylist != nil{
+             return self.countrylist.result.count
+        }
+        return 0
         
     }
     
@@ -167,6 +175,8 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
         if(cell == nil){
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: CellIdentifire.defaultCell)
         }
+        let result : Result = self.countrylist.result[indexPath.row]
+        cell?.textLabel?.text = result.name
         
         return cell!
     }
