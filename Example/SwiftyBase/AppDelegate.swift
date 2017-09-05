@@ -95,7 +95,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         listView = nil
         navigation = nil
         
-        self.listView = ListController()
+        self.listView = ListController.init()
         
         self.navigation = BaseNavigationController(rootViewController: self.listView)
         

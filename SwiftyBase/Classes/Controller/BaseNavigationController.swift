@@ -44,10 +44,6 @@ open class BaseNavigationController: UINavigationController,UIGestureRecognizerD
         
         self.navigationBar.isTranslucent = false
         
-        if(self.responds(to: (#selector(getter: UINavigationController.interactivePopGestureRecognizer)))){
-            self.interactivePopGestureRecognizer?.isEnabled = false
-        }
-        
         var navigationBarFont: UIFont? = UIFont(name: FontStyle.medium, size: 17.0)
         
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: Color.navigationTitle.value,

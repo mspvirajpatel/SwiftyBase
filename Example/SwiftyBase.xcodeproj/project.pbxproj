@@ -18,6 +18,10 @@
 		7E387A501F599F7F00500813 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E962F431F56CFA1007F8D82 /* Constants.swift */; };
 		7E82C56C1F5E9E680031B8E0 /* AllContry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E82C56B1F5E9E680031B8E0 /* AllContry.swift */; };
 		7E82C56E1F5E9EA70031B8E0 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E82C56D1F5E9EA70031B8E0 /* Result.swift */; };
+		7E82C5761F5EB6010031B8E0 /* APIDemoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E82C5751F5EB6010031B8E0 /* APIDemoController.swift */; };
+		7E82C5781F5EB6120031B8E0 /* APIDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E82C5771F5EB6120031B8E0 /* APIDemoView.swift */; };
+		7E82C57A1F5EB6450031B8E0 /* ButtonDemoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E82C5791F5EB6450031B8E0 /* ButtonDemoController.swift */; };
+		7E82C57C1F5EB6530031B8E0 /* ButtonDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E82C57B1F5EB6530031B8E0 /* ButtonDemoView.swift */; };
 		7E962F1F1F56C5F7007F8D82 /* ListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E962F1E1F56C5F7007F8D82 /* ListController.swift */; };
 		7E962F211F56C607007F8D82 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E962F201F56C607007F8D82 /* ListView.swift */; };
 		7E962F441F56CFA1007F8D82 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E962F431F56CFA1007F8D82 /* Constants.swift */; };
@@ -59,6 +63,10 @@
 		7431382FB02A341941296E40 /* Pods-SwiftyBase_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftyBase_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftyBase_Tests/Pods-SwiftyBase_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		7E82C56B1F5E9E680031B8E0 /* AllContry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllContry.swift; sourceTree = "<group>"; };
 		7E82C56D1F5E9EA70031B8E0 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		7E82C5751F5EB6010031B8E0 /* APIDemoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIDemoController.swift; sourceTree = "<group>"; };
+		7E82C5771F5EB6120031B8E0 /* APIDemoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIDemoView.swift; sourceTree = "<group>"; };
+		7E82C5791F5EB6450031B8E0 /* ButtonDemoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonDemoController.swift; sourceTree = "<group>"; };
+		7E82C57B1F5EB6530031B8E0 /* ButtonDemoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonDemoView.swift; sourceTree = "<group>"; };
 		7E962F1E1F56C5F7007F8D82 /* ListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListController.swift; sourceTree = "<group>"; };
 		7E962F201F56C607007F8D82 /* ListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		7E962F431F56CFA1007F8D82 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -208,9 +216,29 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		7E82C5731F5EB5BA0031B8E0 /* APIDemo */ = {
+			isa = PBXGroup;
+			children = (
+				7E82C5751F5EB6010031B8E0 /* APIDemoController.swift */,
+				7E82C5771F5EB6120031B8E0 /* APIDemoView.swift */,
+			);
+			path = APIDemo;
+			sourceTree = "<group>";
+		};
+		7E82C5741F5EB5BA0031B8E0 /* ButtonDemo */ = {
+			isa = PBXGroup;
+			children = (
+				7E82C5791F5EB6450031B8E0 /* ButtonDemoController.swift */,
+				7E82C57B1F5EB6530031B8E0 /* ButtonDemoView.swift */,
+			);
+			path = ButtonDemo;
+			sourceTree = "<group>";
+		};
 		7E962F1C1F56C5BD007F8D82 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				7E82C5731F5EB5BA0031B8E0 /* APIDemo */,
+				7E82C5741F5EB5BA0031B8E0 /* ButtonDemo */,
 				7E962F1E1F56C5F7007F8D82 /* ListController.swift */,
 				7E962F201F56C607007F8D82 /* ListView.swift */,
 			);
@@ -429,10 +457,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				7E82C56E1F5E9EA70031B8E0 /* Result.swift in Sources */,
+				7E82C5761F5EB6010031B8E0 /* APIDemoController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				7E82C57C1F5EB6530031B8E0 /* ButtonDemoView.swift in Sources */,
 				7E82C56C1F5E9E680031B8E0 /* AllContry.swift in Sources */,
 				7E962F1F1F56C5F7007F8D82 /* ListController.swift in Sources */,
+				7E82C57A1F5EB6450031B8E0 /* ButtonDemoController.swift in Sources */,
 				7E962F211F56C607007F8D82 /* ListView.swift in Sources */,
+				7E82C5781F5EB6120031B8E0 /* APIDemoView.swift in Sources */,
 				7E962F441F56CFA1007F8D82 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

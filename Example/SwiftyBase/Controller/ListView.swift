@@ -13,17 +13,24 @@
 #endif
 import SwiftyBase
 
+public enum PageView : Int {
+    case unknown = -1
+    case Button = 0
+    case APICall = 1
+    
+    static let allValues = [unknown, Button, APICall]
+}
+
 class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
     
     // MARK: - Attributes -
     
-    var personListTableView : UITableView!
+    var listControls : NSArray = ["Buttons Demo","API Call Demo"]
+ 
     var imgView : BaseImageView!
-    var btnPrimary : BaseButton!
-    var btnSecondary : BaseButton!
-    var countrylist : AllContry!
     
-    let roundMenuButton = BaseRoundMenu(withPosition: .bottomRight, size: 50.0, numberOfPetals: 4, images:[])
+    var personListTableView : UITableView!
+
     
     // MARK: - Lifecycle -
     
@@ -32,7 +39,6 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
         
         self.loadViewControls()
         self.setViewlayout()
-        self.getListServerRequest()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -63,14 +69,6 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
         //For Full Screen Image Show
         imgView.setupForImageViewer()
         
-        btnPrimary = BaseButton.init(ibuttonType: .primary, iSuperView: self)
-        btnPrimary.layer.setValue("btnPrimary", forKey: ControlConstant.name)
-        btnPrimary.setTitle("Primary Button", for: UIControlState())
-        
-        btnSecondary = BaseButton.init(ibuttonType: .secondary, iSuperView: self)
-        btnSecondary.layer.setValue("btnSecondary", forKey: ControlConstant.name)
-        btnSecondary.setTitle("Secondary Button", for: UIControlState())
-
         personListTableView = UITableView(frame: CGRect.zero, style: .plain)
         personListTableView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -95,12 +93,6 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
         personListTableView.delegate = self
         personListTableView.dataSource = self
        
-        self.addSubview(roundMenuButton)
-        
-        roundMenuButton.buttonActionDidSelected = { (indexSelected) in
-            print("Selected Index: \(indexSelected)")
-        }
-        
     }
     
     override func setViewlayout(){
@@ -118,7 +110,7 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
         
         baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|[personListTableView]|", options:NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: baseLayout.viewDictionary)
         
-        baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|[imgView(180)][btnPrimary][btnSecondary][personListTableView]|", options:[.alignAllLeading , .alignAllTrailing], metrics: nil, views: baseLayout.viewDictionary)
+        baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|[imgView(120)][personListTableView]|", options:[.alignAllLeading , .alignAllTrailing], metrics: nil, views: baseLayout.viewDictionary)
         
         self.addConstraints(baseLayout.control_H)
         self.addConstraints(baseLayout.control_V)
@@ -136,41 +128,13 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
     
     // MARK: - Server Request -
     
-    func getListServerRequest(){
-        APIManager.shared.getRequest(URL: API.countries, Parameter: NSDictionary(), completionHandler:{(result) in
-            
-            switch result{
-            case .Success(let object, _):
-                
-                let jsonData = (object as! String).parseJSONString
-                
-                self.countrylist = AllContry.init(fromDictionary: jsonData as! [String : Any])
-                
-                self.personListTableView.reloadData()
-                
-                break
-            case .Error(let error):
-                
-                print(error ?? "")
-                
-                break
-            case .Internet(let isOn):
-                print("Internet is  \(isOn)")
-                break
-            }
-        })
-    }
-    
     
     // MARK: - UITableView DataSource Methods -
     
    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
       
-        if self.countrylist != nil{
-             return self.countrylist.result.count
-        }
-        return 0
+        return self.listControls.count
         
     }
     
@@ -181,8 +145,9 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
         if(cell == nil){
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: CellIdentifire.defaultCell)
         }
-        let result : Result = self.countrylist.result[indexPath.row]
-        cell?.textLabel?.text = result.name
+        
+        let result = self.listControls[indexPath.row]
+        cell?.textLabel?.text = (result as! String)
         
         return cell!
     }
@@ -191,7 +156,35 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
         
-        return 90.0
+        return UITableViewAutomaticDimension
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        switch indexPath.row {
+        case PageView.Button.rawValue :
+            
+            if let controller : ListController = self.getViewControllerFromSubView() as? ListController
+            {
+                let buttonView : ButtonDemoController = ButtonDemoController()
+                controller.navigationController?.pushViewController(buttonView, animated: true)
+                
+            }
+            
+            break
+        case PageView.APICall.rawValue :
+            if let controller : ListController = self.getViewControllerFromSubView() as? ListController
+            {
+                let aPIDemoController : APIDemoController = APIDemoController()
+                controller.navigationController?.pushViewController(aPIDemoController, animated: true)
+            }
+            
+            break
+        default:
+            break
+        }
         
     }
     

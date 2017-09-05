@@ -1,8 +1,8 @@
 //
-//  ListController.swift
+//  APIDemoController.swift
 //  SwiftyBase
 //
-//  Created by MacMini-2 on 30/08/17.
+//  Created by MacMini-2 on 05/09/17.
 //  Copyright © 2017 CocoaPods. All rights reserved.
 //
 
@@ -13,17 +13,17 @@
 #endif
 import SwiftyBase
 
-class ListController: BaseViewController {
+class APIDemoController: BaseViewController {
 
     // MARK: - Attributes -
     
-    var listView: ListView!
+    var aPIDemoView: APIDemoView!
     
     // MARK: - Lifecycle -
     
     required init() {
-        listView = ListView(frame: CGRect.zero)
-        super.init(iView: listView, andNavigationTitle: "List of Examples")
+        aPIDemoView = APIDemoView(frame: CGRect.zero)
+        super.init(iView: aPIDemoView, andNavigationTitle: "API DEMO")
         self.loadViewControls()
         self.setViewlayout()
     }
@@ -33,15 +33,15 @@ class ListController: BaseViewController {
     }
     
     required init(iView: BaseView) {
-        listView = ListView(frame: CGRect.zero)
-        super.init(iView: listView, andNavigationTitle: "List of Examples")
+        aPIDemoView = APIDemoView(frame: CGRect.zero)
+        super.init(iView: aPIDemoView, andNavigationTitle: "API DEMO")
         self.loadViewControls()
         self.setViewlayout()
     }
     
     required init(iView: BaseView, andNavigationTitle titleString: String) {
-        listView = ListView(frame: CGRect.zero)
-        super.init(iView: listView, andNavigationTitle: "List of Examples")
+        aPIDemoView = APIDemoView(frame: CGRect.zero)
+        super.init(iView: aPIDemoView, andNavigationTitle: "API DEMO")
         self.loadViewControls()
         self.setViewlayout()
     }

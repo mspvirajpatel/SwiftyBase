@@ -165,7 +165,6 @@ open class BaseButton: UIButton
         fillCircleLayer = nil
         circleColor = nil
         circleRadius = nil
-        cornerRadius2 = nil
     }
     
     /**
