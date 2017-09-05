@@ -108,25 +108,38 @@ class APIDemoView: BaseView,UITableViewDataSource, UITableViewDelegate {
     // MARK: - Server Request -
     
     func getListServerRequest(){
+        
         APIManager.shared.getRequest(URL: API.countries, Parameter: NSDictionary(), completionHandler:{(result) in
             
             switch result{
             case .Success(let object, _):
                 
+                AppUtility.executeTaskInMainQueueWithCompletion {
+                    BaseProgressHUD.shared.hide()
+                }
+                
                 let jsonData = (object as! String).parseJSONString
                 
                 self.countrylist = AllContry.init(fromDictionary: jsonData as! [String : Any])
-                
-                self.listTableView.reloadData()
+              
+                AppUtility.executeTaskInMainQueueWithCompletion {
+                    self.listTableView.reloadData()
+                }
                 
                 break
             case .Error(let error):
+                
+                AppUtility.executeTaskInMainQueueWithCompletion {
+                    BaseProgressHUD.shared.hide()
+                }
                 
                 print(error ?? "")
                 
                 break
             case .Internet(let isOn):
                 print("Internet is  \(isOn)")
+                
+                self.handleNetworkCheck(isAvailable: isOn, viewController: self, showLoaddingView: true)
                 break
             }
         })

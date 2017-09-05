@@ -55,7 +55,7 @@ open class APIManager{
                 
                 print("---------------------")
                 print("Request :- \(param .JSONString())")
-                print("Request URL :- \(requestURL)")
+                print("Request URL :- \(requestURL!)")
                 print("---------------------")
                 
                 var request = URLRequest(url: URL(string:requestURL)!)
@@ -131,7 +131,7 @@ open class APIManager{
                 
                 print("---------------------")
                 print("Request :- \(param .JSONString())")
-                print("Request URL :- \(requestURL)")
+                print("Request URL :- \(requestURL!)")
                 print("---------------------")
                 
                 var request = URLRequest(url: URL(string:requestURL)!)
@@ -208,7 +208,7 @@ open class APIManager{
                 
                 print("---------------------")
                 print("Request :- \(param .JSONString())")
-                print("Request URL :- \(requestURL)")
+                print("Request URL :- \(requestURL!)")
                 print("---------------------")
                 
                 var request : URLRequest

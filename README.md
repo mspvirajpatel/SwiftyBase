@@ -16,11 +16,13 @@ SwiftyBase makes it easy to deal with new Project create in Swift.
 3. [Integration](#integration)
 4. [Usage](#usage)
    - [Initialization](#initialization)
-   - [BaseViewController](#baseViewController)
-   - [BaseView](#baseView)
-   - [BaseNavigationController](#baseNavigationController)
-   - [BaseImageView](#baseImageView)
-   - [BaseButton](#baseButton)
+   - [BaseViewController](#BaseViewController)
+   - [BaseView](#BaseView)
+   - [BaseNavigationController](#BaseNavigationController)
+   - [BaseImageView](#BaseImageView)
+   - [BaseButton](#BaseButton)
+   - [BaseProgressHUD](#BaseProgressHUD)
+   - [BaseRoundMenu](#BaseRoundMenu)
 5. [In Progress](#in-progress)
 6. [Author](#author)
 
@@ -34,6 +36,10 @@ In Base Project included:
 1. BaseViewController.swift
 2. BaseView.swift
 3. BaseNavigationController.swift
+4. BaseButton
+5. BaseImageView
+6. BaseRoundMenu
+7. BaseProgressHUD
 
 Utilities:
 
@@ -180,6 +186,91 @@ btnSecondary.setTitle("Secondary Button", for: UIControlState())
 
 ```
 
+
+#### BaseProgressHUD 
+
+```swift
+
+//Just the loader
+
+BaseProgressHUD.shared.showInView(view: view)
+
+```
+
+```swift
+
+// Add title and footer text
+BaseProgressHUD.shared.showInView(view: view, withHeader: "Loading", andFooter: "Please wait...")
+
+```
+
+```swift
+
+// Set color to the header, footer, loader or to the background view
+
+BaseProgressHUD.setHeaderColor(color: UIColor.blue)
+BaseProgressHUD.setFooterColor(color: UIColor.blue)
+BaseProgressHUD.setLoaderColor(color: UIColor.blue)
+BaseProgressHUD.setBackgroundColor(color: UIColor.white)
+
+```
+
+```swift
+
+// Customize: Set color the the background view and let header, footer and loader infer a contrast color
+BaseProgressHUD.setBackgroundColor(color: UIColor.white, automaticTextColor: true)
+
+```
+
+```swift
+
+// Or show in a window
+BaseProgressHUD.shared.showInWindow(window: window, withHeader: "Loading", andFooter: "Please wait...")
+
+```
+
+```swift
+
+// Hide the HUD
+BaseProgressHUD.shared.hide()
+
+```
+
+```swift
+
+// Check if HUD is already being displayed
+if BaseProgressHUD.shared.isActive {
+    print("Currently showing HUD")
+} else {
+    print("HUD is currently hidden")
+}
+
+```
+
+
+####  [BaseRoundMenu]
+
+```swift
+//using BaseRoundMenu for set Button with case center,topLeft,topRight,bottomLeft,bottomRight
+
+let btncenter = BaseRoundMenu(withPosition: .center, size: 50.0, numberOfPetals: 10, images:[])
+let btntopLeft = BaseRoundMenu(withPosition: .topLeft, size: 50.0, numberOfPetals: 4, images:[])
+let btntopRight = BaseRoundMenu(withPosition: .topRight, size: 50.0, numberOfPetals: 4, images:[])
+let btnbottomLeft = BaseRoundMenu(withPosition: .bottomLeft, size: 50.0, numberOfPetals: 4, images:[])
+let btnbottomRight = BaseRoundMenu(withPosition: .bottomRight, size: 50.0, numberOfPetals: 4, images:[])
+
+self.view.addSubview(btncenter)
+self.view.addSubview(btntopLeft)
+self.view.addSubview(btntopRight)
+self.view.addSubview(btnbottomLeft)
+self.view.addSubview(btnbottomRight)
+
+btncenter = { (indexSelected) in
+    debugPrint("Selected Index: \(indexSelected)")
+}
+
+
+```
 
 
 ## In Progress

@@ -271,6 +271,27 @@ open class BaseView: UIView {
     
     // MARK: - Internal Helpers -
     
+    open func handleNetworkCheck(isAvailable : Bool, viewController from: UIView, showLoaddingView:Bool){
+        AppUtility.executeTaskInMainQueueWithCompletion { [weak self] in
+            
+            if self == nil{
+                return
+            }
+            
+            if isAvailable == true{
+                if showLoaddingView == true
+                {
+                    
+                    BaseProgressHUD.shared.showInView(view: from)
+                }
+                
+            }
+            else{
+                self?.isLoadedRequest = false
+                
+            }
+        }
+    }
     
     // MARK: - Server Request -
     
