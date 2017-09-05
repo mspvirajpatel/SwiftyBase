@@ -22,10 +22,6 @@ platform :ios do
     
   end
 
-    lane :changlog do
-      github_changelog_generator
-    end
-
     #Pushing the library
     lane :deploy do
         ensure_git_branch
@@ -50,7 +46,7 @@ platform :ios do
 
   after_all do |lane|
     # This block is called, only if the executed lane was successful
-
+    github_changelog_generator
     # slack(
     #   message: "Successfully deployed new App Update."
     # )
