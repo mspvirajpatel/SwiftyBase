@@ -2,7 +2,6 @@
 
 [![BuddyBuild](https://dashboard.buddybuild.com/api/statusImage?appID=59a6f3aeb749970001234046&branch=master&build=latest)](https://dashboard.buddybuild.com/apps/59a6f3aeb749970001234046/build/latest?branch=master)
 [![Build Status](https://travis-ci.org/mspvirajpatel/SwiftyBase.svg?branch=master)](https://travis-ci.org/mspvirajpatel/SwiftyBase)
-[![Build Status](https://www.bitrise.io/app/b290ea6dc7dabec7/status.svg?token=umsOCJ2pj6BcCzUgNHGwhA&branch=master)](https://www.bitrise.io/app/b290ea6dc7dabec7)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![codecov](https://codecov.io/gh/mspvirajpatel/SwiftyBase/branch/master/graph/badge.svg)](https://codecov.io/gh/mspvirajpatel/SwiftyBase)
 [![Version](https://img.shields.io/cocoapods/v/SwiftyBase.svg?style=flat)](http://cocoapods.org/pods/SwiftyBase)
@@ -16,24 +15,20 @@ SwiftyBase makes it easy to deal with new Project create in Swift.
 2. [Requirements](#requirements)
 3. [Integration](#integration)
 4. [Usage](#usage)
-
-- [Initialization](#initialization)
-
-- [BaseViewController](#baseViewcontroller)
-- [BaseView](#baseview)
-- [BaseNavigationController](#basenavigationcontroller)
-- [BaseImageView](#baseimageview)
-- [BaseButton](#basebutton)
-- [BaseProgressHUD](#baseprogresshud)
-- [BaseRoundMenu](#baseroundmenu)
-- [BaseLabel](#baselabel)
-- [BaseTextField](#basetextfield)
-
-- [SideMenu](#sideMenu)
-- [AppImageUploadManager](#appimageuploadmanager)
-- [AppPlistManger](#appplistmanger)
-- [AppPreferencesExplorer](#apppreferencesexplorer)
-
+	- [Initialization](#initialization)
+	- [BaseViewController](#baseviewcontroller)
+	- [BaseView](#baseview)
+	- [BaseNavigationController](#basenavigationcontroller)
+	- [BaseImageView](#baseimageview)
+	- [BaseButton](#basebutton)
+	- [BaseProgressHUD](#baseprogresshud)
+	- [BaseRoundMenu](#baseroundmenu)
+	- [BaseLabel](#baselabel)
+	- [BaseTextField](#basetextfield)
+	- [SideMenu](#sideMenu)
+	- [AppImageUploadManager](#appimageuploadmanager)
+	- [AppPlistManger](#appplistmanger)
+	- [AppPreferencesExplorer](#apppreferencesexplorer)
 5. [In Progress](#in-progress)
 6. [Author](#author)
 
@@ -282,7 +277,7 @@ if BaseProgressHUD.shared.isActive {
 ```
 
 
-####  [BaseRoundMenu]
+####  BaseRoundMenu
 
 ```swift
 //using BaseRoundMenu for set Button with case center,topLeft,topRight,bottomLeft,bottomRight
@@ -306,7 +301,7 @@ btncenter = { (indexSelected) in
 
 ```
 
-####  [BaseLabel]
+####  BaseLabel
 
 ```swift
 
@@ -335,7 +330,7 @@ let baseTextField : BaseTextField = BaseTextField.init(iSuperView: self, TextFie
 
 ```
 
-####  [SideMenu]
+####  SideMenu
 
 ```swift
 
@@ -371,7 +366,7 @@ dismiss(animated: true, completion: nil)
 ```
 
 
-####  [AppImageUploadManager]
+####  AppImageUploadManager
 
 ```swift
 
@@ -416,7 +411,7 @@ open func updateImageProgress(arrCount : NSArray) -> Void
 ```
 
 
-####  [AppPlistManger]
+####  AppPlistManger
 
 ```swift
 
@@ -433,7 +428,7 @@ for menuData in AppPListManager().readFromPlist("Your Plist File Name without .p
 
 ```
 
-####  [AppPreferencesExplorer]
+####  AppPreferencesExplorer
 
 ```swift
 
