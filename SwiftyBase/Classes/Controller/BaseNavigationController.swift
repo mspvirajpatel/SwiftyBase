@@ -46,14 +46,14 @@ open class BaseNavigationController: UINavigationController,UIGestureRecognizerD
         
         var navigationBarFont: UIFont? = UIFont(name: FontStyle.medium, size: 17.0)
         
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: Color.navigationTitle.value,
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: Color.navigationBG.value,
                                                             NSFontAttributeName: navigationBarFont!] as [String : Any]
         
-        self.navigationBar.tintColor = Color.navigationTitle.value
-        self.navigationBar.barTintColor = Color.navigationBG.value
+        self.navigationBar.tintColor = Color.navigationBG.value
+        self.navigationBar.barTintColor = Color.appPrimaryBG.value
         self.navigationBar.isTranslucent = false
-        
-        self.view.backgroundColor = UIColor.clear
+        self.view.backgroundColor = Color.appPrimaryBG.value
+     
         self.navigationBar.setBottomBorder(Color.navigationBottomBorder.value, width: 1.0)
         
         

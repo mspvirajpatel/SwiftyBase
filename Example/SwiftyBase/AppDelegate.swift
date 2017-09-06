@@ -96,8 +96,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigation = nil
         
         self.listView = ListController.init()
+        let menuController : SideMenuController = SideMenuController()
         
-        self.navigation = BaseNavigationController(rootViewController: self.listView)
+        navigation = BaseNavigationController(rootViewController: self.listView)
+        
+        let menuLeftNavigationController = UISideMenuNavigationController.init(rootViewController: menuController)
+        
+        menuLeftNavigationController.leftSide = false
+        
+        SideMenuManager.menuLeftNavigationController = menuLeftNavigationController
+        
+        //SideMenuManager.menuAddPanGestureToPresent(toView: navigationController.navigationBar)
+        SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: navigation.view)
+        SideMenuManager.menuPresentMode = .menuSlideIn
+        SideMenuManager.menuWidth = max(round(min((UIScreen.main.bounds.size.width), (UIScreen.main.bounds.size.height)) * 0.85), 240)
+        
+        SideMenuManager.menuAnimationFadeStrength = 0.50
+        
         
     }
     

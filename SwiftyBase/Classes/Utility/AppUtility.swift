@@ -37,6 +37,10 @@ open class AppUtility: NSObject {
         completion(isReachable && !needsConnection )
     }
     
+    public class func getDelegate() -> AnyObject? {
+        return UIApplication.shared.delegate
+    }
+    
     //  MARK: - User Defaults Methods
     
     public class func getUserDefaultsObjectForKey(_ key: String)->AnyObject{

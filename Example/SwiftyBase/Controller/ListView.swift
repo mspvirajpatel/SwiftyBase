@@ -17,15 +17,15 @@ public enum PageView : Int {
     case unknown = -1
     case Button = 0
     case APICall = 1
-    
-    static let allValues = [unknown, Button, APICall]
+    case Plist = 2
+    static let allValues = [unknown, Button, APICall, Plist]
 }
 
 class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
     
     // MARK: - Attributes -
     
-    var listControls : NSArray = ["Buttons Demo","API Call Demo"]
+    var listControls : NSArray = ["Base Controls Demo","API Call Demo","Plist Read Demo"]
  
     var imgView : BaseImageView!
     
@@ -168,7 +168,7 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
             
             if let controller : ListController = self.getViewControllerFromSubView() as? ListController
             {
-                let buttonView : ButtonDemoController = ButtonDemoController()
+                let buttonView : BaseControlsDemoController = BaseControlsDemoController()
                 controller.navigationController?.pushViewController(buttonView, animated: true)
                 
             }
@@ -182,6 +182,12 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
             }
             
             break
+        case PageView.Plist.rawValue :
+            if let controller : ListController = self.getViewControllerFromSubView() as? ListController
+            {
+                controller.openslider()
+            }
+            
         default:
             break
         }

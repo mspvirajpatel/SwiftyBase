@@ -144,8 +144,34 @@ open class BaseViewController: UIViewController , UINavigationControllerDelegate
     
     // MARK: - Public Interface -
     
-
+    public func displayMenuButton(image : UIImage?){
+        if image == nil{
+            return
+        }
+        var origImage : UIImage? = image
+        var tintedImage : UIImage? = origImage!.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        
+        btnName = UIButton()
+        btnName.setImage(tintedImage!, for: UIControlState())
+        btnName.tintColor = UIColor.white
+        btnName.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        btnName.addTarget(self, action: #selector(openslider), for: .touchUpInside)
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: btnName)
+        
+        origImage = nil
+        tintedImage = nil
+    }
     
+    public func openslider() {
+        self.view.endEditing(true)
+        self.present(SideMenuManager.menuLeftNavigationController!, animated: true, completion: nil)
+    }
+    
+    public func HideMenuButton(){
+        self.navigationItem.leftBarButtonItem = nil
+    }
+
     // MARK: - User Interaction -
     
     

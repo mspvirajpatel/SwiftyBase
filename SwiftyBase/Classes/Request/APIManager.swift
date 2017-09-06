@@ -200,7 +200,7 @@ open class APIManager{
             
             if isAvailable == true{
                 completionHandler(Result.Internet(isOn: true))
-                var requestURL : String! = _baseURL + url
+                var requestURL : String! = url
                 _ = [
                     "Authorization": "Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==",
                     "Accept": "application/json"

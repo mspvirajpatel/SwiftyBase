@@ -11,6 +11,23 @@ import Foundation
 // MARK: - String Extension -
 
 public extension String {
+   
+    public func localize(comment: String?) -> String {
+        if comment != nil
+        {
+            return NSLocalizedString(self, comment: comment!)
+        }
+        else
+        {
+            return NSLocalizedString(self, comment: "")
+        }
+    }
+    
+    public func localize() -> String {
+        
+        return NSLocalizedString(self, comment: "")
+        
+    }
     
     public var parseJSONString: AnyObject?
     {

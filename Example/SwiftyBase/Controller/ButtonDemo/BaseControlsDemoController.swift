@@ -13,19 +13,20 @@
 #endif
 import SwiftyBase
 
-class ButtonDemoController: BaseViewController {
+class BaseControlsDemoController: BaseViewController {
 
     // MARK: - Attributes -
     
-    var buttonDemoView: ButtonDemoView!
+    var buttonDemoView: BaseControlsDemoView!
     
     // MARK: - Lifecycle -
     
     required init() {
-        buttonDemoView = ButtonDemoView(frame: CGRect.zero)
-        super.init(iView: buttonDemoView, andNavigationTitle: "Button DEMO")
+        buttonDemoView = BaseControlsDemoView(frame: CGRect.zero)
+        super.init(iView: buttonDemoView, andNavigationTitle: "Base Controls")
         self.loadViewControls()
         self.setViewlayout()
+        self.displayMenuButton(image: UIImage(named: "menu"))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -33,15 +34,15 @@ class ButtonDemoController: BaseViewController {
     }
     
     required init(iView: BaseView) {
-        buttonDemoView = ButtonDemoView(frame: CGRect.zero)
-        super.init(iView: buttonDemoView, andNavigationTitle: "Button DEMO")
+        buttonDemoView = BaseControlsDemoView(frame: CGRect.zero)
+        super.init(iView: buttonDemoView, andNavigationTitle: "Base Controls")
         self.loadViewControls()
         self.setViewlayout()
     }
     
     required init(iView: BaseView, andNavigationTitle titleString: String) {
-        buttonDemoView = ButtonDemoView(frame: CGRect.zero)
-        super.init(iView: buttonDemoView, andNavigationTitle: "Button DEMO")
+        buttonDemoView = BaseControlsDemoView(frame: CGRect.zero)
+        super.init(iView: buttonDemoView, andNavigationTitle: "Base Controls")
         self.loadViewControls()
         self.setViewlayout()
     }

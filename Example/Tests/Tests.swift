@@ -4,7 +4,6 @@
     import UIKit
 #endif
 import XCTest
-import SwiftyBase
 @testable import SwiftyBase
 
 class Tests: XCTestCase {

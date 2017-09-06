@@ -26,6 +26,7 @@ class ListController: BaseViewController {
         super.init(iView: listView, andNavigationTitle: "List of Examples")
         self.loadViewControls()
         self.setViewlayout()
+        self.displayMenuButton(image: UIImage(named: "menu"))
     }
     
     required init?(coder aDecoder: NSCoder) {
