@@ -5,52 +5,29 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: Verifying required fastlane version" time="0.001612">
+      <testcase classname="fastlane.lanes" name="0: Verifying required fastlane version" time="0.001628">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.001332">
+      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.001269">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: ensure_git_branch" time="0.009392">
+      <testcase classname="fastlane.lanes" name="2: ensure_git_branch" time="0.008833">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: version_bump_podspec" time="0.002208">
+      <testcase classname="fastlane.lanes" name="3: version_bump_podspec" time="0.080062">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="4: git_commit" time="0.089499">
+      <testcase classname="fastlane.lanes" name="4: git_commit" time="0.01664">
         
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="5: push_to_git_remote" time="6.504236">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="6: changelog_from_git_commits" time="0.035175">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="7: set_github_release" time="11.571495">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="8: git fetch --tags" time="1.277297">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="9: pod_push" time="584.558882">
+          <failure message="/Users/macmini-2/.rvm/gems/ruby-2.4.1@global/gems/fastlane-2.55.0/fastlane/lib/fastlane/actions/actions_helper.rb:48:in `execute_action'&#10;/Users/macmini-2/.rvm/gems/ruby-2.4.1@global/gems/fastlane-2.55.0/fastlane/lib/fastlane/runner.rb:230:in `block in execute_action'&#10;/Users/macmini-2/.rvm/gems/ruby-2.4.1@global/gems/fastlane-2.55.0/fastlane/lib/fastlane/runner.rb:226:in `chdir'&#10;/Users/macmini-2/.rvm/gems/ruby-2.4.1@global/gems/fastlane-2.55.0/fastlane/lib/fastlane/runner.rb:226:in `execute_action'&#10;/Users/macmini-2/.rvm/gems/ruby-2.4.1@global/gems/fastlane-2.55.0/fastlane/lib/fastlane/runner.rb:148:in `trigger_action_by_name'&#10;/Users/macmini-2/.rvm/gems/ruby-2.4.1@global/gems/fastlane-2.55.0/fastlane/lib/fastlane/fast_file.rb:146:in `method_missing'&#10;Fastfile:28:in `block (2 levels) in parsing_binding'&#10;/Users/macmini-2/.rvm/gems/ruby-2.4.1@global/gems/fastlane-2.55.0/fastlane/lib/fastlane/lane.rb:33:in `call'&#10;/Users/macmini-2/.rvm/gems/ruby-2.4.1@global/gems/fastlane-2.55.0/fastlane/lib/fastlane/runner.rb:49:in `block in execute'&#10;/Users/macmini-2/.rvm/gems/ruby-2.4.1@global/gems/fastlane-2.55.0/fastlane/lib/fastlane/runner.rb:45:in `chdir'&#10;/Users/macmini-2/.rvm/gems/ruby-2.4.1@global/gems/fastlane-2.55.0/fastlane/lib/fastlane/runner.rb:45:in `execute'&#10;/Users/macmini-2/.rvm/gems/ruby-2.4.1@global/gems/fastlane-2.55.0/fastlane/lib/fastlane/lane_manager.rb:52:in `cruise_lane'&#10;/Users/macmini-2/.rvm/gems/ruby-2.4.1@global/gems/fastlane-2.55.0/fastlane/lib/fastlane/command_line_handler.rb:30:in `handle'&#10;/Users/macmini-2/.rvm/gems/ruby-2.4.1@global/gems/fastlane-2.55.0/fastlane/lib/fastlane/commands_generator.rb:104:in `block (2 levels) in run'&#10;/Users/macmini-2/.rvm/gems/ruby-2.4.1@global/gems/commander-fastlane-4.4.5/lib/commander/command.rb:178:in `call'&#10;/Users/macmini-2/.rvm/gems/ruby-2.4.1@global/gems/commander-fastlane-4.4.5/lib/commander/command.rb:153:in `run'&#10;/Users/macmini-2/.rvm/gems/ruby-2.4.1@global/gems/commander-fastlane-4.4.5/lib/commander/runner.rb:476:in `run_active_command'&#10;/Users/macmini-2/.rvm/gems/ruby-2.4.1@global/gems/fastlane-2.55.0/fastlane_core/lib/fastlane_core/ui/fastlane_runner.rb:64:in `run!'&#10;/Users/macmini-2/.rvm/gems/ruby-2.4.1@global/gems/commander-fastlane-4.4.5/lib/commander/delegates.rb:15:in `run!'&#10;/Users/macmini-2/.rvm/gems/ruby-2.4.1@global/gems/fastlane-2.55.0/fastlane/lib/fastlane/commands_generator.rb:303:in `run'&#10;/Users/macmini-2/.rvm/gems/ruby-2.4.1@global/gems/fastlane-2.55.0/fastlane/lib/fastlane/commands_generator.rb:42:in `start'&#10;/Users/macmini-2/.rvm/gems/ruby-2.4.1@global/gems/fastlane-2.55.0/fastlane/lib/fastlane/cli_tools_distributor.rb:66:in `take_off'&#10;/Users/macmini-2/.rvm/gems/ruby-2.4.1@global/gems/fastlane-2.55.0/bin/fastlane:20:in `&lt;top (required)&gt;'&#10;/Users/macmini-2/.rvm/rubies/ruby-2.4.1/bin/fastlane:23:in `load'&#10;/Users/macmini-2/.rvm/rubies/ruby-2.4.1/bin/fastlane:23:in `&lt;main&gt;'&#10;/Users/macmini-2/.rvm/gems/ruby-2.4.1/bin/ruby_executable_hooks:15:in `eval'&#10;/Users/macmini-2/.rvm/gems/ruby-2.4.1/bin/ruby_executable_hooks:15:in `&lt;main&gt;'&#10;&#10;Exit status of command 'git commit -m Bumped\ to\ version\ 1.2.17 ./SwiftyBase.podspec ./Example/Podfile.lock' was 128 instead of 0.&#10;fatal: cannot do a partial commit during a merge.&#10;" />
         
       </testcase>
     
