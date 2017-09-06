@@ -72,6 +72,15 @@ class BaseControlsDemoView: BaseView {
         btnSecondary = BaseButton.init(ibuttonType: .secondary, iSuperView: self)
         btnSecondary.layer.setValue("btnSecondary", forKey: ControlConstant.name)
         btnSecondary.setTitle("Secondary Button", for: UIControlState())
+        btnSecondary.setButtonTouchUpInsideEvent { (sender, object) in
+            do{
+                try AppPreferencesExplorer.open(.locationServices)
+            }
+            catch let error{
+                print(error.localizedDescription)
+            }
+        }
+        
         
         let baseEmailTextField : BaseTextField = BaseTextField.init(iSuperView: self, TextFieldType: .primary)
         baseEmailTextField.layer.setValue("baseEmailTextField", forKey: ControlConstant.name)

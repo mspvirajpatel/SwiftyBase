@@ -12,18 +12,28 @@
 
 SwiftyBase makes it easy to deal with new Project create in Swift.
 
-1. [Why use the SwiftyBase](#why-use-the-swiftyBase)
+1. [Why use the SwiftyBase](#why-use-the-swiftybase)
 2. [Requirements](#requirements)
 3. [Integration](#integration)
 4. [Usage](#usage)
-   - [Initialization](#initialization)
-   - [BaseViewController](#BaseViewController)
-   - [BaseView](#BaseView)
-   - [BaseNavigationController](#BaseNavigationController)
-   - [BaseImageView](#BaseImageView)
-   - [BaseButton](#BaseButton)
-   - [BaseProgressHUD](#BaseProgressHUD)
-   - [BaseRoundMenu](#BaseRoundMenu)
+
+- [Initialization](#initialization)
+
+- [BaseViewController](#baseViewcontroller)
+- [BaseView](#baseview)
+- [BaseNavigationController](#basenavigationcontroller)
+- [BaseImageView](#baseimageview)
+- [BaseButton](#basebutton)
+- [BaseProgressHUD](#baseprogresshud)
+- [BaseRoundMenu](#baseroundmenu)
+- [BaseLabel](#baselabel)
+- [BaseTextField](#basetextfield)
+
+- [SideMenu](#sideMenu)
+- [AppImageUploadManager](#appimageuploadmanager)
+- [AppPlistManger](#appplistmanger)
+- [AppPreferencesExplorer](#apppreferencesexplorer)
+
 5. [In Progress](#in-progress)
 6. [Author](#author)
 
@@ -37,24 +47,47 @@ In Base Project included:
 1. BaseViewController.swift
 2. BaseView.swift
 3. BaseNavigationController.swift
-4. BaseButton
-5. BaseImageView
-6. BaseRoundMenu
-7. BaseProgressHUD
+4. SideMenu
+
+Extensions : 
+1. Data
+2. Date
+3. Dictionary
+4. NSArray
+5. NSDictionary
+6. UIColor
+7. UINavigationController
+8. UIScrollView
+9. UITableView
+10. UITextField
+11. UIViewController
+12. UIFont
+13. UIView
+14. String
+15. UIImage
 
 Utilities:
 
-1. AppConstants 
-2. AppInterFaceUtility 
-3. AppLocationManager
-4. AppTimer
-5. AppAlert
+1. AppBaseLayout
+2. AppConstants 
+3. AppUtility
+4. AppInterFaceUtility 
+5. AppLocationManager
+6. AppTimer
+7. AppAlert
+8. AppPreferencesExplorer
+9. AppPlistManger
+10. AppImageUploadManager
 
 Controls: 
 
 1. BaseImageView - with set Url image with catch support & Clear Catch
 2. BaseButton - Multiple Button with single class access
 3. Full screen Image Viewer  (ImageViewer)
+4. BaseRoundMenu
+5. BaseProgressHUD - Like MBProgressView
+6. BaseLabel - Multiple BaseLabel with single class access 
+7. BaseTextField - Multiple Textfield with single class access
 
 
 ## Requirements
@@ -268,6 +301,149 @@ self.view.addSubview(btnbottomRight)
 
 btncenter = { (indexSelected) in
     debugPrint("Selected Index: \(indexSelected)")
+}
+
+
+```
+
+####  [BaseLabel]
+
+```swift
+
+//using BaseLabel for set diffrent types of Buttons
+
+let lblUserName : BaseLabel = BaseLabel(labelType: .small, superView: self)
+
+let lblUserRealName = BaseLabel(labelType: .large, superView: self)
+
+
+```
+
+####  [BaseTextField]
+
+```swift
+
+//using BaseTextField for set diffrent types of BaseTextField like Password, Email
+
+let baseTextField : BaseTextField = BaseTextField.init(iSuperView: self, TextFieldType: .primary)
+
+let baseTextField : BaseTextField = BaseTextField.init(iSuperView: self, TextFieldType: .showPassword)
+
+let baseTextField : BaseTextField = BaseTextField.init(iSuperView: self, TextFieldType: .withoutClear)
+
+let baseTextField : BaseTextField = BaseTextField.init(iSuperView: self, TextFieldType: .noAutoScroll)
+
+```
+
+####  [SideMenu]
+
+```swift
+
+//using SideMenu for set Application Menu SideMenu
+//SideMenu is a simple and versatile side menu control
+
+let menuLeftNavigationController = UISideMenuNavigationController(rootViewController: YourViewController)
+menuLeftNavigationController.leftSide = true
+// UISideMenuNavigationController is a subclass of UINavigationController, so do any additional configuration 
+// of it here like setting its viewControllers. If you're using storyboards, you'll want to do something like:
+// let menuLeftNavigationController = storyboard!.instantiateViewController(withIdentifier: "LeftMenuNavigationController") as! UISideMenuNavigationController
+SideMenuManager.menuLeftNavigationController = menuLeftNavigationController
+
+let menuRightNavigationController = UISideMenuNavigationController(rootViewController: YourViewController)
+// UISideMenuNavigationController is a subclass of UINavigationController, so do any additional configuration
+// of it here like setting its viewControllers. If you're using storyboards, you'll want to do something like:
+// let menuRightNavigationController = storyboard!.instantiateViewController(withIdentifier: "RightMenuNavigationController") as! UISideMenuNavigationController
+SideMenuManager.menuRightNavigationController = menuRightNavigationController
+
+// Enable gestures. The left and/or right menus must be set up above for these to work.
+// Note that these continue to work on the Navigation Controller independent of the view controller it displays!
+SideMenuManager.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
+SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
+
+
+// For Custom Open with Button Click
+present(SideMenuManager.menuLeftNavigationController!, animated: true, completion: nil)
+
+// Similarly, to dismiss a menu programmatically, you would do this:
+dismiss(animated: true, completion: nil)
+
+
+```
+
+
+####  [AppImageUploadManager]
+
+```swift
+
+//using AppImageUploadManager for Multiple Image Upload and track with number of remain with Progress
+
+//Add Upload in Multiple Images 
+
+var arrImage : [UIImage]? = [Add Your Images]
+
+let isUploadAdded : Bool = AppImageUploadManager.sharedInstance.addImageForUpload(arrImage: arrImage!)
+if isUploadAdded
+{
+    print("new Image Added")
+}
+
+
+//Progress Getting
+
+AppImageUploadManager.sharedInstance.setUpdateProgressStatusEven { (wasSuccessfull, object) in
+    // object is Kind of "object as! NSArray"
+
+    self.updateImageProgress(arrCount: object as! NSArray)
+}
+
+open func updateImageProgress(arrCount : NSArray) -> Void
+{
+    print("Uploading (\(arrCount[0])\\\(arrCount[1]))")
+
+    let uploadedImg : Float = Float(arrCount[0] as! Int)
+    let totalImg : Float = Float(arrCount[1] as! Int)
+
+    print("Completed : \(arrCount.firstObject)" , "Total : \(arrCount[1])")
+    print("Progress : \(uploadedImg / totalImg)")
+
+    if arrCount[0] as! Int == arrCount[1] as! Int
+    {
+        print("Upload is completed...")
+    }
+}
+
+
+```
+
+
+####  [AppPlistManger]
+
+```swift
+
+//using AppPlistManger for Management of Plist file store & read Data
+
+//For Read Plist File (Link :- "Menu")
+for menuData in AppPListManager().readFromPlist("Your Plist File Name without .plist Extension") as! NSMutableArray
+{
+    let dicMenu : NSMutableDictionary = menuData as! NSMutableDictionary
+    var arrItem : [NSDictionary] = []
+    ...
+}
+
+
+```
+
+####  [AppPreferencesExplorer]
+
+```swift
+
+//using AppPreferencesExplorer open Settings Page in IPhone or IPad
+
+do{
+    try AppPreferencesExplorer.open(.locationServices)
+}
+catch let error{
+    print(error.localizedDescription)
 }
 
 
