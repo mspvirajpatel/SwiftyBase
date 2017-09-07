@@ -33,8 +33,9 @@ SwiftyBase makes it easy to deal with new Project create in Swift.
     - [AppEventBus](#appeventbus)
     - [BaseScrollView](#basescrollview)
     - [BaseSegment](#basesegment)
-    - [BasePopOverMenu](#basepopOvermenu)
+    - [BasePopOverMenu](#basepopovermenu)
     - [BaseNotificationBadge](#basenotificationbadge)
+    - [AppLocationManager](#applocationmanager)
 5. [In Progress](#in-progress)
 6. [Author](#author)
 
@@ -618,6 +619,26 @@ appearnce.borderColor = .blue
 appearnce.borderWidth = 1
 view.badge(text: "Your text", appearnce: badgeAppearnce)
 
+
+```
+
+
+####  AppLocationManager
+
+```swift
+
+//using AppLocationManager 
+
+AppLocationManager.shared.locate { result in
+    switch result {
+        case .success(let locator):
+            ...
+            break
+        case .failure( _):
+            ...
+            break
+    }
+}
 
 ```
 

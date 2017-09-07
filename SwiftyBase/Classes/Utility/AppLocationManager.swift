@@ -10,14 +10,14 @@ import Foundation
 
 import CoreLocation
 
-open class LocationManager: NSObject, CLLocationManagerDelegate {
+open class AppLocationManager: NSObject, CLLocationManagerDelegate {
     
     public enum Result {
-        case success(LocationManager)
+        case success(AppLocationManager)
         case failure(Error)
     }
     
-    public static let shared: LocationManager = LocationManager()
+    public static let shared: AppLocationManager = AppLocationManager()
     
     public typealias Callback = (Result) -> Void
     

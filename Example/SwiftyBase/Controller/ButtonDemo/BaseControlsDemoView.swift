@@ -64,7 +64,9 @@ class BaseControlsDemoView: BaseView {
         containerView  = scrollView.container
         containerView.backgroundColor = UIColor.clear
         containerView.layer.setValue("containerView", forKey: ControlConstant.name)
-        
+      
+    
+    
         baseSegment = BaseSegment.init(titleArray: ["Sign In", "Sign Up", "Forgot"], iSuperView: containerView)
         baseSegment.layer.setValue("baseSegment", forKey: ControlConstant.name)
         baseSegment.setSegmentTabbedEvent { (selectedIndex) in
