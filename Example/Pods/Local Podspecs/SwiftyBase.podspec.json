@@ -1,22 +1,22 @@
 {
   "name": "SwiftyBase",
-  "version": "0.1.0",
-  "summary": "A short description of SwiftyBase.",
-  "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/patelvirajd78@gmail.com/SwiftyBase",
+  "version": "1.2.20",
+  "summary": "Base Project For iOS in Swift 3.0",
+  "description": "Base Project Create for iOS. Into Base Project BaseController, BaseView, BaseNavigation ,BaseControls Added.",
+  "homepage": "https://github.com/mspvirajpatel/SwiftyBase",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
   },
   "authors": {
-    "patelvirajd78@gmail.com": "mspviraj@hotmail.com"
+    "Viraj Patel": "mspviraj@hotmail.com"
   },
   "source": {
-    "git": "https://github.com/patelvirajd78@gmail.com/SwiftyBase.git",
-    "tag": "0.1.0"
+    "git": "https://github.com/mspvirajpatel/SwiftyBase.git",
+    "tag": "1.2.20"
   },
   "platforms": {
-    "ios": "8.0"
+    "ios": "9.0"
   },
   "source_files": "SwiftyBase/Classes/**/*"
 }

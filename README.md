@@ -7,6 +7,7 @@
 [![Version](https://img.shields.io/cocoapods/v/SwiftyBase.svg?style=flat)](http://cocoapods.org/pods/SwiftyBase)
 [![License](https://img.shields.io/cocoapods/l/SwiftyBase.svg?style=flat)](http://cocoapods.org/pods/SwiftyBase)
 [![Platform](https://img.shields.io/cocoapods/p/SwiftyBase.svg?style=flat)](http://cocoapods.org/pods/SwiftyBase)
+[![Language: Swift 3](https://img.shields.io/badge/language-swift3-f48041.svg?style=flat-square)](https://developer.apple.com/swift)
 
 
 SwiftyBase makes it easy to deal with new Project create in Swift.
@@ -314,7 +315,7 @@ let lblUserRealName = BaseLabel(labelType: .large, superView: self)
 
 ```
 
-####  [BaseTextField]
+####  BaseTextField
 
 ```swift
 

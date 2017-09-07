@@ -29,6 +29,8 @@
 		7E962F1F1F56C5F7007F8D82 /* ListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E962F1E1F56C5F7007F8D82 /* ListController.swift */; };
 		7E962F211F56C607007F8D82 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E962F201F56C607007F8D82 /* ListView.swift */; };
 		7E962F441F56CFA1007F8D82 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E962F431F56CFA1007F8D82 /* Constants.swift */; };
+		7EEF11861F611C8900A53949 /* QuickTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEF11851F611C8900A53949 /* QuickTest.swift */; };
+		7EEF11881F612D5900A53949 /* QuickTestProgessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEF11871F612D5900A53949 /* QuickTestProgessView.swift */; };
 		82AA8A00C8F5197170AFE5DE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80A859A2FFA3BB430AB074B4 /* AVFoundation.framework */; };
 		96A099F3A31C327EF1A51C05 /* BuddyBuildSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1C4C987C99326C3E5D8A0D1 /* BuddyBuildSDK.framework */; };
 		A01FF32CAF9EABBFE6F1D1D6 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD022CDE21F0A05509B857A3 /* AssetsLibrary.framework */; };
@@ -78,6 +80,8 @@
 		7E962F1E1F56C5F7007F8D82 /* ListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListController.swift; sourceTree = "<group>"; };
 		7E962F201F56C607007F8D82 /* ListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		7E962F431F56CFA1007F8D82 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		7EEF11851F611C8900A53949 /* QuickTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickTest.swift; sourceTree = "<group>"; };
+		7EEF11871F612D5900A53949 /* QuickTestProgessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickTestProgessView.swift; sourceTree = "<group>"; };
 		80A859A2FFA3BB430AB074B4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		973E5198C101E605490AAB32 /* Pods-SwiftyBase_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftyBase_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftyBase_Tests/Pods-SwiftyBase_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		99709215DA490B3471B192F8 /* Pods_SwiftyBase_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftyBase_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -190,6 +194,8 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				7EEF11871F612D5900A53949 /* QuickTestProgessView.swift */,
+				7EEF11851F611C8900A53949 /* QuickTest.swift */,
 				607FACEB1AFB9204008FA782 /* Tests.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
@@ -401,9 +407,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-SwiftyBase_Example/Pods-SwiftyBase_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
+				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyBase/SwiftyBase.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quick.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyBase.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -431,9 +444,14 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-SwiftyBase_Tests/Pods-SwiftyBase_Tests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
+				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quick.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -446,13 +464,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SwiftyBase_Example-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F35E830AAAC62AC43B34DC47 /* [CP] Check Pods Manifest.lock */ = {
@@ -461,13 +482,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SwiftyBase_Tests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -497,8 +521,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7EEF11881F612D5900A53949 /* QuickTestProgessView.swift in Sources */,
 				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
 				7E387A501F599F7F00500813 /* Constants.swift in Sources */,
+				7EEF11861F611C8900A53949 /* QuickTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -624,6 +650,7 @@
 			baseConfigurationReference = 113CA744FA3D253110F1FADB /* Pods-SwiftyBase_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEFINES_MODULE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -644,6 +671,7 @@
 			baseConfigurationReference = 392634DB980F2221D76833D8 /* Pods-SwiftyBase_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEFINES_MODULE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -663,6 +691,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 973E5198C101E605490AAB32 /* Pods-SwiftyBase_Tests.debug.xcconfig */;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -684,6 +713,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7431382FB02A341941296E40 /* Pods-SwiftyBase_Tests.release.xcconfig */;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",

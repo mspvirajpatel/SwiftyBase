@@ -4,9 +4,13 @@ platform :ios, ‘9.0’
 target 'SwiftyBase_Example' do
   pod 'SwiftyBase', :path => '../'
 
+  pod 'Quick', '~> 1.0.0'
+  pod 'Nimble', '~> 5.1.1'
+
   target 'SwiftyBase_Tests' do
     inherit! :search_paths
 
-    pod 'FBSnapshotTestCase'
+    pod 'Quick', '~> 1.0.0'
+    pod 'Nimble', '~> 5.1.1'
   end
 end
