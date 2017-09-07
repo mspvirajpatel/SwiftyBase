@@ -11,6 +11,7 @@ import UIKit
 import SwiftyBase
 
 public enum Menu : Int{
+    case all = -1
     case api = 0
     case button = 1
 }
@@ -101,7 +102,7 @@ class SideMenuController: BaseViewController {
     // MARK: - Internal Helpers -
     
     
-    private func displaySelectedView(type : Int)
+    public func displaySelectedView(type : Int)
     {
         if currentSelectedMenu != type  {
             var controller : BaseViewController? = self.setSelectedMenuObject(menuType: type)
@@ -141,6 +142,12 @@ class SideMenuController: BaseViewController {
         var controller : BaseViewController?
         
         switch menuType {
+        case Menu.all.rawValue:
+            
+            controller = ListController()
+            
+            break
+
         case Menu.api.rawValue:
             
             controller = APIDemoController()

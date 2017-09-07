@@ -338,7 +338,7 @@ open class BaseRoundMenu: UIButton {
     }
     
     // Close Button
-    private func closeButtons() {
+    public func closeButtons() {
         UIView.animate(withDuration: self.duration, animations: {
             for (_,item) in self.childButtonsArray.enumerated() {
                 item.center = self.center

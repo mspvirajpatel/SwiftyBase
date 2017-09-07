@@ -158,12 +158,12 @@ open class BaseButton: UIButton
      */
     deinit
     {
-        originalBackgroundColor = nil
+        originalBackgroundColor  = nil
         highlightBackgroundColor = nil
-        touchUpInsideEvent = nil
-        circleLayer = nil
-        fillCircleLayer = nil
-        circleColor = nil
+        touchUpInsideEvent       = nil
+        circleLayer              = nil
+        fillCircleLayer          = nil
+        circleColor              = nil
         circleRadius = nil
     }
     
@@ -175,10 +175,10 @@ open class BaseButton: UIButton
         
         switch baseButtonType {
         case .radio:
-            circleLayer.frame = bounds
-            circleLayer.path = circlePath().cgPath
+            circleLayer.frame     = bounds
+            circleLayer.path      = circlePath().cgPath
             fillCircleLayer.frame = bounds
-            fillCircleLayer.path = fillCirclePath().cgPath
+            fillCircleLayer.path  = fillCirclePath().cgPath
             self.titleEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 0)
             
             break
@@ -202,10 +202,10 @@ open class BaseButton: UIButton
             
         case .primary:
             
-            self.backgroundColor = Color.buttonPrimaryBG.value
+            self.backgroundColor  = Color.buttonPrimaryBG.value
             self.setTitleColor(Color.buttonPrimaryTitle.value, for: UIControlState())
             self.titleLabel?.font = UIFont(name: FontStyle.bold, size: 14.0)
-            self.titleEdgeInsets = UIEdgeInsetsMake(3, 0, 0, 0)
+            self.titleEdgeInsets  = UIEdgeInsetsMake(3, 0, 0, 0)
             //For set Border
             self.setBorder(Color.buttonBorder.value, width: 1.5, radius: ControlConstant.borderRadius)
             
@@ -213,16 +213,16 @@ open class BaseButton: UIButton
             
         case .secondary:
             
-            self.backgroundColor = Color.buttonSecondaryBG.value
+            self.backgroundColor  = Color.buttonSecondaryBG.value
             self.setTitleColor(Color.buttonSecondaryTitle.value, for: UIControlState())
             self.titleLabel?.font = UIFont(name: FontStyle.bold, size: 14.0)
-            self.titleEdgeInsets = UIEdgeInsetsMake(3, 0, 0, 0)
+            self.titleEdgeInsets  = UIEdgeInsetsMake(3, 0, 0, 0)
             self.setBorder(Color.buttonBorder.value, width: 1.5, radius: ControlConstant.borderRadius)
             break
             
         case .transparent:
             
-            self.backgroundColor = UIColor.clear
+            self.backgroundColor  = UIColor.clear
             self.setTitleColor(Color.buttonPrimaryTitle.value, for: .normal)
             self.titleLabel?.font = currentDevice.isIpad ? UIFont(name: FontStyle.bold, size: 16.0)! : UIFont(name: FontStyle.bold, size: 14.0)!
             self.titleEdgeInsets = UIEdgeInsetsMake(3, 0, 0, 0)
@@ -231,37 +231,37 @@ open class BaseButton: UIButton
             
         case .radio:
             
-            circleLayer.frame = bounds
-            circleLayer.lineWidth = 2
-            circleLayer.fillColor = UIColor.clear.cgColor
-            circleLayer.strokeColor = circleColor.cgColor
+            circleLayer.frame               = bounds
+            circleLayer.lineWidth           = 2
+            circleLayer.fillColor           = UIColor.clear.cgColor
+            circleLayer.strokeColor         = circleColor.cgColor
             layer.addSublayer(circleLayer)
-            fillCircleLayer.frame = bounds
-            fillCircleLayer.lineWidth = 2
-            fillCircleLayer.fillColor = UIColor.clear.cgColor
-            fillCircleLayer.strokeColor = UIColor.clear.cgColor
+            fillCircleLayer.frame           = bounds
+            fillCircleLayer.lineWidth       = 2
+            fillCircleLayer.fillColor       = UIColor.clear.cgColor
+            fillCircleLayer.strokeColor     = UIColor.clear.cgColor
             layer.addSublayer(fillCircleLayer)
-            self.titleEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 0)
+            self.titleEdgeInsets            = UIEdgeInsetsMake(0, 30, 0, 0)
             self.toggleButon()
             self.setTitleColor(Color.buttonPrimaryTitle.value, for: UIControlState())
-            self.circleColor = Color.buttonPrimaryBG.value
-            self.titleLabel?.font = UIFont(name: FontStyle.bold, size: 14.0)
+            self.circleColor                = Color.buttonPrimaryBG.value
+            self.titleLabel?.font           = UIFont(name: FontStyle.bold, size: 14.0)
             self.contentHorizontalAlignment = .left
             self.circleRadius = 10.0
             break
             
         case .roundedClose:
             
-            self.backgroundColor = Color.buttonPrimaryBG.value
+            self.backgroundColor  = Color.buttonPrimaryBG.value
             self.setTitleColor(Color.buttonPrimaryTitle.value, for: .normal)
             self.titleLabel?.font = currentDevice.isIpad ? UIFont(name: FontStyle.bold, size: 16.0)! : UIFont(name: FontStyle.bold, size: 14.0)!
-            self.titleEdgeInsets = UIEdgeInsetsMake(3, 0, 0, 0)
+            self.titleEdgeInsets  = UIEdgeInsetsMake(3, 0, 0, 0)
             self.setBorder(Color.buttonBorder.value, width: 1.0, radius: ControlConstant.borderRadius)
             break
             
         case .checkbox:
             
-            self.backgroundColor = Color.buttonSecondaryBG.value
+            self.backgroundColor   = Color.buttonSecondaryBG.value
             self.setImage(UIImage(named: ""), for: UIControlState.normal)
             self.setImage(UIImage(named: ""), for: UIControlState.highlighted)
             self.layer.borderColor = Color.buttonBorder.value.cgColor
@@ -272,7 +272,7 @@ open class BaseButton: UIButton
             
         case .close :
             
-            self.backgroundColor = UIColor.clear
+            self.backgroundColor    = UIColor.clear
 //            self.setFAIcon(icon: FAType.FAClose, iconSize: 20.0, forState: UIControlState.normal)
 //            self.setFAIcon(icon: FAType.FAClose, iconSize: 20.0, forState: UIControlState.highlighted)
             self.layer.cornerRadius = 20.0
@@ -281,10 +281,10 @@ open class BaseButton: UIButton
             
         case .dropDown:
             
-            self.backgroundColor = Color.buttonSecondaryBG.value
+            self.backgroundColor  = Color.buttonSecondaryBG.value
             self.setTitleColor(Color.buttonPrimaryTitle.value, for: .normal)
             self.titleLabel?.font = UIFont(name: FontStyle.bold, size: 13.0)
-            self.titleEdgeInsets = UIEdgeInsetsMake(3, 10, 0, 35)
+            self.titleEdgeInsets  = UIEdgeInsetsMake(3, 10, 0, 35)
             self.contentHorizontalAlignment = .left
             break
             

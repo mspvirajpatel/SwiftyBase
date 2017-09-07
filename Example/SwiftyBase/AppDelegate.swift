@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var navigation: BaseNavigationController!
     var listView: ListController!
+    var menuController : SideMenuController!
     
     // MARK: - Lifecycle -
     
@@ -96,7 +97,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigation = nil
         
         self.listView = ListController.init()
-        let menuController : SideMenuController = SideMenuController()
+        menuController = SideMenuController()
         
         navigation = BaseNavigationController(rootViewController: self.listView)
         

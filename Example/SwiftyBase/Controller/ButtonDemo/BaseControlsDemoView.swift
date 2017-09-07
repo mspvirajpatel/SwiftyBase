@@ -17,11 +17,18 @@ class BaseControlsDemoView: BaseView {
 
     // MARK: - Attributes -
     
+    var scrollView : BaseScrollView!
+
+    var containerView:UIView!
+    
+    var baseSegment : BaseSegment!
+    
+    
     var btnPrimary : BaseButton!
     
     var btnSecondary : BaseButton!
     
-    let roundMenuButton : BaseRoundMenu! = BaseRoundMenu(withPosition: .bottomRight, size: 50.0, numberOfPetals: 4, images:[])
+    let roundMenuButton : BaseRoundMenu! = BaseRoundMenu(withPosition: .bottomRight, size: 50.0, numberOfPetals: 4, images:["user","user","user","user"])
     
     // MARK: - Lifecycle -
     
@@ -49,10 +56,38 @@ class BaseControlsDemoView: BaseView {
     
     override func loadViewControls(){
         super.loadViewControls()
+      
+        /*  scrollView Allocation   */
+        scrollView = BaseScrollView.init(scrollType: .both, superView: self)
+        scrollView.layer.setValue("scrollView", forKey: ControlConstant.name)
         
-        btnPrimary = BaseButton.init(ibuttonType: .primary, iSuperView: self)
+        containerView  = scrollView.container
+        containerView.backgroundColor = UIColor.clear
+        containerView.layer.setValue("containerView", forKey: ControlConstant.name)
+        
+        baseSegment = BaseSegment.init(titleArray: ["Sign In", "Sign Up", "Forgot"], iSuperView: containerView)
+        baseSegment.layer.setValue("baseSegment", forKey: ControlConstant.name)
+        baseSegment.setSegmentTabbedEvent { (selectedIndex) in
+            print("SelectedIndex Segment:\(selectedIndex)")
+        }
+        
+        let baseEmailTextField : BaseTextField = BaseTextField.init(iSuperView: containerView, TextFieldType: .primary)
+        baseEmailTextField.layer.setValue("baseEmailTextField", forKey: ControlConstant.name)
+        baseEmailTextField.placeholder = "Enter EmailId"
+        
+        let baseTextField : BaseTextField = BaseTextField.init(iSuperView: containerView, TextFieldType: .showPassword)
+        baseTextField.layer.setValue("baseTextField", forKey: ControlConstant.name)
+        baseTextField.placeholder = "Enter Password"
+        
+        
+        let baseTextView : BaseTextView = BaseTextView.init(iSuperView: containerView)
+        baseTextView.layer.setValue("baseTextView", forKey: ControlConstant.name)
+        baseTextView.placeholder = "Enter Your Details"
+        
+        
+        btnPrimary = BaseButton.init(ibuttonType: .primary, iSuperView: containerView)
         btnPrimary.layer.setValue("btnPrimary", forKey: ControlConstant.name)
-        btnPrimary.setTitle("Primary Button", for: UIControlState())
+        btnPrimary.setTitle("Login", for: UIControlState())
         btnPrimary.setButtonTouchUpInsideEvent { (sender, object) in
            
             //Create Custome Body Paramenters
@@ -69,32 +104,62 @@ class BaseControlsDemoView: BaseView {
             _ = AppImageUploadManager.shared.addImageForUpload(arrImage: [UIImage.init(named: "user")!])
         }
         
-        btnSecondary = BaseButton.init(ibuttonType: .secondary, iSuperView: self)
+        
+        btnSecondary = BaseButton.init(ibuttonType: .secondary, iSuperView: containerView)
         btnSecondary.layer.setValue("btnSecondary", forKey: ControlConstant.name)
-        btnSecondary.setTitle("Secondary Button", for: UIControlState())
+        btnSecondary.setTitle("SignUp", for: UIControlState())
         btnSecondary.setButtonTouchUpInsideEvent { (sender, object) in
-            do{
-                try AppPreferencesExplorer.open(.locationServices)
-            }
-            catch let error{
-                print(error.localizedDescription)
+            BasePopOverMenu.showForSender(sender: (sender as!    UIButton),
+                                              with: ["Facebook","Google","Outlook"],
+                                              done: { (selectedIndex) -> () in
+                        print("SelectedIndex :\(selectedIndex)")
+            }) {
+                
             }
         }
         
         
-        let baseEmailTextField : BaseTextField = BaseTextField.init(iSuperView: self, TextFieldType: .primary)
-        baseEmailTextField.layer.setValue("baseEmailTextField", forKey: ControlConstant.name)
-      
-        let baseTextField : BaseTextField = BaseTextField.init(iSuperView: self, TextFieldType: .showPassword)
-        baseTextField.layer.setValue("baseTextField", forKey: ControlConstant.name)
-        
-//        // If you Change icons of Show & Hide
-//        baseTextField.setShowPasswordImage = UIImage.init(named: "ShowPassword")!
-//        baseTextField.setHidePasswordImage = UIImage.init(named: "HidePassword")!
-
         self.addSubview(roundMenuButton)
-        
+        roundMenuButton.badge(text: "5")
+
+        roundMenuButton.setTitle("@", for: UIControlState())
         roundMenuButton.buttonActionDidSelected = { (indexSelected) in
+            
+            switch indexSelected {
+            case 0 :
+                do{
+                    try AppPreferencesExplorer.open(.about)
+                }
+                catch let error{
+                    print(error.localizedDescription)
+                }
+                self.roundMenuButton.closeButtons()
+                break
+            case 1 :
+                do{
+                    try AppPreferencesExplorer.open(.wifi)
+                }
+                catch let error{
+                    print(error.localizedDescription)
+                }
+                self.roundMenuButton.closeButtons()
+
+                break
+            case 2 :
+                do{
+                    try AppPreferencesExplorer.open(.network)
+                }
+                catch let error{
+                    print(error.localizedDescription)
+                }
+                self.roundMenuButton.closeButtons()
+
+            default:
+                break
+            }
+            
+           
+            
             print("Selected Index: \(indexSelected)")
         }
         
@@ -102,6 +167,8 @@ class BaseControlsDemoView: BaseView {
     
     override func setViewlayout(){
         super.setViewlayout()
+        
+        baseLayout.expandView(scrollView, insideView: self, betweenSpace: 10)
         
         baseLayout.viewDictionary = self.getDictionaryOfVariableBindings(superView: self, viewDic: NSDictionary()) as! [String : AnyObject]
         
@@ -113,12 +180,12 @@ class BaseControlsDemoView: BaseView {
                               "controlLeftRightPadding" : controlLeftRightPadding
         ]
         
-        baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[btnPrimary]-20-|", options:NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: baseLayout.viewDictionary)
+        baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[btnPrimary]-20-|", options:NSLayoutFormatOptions(rawValue: 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
         
-        baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|-20-[btnPrimary]-5-[btnSecondary]-5-[baseEmailTextField]-5-[baseTextField]", options:[.alignAllLeading , .alignAllTrailing], metrics: nil, views: baseLayout.viewDictionary)
+        baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|-20-[baseSegment]-controlTopBottomPadding-[baseEmailTextField]-controlTopBottomPadding-[baseTextField]-controlTopBottomPadding-[baseTextView(120)]-controlTopBottomPadding-[btnPrimary]-controlTopBottomPadding-[btnSecondary]-60-|", options:[.alignAllLeading , .alignAllTrailing], metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
         
-        self.addConstraints(baseLayout.control_H)
-        self.addConstraints(baseLayout.control_V)
+        containerView.addConstraints(baseLayout.control_H)
+        containerView.addConstraints(baseLayout.control_V)
         
         self.layoutSubviews()
         

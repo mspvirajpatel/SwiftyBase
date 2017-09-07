@@ -25,7 +25,7 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
     
     // MARK: - Attributes -
     
-    var listControls : NSArray = ["Base Controls Demo","API Call Demo","Plist Read Demo"]
+    var listControls : NSArray = ["Base Controls","API Call","Plist Read"]
  
     var imgView : BaseImageView!
     
@@ -148,6 +148,7 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
         
         let result = self.listControls[indexPath.row]
         cell?.textLabel?.text = (result as! String)
+       
         
         return cell!
     }
@@ -166,27 +167,24 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
         switch indexPath.row {
         case PageView.Button.rawValue :
             
-            if let controller : ListController = self.getViewControllerFromSubView() as? ListController
-            {
-                let buttonView : BaseControlsDemoController = BaseControlsDemoController()
-                controller.navigationController?.pushViewController(buttonView, animated: true)
-                
-            }
+            Utility.setMenuViewType(Menu.button)
             
             break
+            
         case PageView.APICall.rawValue :
-            if let controller : ListController = self.getViewControllerFromSubView() as? ListController
-            {
-                let aPIDemoController : APIDemoController = APIDemoController()
-                controller.navigationController?.pushViewController(aPIDemoController, animated: true)
-            }
+           
+            Utility.setMenuViewType(Menu.api)
             
             break
+            
         case PageView.Plist.rawValue :
+           
             if let controller : ListController = self.getViewControllerFromSubView() as? ListController
             {
                 controller.openslider()
             }
+            
+            break
             
         default:
             break

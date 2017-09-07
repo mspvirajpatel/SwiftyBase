@@ -36,37 +36,6 @@ class TableOfContentsSpec: QuickSpec {
                     expect(touchUpInsideEvent).toNot(beNil())
                 }
             }
-            
-            describe("Request Acess") {
-                it("Request", closure: {
-                    
-                    APIManager.shared.getRequest(URL: API.countries, Parameter: NSDictionary(), completionHandler:{ (result) in
-                        
-                        switch result{
-                        case .Success(let object, _):
-                            if let bool : Bool = (object != nil) ? true : false
-                            {
-                                expect(true) == bool
-                            }
-                            
-                            
-                            break
-                        case .Error(let error):
-                            if let bool : Bool = (error != nil) ? false : true
-                            {
-                                expect(false) == bool
-                            }
-                            break
-                        case .Internet(let isOn):
-                            
-                            expect(true || false) == isOn
-                            
-                            print("Internet is  \(isOn)")
-                            
-                        }
-                    })
-                })
-            }
         }
         
         describe("Callback testing") {
@@ -85,7 +54,6 @@ class TableOfContentsSpec: QuickSpec {
                             break
                         case .Error(let error):
                             expect(error).toNot(beNil())
-                           
 //                            or 
 //                            if let bool : Bool = (error != nil) ? false : true
 //                            {

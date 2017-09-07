@@ -141,7 +141,7 @@ public extension Color{
             
         // TODO: Segment View Color
         case .segmentBG:
-            instanceColor = UIColor(rgbValue: 0xffffff, alpha: 1.0)
+            instanceColor = UIColor(rgbValue: 0x6648da, alpha: 1.0)
             break
             
         case .segmentTitle:
@@ -153,7 +153,7 @@ public extension Color{
             break
             
         case .segmentSelectedBG:
-            instanceColor = UIColor(rgbValue: 0xffffff, alpha: 1.0)
+            instanceColor = UIColor(rgbValue: 0x4C4C4C, alpha: 1.0)
             break
             
         case .segmentSelectedTitle:

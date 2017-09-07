@@ -9,6 +9,14 @@
 		<array>
 			<dict>
 				<key>title</key>
+				<string>List Examples</string>
+				<key>icon</key>
+				<string>user</string>
+				<key>type</key>
+				<integer>-1</integer>
+			</dict>
+			<dict>
+				<key>title</key>
 				<string>API Demo</string>
 				<key>icon</key>
 				<string>user</string>

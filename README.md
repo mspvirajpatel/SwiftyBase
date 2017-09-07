@@ -30,6 +30,11 @@ SwiftyBase makes it easy to deal with new Project create in Swift.
 	- [AppImageUploadManager](#appimageuploadmanager)
 	- [AppPlistManger](#appplistmanger)
 	- [AppPreferencesExplorer](#apppreferencesexplorer)
+    - [AppEventBus](#appeventbus)
+    - [BaseScrollView](#basescrollview)
+    - [BaseSegment](#basesegment)
+    - [BasePopOverMenu](#basepopOvermenu)
+    - [BaseNotificationBadge](#basenotificationbadge)
 5. [In Progress](#in-progress)
 6. [Author](#author)
 
@@ -74,6 +79,7 @@ Utilities:
 8. AppPreferencesExplorer
 9. AppPlistManger
 10. AppImageUploadManager
+11. AppEventBus
 
 Controls: 
 
@@ -84,7 +90,10 @@ Controls:
 5. BaseProgressHUD - Like MBProgressView
 6. BaseLabel - Multiple BaseLabel with single class access 
 7. BaseTextField - Multiple Textfield with single class access
-
+8. BaseScrollView
+9. BaseSegment
+10. BasePopOverMenu
+11. BaseNotificationBadge
 
 ## Requirements
 
@@ -441,6 +450,173 @@ do{
 catch let error{
     print(error.localizedDescription)
 }
+
+
+```
+
+
+####  AppEventBus
+
+```swift
+
+//AppEventBus using Notification Handling with hole Application 
+
+//implement event handling methods
+
+AppEventBus.onMainThread(target, name: "someEventName") { result in
+    // UI thread
+}
+
+// or
+
+AppEventBus.onBackgroundThread(target, name:"someEventName") { result in
+    // API Access
+}
+
+//Post events
+
+AppEventBus.post("someEventName")
+
+//Post events with Parameters
+
+AppEventBus.post("someEventName", sender: "VIRAJ")
+
+// Expecting parameters
+
+AppEventBus.onMainThread(target, name:"personFetchEvent") { result in
+    let person : Stirng = result.object as Stirng
+    println(person) // will output "VIRAJ"
+}
+
+//Remove all the observers from the target
+
+AppEventBus.unregister(target)
+
+//Remove observers of the same name from the target
+
+AppEventBus.unregister(target, "someEventName")
+
+```
+
+
+####  BaseScrollView
+
+```swift
+
+//using BaseScrollView ( ScrollTypes : both , horizontal, vertical )
+
+let scrollView = BaseScrollView.init(scrollType: .both, superView: self)
+
+
+```
+
+
+####  BaseSegment
+
+```swift
+
+//using BaseSegment 
+
+let baseSegment = BaseSegment.init(titleArray: ["Sign In", "Sign Up", "Forgot"], iSuperView: containerView)
+baseSegment.setSegmentTabbedEvent { (selectedIndex) in
+    print("SelectedIndex Segment:\(selectedIndex)")
+}
+
+
+```
+
+
+####  BasePopOverMenu
+
+```swift
+
+//using BasePopOverMenu set Globle Variable For Custom
+
+let configuration = AppConfiguration.shared
+configuration.menuRowHeight = ...
+configuration.menuWidth = ...
+configuration.textColor = ...
+configuration.textFont = ...
+configuration.tintColor = ...
+configuration.borderColor = ...
+configuration.borderWidth = ...
+configuration.textAlignment = ...
+configuration.ignoreImageOriginalColor = ...;
+//// set 'ignoreImageOriginalColor' to YES, images color will be same as textColor
+
+//From SenderView, Menu Without Images.
+//
+BasePopOverMenu.showForSender(sender: sender,with: ["Share"],
+    done: { (selectedIndex) -> () in
+        print(selectedIndex)
+    }) {
+}
+
+//From SenderView, Menu With Images.
+//
+BasePopOverMenu.showForSender(sender: sender,with: ["Share"],menuImageArray: ["iconImageName"],
+    done: { (selectedIndex) -> () in
+
+        print(selectedIndex)
+    }) {
+   
+}
+
+//From SenderFrame/NavigationItem, Menu Without Images.
+//
+BasePopOverMenu.showFromSenderFrame(senderFrame: sender.frame,with: ["Share"],
+    done: { (selectedIndex) -> () in
+
+    }) {
+
+}
+
+//From SenderFrame/NavigationItem, Menu With Images.
+//
+BasePopOverMenu.showFromSenderFrame(senderFrame: sender.frame,with: ["Share"],menuImageArray: ["iconImageName"],
+    done: { (selectedIndex) -> () in
+
+    }) {
+    
+}
+
+
+```
+
+
+####  BaseNotificationBadge
+
+```swift
+
+//using BasePopOverMenu 
+
+//To add a badge with default settings use this (This also applies to updating an existing badge):
+
+view.badge(text: "5")
+
+barButtonItem.badge(text: "7")
+
+
+//To remove the badge:
+
+view.badge(text: nil)
+
+barButtonItem.badge(text: nil)
+
+
+//Advanced Usage
+
+let badgeAppearnce = AppBadgeAppearnce()
+appearnce.backgroundColor = UIColor.blue //default is red
+appearnce.textColor = UIColor.white // default is white
+appearnce.alignment = .center //default is center
+appearnce.textSize = 15 //default is 12
+appearnce.distenceFromCenterX = 15 //default is 0
+appearnce.distenceFromCenterY = -10 //default is 0
+appearnce.allowShadow = true
+appearnce.borderColor = .blue
+appearnce.borderWidth = 1
+view.badge(text: "Your text", appearnce: badgeAppearnce)
 
 
 ```

@@ -31,6 +31,7 @@
 		7E962F441F56CFA1007F8D82 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E962F431F56CFA1007F8D82 /* Constants.swift */; };
 		7EEF11861F611C8900A53949 /* QuickTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEF11851F611C8900A53949 /* QuickTest.swift */; };
 		7EEF11881F612D5900A53949 /* QuickTestProgessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEF11871F612D5900A53949 /* QuickTestProgessView.swift */; };
+		7EEF118F1F61600400A53949 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEF118D1F61600000A53949 /* Utility.swift */; };
 		82AA8A00C8F5197170AFE5DE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80A859A2FFA3BB430AB074B4 /* AVFoundation.framework */; };
 		96A099F3A31C327EF1A51C05 /* BuddyBuildSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1C4C987C99326C3E5D8A0D1 /* BuddyBuildSDK.framework */; };
 		A01FF32CAF9EABBFE6F1D1D6 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD022CDE21F0A05509B857A3 /* AssetsLibrary.framework */; };
@@ -82,6 +83,7 @@
 		7E962F431F56CFA1007F8D82 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		7EEF11851F611C8900A53949 /* QuickTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickTest.swift; sourceTree = "<group>"; };
 		7EEF11871F612D5900A53949 /* QuickTestProgessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickTestProgessView.swift; sourceTree = "<group>"; };
+		7EEF118D1F61600000A53949 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		80A859A2FFA3BB430AB074B4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		973E5198C101E605490AAB32 /* Pods-SwiftyBase_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftyBase_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftyBase_Tests/Pods-SwiftyBase_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		99709215DA490B3471B192F8 /* Pods_SwiftyBase_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftyBase_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -178,6 +180,7 @@
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 				7E9130281F6003F300FCF438 /* Menu.plist */,
+				7EEF118D1F61600000A53949 /* Utility.swift */,
 			);
 			name = "Example for SwiftyBase";
 			path = SwiftyBase;
@@ -501,6 +504,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7EEF118F1F61600400A53949 /* Utility.swift in Sources */,
 				7E82C56E1F5E9EA70031B8E0 /* Result.swift in Sources */,
 				7E9130251F5FFF1000FCF438 /* LeftMenuCell.swift in Sources */,
 				7E9130211F5FFEFC00FCF438 /* SideMenuController.swift in Sources */,
