@@ -102,7 +102,7 @@ platform :ios, '9.0'
 use_frameworks!
 
 target 'MyApp' do
-	pod 'SwiftyBase'
+    pod 'SwiftyBase'
 end
 ```
 
@@ -418,7 +418,7 @@ open func updateImageProgress(arrCount : NSArray) -> Void
 //using AppPlistManger for Management of Plist file store & read Data
 
 //For Read Plist File (Link :- "Menu")
-for menuData in AppPListManager().readFromPlist("Your Plist File Name without .plist Extension") as! NSMutableArray
+for menuData in AppPlistManager().readFromPlist("Your Plist File Name without .plist Extension") as! NSMutableArray
 {
     let dicMenu : NSMutableDictionary = menuData as! NSMutableDictionary
     var arrItem : [NSDictionary] = []

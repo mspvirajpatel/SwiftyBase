@@ -1,5 +1,5 @@
 //
-//  AppPListManager.swift
+//  AppPlistManager.swift
 //  Pods
 //
 //  Created by MacMini-2 on 06/09/17.
@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-open class AppPListManager: NSObject {
+open class AppPlistManager: NSObject {
     
     // MARK: - Attributes -
     
@@ -17,9 +17,9 @@ open class AppPListManager: NSObject {
     
     // MARK: - Lifecycle -
     
-    public static let shared : AppPListManager = {
+    public static let shared : AppPlistManager = {
         
-        let instance = AppPListManager()
+        let instance = AppPlistManager()
         return instance
     }()
     

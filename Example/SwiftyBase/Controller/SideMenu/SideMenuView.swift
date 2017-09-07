@@ -210,7 +210,7 @@ class SideMenuView: BaseView {
         
         arrMenuData.removeAllObjects()
         
-        for menuData in AppPListManager().readFromPlist("Menu") as! NSMutableArray
+        for menuData in AppPlistManager().readFromPlist("Menu") as! NSMutableArray
         {
             let dicMenu : NSMutableDictionary = menuData as! NSMutableDictionary
             var arrItem : [NSDictionary] = []

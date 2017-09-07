@@ -26,7 +26,7 @@
 		7E82C57E1F5EC54B0031B8E0 /* BaseProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E82C57D1F5EC54B0031B8E0 /* BaseProgressHUD.swift */; };
 		7E91300E1F5FD68A00FCF438 /* AppImageUploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E91300D1F5FD68A00FCF438 /* AppImageUploadManager.swift */; };
 		7E9130101F5FDEA700FCF438 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E91300F1F5FDEA700FCF438 /* UIImageExtension.swift */; };
-		7E9130131F5FFB1C00FCF438 /* AppPListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9130121F5FFB1C00FCF438 /* AppPListManager.swift */; };
+		7E9130131F5FFB1C00FCF438 /* AppPlistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9130121F5FFB1C00FCF438 /* AppPlistManager.swift */; };
 		7E9130151F5FFC2F00FCF438 /* AppPreferencesExplorer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9130141F5FFC2F00FCF438 /* AppPreferencesExplorer.swift */; };
 		7E91301B1F5FFE8200FCF438 /* SideMenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9130171F5FFE8200FCF438 /* SideMenuManager.swift */; };
 		7E91301C1F5FFE8200FCF438 /* SideMenuTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9130181F5FFE8200FCF438 /* SideMenuTransition.swift */; };
@@ -138,7 +138,7 @@
 		7E82C57D1F5EC54B0031B8E0 /* BaseProgressHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseProgressHUD.swift; sourceTree = "<group>"; };
 		7E91300D1F5FD68A00FCF438 /* AppImageUploadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppImageUploadManager.swift; sourceTree = "<group>"; };
 		7E91300F1F5FDEA700FCF438 /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
-		7E9130121F5FFB1C00FCF438 /* AppPListManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppPListManager.swift; sourceTree = "<group>"; };
+		7E9130121F5FFB1C00FCF438 /* AppPlistManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppPlistManager.swift; sourceTree = "<group>"; };
 		7E9130141F5FFC2F00FCF438 /* AppPreferencesExplorer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppPreferencesExplorer.swift; sourceTree = "<group>"; };
 		7E9130171F5FFE8200FCF438 /* SideMenuManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuManager.swift; sourceTree = "<group>"; };
 		7E9130181F5FFE8200FCF438 /* SideMenuTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuTransition.swift; sourceTree = "<group>"; };
@@ -411,7 +411,7 @@
 				7EC758C11F580EB300C54A9F /* AppTimer.swift */,
 				7EC758E81F582F2500C54A9F /* AppAlert.swift */,
 				7E91300D1F5FD68A00FCF438 /* AppImageUploadManager.swift */,
-				7E9130121F5FFB1C00FCF438 /* AppPListManager.swift */,
+				7E9130121F5FFB1C00FCF438 /* AppPlistManager.swift */,
 				7E9130141F5FFC2F00FCF438 /* AppPreferencesExplorer.swift */,
 			);
 			path = Utility;
@@ -727,7 +727,7 @@
 				7E91301B1F5FFE8200FCF438 /* SideMenuManager.swift in Sources */,
 				7E962F411F56C97C007F8D82 /* BaseNavigationController.swift in Sources */,
 				7E962F361F56C7B8007F8D82 /* UIViewExtension.swift in Sources */,
-				7E9130131F5FFB1C00FCF438 /* AppPListManager.swift in Sources */,
+				7E9130131F5FFB1C00FCF438 /* AppPlistManager.swift in Sources */,
 				7E9A8D0F1F5D678B008DFCF9 /* UIScrollViewExtension.swift in Sources */,
 				7E962F2E1F56C79A007F8D82 /* BaseViewController.swift in Sources */,
 				7E962F321F56C7B5007F8D82 /* AppTheme.swift in Sources */,
