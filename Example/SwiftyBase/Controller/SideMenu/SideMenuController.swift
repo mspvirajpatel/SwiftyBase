@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import SwiftyBase
 
-public enum Menu : Int{
+public enum Menu : Int, AppEnumerable{
     case all = -1
     case api = 0
     case button = 1
@@ -20,7 +20,7 @@ class SideMenuController: BaseViewController {
     
     // MARK: - Attributes -
     var sideMenuView : SideMenuView!
-    var currentSelectedMenu : Int = Menu.api.rawValue
+    var currentSelectedMenu : Int = Menu.all.rawValue
   
     // MARK: - Lifecycle -
     required init()
@@ -48,6 +48,9 @@ class SideMenuController: BaseViewController {
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        print(Menu.elements) // [SwiftyBase_Example.Menu.api, SwiftyBase_Example.Menu.button]
+        print(Menu.count) // 2
     }
     
     override func viewWillAppear(_ animated: Bool) {

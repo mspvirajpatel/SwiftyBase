@@ -13,7 +13,7 @@
 #endif
 import SwiftyBase
 
-class BaseControlsDemoView: BaseView {
+class BaseControlsDemoView: BaseView, BaseSearchBarDelegate{
 
     // MARK: - Attributes -
     
@@ -189,6 +189,26 @@ class BaseControlsDemoView: BaseView {
         containerView.addConstraints(baseLayout.control_V)
         
         self.layoutSubviews()
+        
+    }
+    
+    func destinationFrameForSearchBar(_ searchBar: BaseSearchBar) -> CGRect
+    {
+        return CGRect(x: 20.0, y: 140.0, width: self.bounds.size.width - 40.0, height: 34.0)
+    }
+    func searchBar(_ searchBar: BaseSearchBar, willStartTransitioningToState destinationState: BaseSearchBarState) {
+        
+    }
+    
+    func searchBar(_ searchBar: BaseSearchBar, didEndTransitioningFromState previousState: BaseSearchBarState) {
+        
+    }
+    
+    func searchBarDidTapReturn(_ searchBar: BaseSearchBar) {
+        
+    }
+    
+    func searchBarTextDidChange(_ searchBar: BaseSearchBar) {
         
     }
     

@@ -15,6 +15,26 @@ import Foundation
 
 public extension UITableView {
     
+    public func reloadWithAnimation()
+    {
+        self.reloadData()
+        
+        let tableHeight: CGFloat = self.bounds.size.height
+        
+        for cell in self.visibleCells {
+            cell.transform = CGAffineTransform(translationX: 0, y: tableHeight)
+        }
+        
+        var index = 0
+        
+        for cell in self.visibleCells {
+            UIView.animate(withDuration: 1.0, delay: 0.05 * Double(index), usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
+                cell.transform = CGAffineTransform(translationX: 0, y: 0);
+            }, completion: nil)
+            
+            index += 1
+        }
+    }
     
     public func estimatedRowHeight(_ height: CGFloat) {
         self.rowHeight = UITableViewAutomaticDimension

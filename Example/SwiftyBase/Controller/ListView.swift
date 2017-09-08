@@ -18,6 +18,7 @@ public enum PageView : Int {
     case Button = 0
     case APICall = 1
     case Plist = 2
+    case Country = 3
     static let allValues = [unknown, Button, APICall, Plist]
 }
 
@@ -25,7 +26,7 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
     
     // MARK: - Attributes -
     
-    var listControls : NSArray = ["Base Controls","API Call","Plist Read"]
+    var listControls : NSArray = ["Base Controls","API Call","Plist Read","Country Picker"]
  
     var imgView : BaseImageView!
     
@@ -110,7 +111,7 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
         
         baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|[personListTableView]|", options:NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: baseLayout.viewDictionary)
         
-        baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|[imgView(120)][personListTableView]|", options:[.alignAllLeading , .alignAllTrailing], metrics: nil, views: baseLayout.viewDictionary)
+        baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|[imgView(150)][personListTableView]|", options:[.alignAllLeading , .alignAllTrailing], metrics: nil, views: baseLayout.viewDictionary)
         
         self.addConstraints(baseLayout.control_H)
         self.addConstraints(baseLayout.control_V)
@@ -125,6 +126,10 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
     // MARK: - User Interaction -
     
     // MARK: - Internal Helpers -
+    public func animateTable() {
+        self.personListTableView.reloadWithAnimation()
+        
+    }
     
     // MARK: - Server Request -
     
@@ -135,7 +140,6 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
       
         return self.listControls.count
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
@@ -185,7 +189,27 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
             }
             
             break
+        case PageView.Country.rawValue :
             
+            /// Create a controller
+            let countriesViewController = BaseCountriesPicker()
+            
+            /// Show major country
+            countriesViewController.majorCountryLocaleIdentifiers = ["GB", "US", "IT", "DE", "RU", "BR", "IN"]
+            
+            /// Set initial selected
+            //countriesViewController.selectedCountries = Countries.countriesFromCountryCodes(["AL"])
+            
+            /// Allow or disallow multiple selection
+            countriesViewController.allowMultipleSelection = false
+            
+            /// Set delegate
+            countriesViewController.delegate = self
+            
+            /// Show
+            BaseCountriesPicker.show(countriesViewController: countriesViewController, to: self.getViewControllerFromSubView()!)
+            
+            break
         default:
             break
         }
@@ -200,3 +224,37 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
         
     }
 }
+
+extension ListView: BaseCountriesPickerDelegate
+{
+    /// MARK: CountriesViewControllerDelegate
+    
+    func countriesViewController(_ countriesViewController: BaseCountriesPicker, didSelectCountries countries: [Country]) {
+        
+        var res = ""
+        countries.forEach { (co) in
+            res = res + co.name + "\n";
+        }
+        print("Countries : \(res)")
+        
+    }
+    
+    func countriesViewControllerDidCancel(_ countriesViewController: BaseCountriesPicker) {
+        print("user hass been tap cancel\n")
+        
+    }
+    
+    func countriesViewController(_ countriesViewController: BaseCountriesPicker, didSelectCountry country: Country) {
+        
+        print("\(country.name) selected")
+        
+        
+    }
+    
+    func countriesViewController(_ countriesViewController: BaseCountriesPicker, didUnselectCountry country: Country) {
+        
+        print("\(country.name) unselected")
+        
+    }
+}
+

@@ -123,7 +123,7 @@ class APIDemoView: BaseView,UITableViewDataSource, UITableViewDelegate {
                 self.countrylist = AllContry.init(fromDictionary: jsonData as! [String : Any])
               
                 AppUtility.executeTaskInMainQueueWithCompletion {
-                    self.listTableView.reloadData()
+                     self.listTableView.reloadWithAnimation()
                 }
                 
                 break
@@ -144,7 +144,6 @@ class APIDemoView: BaseView,UITableViewDataSource, UITableViewDelegate {
             }
         })
     }
-    
     
     // MARK: - UITableView DataSource Methods -
     

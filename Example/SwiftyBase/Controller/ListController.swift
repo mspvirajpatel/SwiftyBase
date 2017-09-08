@@ -74,6 +74,12 @@ class ListController: BaseViewController {
         super.expandViewInsideView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        listView.animateTable()
+    }
+    
+    
     // MARK: - Public Interface -
     
     

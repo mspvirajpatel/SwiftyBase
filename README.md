@@ -1,4 +1,4 @@
-﻿# SwiftyBase
+# SwiftyBase
 
 [![BuddyBuild](https://dashboard.buddybuild.com/api/statusImage?appID=59a6f3aeb749970001234046&branch=master&build=latest)](https://dashboard.buddybuild.com/apps/59a6f3aeb749970001234046/build/latest?branch=master)
 [![Build Status](https://travis-ci.org/mspvirajpatel/SwiftyBase.svg?branch=master)](https://travis-ci.org/mspvirajpatel/SwiftyBase)
@@ -158,7 +158,7 @@ class ListController: BaseViewController {
     init() {
 
     }
-    
+
 }
 ```
 
