@@ -14,7 +14,6 @@ class Result: NSObject, NSCoding{
     var name : String!
     var states : Any!
     
-    
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */

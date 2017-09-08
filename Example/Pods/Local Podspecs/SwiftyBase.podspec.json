@@ -1,6 +1,6 @@
 {
   "name": "SwiftyBase",
-  "version": "1.2.20",
+  "version": "1.2.21",
   "summary": "Base Project For iOS in Swift 3.0",
   "description": "Base Project Create for iOS. Into Base Project BaseController, BaseView, BaseNavigation ,BaseControls Added.",
   "homepage": "https://github.com/mspvirajpatel/SwiftyBase",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/mspvirajpatel/SwiftyBase.git",
-    "tag": "1.2.20"
+    "tag": "1.2.21"
   },
   "platforms": {
     "ios": "9.0"
