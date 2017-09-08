@@ -27,6 +27,21 @@ public extension UIView {
     var top:        CGFloat { return self.frame.origin.y }
     var bottom:     CGFloat { return self.frame.origin.y + self.frame.size.height }
     
+    public func applyGradient(colours: [UIColor])  {
+        self.applyGradient(colours: colours, locations: nil)
+    }
+    
+    public func applyGradient(colours: [UIColor], locations: [NSNumber]?) {
+        let gradient: CAGradientLayer = CAGradientLayer()
+        gradient.frame = self.bounds
+        gradient.colors = colours.map { $0.cgColor }
+        gradient.locations = locations
+        self.layer.insertSublayer(gradient, at: 0)
+    }
+    
+    public func hideShadow() {
+        self.layer.shadowOpacity = 0
+    }
     
     public func setSize(_ size:CGSize)
     {
@@ -163,6 +178,81 @@ public extension UIView {
         return dicView
     }
     
+    public func fillSuperview() {
+        guard let superview = self.superview else {
+            return
+        }
+        translatesAutoresizingMaskIntoConstraints = false
+        leftAnchor.constraint(equalTo: superview.leftAnchor).isActive = true
+        rightAnchor.constraint(equalTo: superview.rightAnchor).isActive = true
+        topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
+        bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
+    }
+    
+    func anchor(_ top: NSLayoutYAxisAnchor? = nil, left: NSLayoutXAxisAnchor? = nil, bottom: NSLayoutYAxisAnchor? = nil, right: NSLayoutXAxisAnchor? = nil, topConstant: CGFloat = 0, leftConstant: CGFloat = 0, bottomConstant: CGFloat = 0, rightConstant: CGFloat = 0, widthConstant: CGFloat = 0, heightConstant: CGFloat = 0) {
+        
+        _ = anchorWithReturnAnchors(top, left: left, bottom: bottom, right: right, topConstant: topConstant, leftConstant: leftConstant, bottomConstant: bottomConstant, rightConstant: rightConstant, widthConstant: widthConstant, heightConstant: heightConstant)
+    }
+    
+    func anchorWithReturnAnchors(_ top: NSLayoutYAxisAnchor? = nil, left: NSLayoutXAxisAnchor? = nil, bottom: NSLayoutYAxisAnchor? = nil, right: NSLayoutXAxisAnchor? = nil, topConstant: CGFloat = 0, leftConstant: CGFloat = 0, bottomConstant: CGFloat = 0, rightConstant: CGFloat = 0, widthConstant: CGFloat = 0, heightConstant: CGFloat = 0) -> [NSLayoutConstraint] {
+        
+        if self.superview == nil {
+            return []
+        }
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        var anchors = [NSLayoutConstraint]()
+        
+        if let top = top {
+            let constraint = topAnchor.constraint(equalTo: top, constant: topConstant)
+            constraint.identifier = "top"
+            anchors.append(constraint)
+        }
+        
+        if let left = left {
+            let constraint = leftAnchor.constraint(equalTo: left, constant: leftConstant)
+            constraint.identifier = "left"
+            anchors.append(constraint)
+        }
+        
+        if let bottom = bottom {
+            let constraint = bottomAnchor.constraint(equalTo: bottom, constant: -bottomConstant)
+            constraint.identifier = "bottom"
+            anchors.append(constraint)
+        }
+        
+        if let right = right {
+            let constraint = rightAnchor.constraint(equalTo: right, constant: -rightConstant)
+            constraint.identifier = "right"
+            anchors.append(constraint)
+        }
+        
+        if widthConstant > 0 {
+            let constraint = widthAnchor.constraint(equalToConstant: widthConstant)
+            constraint.identifier = "width"
+            anchors.append(constraint)
+        }
+        
+        if heightConstant > 0 {
+            let constraint = heightAnchor.constraint(equalToConstant: heightConstant)
+            constraint.identifier = "height"
+            anchors.append(constraint)
+        }
+        
+        anchors.forEach({$0.isActive = true})
+        
+        return anchors
+    }
+    
+    public func removeAllConstraints() {
+        var view: UIView? = self
+        while let currentView = view {
+            currentView.removeConstraints(currentView.constraints.filter {
+                return $0.firstItem as? UIView == self || $0.secondItem as? UIView == self
+            })
+            view = view?.superview
+        }
+    }
     
     public func getDictionaryOfVariableBindings(viewArray : [UIView]) -> NSDictionary{
         

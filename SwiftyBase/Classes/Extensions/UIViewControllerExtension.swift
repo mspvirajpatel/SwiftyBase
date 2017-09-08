@@ -13,6 +13,10 @@ import Foundation
     import UIKit
 #endif
 
+public enum PresentationDirection {
+    case top, right, bottom, left
+}
+
 public extension UIViewController {
     
     public var tabBarHeight: CGFloat {
@@ -94,6 +98,63 @@ public extension UIViewController {
             return controller
         }
         return findBestViewController(UIApplication.shared.keyWindow?.rootViewController)!
+    }
+    
+    public func presentViewController(_ viewController: UIViewController, from: PresentationDirection, completion:  (() -> Void)?) {
+        viewController.view.alpha = 0.0
+        viewController.modalPresentationStyle = .overCurrentContext
+        guard let windowFrame = self.view.window?.frame else {
+            return
+        }
+        let viewFrame = viewController.view.frame
+        let finalFrame = viewFrame
+        self.present(viewController, animated: false) { () -> Void in
+            switch from {
+            case .top:
+                viewController.view.frame = CGRect(x: viewFrame.origin.x, y: -windowFrame.height, width: viewFrame.width, height: viewFrame.height)
+            case .right:
+                viewController.view.frame = CGRect(x: windowFrame.width, y: viewFrame.origin.y, width: viewFrame.width, height: viewFrame.height)
+            case .bottom:
+                viewController.view.frame = CGRect(x: viewFrame.origin.x, y: windowFrame.height, width: viewFrame.width, height: viewFrame.height)
+            case .left:
+                viewController.view.frame = CGRect(x: -windowFrame.width, y: viewFrame.origin.y, width: viewFrame.width, height: viewFrame.height)
+            }
+            viewController.view.alpha = 1.0
+            UIView.animate(withDuration: 0.3, animations: { () -> Void in
+                viewController.view.frame = finalFrame
+            }, completion: { (success) -> Void in
+                if success && (completion != nil) {
+                    completion!()
+                }
+            })
+        }
+    }
+    
+    func dismissViewController(to: PresentationDirection, completion:  (() -> Void)?) {
+        let frame = self.view.frame
+        guard let windowFrame = self.view.window?.frame else {
+            return
+        }
+        UIView.animate(withDuration: 0.3, animations: { () -> Void in
+            switch to {
+            case .top:
+                self.view.frame = CGRect(x: frame.origin.x, y: -windowFrame.height, width: frame.width, height: frame.height)
+            case .right:
+                self.view.frame = CGRect(x: windowFrame.width, y: frame.origin.y, width: frame.width, height: frame.height)
+            case .bottom:
+                self.view.frame = CGRect(x: frame.origin.x, y: windowFrame.height, width: frame.width, height: frame.height)
+            case .left:
+                self.view.frame = CGRect(x: -windowFrame.width, y: frame.origin.y, width: frame.width, height: frame.height)
+            }
+        }, completion: { (success) -> Void in
+            if success == true {
+                self.dismiss(animated: false, completion: {
+                    if completion != nil {
+                        completion!()
+                    }
+                })
+            }
+        })
     }
     
 }

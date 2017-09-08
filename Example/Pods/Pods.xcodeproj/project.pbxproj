@@ -88,7 +88,7 @@
 		7E6E43561F629A3F00620DEC /* BaseCountriesPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6E43551F629A3F00620DEC /* BaseCountriesPicker.swift */; };
 		7E6E43591F629A9100620DEC /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6E43581F629A9100620DEC /* Country.swift */; };
 		7E6E435B1F629AC200620DEC /* AppCountries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6E435A1F629AC200620DEC /* AppCountries.swift */; };
-		7E6E435F1F62AA0200620DEC /* BaseSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6E435E1F62AA0200620DEC /* BaseSearchBar.swift */; };
+		7E6E43621F62BF0900620DEC /* BaseRippleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6E43611F62BF0900620DEC /* BaseRippleView.swift */; };
 		7F6750C7B1847733370B18C4CBFE32DF /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE1F2D1C9D5935F6B6B5CC49C89E323 /* Errors.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		8015239010C1D642F14C105F8FF8E035 /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC2EAD622CBF58EAD71675C54310955 /* Expression.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		8507F4BF7437EB40A3626EDCC68BFF6D /* Contain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1BBF1DEB58CE50279BE9C836B3DE1E1 /* Contain.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
@@ -289,7 +289,8 @@
 		7E6E43551F629A3F00620DEC /* BaseCountriesPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCountriesPicker.swift; sourceTree = "<group>"; };
 		7E6E43581F629A9100620DEC /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		7E6E435A1F629AC200620DEC /* AppCountries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCountries.swift; sourceTree = "<group>"; };
-		7E6E435E1F62AA0200620DEC /* BaseSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseSearchBar.swift; path = ../../../../../../../.Trash/BaseSearchBar.swift; sourceTree = "<group>"; };
+		7E6E43601F62BD4600620DEC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = SwiftyBase/Assets/Assets.xcassets; sourceTree = "<group>"; };
+		7E6E43611F62BF0900620DEC /* BaseRippleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRippleView.swift; sourceTree = "<group>"; };
 		7FE7DAEFE89DD4FD50B980F9C9D6B7B2 /* Functional.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Functional.swift; path = Sources/Nimble/Utils/Functional.swift; sourceTree = "<group>"; };
 		856B2E5E4EC8E2BD9ED45AAD6930A672 /* NMBStringify.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = NMBStringify.m; path = Sources/NimbleObjectiveC/NMBStringify.m; sourceTree = "<group>"; };
 		86806CF3A6F7FB54DF0EEB9134380E4E /* NMBExceptionCapture.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = NMBExceptionCapture.m; path = Sources/NimbleObjectiveC/NMBExceptionCapture.m; sourceTree = "<group>"; };
@@ -620,6 +621,7 @@
 				3D38DABAE47032292DB0BEE0AC3EE566 /* Support Files */,
 				4A768E53587D43A6CA9DACDADA6D5C71 /* Utility */,
 				39745B90E4DA046ECBACD49326D58B1B /* View */,
+				7E6E43601F62BD4600620DEC /* Assets.xcassets */,
 			);
 			name = SwiftyBase;
 			path = ../..;
@@ -801,9 +803,9 @@
 				C4111166F514890D4F9163F5DBFA47DE /* BaseScrollView.swift */,
 				D43F3C730FB5231A23B5822E8AA28EF6 /* BaseSegment.swift */,
 				A62E7A4E3E8A57B8AB469CCF7E1DD61A /* BaseTextField.swift */,
-				7E6E435E1F62AA0200620DEC /* BaseSearchBar.swift */,
 				B8FDD9F5DFCF345A14FBD079195A87EC /* BaseTextView.swift */,
 				8519EAF6136BB3E659109DD525935661 /* FullScreenImage */,
+				7E6E43611F62BF0900620DEC /* BaseRippleView.swift */,
 			);
 			name = Control;
 			path = SwiftyBase/Classes/Control;
@@ -1149,12 +1151,12 @@
 				B0CBF94B1E6C727DF3AA177604B011BE /* BaseImageView.swift in Sources */,
 				1192E00E5AEAC148DEA69729A0AFB2E3 /* BaseLabel.swift in Sources */,
 				8DCA2370621E7132FE2B576DE31ED5FE /* BaseNavigationController.swift in Sources */,
+				7E6E43621F62BF0900620DEC /* BaseRippleView.swift in Sources */,
 				C340B8673025DA9D32CEC0E2143DA119 /* BaseNotificationBadge.swift in Sources */,
 				9A040FE373436F6A8C6BA1215155C814 /* BasePopOverMenu.swift in Sources */,
 				CFB36A5C84F0A30B68D53DF2086068DE /* BaseProgressHUD.swift in Sources */,
 				9F8CBA1B5E9DE9B5C2776A4E3F58242A /* BaseRoundMenu.swift in Sources */,
 				33684C8BD3A324B11744E12B34DE0F57 /* BaseScrollView.swift in Sources */,
-				7E6E435F1F62AA0200620DEC /* BaseSearchBar.swift in Sources */,
 				DDE6A67CF947C54C289C68C9F8ABE633 /* BaseSegment.swift in Sources */,
 				76A42C22887443C10665E7F8B3DD3B6F /* BaseTextField.swift in Sources */,
 				A6C250D5D44D59AFC9CB521F92D03A60 /* BaseTextView.swift in Sources */,
