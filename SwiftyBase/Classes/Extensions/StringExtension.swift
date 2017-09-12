@@ -424,13 +424,13 @@ public extension String {
         return self
     }
     
-    public subscript(r: Range<Int>) -> String {
-        get {
-            let startIndex = self.characters.index(self.startIndex, offsetBy: r.lowerBound)
-            let endIndex = self.characters.index(self.startIndex, offsetBy: r.upperBound - r.lowerBound)
-            return self[startIndex..<endIndex]
-        }
-    }
+//    public subscript(r: Range<Int>) -> String {
+//        get {
+//            let startIndex = self.characters.index(self.startIndex, offsetBy: r.lowerBound)
+//            let endIndex = self.characters.index(self.startIndex, offsetBy: r.upperBound - r.lowerBound)
+//            return self[startIndex..<endIndex]
+//        }
+//    }
     
     public func substring(_ startIndex: Int, length: Int) -> String {
         let start = self.characters.index(self.startIndex, offsetBy: startIndex)

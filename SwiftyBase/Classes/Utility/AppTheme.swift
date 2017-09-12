@@ -136,7 +136,7 @@ public extension Color{
             break
             
         case .labelErrorText:
-            instanceColor = UIColor(rgbValue: 0x6648da, alpha: 1.0)
+            instanceColor = UIColor(rgbValue: 0xffffff, alpha: 1.0)
             break
             
         // TODO: Segment View Color

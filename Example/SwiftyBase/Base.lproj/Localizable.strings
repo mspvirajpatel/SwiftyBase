@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  SwiftyBase
+
+  Created by MacMini-2 on 11/09/17.
+  Copyright © 2017 CocoaPods. All rights reserved.
+*/
+
+lstBase  = "Base Controls";
+lstAPI  = "API Call";
+lstPlist  = "Plist Read";
+lstCountry  = "Country Picker";
+lstDownload  = "Download View";
+lstLanguage  = "Change Language";

@@ -146,6 +146,10 @@ open class BaseViewController: UIViewController , UINavigationControllerDelegate
     
     public func displayMenuButton(image : UIImage?){
         if image == nil{
+            let barButtonItem = BaseDrawerMenuItem(target: self, action: #selector(openslider))
+            
+            self.navigationItem.leftBarButtonItem = barButtonItem
+            
             return
         }
         var origImage : UIImage? = image

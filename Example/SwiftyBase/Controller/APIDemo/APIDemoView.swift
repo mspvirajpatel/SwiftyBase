@@ -108,7 +108,7 @@ class APIDemoView: BaseView,UITableViewDataSource, UITableViewDelegate {
     // MARK: - Server Request -
     
     func getListServerRequest(){
-        
+
         APIManager.shared.getRequest(URL: API.countries, Parameter: NSDictionary(), completionHandler:{(result) in
             
             switch result{

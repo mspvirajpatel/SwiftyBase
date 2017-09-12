@@ -29,6 +29,11 @@
 		7E962F1F1F56C5F7007F8D82 /* ListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E962F1E1F56C5F7007F8D82 /* ListController.swift */; };
 		7E962F211F56C607007F8D82 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E962F201F56C607007F8D82 /* ListView.swift */; };
 		7E962F441F56CFA1007F8D82 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E962F431F56CFA1007F8D82 /* Constants.swift */; };
+		7EDCC56F1F66974200E97393 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDCC56E1F66974200E97393 /* DownloadManager.swift */; };
+		7EDCC5721F669E9600E97393 /* DownloadingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDCC5711F669E9600E97393 /* DownloadingController.swift */; };
+		7EDCC5741F669EB300E97393 /* DownloadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDCC5731F669EB300E97393 /* DownloadingView.swift */; };
+		7EDCC5761F669ED900E97393 /* DownloadInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDCC5751F669ED900E97393 /* DownloadInfoCell.swift */; };
+		7EDCC57B1F66CA1400E97393 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7EDCC57D1F66CA1400E97393 /* Localizable.strings */; };
 		7EEF11861F611C8900A53949 /* QuickTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEF11851F611C8900A53949 /* QuickTest.swift */; };
 		7EEF11881F612D5900A53949 /* QuickTestProgessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEF11871F612D5900A53949 /* QuickTestProgessView.swift */; };
 		7EEF118F1F61600400A53949 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEF118D1F61600000A53949 /* Utility.swift */; };
@@ -81,6 +86,15 @@
 		7E962F1E1F56C5F7007F8D82 /* ListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListController.swift; sourceTree = "<group>"; };
 		7E962F201F56C607007F8D82 /* ListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		7E962F431F56CFA1007F8D82 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		7EDCC56E1F66974200E97393 /* DownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
+		7EDCC5711F669E9600E97393 /* DownloadingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadingController.swift; sourceTree = "<group>"; };
+		7EDCC5731F669EB300E97393 /* DownloadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadingView.swift; sourceTree = "<group>"; };
+		7EDCC5751F669ED900E97393 /* DownloadInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadInfoCell.swift; sourceTree = "<group>"; };
+		7EDCC57C1F66CA1400E97393 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7EDCC57E1F66CA3100E97393 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Main.strings; sourceTree = "<group>"; };
+		7EDCC57F1F66CA3100E97393 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		7EDCC5801F66CA3100E97393 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7EDCC5811F66CB9D00E97393 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7EEF11851F611C8900A53949 /* QuickTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickTest.swift; sourceTree = "<group>"; };
 		7EEF11871F612D5900A53949 /* QuickTestProgessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickTestProgessView.swift; sourceTree = "<group>"; };
 		7EEF118D1F61600000A53949 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
@@ -181,6 +195,8 @@
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 				7E9130281F6003F300FCF438 /* Menu.plist */,
 				7EEF118D1F61600000A53949 /* Utility.swift */,
+				7EDCC56E1F66974200E97393 /* DownloadManager.swift */,
+				7EDCC57D1F66CA1400E97393 /* Localizable.strings */,
 			);
 			name = "Example for SwiftyBase";
 			path = SwiftyBase;
@@ -265,6 +281,7 @@
 		7E962F1C1F56C5BD007F8D82 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				7EDCC5701F669E8400E97393 /* Downloader */,
 				7E91301F1F5FFEEF00FCF438 /* SideMenu */,
 				7E82C5731F5EB5BA0031B8E0 /* APIDemo */,
 				7E82C5741F5EB5BA0031B8E0 /* ButtonDemo */,
@@ -281,6 +298,16 @@
 				7E82C56D1F5E9EA70031B8E0 /* Result.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		7EDCC5701F669E8400E97393 /* Downloader */ = {
+			isa = PBXGroup;
+			children = (
+				7EDCC5711F669E9600E97393 /* DownloadingController.swift */,
+				7EDCC5731F669EB300E97393 /* DownloadingView.swift */,
+				7EDCC5751F669ED900E97393 /* DownloadInfoCell.swift */,
+			);
+			path = Downloader;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -355,6 +382,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ar,
 			);
 			mainGroup = 607FACC71AFB9204008FA782;
 			productRefGroup = 607FACD11AFB9204008FA782 /* Products */;
@@ -372,6 +400,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7EDCC57B1F66CA1400E97393 /* Localizable.strings in Resources */,
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				7E9130291F6003F300FCF438 /* Menu.plist in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
@@ -500,14 +529,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7EDCC5721F669E9600E97393 /* DownloadingController.swift in Sources */,
 				7EEF118F1F61600400A53949 /* Utility.swift in Sources */,
+				7EDCC56F1F66974200E97393 /* DownloadManager.swift in Sources */,
 				7E82C56E1F5E9EA70031B8E0 /* Result.swift in Sources */,
+				7EDCC5741F669EB300E97393 /* DownloadingView.swift in Sources */,
 				7E9130251F5FFF1000FCF438 /* LeftMenuCell.swift in Sources */,
 				7E9130211F5FFEFC00FCF438 /* SideMenuController.swift in Sources */,
 				7E82C5761F5EB6010031B8E0 /* APIDemoController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				7E82C57C1F5EB6530031B8E0 /* BaseControlsDemoView.swift in Sources */,
 				7E82C56C1F5E9E680031B8E0 /* AllContry.swift in Sources */,
+				7EDCC5761F669ED900E97393 /* DownloadInfoCell.swift in Sources */,
 				7E9130231F5FFF0700FCF438 /* SideMenuView.swift in Sources */,
 				7E962F1F1F56C5F7007F8D82 /* ListController.swift in Sources */,
 				7E82C57A1F5EB6450031B8E0 /* BaseControlsDemoController.swift in Sources */,
@@ -543,6 +576,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				607FACDA1AFB9204008FA782 /* Base */,
+				7EDCC57E1F66CA3100E97393 /* ar */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -551,8 +585,19 @@
 			isa = PBXVariantGroup;
 			children = (
 				607FACDF1AFB9204008FA782 /* Base */,
+				7EDCC57F1F66CA3100E97393 /* ar */,
 			);
 			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		7EDCC57D1F66CA1400E97393 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7EDCC57C1F66CA1400E97393 /* Base */,
+				7EDCC5801F66CA3100E97393 /* ar */,
+				7EDCC5811F66CB9D00E97393 /* en */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -562,6 +607,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -609,6 +655,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;

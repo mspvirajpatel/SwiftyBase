@@ -289,7 +289,10 @@ extension SideMenuView : UITableViewDataSource{
         
         cell.selectionStyle = .none
         cell.backgroundColor = UIColor.clear
-       
+        cell.imageView?.image = UIImage(named:"ic_file")?.withRenderingMode(.alwaysTemplate)
+        cell.imageView?.tintColor = UIColor.green
+        cell.backgroundColor = UIColor.blue
+        
         if indexPath == selectedCell
         {
             cell.lblMenuText.textColor = Color.navigationBottomBorder.value

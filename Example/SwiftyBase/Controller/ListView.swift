@@ -19,6 +19,8 @@ public enum PageView : Int {
     case APICall = 1
     case Plist = 2
     case Country = 3
+    case Download = 4
+    case ChangeLang = 5
     static let allValues = [unknown, Button, APICall, Plist]
 }
 
@@ -26,7 +28,7 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
     
     // MARK: - Attributes -
     
-    var listControls : NSArray = ["Base Controls","API Call","Plist Read","Country Picker"]
+    var listControls : NSArray = ["lstBase","lstAPI","lstPlist","lstCountry","lstDownload","lstLanguage"]
  
     var imgView : BaseImageView!
     
@@ -150,7 +152,7 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: CellIdentifire.defaultCell)
         }
         
-        let result = self.listControls[indexPath.row]
+        let result = (self.listControls[indexPath.row] as! String).localiz()
         cell?.textLabel?.text = (result as! String)
        
         
@@ -210,6 +212,17 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
             BaseCountriesPicker.show(countriesViewController: countriesViewController, to: self.getViewControllerFromSubView()!)
             
             break
+        case PageView.Download.rawValue:
+        
+            self.getViewControllerFromSubView()?.navigationController?.pushViewController(DownloadingController(), animated: true)
+            break
+        case PageView.ChangeLang.rawValue:
+            
+            let selectedLanguage = AppLanguageManger.shared.currentLang == "en" ? "ar" : "en"
+            AppLanguageManger.shared.setLanguage(language: selectedLanguage)
+        
+            self.animateTable()
+            
         default:
             break
         }

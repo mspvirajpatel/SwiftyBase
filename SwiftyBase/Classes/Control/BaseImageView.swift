@@ -179,8 +179,7 @@ public extension UIImageView{
     public func setImageURL(_ url:String) {
         _ = self.setImageFromURL(url) { (value) in
             
-            print(value)
-            
+            print("Image : \(value)")
             
         }
     }
@@ -268,9 +267,7 @@ public extension UIImageView{
         
         self.image = placeholder
         
-        
         let downloader = ImageDownloader()
-        
         
         downloader.downloadImageWithProgress(url, progress: progress, completion: {
             (image,success) in
@@ -288,7 +285,6 @@ public extension UIImageView{
                 }
             }
             
-            
         })
         
         return downloader
@@ -298,7 +294,6 @@ public extension UIImageView{
 }
 
 public class ImageDownloader: NSObject {
-    
     
     var downloadTask: URLSessionDownloadTask?
     var downloadImageURL: String = ""
@@ -316,7 +311,6 @@ public class ImageDownloader: NSObject {
      - completion: Callback function , it will call when download finish. Value will include image:UIImage? and success:Bool
      */
     public func downloadImageWithProgress(_ url: String,  progress:((Float) -> Void)?, completion:((UIImage?,Bool) -> Void)?) {
-        
         
         if url == "" {
             if let callback = completion {

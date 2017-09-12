@@ -429,6 +429,30 @@ open class APIManager{
         
         return httpStatusCode
     }
+  
+    // Use with Almofire parameters
+    // let parameterString : String = self.getURLString(fromDictionary: param)
+    // requset.httpBody = parameterString .data(using: String.Encoding.utf8)
+    // requset.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+    private func getURLString(fromDictionary dictionary: NSDictionary) -> String {
+        var urlStringWithDetailsArray = [Any]()
+        
+        for (key,value) in dictionary{
+            
+            if value is NSNumber{
+                urlStringWithDetailsArray.append("\(key)=\(String(value as! Int).addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!)")
+            }
+            else if value is NSArray {
+                urlStringWithDetailsArray.append("\(key)=\((value as! NSArray).JSONString())")
+            }
+            else{
+                urlStringWithDetailsArray.append("\(key)=\((value as! String).addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!)")
+            }
+        }
+        
+        return (urlStringWithDetailsArray as NSArray).componentsJoined(by: "&")
+    }
+    
 }
 
 

@@ -26,7 +26,7 @@ class APIDemoController: BaseViewController {
         super.init(iView: aPIDemoView, andNavigationTitle: "API DEMO")
         self.loadViewControls()
         self.setViewlayout()
-        self.displayMenuButton(image: UIImage(named: "menu"))
+        self.displayMenuButton(image: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {

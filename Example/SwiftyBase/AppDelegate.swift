@@ -14,12 +14,13 @@
 import SwiftyBase
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, CAAnimationDelegate {
 
     var window: UIWindow?
     var navigation: BaseNavigationController!
     var listView: ListController!
     var menuController : SideMenuController!
+    var backgroundSessionCompletionHandler : (() -> Void)?
     
     // MARK: - Lifecycle -
     
@@ -48,9 +49,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func dynamicSetValue() {
         
         APIManager.shared.baseUrlString = API.baseURL
-        
     }
     
+    func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
+        backgroundSessionCompletionHandler = completionHandler
+    }
+
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
@@ -73,6 +77,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        // remove mask when animation completes
+        self.window!.rootViewController!.view.layer.mask = nil
+    }
+
     
     fileprivate func loadUI(){
         
@@ -81,7 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.displayListOnWindow()
         
         window?.makeKeyAndVisible()
-        
+  
     }
     
     func displayListOnWindow() {
@@ -100,23 +109,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         menuController = SideMenuController()
         
         navigation = BaseNavigationController(rootViewController: self.listView)
-        
+       
         let menuLeftNavigationController = UISideMenuNavigationController.init(rootViewController: menuController)
         
         menuLeftNavigationController.leftSide = false
         
         SideMenuManager.menuLeftNavigationController = menuLeftNavigationController
         
-        //SideMenuManager.menuAddPanGestureToPresent(toView: navigationController.navigationBar)
+        SideMenuManager.menuAddPanGestureToPresent(toView: navigation.navigationBar)
         SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: navigation.view)
         SideMenuManager.menuPresentMode = .menuSlideIn
         SideMenuManager.menuWidth = max(round(min((UIScreen.main.bounds.size.width), (UIScreen.main.bounds.size.height)) * 0.85), 240)
         
         SideMenuManager.menuAnimationFadeStrength = 0.50
         
-        
     }
-    
-    
+
+
 }
 

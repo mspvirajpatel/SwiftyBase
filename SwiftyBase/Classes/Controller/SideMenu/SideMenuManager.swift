@@ -181,7 +181,7 @@ open class SideMenuManager : NSObject {
             }
         }
     }
-    
+
     /// The left menu.
     open static var menuLeftNavigationController: UISideMenuNavigationController? {
         willSet {

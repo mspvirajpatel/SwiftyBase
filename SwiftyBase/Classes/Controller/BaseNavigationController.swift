@@ -13,7 +13,7 @@
 #endif
 
 @IBDesignable
-open class BaseNavigationController: UINavigationController,UIGestureRecognizerDelegate{
+open class BaseNavigationController: UINavigationController,UIGestureRecognizerDelegate, CAAnimationDelegate{
     
     // MARK: - Interface
     @IBInspectable open var clearBackTitle: Bool = true
@@ -64,11 +64,72 @@ open class BaseNavigationController: UINavigationController,UIGestureRecognizerD
         //        self.navigationBar.shadowImage = UIImage()
         //        self.navigationBar.isTranslucent = true
         
+        
         defer{
             navigationBarFont = nil
         }
     }
-    
+   
+    open func animation()
+    {
+        // logo mask
+        self.view.layer.mask = CALayer()
+        self.view.layer.mask?.contents = UIImage(named: "logo.png")!.cgImage
+        self.view.layer.mask?.bounds = CGRect(x: 0, y: 0, width: 60, height: 60)
+        self.view.layer.mask?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        self.view.layer.mask?.position = CGPoint(x: self.view.frame.width / 2, y: self.view.frame.height / 2)
+        
+        // logo mask background view
+        let maskBgView = UIView(frame: self.view.frame)
+        maskBgView.backgroundColor = UIColor.white
+        self.view.addSubview(maskBgView)
+        self.view.bringSubview(toFront: maskBgView)
+        
+        // logo mask animation
+        let transformAnimation = CAKeyframeAnimation(keyPath: "bounds")
+        transformAnimation.delegate = self
+        transformAnimation.duration = 1
+        transformAnimation.beginTime = CACurrentMediaTime() + 1 //add delay of 1 second
+        let initalBounds = NSValue.init(cgRect: (self.view.layer.mask?.bounds)!)
+        let secondBounds = NSValue.init(cgRect: CGRect(x: 0, y: 0, width: 50, height: 50))
+        let finalBounds = NSValue.init(cgRect: CGRect(x: 0, y: 0, width: 2000, height: 2000))
+        transformAnimation.values = [initalBounds, secondBounds, finalBounds]
+        transformAnimation.keyTimes = [0, 0.5, 1]
+        transformAnimation.timingFunctions = [CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut), CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)]
+        transformAnimation.isRemovedOnCompletion = false
+        transformAnimation.fillMode = kCAFillModeForwards
+        self.view.layer.mask?.add(transformAnimation, forKey: "maskAnimation")
+        
+        // logo mask background view animation
+        UIView.animate(withDuration: 0.1,
+                       delay: 1.35,
+                       options: UIViewAnimationOptions.curveEaseIn,
+                       animations: {
+                        maskBgView.alpha = 0.0
+        },
+                       completion: { finished in
+                        maskBgView.removeFromSuperview()
+        })
+        
+        // root view animation
+        UIView.animate(withDuration: 0.25,
+                       delay: 1.3,
+                       options: UIViewAnimationOptions.transitionCrossDissolve,
+                       animations: {
+                        (AppUtility.getDelegate() as! UIApplicationDelegate).window!!.rootViewController!.view.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
+        },
+                       completion: { finished in
+                        UIView.animate(withDuration: 0.3,
+                                       delay: 0.0,
+                                       options: UIViewAnimationOptions.curveEaseInOut,
+                                       animations: {
+                                        (AppUtility.getDelegate() as! UIApplicationDelegate).window!!.rootViewController!.view.transform = CGAffineTransform.identity
+                        },
+                                       completion: nil
+                        )
+        })
+        
+    }
     
     // MARK: - User Interaction -
    

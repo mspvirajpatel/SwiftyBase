@@ -29,6 +29,12 @@ open class BaseView: UIView {
     /// Its for Set the Footer of TableView
     open var tableFooterView : UIView!
     
+    /// Its for set the Backgroudimage in whole application
+    var backgroundImageView : BaseImageView!
+    
+    /// Its for show the Error on View
+    var errorMessageLabel : UILabel!
+    
     /// Its for Show the Activity Indiacter at Footer of view
     open var footerIndicatorView : UIActivityIndicatorView!
     
@@ -110,6 +116,22 @@ open class BaseView: UIView {
             baseLayout.metrics = nil
             baseLayout.viewDictionary = nil
             baseLayout = nil
+        }
+        
+        if backgroundImageView != nil && backgroundImageView.superview != nil{
+            backgroundImageView.removeFromSuperview()
+            backgroundImageView = nil
+        }
+        else{
+            backgroundImageView = nil
+        }
+        
+        if errorMessageLabel != nil && errorMessageLabel.superview != nil{
+            errorMessageLabel.removeFromSuperview()
+            errorMessageLabel = nil
+        }
+        else{
+            errorMessageLabel = nil
         }
         
         if tableFooterView != nil && tableFooterView.superview != nil{
@@ -263,6 +285,86 @@ open class BaseView: UIView {
         }
         
         return isLastTextControl
+    }
+    
+    /// This method is initialize the Background ImageView in Whole Application
+   
+    func displayBackgroundImageView(_ image : UIImage?){
+        
+        if(backgroundImageView == nil){
+            
+            backgroundImageView = BaseImageView(frame: CGRect.zero)
+            
+            backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
+            backgroundImageView.contentMode = .scaleToFill
+            
+            self.addSubview(backgroundImageView)
+            
+            if(baseLayout == nil){
+                baseLayout = AppBaseLayout()
+            }
+            
+            baseLayout.expandView(backgroundImageView, insideView: self)
+            baseLayout = nil
+        }
+        
+        if(image != nil){
+            backgroundImageView.image = image
+        }
+        
+    }
+
+    
+    /**
+     This will Display Error message Label on View.
+     - parameter errorMessage : if Message Passed Blank than errorLabel Will Hide else if message not blank than error label will show.
+     */
+    public func displayErrorMessageLabel(_ errorMessage : String?){
+        
+        AppUtility.executeTaskInMainQueueWithCompletion { [weak self] in
+            
+            if self == nil{
+                return
+            }
+            
+            if(self!.errorMessageLabel != nil){
+                
+                self!.errorMessageLabel.isHidden = true
+                self!.errorMessageLabel.text = ""
+                
+                if(self!.errorMessageLabel.tag == -1){
+                    self!.sendSubview(toBack: self!.errorMessageLabel)
+                }
+                
+                if(errorMessage != nil){
+                    
+                    if(self!.errorMessageLabel.tag == -1){
+                        self!.bringSubview(toFront: self!.errorMessageLabel)
+                    }
+                    
+                    self!.errorMessageLabel.isHidden = false
+                    self!.errorMessageLabel.text = errorMessage
+                    
+                }
+                self!.errorMessageLabel.layoutSubviews()
+            }
+            else{
+                self!.errorMessageLabel = UILabel(frame: (self?.bounds)!)
+                
+                self!.errorMessageLabel.font = UIFont(name: FontStyle.medium, size: 15.0)
+                self!.errorMessageLabel.numberOfLines = 0
+                
+                self!.errorMessageLabel.preferredMaxLayoutWidth = 200
+                self!.errorMessageLabel.textAlignment = .center
+                
+                self!.errorMessageLabel.backgroundColor = UIColor.clear
+                self!.errorMessageLabel.textColor = Color.labelErrorText.withAlpha(1.0)
+                
+                self!.errorMessageLabel.tag = -1
+                self!.addSubview(self!.errorMessageLabel)
+                self!.displayErrorMessageLabel(errorMessage)
+            }
+        }
     }
     
     

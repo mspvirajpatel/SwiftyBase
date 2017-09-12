@@ -26,7 +26,7 @@ class BaseControlsDemoController: BaseViewController {
         super.init(iView: buttonDemoView, andNavigationTitle: "Base Controls")
         self.loadViewControls()
         self.setViewlayout()
-        self.displayMenuButton(image: UIImage(named: "menu"))
+        self.displayMenuButton(image: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {

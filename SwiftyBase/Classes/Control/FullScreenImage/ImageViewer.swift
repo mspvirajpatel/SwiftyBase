@@ -169,7 +169,8 @@ open class ImageViewer: UIViewController {
     // MARK: - Animation
     fileprivate func animateEntry() {
         guard let image = imageView.image else {
-            fatalError("no image provided")
+            return
+            
         }
         self.imageView.frame = self.originalFrameRelativeToScreen;
         

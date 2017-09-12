@@ -8,11 +8,15 @@
 
 import UIKit
 
-class Result: NSObject, NSCoding{
+class Result: NSObject, NSCoding, NSMutableCopying{
     
     var code : String!
     var name : String!
     var states : Any!
+   
+    required override init() {
+        super.init()
+    }
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
@@ -70,5 +74,22 @@ class Result: NSObject, NSCoding{
         }
         
     }
+    
+    // MARK: - NSCopying Delegate Method -
+    func mutableCopy(with zone: NSZone? = nil) -> Any {
+        return getMutable()
+    }
+    
+    private func getMutable() -> Result{
+        
+        let object : Result = Result()
+        
+        object.code = self.code
+        object.name = self.name
+        object.states = self.states
+     
+        return object
+    }
+
     
 }

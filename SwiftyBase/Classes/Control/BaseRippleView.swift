@@ -8,10 +8,10 @@
 import Foundation
 
 public protocol RippleEffect {
-    var rippleView: RippleView { get set }
+    var rippleView: BaseRippleView { get set }
 }
 
-open class RippleView: UIView {
+open class BaseRippleView: UIView {
     
     // MARK: - Initialization
     

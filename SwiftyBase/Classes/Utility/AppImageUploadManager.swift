@@ -101,7 +101,7 @@ open class AppImageUploadManager: NSObject
     {
         documentPath = AppUtility.getDocumentDirectoryPath()
         fileManager = FileManager()
-        uploadImageDirectoryPath = AppUtility.stringByPathComponet(fileName: "uploadImage", Path: documentPath!)
+        uploadImageDirectoryPath = AppUtility.stringByPathComponet(fileName: "UploadImages", Path: documentPath!)
     }
     
     fileprivate func saveImagesInCatch(arrImage : [UIImage])

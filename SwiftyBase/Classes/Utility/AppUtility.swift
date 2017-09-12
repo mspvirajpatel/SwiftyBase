@@ -6,12 +6,10 @@
 //
 //
 
-#if os(macOS)
-    import Cocoa
-#else
-    import UIKit
-#endif
+
+import UIKit
 import SystemConfiguration
+import UserNotifications
 
 open class AppUtility: NSObject {
     
@@ -41,6 +39,49 @@ open class AppUtility: NSObject {
         return UIApplication.shared.delegate
     }
     
+    public class func setPushNotificationEnabled(_ isEnabled: Bool) {
+        
+        let application = UIApplication.shared
+        
+        if isEnabled {
+            
+            if #available(iOS 10, *) {
+                
+                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+                    
+                    guard error == nil else {
+                        //Display Error.. Handle Error.. etc..
+                        return
+                    }
+                    
+                    if granted {
+                        //Do stuff here..
+                    }
+                    else {
+                        //Handle user denying permissions..
+                    }
+                }
+                
+            }
+            else {
+                let settings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+                application.registerUserNotificationSettings(settings)
+                application.registerForRemoteNotifications()
+            }
+            
+            //push notitification connection
+            NSLog("Connected.")
+        }
+        else {
+            if application.isRegisteredForRemoteNotifications {
+                application.unregisterForRemoteNotifications()
+                
+            }
+            //push notitification connection disconnect Code
+            NSLog("Disconnected.")
+            
+        }
+    }
     //  MARK: - User Defaults Methods
     
     public class func getUserDefaultsObjectForKey(_ key: String)->AnyObject{
@@ -243,6 +284,46 @@ open class AppUtility: NSObject {
         return mobileNo.characters.count == 10 ? true : false
     }
     
+    class func isOnlyNumber (_ candidate: String) -> Bool {
+        let urlRegEx: String = "^[0-9]+$"
+        let urlTest: NSPredicate = NSPredicate(format: "SELF MATCHES %@",urlRegEx)
+        return urlTest.evaluate(with: candidate)
+    }
+    
+    class func isOnlyDecimal (_ candidate: String) -> Bool {
+        let urlRegEx: String = "\\d+(\\.\\d{1,2})?"
+        let urlTest: NSPredicate = NSPredicate(format: "SELF MATCHES %@",urlRegEx)
+        return urlTest.evaluate(with: candidate)
+    }
+    
+    class func isValiedHeight(_ height : String) -> Bool {
+        let urlRegEx: String = "\\d{1,2}+(\\.\\d{1,2})?"
+        let urlTest: NSPredicate = NSPredicate(format: "SELF MATCHES %@",urlRegEx)
+        return urlTest.evaluate(with: height)
+    }
+    
+    class func isValiedVirtical (_ candidate: String) -> Bool {
+        let urlRegEx: String = "^[0-9]{1,3}+$"
+        let urlTest: NSPredicate = NSPredicate(format: "SELF MATCHES %@",urlRegEx)
+        return urlTest.evaluate(with: candidate)
+    }
+    
+    
+    class func isValiedWeight(_ height : String) -> Bool {
+        let urlRegEx: String = "\\d{1,3}+(\\.\\d{1,2})?"
+        let urlTest: NSPredicate = NSPredicate(format: "SELF MATCHES %@",urlRegEx)
+        return urlTest.evaluate(with: height)
+    }
+    
+    class func validateCharCount(_ name: String,minLimit : Int,maxLimit : Int) -> Bool    {
+        // check the name is between 4 and 16 characters
+        if !(minLimit...maxLimit ~= name.characters.count) {
+            return false
+        }
+        return true
+    }
+    
+    
     // check the name is between 4 and 16 characters
     public func validateCharCount(_ name: String,minLimit : Int,maxLimit : Int) -> Bool    {
         if !(minLimit...maxLimit ~= name.characters.count) {
@@ -287,4 +368,142 @@ open class AppUtility: NSObject {
         return newImage!
     }
     
+    open static let DownloadCompletedNotif: String = {
+        return "com.AppDownloadManager.DownloadCompleted"
+    }()
+    
+    open static let baseFilePath: String = {
+        return (NSHomeDirectory() as NSString).appendingPathComponent("Documents") as String
+    }()
+    
+    open class func getUniqueFileNameWithPath(_ filePath : NSString) -> NSString {
+        let fullFileName        : NSString = filePath.lastPathComponent as NSString
+        let fileName            : NSString = fullFileName.deletingPathExtension as NSString
+        let fileExtension       : NSString = fullFileName.pathExtension as NSString
+        var suggestedFileName   : NSString = fileName
+        
+        var isUnique            : Bool = false
+        var fileNumber          : Int = 0
+        
+        let fileManger          : FileManager = FileManager.default
+        
+        repeat {
+            var fileDocDirectoryPath : NSString?
+            
+            if fileExtension.length > 0 {
+                fileDocDirectoryPath = "\(filePath.deletingLastPathComponent)/\(suggestedFileName).\(fileExtension)" as NSString?
+            } else {
+                fileDocDirectoryPath = "\(filePath.deletingLastPathComponent)/\(suggestedFileName)" as NSString?
+            }
+            
+            let isFileAlreadyExists : Bool = fileManger.fileExists(atPath: fileDocDirectoryPath! as String)
+            
+            if isFileAlreadyExists {
+                fileNumber += 1
+                suggestedFileName = "\(fileName)(\(fileNumber))" as NSString
+            } else {
+                isUnique = true
+                if fileExtension.length > 0 {
+                    suggestedFileName = "\(suggestedFileName).\(fileExtension)" as NSString
+                }
+            }
+            
+        } while isUnique == false
+        
+        return suggestedFileName
+    }
+    
+    open class func calculateFileSizeInUnit(_ contentLength : Int64) -> Float {
+        let dataLength : Float64 = Float64(contentLength)
+        if dataLength >= (1024.0*1024.0*1024.0) {
+            return Float(dataLength/(1024.0*1024.0*1024.0))
+        } else if dataLength >= 1024.0*1024.0 {
+            return Float(dataLength/(1024.0*1024.0))
+        } else if dataLength >= 1024.0 {
+            return Float(dataLength/1024.0)
+        } else {
+            return Float(dataLength)
+        }
+    }
+    
+    open class func calculateUnit(_ contentLength : Int64) -> NSString {
+        if(contentLength >= (1024*1024*1024)) {
+            return "GB"
+        } else if contentLength >= (1024*1024) {
+            return "MB"
+        } else if contentLength >= 1024 {
+            return "KB"
+        } else {
+            return "Bytes"
+        }
+    }
+    
+    open class func addSkipBackupAttributeToItemAtURL(_ docDirectoryPath : NSString) -> Bool {
+        let url : URL = URL(fileURLWithPath: docDirectoryPath as String)
+        let fileManager = FileManager.default
+        if fileManager.fileExists(atPath: url.path) {
+            
+            do {
+                try (url as NSURL).setResourceValue(NSNumber(value: true as Bool), forKey: URLResourceKey.isExcludedFromBackupKey)
+                return true
+            } catch let error as NSError {
+                print("Error excluding \(url.lastPathComponent) from backup \(error)")
+                return false
+            }
+            
+        } else {
+            return false
+        }
+    }
+    
+    open class func getFreeDiskspace() -> Int64? {
+        let documentDirectoryPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let systemAttributes: AnyObject?
+        do {
+            systemAttributes = try FileManager.default.attributesOfFileSystem(forPath: documentDirectoryPath.last!) as AnyObject?
+            let freeSize = systemAttributes?[FileAttributeKey.systemFreeSize] as? NSNumber
+            return freeSize?.int64Value
+        } catch let error as NSError {
+            print("Error Obtaining System Memory Info: Domain = \(error.domain), Code = \(error.code)")
+            return nil;
+        }
+    }
+    
+    // MARK: - Get IP Address of Device
+    
+    //    class func getIFAddresses() -> [String]
+    //    {
+    //        var addresses = [String]()
+    //
+    //        // Get list of all interfaces on the local machine:
+    //        var ifaddr : UnsafeMutablePointer<ifaddrs>? = nil
+    //        if getifaddrs(&ifaddr) == 0
+    //        {
+    //            // For each interface ...
+    //            while ifaddr != nil
+    //            {
+    //                let ptr = ifaddr
+    //                let flags = Int32((ptr?.pointee.ifa_flags)!)
+    //                var addr = ptr?.pointee.ifa_addr.pointee
+    //
+    //                // Check for running IPv4, IPv6 interfaces. Skip the loopback interface.
+    //                if (flags & (IFF_UP|IFF_RUNNING|IFF_LOOPBACK)) == (IFF_UP|IFF_RUNNING) {
+    //                    if addr?.sa_family == UInt8(AF_INET) || addr?.sa_family == UInt8(AF_INET6)
+    //                    {
+    //                        // Convert interface address to a human readable string:
+    //                        var hostname = [CChar](repeating: 0, count: Int(NI_MAXHOST))
+    //                        if (getnameinfo(&addr!, socklen_t((addr?.sa_len)!), &hostname, socklen_t(hostname.count),
+    //                                        nil, socklen_t(0), NI_NUMERICHOST) == 0)
+    //                        {
+    //                            addresses.append(String.init(cString: hostname))
+    //                        }
+    //                    }
+    //                }
+    //                ifaddr = ptr?.pointee.ifa_next
+    //            }
+    //            freeifaddrs(ifaddr)
+    //        }
+    //        return addresses
+    //    }
+
 }
