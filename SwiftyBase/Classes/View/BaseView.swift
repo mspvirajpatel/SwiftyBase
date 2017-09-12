@@ -225,7 +225,6 @@ open class BaseView: UIView {
     
     // MARK: - Public Interface -
 
-    
     /**
      This is will check the TextControl is first in its SuperView
      */
@@ -383,8 +382,8 @@ open class BaseView: UIView {
             if isAvailable == true{
                 if showLoaddingView == true
                 {
-                    
-                    BaseProgressHUD.shared.showInView(view: from)
+                    self?.makeToastActivity()
+//                    BaseProgressHUD.shared.showInView(view: from)
                 }
                 
             }
@@ -416,3 +415,47 @@ open class BaseView: UIView {
     }
 
 }
+
+extension UIView{
+    
+    open func isShowEmptyView(_ isShow : Bool, message : String)
+    {
+        if isShow
+        {
+            //first remove old
+            for view in self.subviews {
+                if view.tag == 99 {
+                    view.removeFromSuperview()
+                    break
+                }
+            }
+            
+            //init
+            let emptyStateView : BaseEmptyState = BaseEmptyState()
+            //customize
+            emptyStateView.message = message
+            emptyStateView.tag = 99
+            emptyStateView.buttonHidden = true
+            //add subview
+            self.addSubview(emptyStateView)
+            
+            //add autolayout
+            emptyStateView.translatesAutoresizingMaskIntoConstraints = false
+            
+            emptyStateView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+            emptyStateView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+            emptyStateView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.6).isActive = true
+            emptyStateView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.55).isActive = true
+            self.layoutIfNeeded()
+        }
+        else{
+            for view in self.subviews {
+                if view.tag == 99 {
+                    view.removeFromSuperview()
+                    break
+                }
+            }
+        }
+    }
+}
+

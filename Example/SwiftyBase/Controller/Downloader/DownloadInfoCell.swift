@@ -190,7 +190,7 @@ class DownloadInfoCell: UITableViewCell {
         lblSizeStatus.text = fileSize
         lblStatus.text = downloadModel.status
         
-//        imgThumb.setImageURL(downloadModel.fileURL)
+        imgThumb.setImageURL(downloadModel.fileURL)
     }
     
     // MARK: - User Interaction -

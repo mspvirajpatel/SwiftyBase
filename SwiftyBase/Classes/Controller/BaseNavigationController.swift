@@ -18,6 +18,27 @@ open class BaseNavigationController: UINavigationController,UIGestureRecognizerD
     // MARK: - Interface
     @IBInspectable open var clearBackTitle: Bool = true
     
+    @IBInspectable open var NavigationtintColor: UIColor = UIColor.clear {
+        willSet {
+            self.navigationBar.tintColor = newValue
+        }
+    }
+    
+    @IBInspectable open var NavigationbarTintColor: UIColor {
+        get {
+            return self.navigationBar.barTintColor!
+        }
+        set {
+            self.navigationBar.barTintColor = newValue
+        }
+    }
+    
+    @IBInspectable open var BottomBoarderColor: UIColor = UIColor.clear {
+        willSet {
+            self.navigationBar.setBottomBorder(newValue, width: 1.0)
+        }
+    }
+    
     // MARK: - Lifecycle -
     
     override open func viewDidLoad() {

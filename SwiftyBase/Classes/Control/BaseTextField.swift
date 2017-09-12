@@ -33,6 +33,22 @@ public enum BaseTextFieldType : Int {
     case noAutoScroll // For Not want Auto Scroll when keyboard show
     case showPassword // For Password Textfiedl with show/hide button
     case withoutClear // For TextField Without clear button
+    case none
+    init(named baseButtonType: String) {
+        switch baseButtonType
+        {
+        case "primary": self = .primary
+            break
+        case "noAutoScroll": self = .noAutoScroll
+            break
+        case "showPassword": self = .showPassword
+            break
+        case "withoutClear": self = .withoutClear
+            break
+        default: self = .none
+            break
+        }
+    }
 }
 
 /**
@@ -57,6 +73,14 @@ open class BaseTextField: UITextField, UITextFieldDelegate {
     open var type : BaseTextFieldType = BaseTextFieldType.primary
    
     public var btnShowPassword : UIButton!
+    
+    @IBInspectable open var BaseTextFieldTypeName: String? {
+        willSet {
+            type = BaseTextFieldType(named: newValue ?? "primary")
+            self.setCommonProperties()
+            self.setlayout()
+        }
+    }
     
     //if set . showPassword Must be Set This Variable
     @IBInspectable open var setShowPasswordImage: UIImage {
@@ -243,6 +267,9 @@ open class BaseTextField: UITextField, UITextFieldDelegate {
             self.textAlignment = .center
             break
             
+        default:
+            
+            break
         }
         
         self.translatesAutoresizingMaskIntoConstraints = false

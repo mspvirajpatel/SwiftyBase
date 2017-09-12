@@ -424,13 +424,25 @@ public extension String {
         return self
     }
     
-//    public subscript(r: Range<Int>) -> String {
-//        get {
-//            let startIndex = self.characters.index(self.startIndex, offsetBy: r.lowerBound)
-//            let endIndex = self.characters.index(self.startIndex, offsetBy: r.upperBound - r.lowerBound)
-//            return self[startIndex..<endIndex]
-//        }
-//    }
+    public subscript(i: Int) -> Character {
+        get {
+            let index = self.characters.index(self.startIndex, offsetBy: i)
+            return self[index]
+        }
+    }
+
+    
+    public subscript (i: Int) -> String {
+        return String(self[i] as Character)
+    }
+
+    public subscript(r: Range<Int>) -> String {
+        get {
+            let startIndex = self.characters.index(self.startIndex, offsetBy: r.lowerBound)
+            let endIndex = self.characters.index(self.startIndex, offsetBy: r.upperBound - r.lowerBound)
+            return self[startIndex..<endIndex]
+        }
+    }
     
     public func substring(_ startIndex: Int, length: Int) -> String {
         let start = self.characters.index(self.startIndex, offsetBy: startIndex)
@@ -438,13 +450,7 @@ public extension String {
         return self[start..<end]
     }
     
-    public subscript(i: Int) -> Character {
-        get {
-            let index = self.characters.index(self.startIndex, offsetBy: i)
-            return self[index]
-        }
-    }
-    
+
     // Returns true if the string has at least one character in common with matchCharacters.
     public func containsCharactersIn(_ matchCharacters: String) -> Bool {
         let characterSet = CharacterSet(charactersIn: matchCharacters)

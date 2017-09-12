@@ -109,14 +109,17 @@ class APIDemoView: BaseView,UITableViewDataSource, UITableViewDelegate {
     
     func getListServerRequest(){
 
+        self.isShowEmptyView(true,message: "API Call Running...")
         APIManager.shared.getRequest(URL: API.countries, Parameter: NSDictionary(), completionHandler:{(result) in
             
             switch result{
             case .Success(let object, _):
-                
+                self.isShowEmptyView(false,message: "API Call Running...")
                 AppUtility.executeTaskInMainQueueWithCompletion {
+                    self.hideToastActivity()
                     BaseProgressHUD.shared.hide()
                 }
+                self.makeToast(message: "Success")
                 
                 let jsonData = (object as! String).parseJSONString
                 
@@ -130,6 +133,7 @@ class APIDemoView: BaseView,UITableViewDataSource, UITableViewDelegate {
             case .Error(let error):
                 
                 AppUtility.executeTaskInMainQueueWithCompletion {
+                    self.hideToastActivity()
                     BaseProgressHUD.shared.hide()
                 }
                 

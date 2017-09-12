@@ -43,6 +43,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CAAnimationDelegate {
         
         self.loadUI()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.rotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+        
+        
         return true
     }
     
@@ -124,7 +127,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CAAnimationDelegate {
         SideMenuManager.menuAnimationFadeStrength = 0.50
         
     }
-
-
+    
+    func rotated() {
+        if UIDeviceOrientationIsLandscape(UIDevice.current.orientation) {
+            print("Landscape")
+        }
+        
+        if UIDeviceOrientationIsPortrait(UIDevice.current.orientation) {
+            print("Portrait")
+        }
+    }
+    
 }
 

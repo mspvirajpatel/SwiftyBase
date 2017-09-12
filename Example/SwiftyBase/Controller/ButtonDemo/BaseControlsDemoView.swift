@@ -191,27 +191,25 @@ class BaseControlsDemoView: BaseView,BaseRadioButtonDelegate{
         super.setViewlayout()
         
         baseLayout.expandView(scrollView, insideView: self, betweenSpace: 10)
-        scrollView.backgroundColor = .blue
-        baseLayout.expandView(containerView, insideView: scrollView, betweenSpace: 10)
         
         baseLayout.viewDictionary = self.getDictionaryOfVariableBindings(superView: self, viewDic: NSDictionary()) as! [String : AnyObject]
         
         let controlTopBottomPadding : CGFloat = ControlConstant.verticalPadding
         let controlLeftRightPadding : CGFloat = ControlConstant.horizontalPadding
+        let widthTextField = UIScreen.main.bounds.width - 60
         
-        self.layoutSubviews()
-         self.layoutIfNeeded()
+        
         baseLayout.metrics = ["controlTopBottomPadding" : controlTopBottomPadding,
-                              "controlLeftRightPadding" : controlLeftRightPadding
+                              "controlLeftRightPadding" : controlLeftRightPadding,
+                              "widthTextField" : widthTextField
         ]
         
-        baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|-20@1000-[baseEmailTextField]-20@1000-|", options:NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: baseLayout.viewDictionary)
+        baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|-20@1000-[baseEmailTextField(widthTextField)]-20@1000-|", options:NSLayoutFormatOptions(rawValue: 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
         
-        baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|-20-[baseEmailTextField]-controlTopBottomPadding-[baseTextField]-controlTopBottomPadding-[baseTextView(120)]-controlTopBottomPadding-[btnPrimary]-controlTopBottomPadding-[btnSecondary]-controlTopBottomPadding-[baseSegment]-controlTopBottomPadding-[male][female]-|", options:[.alignAllLeading , .alignAllTrailing], metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
+        baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|-20-[baseEmailTextField]-controlTopBottomPadding-[baseTextField]-controlTopBottomPadding-[baseTextView(120)]-controlTopBottomPadding-[btnPrimary]-controlTopBottomPadding-[btnSecondary]-controlTopBottomPadding-[baseSegment]-controlTopBottomPadding-[male][female]-60-|", options:[.alignAllLeading , .alignAllTrailing], metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
         
         containerView.addConstraints(baseLayout.control_H)
         containerView.addConstraints(baseLayout.control_V)
-        containerView.backgroundColor = .red
         self.layoutSubviews()
         
     }
@@ -236,11 +234,11 @@ class BaseControlsDemoView: BaseView,BaseRadioButtonDelegate{
         print("\(currentButton.tag)")
         
         if currentButton.tag == 1 {
-            
+            self.makeToast(message: "Click Male")
         }
         
         if currentButton.tag == 2 {
-            
+            self.makeToast(message: "Click Female")
         }
     }
     // MARK: - User Interaction -

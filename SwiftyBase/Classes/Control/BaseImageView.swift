@@ -23,6 +23,12 @@ public enum BaseImageViewType : Int {
     case defaultImg = 3
 }
 
+public enum LoadingImageState {
+    case Idle
+    case Downloading
+    case Errored(URLSessionDownloadTask, NSError)
+}
+
 /**
  This class used to Create ImageView object and set image. We can use used this class as base ImageView in Whole Application.
  */
@@ -32,6 +38,10 @@ open class BaseImageView: UIImageView {
     
     /// Its type Of ImageView. Default is unknown
     open var imageViewType : BaseImageViewType = .unknown
+   
+    open var progressIndicatorView = BaseCircularLoader(frame: CGRect.zero)
+    
+    open var loadstate:LoadingImageState!
     
     // MARK: - Lifecycle -
     override init(frame: CGRect) {
@@ -63,6 +73,8 @@ open class BaseImageView: UIImageView {
     
     override open func layoutSubviews(){
         super.layoutSubviews()
+        
+        self.progressIndicatorView.frame.origin = self.center
         
         switch imageViewType {
         case .defaultImg:
@@ -138,7 +150,7 @@ open class BaseImageView: UIImageView {
 
 }
 
-public extension UIImageView{
+public extension BaseImageView{
     
 //    /**
 //     This imethod is Used to Set the image from Url.Its will set the Image when download complete meanwhile its show placeholder image on imageview. or progress bar.
@@ -264,6 +276,14 @@ public extension UIImageView{
      */
     
     public func setImageFromURL(_ url: String, placeholder: UIImage?, progress:((_ value: Float) -> Void)?,completion:((_ image: UIImage?,_ success: Bool) -> Void)?) -> ImageDownloader {
+      
+        progressIndicatorView.layoutSubviews()
+        self.progressIndicatorView.frame.origin = self.center
+        self.progressIndicatorView.frame = CGRect.init(x: self.progressIndicatorView.frame.origin.x, y: self.progressIndicatorView.frame.origin.y, width: 20.0, height: 20.0)
+        
+        addSubview(self.progressIndicatorView)
+        
+        self.layoutSubviews()
         
         self.image = placeholder
         
@@ -272,6 +292,8 @@ public extension UIImageView{
         downloader.downloadImageWithProgress(url, progress: progress, completion: {
             (image,success) in
             
+            self.progressIndicatorView.reveal()
+            self.loadstate = LoadingImageState.Idle
             
             DispatchQueue.main.async {
                 let animation = CATransition();

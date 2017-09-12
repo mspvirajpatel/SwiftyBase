@@ -126,7 +126,24 @@ open class AppUtility: NSObject {
     }
     
     //  MARK: - Misc Methods
-   
+//    let persiontage = AppUtility.calculatePercentage(oldFigure: 1100, newFigure: 1000)
+//    print("Persiontag :  \(persiontage)")
+    
+
+    public class func calculatePercentage(oldFigure: Int, newFigure: Int) -> Int {
+        
+        let percentChange: Float?
+        
+        if ((oldFigure != 0) && (newFigure != 0)) {
+            percentChange = (oldFigure.toFloat - newFigure.toFloat) / oldFigure.toFloat * 100 ;
+        }
+        else {
+            percentChange = 0.0;
+        }
+        return Int(percentChange!)
+    }
+    
+    
     //  MARK: - Time-Date Methods
     
     public class func convertDateToLocalTime(_ iDate: Date) -> Date {

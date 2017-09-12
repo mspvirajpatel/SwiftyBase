@@ -21,19 +21,25 @@ public enum PageView : Int {
     case Country = 3
     case Download = 4
     case ChangeLang = 5
-    static let allValues = [unknown, Button, APICall, Plist]
+    case Search = 6
+    static let allValues = [unknown, Button, APICall, Plist, Country, Download, ChangeLang,Search]
 }
 
-class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
+class ListView: BaseView,UITableViewDataSource, UITableViewDelegate, BaseSearchDelegate{
     
     // MARK: - Attributes -
     
-    var listControls : NSArray = ["lstBase","lstAPI","lstPlist","lstCountry","lstDownload","lstLanguage"]
+    var listControls : NSArray = ["lstBase","lstAPI","lstPlist","lstCountry","lstDownload","lstLanguage","Search View"]
  
     var imgView : BaseImageView!
     
     var personListTableView : UITableView!
 
+    lazy var search: BaseSearchView = {
+        let se = BaseSearchView.init(frame: UIScreen.main.bounds)
+        se.delegate = self
+        return se
+    }()
     
     // MARK: - Lifecycle -
     
@@ -124,6 +130,18 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
     
     
     // MARK: - Public Interface -
+    func opensearch() {
+        if let window = UIApplication.shared.keyWindow {
+            window.addSubview(self.search)
+            self.search.animate()
+        }
+    }
+    
+    func hideSearchView(status : Bool){
+        if status == true {
+            self.search.removeFromSuperview()
+        }
+    }
     
     // MARK: - User Interaction -
     
@@ -153,9 +171,8 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
         }
         
         let result = (self.listControls[indexPath.row] as! String).localiz()
-        cell?.textLabel?.text = (result as! String)
+        cell?.textLabel?.text = result
        
-        
         return cell!
     }
     
@@ -222,12 +239,18 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate{
             AppLanguageManger.shared.setLanguage(language: selectedLanguage)
         
             self.animateTable()
+            break
+            
+        case PageView.Search.rawValue:
+            self.opensearch()
+            break
             
         default:
             break
         }
         
     }
+    
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath){
         

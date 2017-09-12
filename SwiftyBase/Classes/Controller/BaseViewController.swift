@@ -12,6 +12,64 @@
     import UIKit
 #endif
 
+public extension UIViewController {
+    
+    public struct AssociatedKeys {
+        static var viewWillAppearOnceKey = "once_viewWillAppear"
+        static var viewDidAppearOnceKey = "once_viewDidAppear"
+    }
+    
+    public func getBookValue(key: UnsafeRawPointer) -> Bool {
+        return (objc_getAssociatedObject(self, key) as? Bool) ?? false
+    }
+    
+    public func setBoolValue(key: UnsafeRawPointer, value: AnyObject?) {
+        if getBookValue(key: key) { return }
+        objc_setAssociatedObject(self, key, value, .OBJC_ASSOCIATION_RETAIN)
+    }
+    
+    public var alreadyCalledViewWillAppearOnce: Bool {
+        get {
+            return getBookValue(key: &AssociatedKeys.viewWillAppearOnceKey)
+        }
+        set {
+            setBoolValue(key: &AssociatedKeys.viewWillAppearOnceKey, value: newValue as AnyObject?)
+        }
+    }
+    
+    public var alreadyCalledViewDidAppearOnce: Bool {
+        get {
+            return getBookValue(key: &AssociatedKeys.viewDidAppearOnceKey)
+        }
+        set {
+            setBoolValue(key:&AssociatedKeys.viewDidAppearOnceKey, value: newValue as AnyObject?)
+        }
+    }
+    
+    public func callOnce( flag: inout Bool, closure: () -> Void) {
+        if !flag {
+            closure()
+            flag = true
+        }
+    }
+    
+    public func viewWillAppearOnce(fromFunction: String = #function, closure: () -> Void) {
+        guard fromFunction == "viewWillAppear" else {
+            return
+        }
+        callOnce(flag: &alreadyCalledViewWillAppearOnce, closure: closure)
+    }
+    
+    public func viewDidAppearOnce(fromFunction: String = #function, closure: () -> Void) {
+        guard fromFunction == "viewDidAppear" else {
+            return
+        }
+        callOnce(flag: &alreadyCalledViewDidAppearOnce, closure: closure)
+    }
+
+}
+
+
 @IBDesignable
 open class BaseViewController: UIViewController , UINavigationControllerDelegate {
     
@@ -21,7 +79,31 @@ open class BaseViewController: UIViewController , UINavigationControllerDelegate
     open var btnName: UIButton!
     open var navigationTitleString : String!
     
+    @IBInspectable open var TitleNavigation : String {
+        get {
+            return self.navigationItem.title!
+        }
+        set {
+            self.navigationItem.title = newValue
+            navigationTitleString = newValue
+        }
+    }
+    
+    @IBInspectable open var displayMenu: Bool
+        {
+        get {
+            return self.displayMenu
+        }
+        set {
+            self.displayMenuButton(image: nil)
+        }
+    }
+
+    
     // MARK: - Lifecycle -
+    override open func awakeFromNib() {
+        
+    }
     
     required public init(){
         super.init(nibName: nil, bundle: nil)

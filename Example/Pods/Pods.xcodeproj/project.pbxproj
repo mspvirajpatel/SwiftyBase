@@ -89,6 +89,11 @@
 		7A802771A23595122C9AE0E53F9A2B91 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = D428C560D2C0E5539C1D50ACF490F6BD /* Country.swift */; };
 		7D6269A3CFE53C28DAA6B92E8FC017A7 /* FailureMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CEB9B86795A0FDAA385DB81A49672B /* FailureMessage.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		7DB45725FF31FAE5FD1DEB153CF74B0E /* Quick.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C5E4C955DDEF4822A80B37B5651F8ED /* Quick.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7E5CA31C1F67C3AD00A78657 /* BaseSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EFFD9041F67BEBF00A1540E /* BaseSearchView.swift */; };
+		7E77B2EF1F67A5E700D1481B /* BaseToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E77B2EE1F67A5E700D1481B /* BaseToast.swift */; };
+		7E77B2F11F67B12E00D1481B /* UIImageViewWordsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E77B2F01F67B12E00D1481B /* UIImageViewWordsExtension.swift */; };
+		7E7C594D1F67B80300C09192 /* BaseCircularLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA103E61F67B3D7007AAE2F /* BaseCircularLoader.swift */; };
+		7E7C594F1F67BBAD00C09192 /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7C594E1F67BBAD00C09192 /* IntExtension.swift */; };
 		7EDCC5591F666E2A00E97393 /* NSObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDCC5581F666E2A00E97393 /* NSObjectExtension.swift */; };
 		7EDCC55B1F666EB300E97393 /* UIAlertControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDCC55A1F666EB300E97393 /* UIAlertControllerExtension.swift */; };
 		7EDCC55D1F666F0700E97393 /* TimerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDCC55C1F666F0700E97393 /* TimerExtension.swift */; };
@@ -100,6 +105,8 @@
 		7EDCC56B1F66936B00E97393 /* AppDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDCC56A1F66936B00E97393 /* AppDownloadManager.swift */; };
 		7EDCC56D1F66939700E97393 /* AppDownloadModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDCC56C1F66939700E97393 /* AppDownloadModel.swift */; };
 		7EDCC5781F66C5A400E97393 /* AppLanguageManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDCC5771F66C5A400E97393 /* AppLanguageManger.swift */; };
+		7EF3B6381F67F63300269940 /* BaseEmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF3B6371F67F63300269940 /* BaseEmptyState.swift */; };
+		7EF3B63A1F67F68D00269940 /* BaseEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF3B6391F67F68D00269940 /* BaseEmptyStateView.swift */; };
 		7F6750C7B1847733370B18C4CBFE32DF /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE1F2D1C9D5935F6B6B5CC49C89E323 /* Errors.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		8015239010C1D642F14C105F8FF8E035 /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC2EAD622CBF58EAD71675C54310955 /* Expression.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		8507F4BF7437EB40A3626EDCC68BFF6D /* Contain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1BBF1DEB58CE50279BE9C836B3DE1E1 /* Contain.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
@@ -308,6 +315,10 @@
 		7A0FC4F962D7750618EA16E0B821E4B4 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7AA367A34E0B8C1B01749CCC12FD43C5 /* NimbleXCTestHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NimbleXCTestHandler.swift; path = Sources/Nimble/Adapters/NimbleXCTestHandler.swift; sourceTree = "<group>"; };
 		7DFEFE8DA38EF4E453D7CE779C264083 /* DateExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		7E77B2EE1F67A5E700D1481B /* BaseToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseToast.swift; sourceTree = "<group>"; };
+		7E77B2F01F67B12E00D1481B /* UIImageViewWordsExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewWordsExtension.swift; sourceTree = "<group>"; };
+		7E7C594E1F67BBAD00C09192 /* IntExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntExtension.swift; sourceTree = "<group>"; };
+		7EA103E61F67B3D7007AAE2F /* BaseCircularLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCircularLoader.swift; sourceTree = "<group>"; };
 		7EDCC5581F666E2A00E97393 /* NSObjectExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSObjectExtension.swift; sourceTree = "<group>"; };
 		7EDCC55A1F666EB300E97393 /* UIAlertControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAlertControllerExtension.swift; sourceTree = "<group>"; };
 		7EDCC55C1F666F0700E97393 /* TimerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerExtension.swift; sourceTree = "<group>"; };
@@ -319,6 +330,9 @@
 		7EDCC56A1F66936B00E97393 /* AppDownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDownloadManager.swift; sourceTree = "<group>"; };
 		7EDCC56C1F66939700E97393 /* AppDownloadModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDownloadModel.swift; sourceTree = "<group>"; };
 		7EDCC5771F66C5A400E97393 /* AppLanguageManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppLanguageManger.swift; sourceTree = "<group>"; };
+		7EF3B6371F67F63300269940 /* BaseEmptyState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseEmptyState.swift; sourceTree = "<group>"; };
+		7EF3B6391F67F68D00269940 /* BaseEmptyStateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseEmptyStateView.swift; sourceTree = "<group>"; };
+		7EFFD9041F67BEBF00A1540E /* BaseSearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseSearchView.swift; sourceTree = "<group>"; };
 		7FE7DAEFE89DD4FD50B980F9C9D6B7B2 /* Functional.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Functional.swift; path = Sources/Nimble/Utils/Functional.swift; sourceTree = "<group>"; };
 		80E74ED964600EBA422EEDDD00C1B316 /* BaseView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		856B2E5E4EC8E2BD9ED45AAD6930A672 /* NMBStringify.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = NMBStringify.m; path = Sources/NimbleObjectiveC/NMBStringify.m; sourceTree = "<group>"; };
@@ -605,6 +619,7 @@
 				DA4DE6AFDFACE96AF55A2DC71A31EC3E /* UIColorExtension.swift */,
 				C25F5D4B418991EAA7E7DDD068BBAD15 /* UIFontExtension.swift */,
 				586C1161A8EA1F3222FF5C68169E0EA0 /* UIImageExtension.swift */,
+				7E77B2F01F67B12E00D1481B /* UIImageViewWordsExtension.swift */,
 				792B550C38E869AAF892E48F10438052 /* UINavigationControllerExtension.swift */,
 				088EFEAE1E1CF15383EB00493F0A6980 /* UIScrollViewExtension.swift */,
 				248AED204307B445D634DC98DD0B1217 /* UITableViewExtension.swift */,
@@ -617,6 +632,7 @@
 				7EDCC55E1F666F3700E97393 /* DoubleExtension .swift */,
 				7EDCC5601F66700C00E97393 /* CharacterExtension.swift */,
 				7EDCC5621F66703900E97393 /* UIButtonExtension.swift */,
+				7E7C594E1F67BBAD00C09192 /* IntExtension.swift */,
 			);
 			name = Extensions;
 			path = SwiftyBase/Classes/Extensions;
@@ -852,6 +868,11 @@
 				3C093A36C59AFB0D9A1BB1F36CA666E4 /* BaseTextField.swift */,
 				0E9C9FCE6492270EC4319C51FCC58CB7 /* BaseTextView.swift */,
 				7EDCC5641F66719600E97393 /* BaseRadioButton.swift */,
+				7EA103E61F67B3D7007AAE2F /* BaseCircularLoader.swift */,
+				7E77B2EE1F67A5E700D1481B /* BaseToast.swift */,
+				7EFFD9041F67BEBF00A1540E /* BaseSearchView.swift */,
+				7EF3B6371F67F63300269940 /* BaseEmptyState.swift */,
+				7EF3B6391F67F68D00269940 /* BaseEmptyStateView.swift */,
 				66998DD549C749C3F3B701A7128332C5 /* FullScreenImage */,
 			);
 			name = Control;
@@ -1120,6 +1141,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E7C594D1F67B80300C09192 /* BaseCircularLoader.swift in Sources */,
 				A9F4AF4E76DD56C758708F8511262375 /* APIManager.swift in Sources */,
 				7EDCC55F1F666F3700E97393 /* DoubleExtension .swift in Sources */,
 				EB0B2CC50AD9246AF03A13B598C79D69 /* AppAlert.swift in Sources */,
@@ -1129,6 +1151,7 @@
 				A8AFF755690D7F3B5B7068D53966B38F /* AppEnumerable.swift in Sources */,
 				B84B0C4CA3EBCC2FDF9BF6A45190C4BA /* AppEventBus.swift in Sources */,
 				B3F2AA38AD2A7577943E9AC70D6A79B1 /* AppImageUploadManager.swift in Sources */,
+				7EF3B6381F67F63300269940 /* BaseEmptyState.swift in Sources */,
 				A142915AC5A18442DE4FBB50A2839041 /* AppInterfaceUtility.swift in Sources */,
 				E869AE59719BA2D6B2EC1DF5E697DE53 /* AppLocationManager.swift in Sources */,
 				7EDCC5691F668F4900E97393 /* AppCustomPhotoAlbum.swift in Sources */,
@@ -1138,8 +1161,10 @@
 				01609C4EE5F57C6F031F83D2CEA04AF7 /* AppTheme.swift in Sources */,
 				86EAE78D93F86600970A95539242FB17 /* AppTimer.swift in Sources */,
 				B377F96AF6393CEF40E4F8717AA0D082 /* AppUtility.swift in Sources */,
+				7E5CA31C1F67C3AD00A78657 /* BaseSearchView.swift in Sources */,
 				A73CD8844B8E214B6CA22C3B00504B7A /* BaseButton.swift in Sources */,
 				6C8B70A3488EF9F90511903E6A08044F /* BaseCountriesPicker.swift in Sources */,
+				7EF3B63A1F67F68D00269940 /* BaseEmptyStateView.swift in Sources */,
 				C5B9977ECFFF646948F25BE3BFD5F4D5 /* BaseDrawerMenuItem.swift in Sources */,
 				5D3E2C3F56D8BFFCE702583DD9936128 /* BaseError.swift in Sources */,
 				16C01C6F54E299D67BEFA5344ADCFFDD /* BaseImageView.swift in Sources */,
@@ -1167,6 +1192,7 @@
 				F2D1E1EF71E1B3A8D1CA85D76B224BC7 /* NSDictionaryExtension.swift in Sources */,
 				CC8973270B3191F7029EB27835AE321F /* SideMenuManager.swift in Sources */,
 				2CFE93B3B6F33F8ECE760F763D9FF979 /* SideMenuTransition.swift in Sources */,
+				7E77B2F11F67B12E00D1481B /* UIImageViewWordsExtension.swift in Sources */,
 				7EDCC55D1F666F0700E97393 /* TimerExtension.swift in Sources */,
 				FB5BF3183008B2FF2EEFC0B782C8AC12 /* StringExtension.swift in Sources */,
 				7EDCC56D1F66939700E97393 /* AppDownloadModel.swift in Sources */,
@@ -1184,6 +1210,8 @@
 				37C175FC41E5FC3B084EFB080866CCCB /* UITextFieldExtension.swift in Sources */,
 				7EDCC5781F66C5A400E97393 /* AppLanguageManger.swift in Sources */,
 				7EDCC5651F66719600E97393 /* BaseRadioButton.swift in Sources */,
+				7E77B2EF1F67A5E700D1481B /* BaseToast.swift in Sources */,
+				7E7C594F1F67BBAD00C09192 /* IntExtension.swift in Sources */,
 				58CC36469B27FAE949D0B87F11544C24 /* UIViewControllerExtension.swift in Sources */,
 				7EDCC55B1F666EB300E97393 /* UIAlertControllerExtension.swift in Sources */,
 				31A6344E7AC1F3B36D514B5406D198C7 /* UIViewExtension.swift in Sources */,
