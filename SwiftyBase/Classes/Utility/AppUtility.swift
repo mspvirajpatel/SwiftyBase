@@ -126,10 +126,21 @@ open class AppUtility: NSObject {
     }
     
     //  MARK: - Misc Methods
-//    let persiontage = AppUtility.calculatePercentage(oldFigure: 1100, newFigure: 1000)
-//    print("Persiontag :  \(persiontage)")
-    
 
+    
+    public class func generateOrderIDWithPrefix(_ prefix: String) -> String {
+        
+        srandom(UInt32(time(nil)))
+        
+        let randomNo: Int = Int(arc4random_uniform(UInt32(6)))//just randomizing the number
+        let orderID: String = "\(prefix)\(randomNo)"
+        return orderID
+        
+    }
+    
+    //    let persiontage = AppUtility.calculatePercentage(oldFigure: 1100, newFigure: 1000)
+    //    print("Persiontag :  \(persiontage)")
+    
     public class func calculatePercentage(oldFigure: Int, newFigure: Int) -> Int {
         
         let percentChange: Float?

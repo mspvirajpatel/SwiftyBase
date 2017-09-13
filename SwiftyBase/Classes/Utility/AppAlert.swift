@@ -61,7 +61,7 @@ public class AppAlert {
 }
 
 
-//Used For Open AlertBox
+////Used For Open AlertBox
 //
 //AppAlert(title: "Enter Tilte", message: "Please type message", preferredStyle: .alert)
 //    .addAction(title: "NO", style: .cancel) { _ in
@@ -70,15 +70,12 @@ public class AppAlert {
 //    .addAction(title: "Okay", style: .default) { _ in
 //         // action
 //    }
-//    .addTextFieldHandler({ (textField) in
-//        textField.placeholder = "Enter your text"
-//    })
 //    .build()
-//    .kam_show(animated: true)
+//    .show(animated: true)
 //
 // --------------------------------------------------------------------------------
 //
-//Used For ActionSheet Open
+////Used For ActionSheet Open
 //
 //if UIDevice.current.userInterfaceIdiom != .pad {
 //    // Sample to show on iPad
@@ -90,7 +87,7 @@ public class AppAlert {
 //            print("Yes")
 //        }
 //        .build()
-//        .kam_show(animated: true)
+//        .showAlert(animated: true)
 //} else {
 //    // Sample to show on iPad
 //    AppAlert(title: "Question", message: "Are you sure?", preferredStyle: .actionSheet)
@@ -103,6 +100,6 @@ public class AppAlert {
 //        }
 //        .setPopoverPresentationProperties(sourceView: self, sourceRect: CGRect.init(x: 0, y: 0, width: 100, height: 100), barButtonItem: nil, permittedArrowDirections: .any)
 //        .build()
-//        .kam_show(animated: true)
+//        .showAlert(animated: true)
 //}
-
+//

@@ -13,7 +13,7 @@
 #endif
 import SwiftyBase
 
-class BaseControlsDemoView: BaseView,BaseRadioButtonDelegate{
+class BaseControlsDemoView: BaseView,BaseRadioButtonDelegate,PGTransactionDelegate{
 
     // MARK: - Attributes -
     
@@ -26,7 +26,8 @@ class BaseControlsDemoView: BaseView,BaseRadioButtonDelegate{
     var btnPrimary : BaseButton!
     
     var btnSecondary : BaseButton!
-  
+    var btnPaytmBuy : BaseButton!
+    
     var male : BaseButton!
     
     var female : BaseButton!
@@ -117,12 +118,67 @@ class BaseControlsDemoView: BaseView,BaseRadioButtonDelegate{
             BasePopOverMenu.showForSender(sender: (sender as!    UIButton),
                                               with: ["Facebook","Google","Outlook"],
                                               done: { (selectedIndex) -> () in
+                                                
+                                                let pick:BaseDatePicker = BaseDatePicker()
+                                                pick.titleString = "Select Date"
+                                                pick.buttonColor = Color.buttonPrimaryBG.value
+                                                pick.pickerMode  = .date
+                                                pick.block = { (date) in
+                                                    print(date ?? "No Date")
+                                                }
+                                                pick.showPicker(viewController: self.getViewControllerFromSubView()!)
+                                                
                         print("SelectedIndex :\(selectedIndex)")
+                                                
             }) {
                 
             }
         }
         
+        btnPaytmBuy = BaseButton.init(ibuttonType: .secondary, iSuperView: containerView)
+        btnPaytmBuy.layer.setValue("btnPaytmBuy", forKey: ControlConstant.name)
+        btnPaytmBuy.setTitle("Paytm Buy Demo", for: UIControlState())
+        btnPaytmBuy.setButtonTouchUpInsideEvent { (sender, object) in
+            //Step 1: Create a default merchant config object
+            let mc: PGMerchantConfiguration = PGMerchantConfiguration.default()
+            
+            //Step 2: If you have your own checksum generation and validation url set this here. Otherwise use the default Paytm urls
+            
+            mc.checksumGenerationURL = "https://pguat.paytm.com/paytmchecksum/paytmCheckSumGenerator.jsp"
+            mc.checksumValidationURL = "https://pguat.paytm.com/paytmchecksum/paytmCheckSumVerify.jsp"
+            
+            //Step 3: Create the order with whatever params you want to add. But make sure that you include the merchant mandatory params
+            var orderDict: [AnyHashable: Any] = NSMutableDictionary() as! [AnyHashable: Any]
+            
+            orderDict["MID"] = "WorldP64425807474247"
+            //Merchant configuration in the order object
+            orderDict["CHANNEL_ID"] = "WAP"
+            orderDict["INDUSTRY_TYPE_ID"] = "Retail"
+            orderDict["WEBSITE"] = "worldpressplg"
+            //Order configuration in the order object
+            orderDict["TXN_AMOUNT"] = "5"
+            orderDict["ORDER_ID"] = AppUtility.generateOrderIDWithPrefix("swiftybase")
+            orderDict["REQUEST_TYPE"] = "DEFAULT"
+            orderDict["CUST_ID"] = "1234567890"
+            
+            let order: PGOrder = PGOrder(params: orderDict)
+            
+            //Step 4: Choose the PG server. In your production build dont call selectServerDialog. Just create a instance of the
+            //PGTransactionViewController and set the serverType to eServerTypeProduction
+            PGServerEnvironment.selectServerDialog(self, completionHandler: {(type: ServerType) -> Void in
+                
+                let txnController = PGTransactionViewController.init(transactionFor: order)
+                
+                if type != eServerTypeNone {
+                    txnController?.serverType = type
+                    txnController?.merchant = mc
+                    txnController?.delegate = self
+                    self.showController(txnController!)
+                }
+            })
+
+        }
+
         
         self.addSubview(roundMenuButton)
         roundMenuButton.badge(text: nil)
@@ -185,6 +241,8 @@ class BaseControlsDemoView: BaseView,BaseRadioButtonDelegate{
         radioButtonController!.shouldLetDeSelect = true
         radioButtonController?.pressed(male)
         
+        
+        
     }
     
     override func setViewlayout(){
@@ -206,7 +264,7 @@ class BaseControlsDemoView: BaseView,BaseRadioButtonDelegate{
         
         baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|-20@1000-[baseEmailTextField(widthTextField)]-20@1000-|", options:NSLayoutFormatOptions(rawValue: 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
         
-        baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|-20-[baseEmailTextField]-controlTopBottomPadding-[baseTextField]-controlTopBottomPadding-[baseTextView(120)]-controlTopBottomPadding-[btnPrimary]-controlTopBottomPadding-[btnSecondary]-controlTopBottomPadding-[baseSegment]-controlTopBottomPadding-[male][female]-60-|", options:[.alignAllLeading , .alignAllTrailing], metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
+        baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|-20-[baseEmailTextField]-controlTopBottomPadding-[baseTextField]-controlTopBottomPadding-[baseTextView(120)]-controlTopBottomPadding-[btnPrimary]-controlTopBottomPadding-[btnSecondary]-controlTopBottomPadding-[btnPaytmBuy]-controlTopBottomPadding-[baseSegment]-controlTopBottomPadding-[male][female]-60-|", options:[.alignAllLeading , .alignAllTrailing], metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
         
         containerView.addConstraints(baseLayout.control_H)
         containerView.addConstraints(baseLayout.control_V)
@@ -239,12 +297,93 @@ class BaseControlsDemoView: BaseView,BaseRadioButtonDelegate{
         
         if currentButton.tag == 2 {
             self.makeToast(message: "Click Female")
+            
         }
     }
     // MARK: - User Interaction -
     
     // MARK: - Internal Helpers -
+    func showController(_ controller: PGTransactionViewController) {
+        
+        if self.getViewControllerFromSubView()!.navigationController != nil {
+            self.getViewControllerFromSubView()!.navigationController!.pushViewController(controller, animated: true)
+        }
+        else {
+            self.getViewControllerFromSubView()!.present(controller, animated: true, completion: {() -> Void in
+            })
+        }
+    }
     
+    func removeController(_ controller: PGTransactionViewController) {
+        if self.getViewControllerFromSubView()!.navigationController != nil {
+            self.getViewControllerFromSubView()!.navigationController!.popViewController(animated: true)
+        }
+        else {
+            controller.dismiss(animated: true, completion: {() -> Void in
+            })
+        }
+    }
+    
+    // MARK: Delegate methods of Payment SDK.
+    func didSucceedTransaction(_ controller: PGTransactionViewController, response: [AnyHashable: Any]) {
+        
+        // After Successful Payment
+        
+        print("ViewController::didSucceedTransactionresponse= %@", response)
+        let msg: String = "Your order was completed successfully.\n Rs. \(response["TXNAMOUNT"]!)"
+        
+        
+        //        self.function.alert_for("Thank You for Payment", message: msg)
+        self.removeController(controller)
+        
+        
+    }
+    
+    func didFailTransaction(_ controller: PGTransactionViewController, error: Error, response: [AnyHashable: Any]) {
+        // Called when Transation is Failed
+        print("ViewController::didFailTransaction error = %@ response= %@", error, response)
+        
+        if response.count == 0 {
+            
+            //            self.function.alert_for(error.localizedDescription, message: response.description)
+            
+        }
+        else if error != nil {
+            
+            //            self.function.alert_for("Error", message: error.localizedDescription)
+            
+            
+        }
+        
+        self.removeController(controller)
+        
+    }
+    
+    func didCancelTransaction(_ controller: PGTransactionViewController, error: Error, response: [AnyHashable: Any]) {
+        
+        //Cal when Process is Canceled
+        var msg: String? = nil
+        
+        if error != nil {
+            
+            msg = String(format: "Successful")
+        }
+        else {
+            msg = String(format: "UnSuccessful")
+        }
+        
+        
+//        self.function.alert_for("Transaction Cancel", message: msg!)
+        
+        self.removeController(controller)
+        
+    }
+    
+    func didFinishCASTransaction(_ controller: PGTransactionViewController, response: [AnyHashable: Any]) {
+        
+        print("ViewController::didFinishCASTransaction:response = %@", response);
+        
+    }
     // MARK: - Server Request -
 
 }

@@ -677,4 +677,39 @@ public extension Date {
         }
         return description
     }
+    
+    public func date_form(str: String?) -> Date? {
+        
+        return self.date_from(str: str, formatter: "yyyy-MM-dd HH:mm:ss")
+    }
+    
+    public func date_from(str: String?, formatter: String?) -> Date? {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale.current
+        dateFormatter.timeZone = TimeZone.current
+        if let da_formatter = formatter {
+            dateFormatter.dateFormat = da_formatter
+            if let time_str = str {
+                let date = dateFormatter.date(from: time_str)
+                return date
+            }
+        }
+        return nil
+    }
+    
+    public func string_from(formatter: String?) -> String {
+        
+        if let format = formatter {
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale.current
+            dateFormatter.timeZone = TimeZone.current
+            dateFormatter.dateFormat = format
+            let date_str = dateFormatter.string(from: self)
+            return date_str
+        }
+        return ""
+    }
+
+    
 }
