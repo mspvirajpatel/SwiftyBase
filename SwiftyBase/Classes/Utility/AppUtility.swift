@@ -366,11 +366,11 @@ open class AppUtility: NSObject {
     
     ///Change file size
     
-    //myImageView.image =  ResizeImage(myImageView.image!, targetSize: CGSizeMake(600.0, 450.0))
+    //myImageView.image = resizeImage(myImageView.image!, targetSize: CGSizeMake(600.0, 450.0))
     //
     //let imageData = UIImageJPEGRepresentation(myImageView.image!,0.50)
     
-    public func ResizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+    public func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
         let size = image.size
         
         let widthRatio  = targetSize.width  / image.size.width
@@ -495,6 +495,99 @@ open class AppUtility: NSObject {
             print("Error Obtaining System Memory Info: Domain = \(error.domain), Code = \(error.code)")
             return nil;
         }
+    }
+    
+    
+    public class func deviceRemainingFreeSpaceInBytes() -> Int64? {
+        let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!
+        guard
+            let systemAttributes = try? FileManager.default.attributesOfFileSystem(forPath: documentDirectory),
+            let freeSize = systemAttributes[.systemFreeSize] as? NSNumber
+            else {
+                // something failed
+                return nil
+        }
+        return freeSize.int64Value
+    }
+    
+    public class func deviceTotalSpaceInBytes() -> Int64? {
+        let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!
+        guard
+            let systemAttributes = try? FileManager.default.attributesOfFileSystem(forPath: documentDirectory),
+            let freeSize = systemAttributes[.systemSize] as? NSNumber
+            else {
+                // something failed
+                return nil
+        }
+        return freeSize.int64Value
+    }
+    
+    public struct ByteStringOption : OptionSet{
+        
+        public let rawValue : Int
+        
+        static let Number = ByteStringOption(rawValue: 1<<0)
+        static let Unit = ByteStringOption(rawValue: 1<<1)
+        
+        public init(rawValue:Int){
+            
+            self.rawValue = rawValue
+        }
+    }
+    
+    
+    
+    public class func stringFromByte(byte:Int64?, displayOptions:ByteStringOption) -> String{
+        
+        let byteFormatter = ByteCountFormatter()
+        
+        if let byt = byte{
+            
+            byteFormatter.countStyle = .decimal
+            byteFormatter.includesCount = false
+            byteFormatter.includesUnit = false
+            
+            if displayOptions.contains(.Number){
+                
+                byteFormatter.includesCount = true
+            }
+            
+            if displayOptions.contains(.Unit){
+                
+                byteFormatter.includesUnit = true
+            }
+            
+            return byteFormatter.string(fromByteCount: byt)
+        }
+        
+        return "Unkonw"
+        
+    }
+    
+    class func documentPath() -> String{
+        
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        
+        return documentsPath
+    }
+    
+    public class func imageWithBottomShadow(size:CGSize, imageColor:UIColor, shadowColor:UIColor, shadowHeight:CGFloat) -> UIImage{
+        
+        let view : UIView = UIView(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        let shadowLayer = CAShapeLayer()
+        shadowLayer.frame = CGRect(x:0 , y: size.height - shadowHeight, width: size.width, height: shadowHeight)
+        shadowLayer.backgroundColor = shadowColor.cgColor
+        view.backgroundColor = imageColor
+        view.layer.addSublayer(shadowLayer)
+        
+        UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
+        
+        view.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        
+        return image!
     }
     
     // MARK: - Get IP Address of Device

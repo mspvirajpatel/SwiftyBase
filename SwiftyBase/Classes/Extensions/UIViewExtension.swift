@@ -10,22 +10,202 @@ import Foundation
 
 // MARK: - UIView Extension -
 
+private var activityIndicatorAssociationKey: UInt8 = 0
+
 public extension UIView {
     
-    var width:      CGFloat { return self.frame.size.width }
-    var height:     CGFloat { return self.frame.size.height }
-    var size:       CGSize  { return self.frame.size}
+    public var x: CGFloat {
+        get {
+            return self.frame.origin.x
+        }
+        set {
+            var frame = self.frame
+            frame.origin.x = newValue
+            self.frame = frame
+        }
+    }
     
-    var origin:     CGPoint { return self.frame.origin }
-    var x:          CGFloat { return self.frame.origin.x }
-    var y:          CGFloat { return self.frame.origin.y }
-    var centerX:    CGFloat { return self.center.x }
-    var centerY:    CGFloat { return self.center.y }
+    public var y: CGFloat{
+        get {
+            return self.frame.origin.y
+        }
+        set {
+            var frame = self.frame
+            frame.origin.y = newValue
+            self.frame = frame
+        }
+    }
     
-    var left:       CGFloat { return self.frame.origin.x }
-    var right:      CGFloat { return self.frame.origin.x + self.frame.size.width }
-    var top:        CGFloat { return self.frame.origin.y }
-    var bottom:     CGFloat { return self.frame.origin.y + self.frame.size.height }
+    public var width: CGFloat{
+        get {
+            return self.frame.size.width
+        }
+        set {
+            var frame = self.frame
+            frame.size.width = newValue
+            self.frame = frame
+        }
+    }
+    
+    
+    public var height: CGFloat{
+        get {
+            return self.frame.size.height
+        }
+        set {
+            var frame = self.frame
+            frame.size.height = newValue
+            self.frame = frame
+        }
+    }
+    
+    
+    public var bottom: CGFloat{
+        get {
+            return self.frame.origin.y + self.frame.size.height
+        }
+        
+        set {
+            var frame = self.frame
+            frame.origin.y = newValue - self.frame.size.height
+            self.frame = frame
+        }
+    }
+    
+    
+    public var right: CGFloat{
+        get {
+            return self.frame.origin.x + self.frame.size.width
+        }
+        
+        set {
+            var frame = self.frame
+            frame.origin.x = newValue - self.frame.size.width
+            self.frame = frame
+        }
+    }
+    
+    public var size: CGSize{
+        get {
+            return self.frame.size
+        }
+        
+        set {
+            var frame = self.frame
+            frame.size = newValue
+            self.frame = frame
+        }
+    }
+    
+    public var centerPoint: CGPoint{
+        get {
+            return self.center
+        }
+        
+        set {
+            var center = self.center
+            center = newValue
+            self.center = center
+        }
+    }
+    
+    public var centerX: CGFloat{
+        get {
+            return self.center.x
+        }
+        
+        set {
+            var center = self.center
+            center.x = newValue
+            self.center = center
+        }
+    }
+    
+    
+    public var centerY: CGFloat{
+        get {
+            return self.center.y
+        }
+        
+        set {
+            var center = self.center
+            center.y = newValue
+            self.center = center
+        }
+    }
+    
+    public var top: CGFloat{
+        get {
+            return self.frame.origin.y
+        }
+        
+        set {
+            var frame = self.frame
+            frame.origin.y = newValue
+            self.frame = frame
+        }
+    }
+    
+    
+    public var left: CGFloat{
+        get {
+            return self.frame.origin.x
+        }
+        set {
+            var frame = self.frame
+            frame.origin.x = newValue
+            self.frame = frame
+        }
+    }
+   
+    public var origin: CGPoint{
+        get {
+            return self.frame.origin
+        }
+        set {
+            var frame = self.frame
+            frame.origin = newValue
+            self.frame = frame
+        }
+    }
+    
+    public var activityIndicat: UIActivityIndicatorView! {
+        get {
+            return objc_getAssociatedObject(self, &activityIndicatorAssociationKey) as? UIActivityIndicatorView
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &activityIndicatorAssociationKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
+    public func showActivityIndicator() {
+        
+        if (self.activityIndicat == nil) {
+            self.activityIndicat = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+            
+            self.activityIndicat.hidesWhenStopped = true
+            self.activityIndicat.frame = CGRect.init(x: 0, y: 0, width: 40, height: 40)
+            self.activityIndicat.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+            self.activityIndicat.center = CGPoint.init(x: self.frame.size.width / 2, y: self.frame.size.height / 2)
+            self.activityIndicat.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
+            
+            self.activityIndicat.isUserInteractionEnabled = false
+            self.activityIndicat.color = #colorLiteral(red: 0.1294117647, green: 0.5882352941, blue: 0.9529411765, alpha: 1)
+            OperationQueue.main.addOperation({
+                self.addSubview(self.activityIndicat)
+                self.activityIndicat.startAnimating()
+            })
+        }
+    }
+    
+    public func hideActivityIndicator() {
+        OperationQueue.main.addOperation({
+            if self.activityIndicat != nil
+            {
+                self.activityIndicat.stopAnimating()
+            }
+        })
+    }
     
     public func applyGradient(colours: [UIColor])  {
         self.applyGradient(colours: colours, locations: nil)
@@ -42,50 +222,10 @@ public extension UIView {
     public func hideShadow() {
         self.layer.shadowOpacity = 0
     }
-    
-    public func setSize(_ size:CGSize)
-    {
-        self.frame.size = size
-    }
-    
-    public func setOrigin(_ point:CGPoint)
-    {
-        self.frame.origin = point
-    }
-    
-    public func setX(_ x:CGFloat) //only change the origin x
-    {
-        self.frame.origin = CGPoint(x: x, y: self.frame.origin.y)
-    }
-    
-    public func setY(_ y:CGFloat) //only change the origin x
-    {
-        self.frame.origin = CGPoint(x: self.frame.origin.x, y: y)
-    }
-    
+
     public func roundCorner(_ radius:CGFloat)
     {
         self.layer.cornerRadius = radius
-    }
-    
-    public func setTop(_ top:CGFloat)
-    {
-        self.frame.origin.y = top
-    }
-    
-    public func setLeft(_ left:CGFloat)
-    {
-        self.frame.origin.x = left
-    }
-    
-    public func setRight(_ right:CGFloat)
-    {
-        self.frame.origin.x = right - self.frame.size.width
-    }
-    
-    public func setBottom(_ bottom:CGFloat)
-    {
-        self.frame.origin.y = bottom - self.frame.size.height
     }
     
     public func isTextControl() -> Bool{
@@ -376,6 +516,88 @@ public extension UIView {
         self.layer.addSublayer(rightBorder!)
     }
     
+    //    container.addBorder(edges: [.all]) // All with default arguments
+    //    container.addBorder(edges: [.top], color: UIColor.greenColor()) // Just Top, green, default thickness
+    //    container.addBorder(edges: [.left, .right, .bottom], color: UIColor.redColor(), thickness: 3) // All except Top, red, thickness 3
+    func addBorder(edges: UIRectEdge, color: UIColor = UIColor.white, thickness: CGFloat = 1.0) -> [UIView] {
+        
+        var borders = [UIView]()
+        
+        func border() -> UIView {
+            let border = UIView(frame: CGRect.zero)
+            border.backgroundColor = color
+            border.translatesAutoresizingMaskIntoConstraints = false
+            return border
+        }
+        
+        if edges.contains(.top) || edges.contains(.all) {
+            let top = border()
+            addSubview(top)
+            addConstraints(
+                NSLayoutConstraint.constraints(withVisualFormat: "V:|-(0)-[top(==thickness)]",
+                                               options: [],
+                                               metrics: ["thickness": thickness],
+                                               views: ["top": top]))
+            addConstraints(
+                NSLayoutConstraint.constraints(withVisualFormat: "H:|-(0)-[top]-(0)-|",
+                                               options: [],
+                                               metrics: nil,
+                                               views: ["top": top]))
+            borders.append(top)
+        }
+        
+        if edges.contains(.left) || edges.contains(.all) {
+            let left = border()
+            addSubview(left)
+            addConstraints(
+                NSLayoutConstraint.constraints(withVisualFormat: "H:|-(0)-[left(==thickness)]",
+                                               options: [],
+                                               metrics: ["thickness": thickness],
+                                               views: ["left": left]))
+            addConstraints(
+                NSLayoutConstraint.constraints(withVisualFormat: "V:|-(0)-[left]-(0)-|",
+                                               options: [],
+                                               metrics: nil,
+                                               views: ["left": left]))
+            borders.append(left)
+        }
+        
+        if edges.contains(.right) || edges.contains(.all) {
+            let right = border()
+            addSubview(right)
+            addConstraints(
+                NSLayoutConstraint.constraints(withVisualFormat: "H:[right(==thickness)]-(0)-|",
+                                               options: [],
+                                               metrics: ["thickness": thickness],
+                                               views: ["right": right]))
+            addConstraints(
+                NSLayoutConstraint.constraints(withVisualFormat: "V:|-(0)-[right]-(0)-|",
+                                               options: [],
+                                               metrics: nil,
+                                               views: ["right": right]))
+            borders.append(right)
+        }
+        
+        if edges.contains(.bottom) || edges.contains(.all) {
+            let bottom = border()
+            addSubview(bottom)
+            addConstraints(
+                NSLayoutConstraint.constraints(withVisualFormat: "V:[bottom(==thickness)]-(0)-|",
+                                               options: [],
+                                               metrics: ["thickness": thickness],
+                                               views: ["bottom": bottom]))
+            addConstraints(
+                NSLayoutConstraint.constraints(withVisualFormat: "H:|-(0)-[bottom]-(0)-|",
+                                               options: [],
+                                               metrics: nil,
+                                               views: ["bottom": bottom]))
+            borders.append(bottom)
+        }
+        
+        return borders
+    }
+    
+    
     public func setCircleViewWith(_ borderColor: UIColor, width: CGFloat) {
         
         self.layer.cornerRadius = (self.frame.size.width / 2)
@@ -437,77 +659,7 @@ public extension UIView {
     public var endY : CGFloat {
         return frame.origin.y + frame.height
     }
-    
-    //  Get Origin.x
-    public var startX : CGFloat {
-        return frame.origin.x
-    }
-    
-    //  Get Origin.y
-    public var startY : CGFloat {
-        return frame.origin.y
-    }
-    
-    //  Get width of View
-    public var getWidth : CGFloat {
-        return frame.width
-    }
-    
-    //  Get height of view
-    public var getHeight : CGFloat {
-        return frame.height
-    }
-    
-    //  Set Origin.x
-    public func setStartX(_ x : CGFloat) {
-        self.frame.origin.x = x
-    }
-    
-    //  Set Origin.y
-    public func setStartY( _ y : CGFloat) {
-        self.frame.origin.y = y
-    }
-    
-    //  Set view width
-    public func setWidth(_ width : CGFloat) {
-        self.frame.size = CGSize(width: width, height: self.getHeight)
-    }
-    
-    //  Set view height
-    public func setHeight( _ height : CGFloat) {
-        self.frame.size = CGSize(width: self.getWidth, height: height)
-    }
-    
-    //  Set Center
-    public func setCenter(_ x : CGFloat, y : CGFloat) {
-        self.center = CGPoint(x : x,y: y)
-    }
-    
-    //  Get center
-    public func getCenter() -> CGPoint {
-        return self.center
-    }
-    
-    // Set center.x
-    public func setCenterX(_ x: CGFloat) {
-        self.center = CGPoint(x: x, y: self.getCenterY())
-    }
-    
-    //  Get center.x
-    public func getCenterX() -> CGFloat {
-        return self.center.x
-    }
-    
-    //  Set center.y
-    public func setCenterY(_ y : CGFloat)  {
-        self.center = CGPoint(x : self.getCenterX(), y : y)
-    }
-    
-    //  Get center.y
-    public func getCenterY() -> CGFloat {
-        return self.center.y
-    }
-    
+   
     //  Get Parent View controller
     public var parentViewController: UIViewController? {
         var parentResponder: UIResponder? = self
@@ -552,7 +704,7 @@ public extension UIView {
     public func addTopBorderWithColor(_ color: UIColor, width: CGFloat) {
         let border = CALayer()
         border.backgroundColor = color.cgColor
-        border.frame = CGRect(x: 0, y: 0, width: self.getWidth, height: width)
+        border.frame = CGRect(x: 0, y: 0, width: self.width, height: width)
         self.layer.addSublayer(border)
     }
     
@@ -560,7 +712,7 @@ public extension UIView {
     public func addRightBorderWithColor(_ color: UIColor, width: CGFloat) {
         let border = CALayer()
         border.backgroundColor = color.cgColor
-        border.frame = CGRect(x: self.getWidth - width, y: 0, width: width, height: self.getHeight)
+        border.frame = CGRect(x: self.width - width, y: 0, width: width, height: self.height)
         self.layer.addSublayer(border)
     }
     
@@ -568,7 +720,7 @@ public extension UIView {
     public func addBottomBorderWithColor(_ color: UIColor, width: CGFloat) {
         let border = CALayer()
         border.backgroundColor = color.cgColor
-        border.frame = CGRect(x: 0, y: self.getHeight - width, width: self.getWidth, height: width)
+        border.frame = CGRect(x: 0, y: self.height - width, width: self.width, height: width)
         self.layer.addSublayer(border)
     }
     
@@ -576,7 +728,7 @@ public extension UIView {
     public func addLeftBorderWithColor(_ color: UIColor, width: CGFloat) {
         let border = CALayer()
         border.backgroundColor = color.cgColor
-        border.frame = CGRect(x: 0, y: 0, width: width, height: self.getHeight)
+        border.frame = CGRect(x: 0, y: 0, width: width, height: self.height)
         self.layer.addSublayer(border)
     }
     

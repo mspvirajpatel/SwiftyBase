@@ -28,6 +28,186 @@ public extension String {
         return NSLocalizedString(self, comment: "")
         
     }
+  
+    public var urlEncoded: String {
+        var allowed: CharacterSet = .urlQueryAllowed
+        allowed.remove(charactersIn: "\n:#/?@!$&'()*+,;=")
+        
+        return self.addingPercentEncoding(withAllowedCharacters: allowed) ?? self
+    }
+    
+    public var queryParameters: [String: String] {
+        var parameters = [String: String]()
+        
+        let scanner = Scanner(string: self)
+        
+        var key: NSString?
+        var value: NSString?
+        
+        while !scanner.isAtEnd {
+            key = nil
+            scanner.scanUpTo("=", into: &key)
+            scanner.scanUpTo("=", into: nil)
+            
+            value = nil
+            scanner.scanUpTo("&", into: &value)
+            scanner.scanUpTo("&", into: nil)
+            
+            if let key = key as String?, let value = value as String? {
+                parameters.updateValue(value, forKey: key)
+            }
+        }
+        
+        return parameters
+    }
+    
+    /**
+     * Return substring from index or to some particular string.
+     * Usages:
+     "hello world".subFrom(6)        //"world"
+     "hello world".subFrom(-5)       //"world"
+     "hello world".subFrom("wo")     //"world"
+     */
+    @discardableResult public func subFrom(_ indexOrSubstring: Any) -> String {
+        if var index = indexOrSubstring as? Int {
+            if index < 0 { index += self.characters.count }
+            return self.substring(from: self.index(self.startIndex, offsetBy: index))
+            
+        } else if let substr = indexOrSubstring as? String {
+            if let range = self.range(of: substr) {
+                return self.substring(from: range.lowerBound)
+            }
+        }
+        
+        return ""
+    }
+    
+    
+    /**
+     * Return substring to index or to some particular string.
+     * Usages:
+     "hello world".subTo(5)          //"hello"
+     "hello world".subTo(-6)         //"hello"
+     "hello world".subTo(" ")        //"hello"
+     */
+    @discardableResult public func subTo(_ indexOrSubstring: Any) -> String {
+        if var index = indexOrSubstring as? Int {
+            if index < 0 { index += self.characters.count }
+            return self.substring(to: self.index(self.startIndex, offsetBy: index))
+            
+        } else if let substr = indexOrSubstring as? String {
+            if let range = self.range(of: substr) {
+                return self.substring(to: range.lowerBound)
+            }
+        }
+        
+        return ""
+    }
+    
+    
+    /**
+     * Return substring at index or in range.
+     * Usages:
+     "hello world".subAt(1)          //"e"
+     "hello world".subAt(1..<4)      //"ell"
+     */
+    @discardableResult public func subAt(_ indexOrRange: Any) -> String {
+        if let index = indexOrRange as? Int {
+            return String(self[self.index(self.startIndex, offsetBy: index)])
+            
+        } else if let range = indexOrRange as? Range<String.Index> {
+            return self.substring(with: range)
+            
+        } else if let range = indexOrRange as? Range<Int> {
+            let lower = self.index(self.startIndex, offsetBy: range.lowerBound)
+            let upper = self.index(self.startIndex, offsetBy: range.upperBound)
+            return self.substring(with: lower..<upper)
+            
+        } else if let range = indexOrRange as? CountableRange<Int> {
+            let lower = self.index(self.startIndex, offsetBy: range.lowerBound)
+            let upper = self.index(self.startIndex, offsetBy: range.upperBound)
+            return self.substring(with: lower..<upper)
+            
+        } else if let range = indexOrRange as? ClosedRange<Int> {
+            let lower = self.index(self.startIndex, offsetBy: range.lowerBound)
+            let upper = self.index(self.startIndex, offsetBy: range.upperBound + 1)
+            return self.substring(with: lower..<upper)
+            
+        } else if let range = indexOrRange as? CountableClosedRange<Int> {
+            let lower = self.index(self.startIndex, offsetBy: range.lowerBound)
+            let upper = self.index(self.startIndex, offsetBy: range.upperBound + 1)
+            return self.substring(with: lower..<upper)
+            
+        } else if let range = indexOrRange as? NSRange {
+            let lower = self.index(self.startIndex, offsetBy: range.location)
+            let upper = self.index(self.startIndex, offsetBy: range.location + range.length)
+            return self.substring(with: lower..<upper)
+        }
+        
+        return ""
+    }
+    
+    
+    /**
+     * Return substring that match the pattern.
+     * Usages:
+     "abc123".subMatch("\\d+")       //"123"
+     */
+    @discardableResult public func subMatch(_ pattern: String) -> String {
+        let options = NSRegularExpression.Options(rawValue: 0)
+        
+        if let exp = try? NSRegularExpression(pattern: pattern, options: options) {
+            let options = NSRegularExpression.MatchingOptions(rawValue: 0)
+            
+            let matchRange = exp.rangeOfFirstMatch(in: self,
+                                                   options:options,
+                                                   range: NSMakeRange(0, self.characters.count))
+            
+            if matchRange.location != NSNotFound {
+                return self.subAt(matchRange)
+            }
+        }
+        
+        return ""
+    }
+    
+    
+    /**
+     * Replace substring with template.
+     * Usages:
+     "abc123".subReplace("abc", "ABC")               //ABC123
+     "abc123".subReplace("([a-z]+)(\\d+)", "$2$1")   //"123abc"
+     */
+    @discardableResult public func subReplace(_ pattern: String, _ template: String) -> String {
+        let options = NSRegularExpression.Options(rawValue: 0)
+        
+        if let exp = try? NSRegularExpression(pattern: pattern, options: options) {
+            let options = NSRegularExpression.MatchingOptions(rawValue: 0)
+            
+            return exp.stringByReplacingMatches(in: self,
+                                                options: options,
+                                                range: NSMakeRange(0, self.characters.count),
+                                                withTemplate: template)
+        }
+        
+        return ""
+    }
+    
+    // MARK: - Variables -
+    
+    var first: String {
+        return String(characters.prefix(1))
+    }
+    var lowerFirst: String {
+        return first.lowercased() + String(characters.dropFirst())
+    }
+    
+    
+    /// Return the float value
+    public var floatValue: Float {
+        return (self as NSString).floatValue
+    }
+    
     
     public var parseJSONString: AnyObject?
     {
@@ -58,6 +238,333 @@ public extension String {
             return nil
         }
     }
+    
+    /**
+     Returns if self is a valid UUID or not
+     
+     - returns: Returns if self is a valid UUID or not
+     */
+    public func isUUID() -> Bool {
+        do {
+            let regex: NSRegularExpression = try NSRegularExpression(pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$", options: .caseInsensitive)
+            let matches: Int = regex.numberOfMatches(in: self as String, options: .reportCompletion, range: NSMakeRange(0, self.lengthOfString))
+            return matches == 1
+        } catch {
+            return false
+        }
+    }
+    
+    public func convertToAPNSUUID() -> NSString {
+        
+        return self.trimmingCharacters(in: NSCharacterSet(charactersIn: "<>") as CharacterSet).replacingOccurrences(of: "", with: "").replacingOccurrences(of:"-", with: "") as NSString
+    }
+    
+    
+    /**
+     Returns if self is a valid UUID for APNS (Apple Push Notification System) or not
+     
+     - returns: Returns if self is a valid UUID for APNS (Apple Push Notification System) or not
+     */
+    public func isUUIDForAPNS() -> Bool {
+        do {
+            let regex: NSRegularExpression = try NSRegularExpression(pattern: "^[0-9a-f]{32}$", options: .caseInsensitive)
+            
+            let matches: Int = regex.numberOfMatches(in: self as String, options: .reportCompletion, range: NSMakeRange(0, self.lengthOfString))
+            return matches == 1
+        } catch {
+            return false
+        }
+    }
+    
+    
+    /**
+     Used to create an UUID as String
+     
+     - returns: Returns the created UUID string
+     */
+    public static func generateUUID() -> String {
+        let theUUID: CFUUID? = CFUUIDCreate(kCFAllocatorDefault)
+        let string: CFString? = CFUUIDCreateString(kCFAllocatorDefault, theUUID)
+        return string! as String
+    }
+    
+    //MARK: Helper methods
+    
+    /**
+     Returns the length of the string.
+     
+     - returns: Int length of the string.
+     */
+    
+    
+    var objcLength: Int {
+        return self.utf16.count
+    }
+    
+    //MARK: - Linguistics
+    
+    /**
+     Returns the langauge of a String
+     
+     NOTE: String has to be at least 4 characters, otherwise the method will return nil.
+     
+     - returns: String! Returns a string representing the langague of the string (e.g. en, fr, or und for undefined).
+     */
+    func detectLanguage() -> String? {
+        if self.lengthOfString > 4 {
+            let tagger = NSLinguisticTagger(tagSchemes:[NSLinguisticTagSchemeLanguage], options: 0)
+            tagger.string = self
+            return tagger.tag(at: 0, scheme: NSLinguisticTagSchemeLanguage, tokenRange: nil, sentenceRange: nil)
+        }
+        return nil
+    }
+    
+    /**
+     Returns the script of a String
+     
+     - returns: String! returns a string representing the script of the String (e.g. Latn, Hans).
+     */
+    func detectScript() -> String? {
+        if self.lengthOfString > 1 {
+            let tagger = NSLinguisticTagger(tagSchemes:[NSLinguisticTagSchemeScript], options: 0)
+            tagger.string = self
+            return tagger.tag(at: 0, scheme: NSLinguisticTagSchemeScript, tokenRange: nil, sentenceRange: nil)
+        }
+        return nil
+    }
+    
+    /**
+     Check the text direction of a given String.
+     
+     NOTE: String has to be at least 4 characters, otherwise the method will return false.
+     
+     - returns: Bool The Bool will return true if the string was writting in a right to left langague (e.g. Arabic, Hebrew)
+     
+     */
+    var isRightToLeft : Bool {
+        let language = self.detectLanguage()
+        return (language == "ar" || language == "he")
+    }
+    
+    
+    //MARK: - Usablity & Social
+    
+    
+    /**
+     Check that a String is 'tweetable' can be used in a tweet.
+     
+     - returns: Bool
+     */
+    func isTweetable() -> Bool {
+        let tweetLength = 140,
+        // Each link takes 23 characters in a tweet (assuming all links are https).
+        linksLength = self.getLinks().count * 23,
+        remaining = tweetLength - linksLength
+        
+        if linksLength != 0 {
+            return remaining < 0
+        } else {
+            return !(self.utf16.count > tweetLength || self.utf16.count == 0 )
+        }
+    }
+    
+    /**
+     Gets an array of Strings for all links found in a String
+     
+     - returns: [String]
+     */
+    func getLinks() -> [String] {
+        let detector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+        
+        let links = detector?.matches(in: self, options: NSRegularExpression.MatchingOptions.reportCompletion, range: NSMakeRange(0, lengthOfString)).map {$0 }
+        
+        return links!.filter { link in
+            return link.url != nil
+            }.map { link -> String in
+                return link.url!.absoluteString
+        }
+    }
+    
+    /**
+     Gets an array of URLs for all links found in a String
+     
+     - returns: [NSURL]
+     */
+    //    func getURLs() -> [NSURL] {
+    //        let detector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+    //
+    //        let links = detector?.matches(in: self, options: NSRegularExpression.MatchingOptions.reportCompletion, range: NSMakeRange(0, length)).map {$0 }
+    //
+    //        return links!.filter { link in
+    //            return link.url != nil
+    //            }.map { link -> NSURL in
+    //                return link.url!
+    //        }
+    //    }
+    //
+    //
+    /**
+     Gets an array of dates for all dates found in a String
+     
+     - returns: [NSDate]
+     */
+    //    func getDates() -> [NSDate] {
+    //        var error: NSError = NSError()
+    //        let detector: NSDataDetector?
+    //        do {
+    //            detector = try NSDataDetector(types: NSTextCheckingResult.CheckingType.date.rawValue)
+    //        } catch let error1 as NSError {
+    //            error = error1
+    //            detector = nil
+    //        }
+    //        let dates = detector?.matches(in: self, options: NSRegularExpression.MatchingOptions.withTransparentBounds, range: NSMakeRange(0, self.utf16.count)) .map {$0 }
+    //
+    //        return dates!.filter { date in
+    //            return date.date != nil
+    //            }.map { link -> NSDate in
+    //                return link.date!
+    //        }
+    //    }
+    
+    /**
+     Gets an array of strings (hashtags #acme) for all links found in a String
+     
+     - returns: [String]
+     */
+    func getHashtags() -> [String]? {
+        let hashtagDetector = try? NSRegularExpression(pattern: "#(\\w+)", options: NSRegularExpression.Options.caseInsensitive)
+        let results = hashtagDetector?.matches(in: self, options: NSRegularExpression.MatchingOptions.withoutAnchoringBounds, range: NSMakeRange(0, self.utf16.count)).map { $0 }
+        
+        return results?.map({
+            (self as NSString).substring(with: $0.rangeAt(1))
+        })
+    }
+    
+    /**
+     Gets an array of distinct strings (hashtags #acme) for all hashtags found in a String
+     
+     - returns: [String]
+     */
+    func getUniqueHashtags() -> [String]? {
+        return Array(Set(getHashtags()!))
+    }
+    
+    
+    
+    /**
+     Gets an array of strings (mentions @apple) for all mentions found in a String
+     
+     - returns: [String]
+     */
+    func getMentions() -> [String]? {
+        let hashtagDetector = try? NSRegularExpression(pattern: "@(\\w+)", options: NSRegularExpression.Options.caseInsensitive)
+        let results = hashtagDetector?.matches(in: self, options: NSRegularExpression.MatchingOptions.withoutAnchoringBounds, range: NSMakeRange(0, self.utf16.count)).map { $0 }
+        
+        return results?.map({
+            (self as NSString).substring(with: $0.rangeAt(1))
+        })
+    }
+    
+    /**
+     Check if a String contains a Date in it.
+     
+     - returns: Bool with true value if it does
+     */
+    func getUniqueMentions() -> [String]? {
+        return Array(Set(getMentions()!))
+    }
+    
+    
+    /**
+     Check if a String contains a link in it.
+     
+     - returns: Bool with true value if it does
+     */
+    func containsLink() -> Bool {
+        return self.getLinks().count > 0
+    }
+    
+    /**
+     Check if a String contains a date in it.
+     
+     - returns: Bool with true value if it does
+     */
+    //    func containsDate() -> Bool {
+    //        return self.getDates().count > 0
+    //    }
+    
+    /**
+     - returns: Base64 encoded string
+     */
+    func encodeToBase64Encoding() -> String? {
+        guard let data = Data(base64Encoded: self) else {
+            return nil
+        }
+        
+        return String(data: data, encoding: .utf8)
+        
+    }
+    /**
+     Encode the given string to Base64
+     
+     - parameter string: String to encode
+     
+     - returns: Returns the encoded string
+     */
+    public static func encodeToBase64(string: String) -> String {
+        let data: NSData = string.data(using: String.Encoding.utf8)! as NSData
+        return data.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
+    }
+    
+    /**
+     Decode the given Base64 to string
+     
+     - parameter string: String to decode
+     
+     - returns: Returns the decoded string
+     */
+    public static func decodeBase64(string: String) -> String {
+        let data: NSData = NSData(base64Encoded: string as String, options: NSData.Base64DecodingOptions(rawValue: 0))!
+        return NSString(data: data as Data, encoding: String.Encoding.utf8.rawValue)! as String
+    }
+    
+    /**
+     Remove double or more duplicated spaces
+     
+     - returns: String without additional spaces
+     */
+    public func removeSpaces() -> String {
+        return self.removeExtraSpaces() as String
+    }
+    
+    /**
+     - returns: Decoded Base64 string
+     */
+    func decodeFromBase64Encoding() -> String {
+        let base64data = NSData(base64Encoded: self, options: NSData.Base64DecodingOptions.ignoreUnknownCharacters)
+        return NSString(data: base64data! as Data, encoding: String.Encoding.utf8.rawValue)! as String
+    }
+    
+
+    
+    /**
+     Used to calculate text height for max width and font
+     
+     - parameter width: Max width to fit text
+     - parameter font:  Font used in text
+     
+     - returns: Returns the calculated height of string within width using given font
+     */
+    public func heightForWidth(width: CGFloat, font: UIFont) -> CGFloat {
+        var size: CGSize = CGSize.zero
+        if self.lengthOfString > 0 {
+            let frame: CGRect = self.boundingRect(with: CGSize.init(width: width, height: 999999), options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName : font], context: nil)
+            size = CGSize.init(width: frame.size.width, height: frame.size.height)
+            
+        }
+        return size.height
+    }
+
     
     /// Converted into CGFloat
     public func toFloat() -> CGFloat{
@@ -305,13 +812,6 @@ public extension String {
         }
     }
     
-    public func indexOf(_ substring: String) -> Int? {
-        if let range = range(of: substring) {
-            return characters.distance(from: startIndex, to: range.lowerBound)
-        }
-        return nil
-    }
-    
     public func isAlpha() -> Bool {
         for chr in characters {
             if (!(chr >= "a" && chr <= "z") && !(chr >= "A" && chr <= "Z") ) {
@@ -319,6 +819,14 @@ public extension String {
             }
         }
         return true
+    }
+    
+    
+    public func indexOf(_ substring: String) -> Int? {
+        if let range = range(of: substring) {
+            return characters.distance(from: startIndex, to: range.lowerBound)
+        }
+        return nil
     }
     
     public func isAlphaNumeric() -> Bool {
@@ -431,6 +939,117 @@ public extension String {
         }
     }
 
+    
+    /// Returns the last path component
+    public var lastPathComponent: String {
+        get {
+            return (self as NSString).lastPathComponent
+        }
+    }
+    
+    func fileExtension() -> String? {
+        
+        if let fileExtension = NSURL(fileURLWithPath: self).pathExtension {
+            return fileExtension
+        } else {
+            return nil
+        }
+    }
+    /**
+     Encode the given string to Base64
+     
+     - returns: Returns the encoded string
+     */
+    public func encodeToBase64() -> String {
+        return String.encodeToBase64(string: self)
+    }
+    
+    /**
+     Decode the given Base64 to string
+     
+     - returns: Returns the decoded string
+     */
+    public func decodeBase64() -> String {
+        return String.decodeBase64(string: self)
+    }
+    
+    /**
+     Convert self to a NSData
+     
+     - returns: Returns self as NSData
+     */
+    public func convertToNSData() -> NSData {
+        return NSString.convertToNSData(string: self as NSString)
+    }
+    
+    
+    /**
+     Returns a new string containing matching regular expressions replaced with the template string
+     
+     - parameter regexString: The regex string
+     - parameter replacement: The replacement string
+     
+     - returns: Returns a new string containing matching regular expressions replaced with the template string
+     */
+    public func stringByReplacingWithRegex(regexString: NSString, withString replacement: NSString) throws -> NSString {
+        let regex: NSRegularExpression = try NSRegularExpression(pattern: regexString as String, options: .caseInsensitive)
+        return regex.stringByReplacingMatches(in: self, options: NSRegularExpression.MatchingOptions(rawValue: 0), range:NSMakeRange(0, self.lengthOfString), withTemplate: "") as NSString
+    }
+    
+    
+    /// Returns the path extension
+    public var pathExtension: String {
+        get {
+            return (self as NSString).pathExtension
+        }
+    }
+    
+    /// Delete the last path component
+    public var stringByDeletingLastPathComponent: String {
+        get {
+            return (self as NSString).deletingLastPathComponent
+        }
+    }
+    
+    /// Delete the path extension
+    public var stringByDeletingPathExtension: String {
+        get {
+            return (self as NSString).deletingPathExtension
+        }
+    }
+    
+    /// Returns an array of path components
+    public var pathComponents: [String] {
+        get {
+            return (self as NSString).pathComponents
+        }
+    }
+    
+    /**
+     Appends a path component to the string
+     
+     - parameter path: Path component to append
+     
+     - returns: Returns all the string
+     */
+    public func stringByAppendingPathComponent(path: String) -> String {
+        let string = self as NSString
+        
+        return string.appendingPathComponent(path)
+    }
+    
+    /**
+     Appends a path extension to the string
+     
+     - parameter ext: Extension to append
+     
+     - returns: returns all the string
+     */
+    public func stringByAppendingPathExtension(ext: String) -> String? {
+        let nsSt = self as NSString
+        
+        return nsSt.appendingPathExtension(ext)
+    }
     
     public subscript (i: Int) -> String {
         return String(self[i] as Character)

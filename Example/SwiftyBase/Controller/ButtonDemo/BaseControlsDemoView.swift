@@ -330,7 +330,7 @@ class BaseControlsDemoView: BaseView,BaseRadioButtonDelegate,PGTransactionDelega
         // After Successful Payment
         
         print("ViewController::didSucceedTransactionresponse= %@", response)
-        let msg: String = "Your order was completed successfully.\n Rs. \(response["TXNAMOUNT"]!)"
+        let _: String = "Your order was completed successfully.\n Rs. \(response["TXNAMOUNT"]!)"
         
         
         //        self.function.alert_for("Thank You for Payment", message: msg)
@@ -348,12 +348,12 @@ class BaseControlsDemoView: BaseView,BaseRadioButtonDelegate,PGTransactionDelega
             //            self.function.alert_for(error.localizedDescription, message: response.description)
             
         }
-        else if error != nil {
-            
-            //            self.function.alert_for("Error", message: error.localizedDescription)
-            
-            
-        }
+//        else if error != nil {
+//            
+//            //            self.function.alert_for("Error", message: error.localizedDescription)
+//            
+//            
+//        }
         
         self.removeController(controller)
         
@@ -362,15 +362,15 @@ class BaseControlsDemoView: BaseView,BaseRadioButtonDelegate,PGTransactionDelega
     func didCancelTransaction(_ controller: PGTransactionViewController, error: Error, response: [AnyHashable: Any]) {
         
         //Cal when Process is Canceled
-        var msg: String? = nil
-        
-        if error != nil {
-            
-            msg = String(format: "Successful")
-        }
-        else {
-            msg = String(format: "UnSuccessful")
-        }
+//        var msg: String? = nil
+//        
+//        if error != nil {
+//            
+//            msg = String(format: "Successful")
+//        }
+//        else {
+//            msg = String(format: "UnSuccessful")
+//        }
         
         
 //        self.function.alert_for("Transaction Cancel", message: msg!)

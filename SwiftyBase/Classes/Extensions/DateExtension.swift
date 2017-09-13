@@ -9,7 +9,38 @@
 import Foundation
 
 public extension Date {
- 
+   
+    /**
+     Initialize a date object using the given string.
+     
+     :param: dateString the string that will be used to instantiate the date object. The string is expected to be in the format 'yyyy-MM-dd hh:mm:ss a'.
+     
+     :returns: the NSDate object.
+     */
+    public init(dateString: String) {
+        let dateStringFormatter = DateFormatter()
+        dateStringFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss a"
+        let d = dateStringFormatter.date(from: dateString)
+        if let unwrappedDate = d {
+            self.init(timeInterval:0, since:unwrappedDate)
+        } else {
+            self.init()
+        }
+    }
+    
+    
+    /**
+     Returns a string of the date object using the format 'yyyy-MM-dd hh:mm:ss a'.
+     
+     :returns: a formatted string object.
+     */
+    public func toString() -> String {
+        let dateStringFormatter = DateFormatter()
+        dateStringFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss a"
+        return dateStringFormatter.string(from: self)
+    }
+    
+    
     public func getCurrentUTCTimeStampe() -> TimeInterval
     {
         let date = Date();
