@@ -139,43 +139,46 @@ class BaseControlsDemoView: BaseView,BaseRadioButtonDelegate,PGTransactionDelega
         btnPaytmBuy.layer.setValue("btnPaytmBuy", forKey: ControlConstant.name)
         btnPaytmBuy.setTitle("Paytm Buy Demo", for: UIControlState())
         btnPaytmBuy.setButtonTouchUpInsideEvent { (sender, object) in
-            //Step 1: Create a default merchant config object
-            let mc: PGMerchantConfiguration = PGMerchantConfiguration.default()
             
-            //Step 2: If you have your own checksum generation and validation url set this here. Otherwise use the default Paytm urls
             
-            mc.checksumGenerationURL = "https://pguat.paytm.com/paytmchecksum/paytmCheckSumGenerator.jsp"
-            mc.checksumValidationURL = "https://pguat.paytm.com/paytmchecksum/paytmCheckSumVerify.jsp"
-            
-            //Step 3: Create the order with whatever params you want to add. But make sure that you include the merchant mandatory params
-            var orderDict: [AnyHashable: Any] = NSMutableDictionary() as! [AnyHashable: Any]
-            
-            orderDict["MID"] = "WorldP64425807474247"
-            //Merchant configuration in the order object
-            orderDict["CHANNEL_ID"] = "WAP"
-            orderDict["INDUSTRY_TYPE_ID"] = "Retail"
-            orderDict["WEBSITE"] = "worldpressplg"
-            //Order configuration in the order object
-            orderDict["TXN_AMOUNT"] = "5"
-            orderDict["ORDER_ID"] = AppUtility.generateOrderIDWithPrefix("swiftybase")
-            orderDict["REQUEST_TYPE"] = "DEFAULT"
-            orderDict["CUST_ID"] = "1234567890"
-            
-            let order: PGOrder = PGOrder(params: orderDict)
-            
-            //Step 4: Choose the PG server. In your production build dont call selectServerDialog. Just create a instance of the
-            //PGTransactionViewController and set the serverType to eServerTypeProduction
-            PGServerEnvironment.selectServerDialog(self, completionHandler: {(type: ServerType) -> Void in
-                
-                let txnController = PGTransactionViewController.init(transactionFor: order)
-                
-                if type != eServerTypeNone {
-                    txnController?.serverType = type
-                    txnController?.merchant = mc
-                    txnController?.delegate = self
-                    self.showController(txnController!)
-                }
-            })
+//            //Step 1: Create a default merchant config object
+//            
+//            let mc: PGMerchantConfiguration = PGMerchantConfiguration.default()
+//            
+//            //Step 2: If you have your own checksum generation and validation url set this here. Otherwise use the default Paytm urls
+//            
+//            mc.checksumGenerationURL = "https://pguat.paytm.com/paytmchecksum/paytmCheckSumGenerator.jsp"
+//            mc.checksumValidationURL = "https://pguat.paytm.com/paytmchecksum/paytmCheckSumVerify.jsp"
+//            
+//            //Step 3: Create the order with whatever params you want to add. But make sure that you include the merchant mandatory params
+//            var orderDict: [AnyHashable: Any] = NSMutableDictionary() as! [AnyHashable: Any]
+//            
+//            orderDict["MID"] = "WorldP64425807474247"
+//            //Merchant configuration in the order object
+//            orderDict["CHANNEL_ID"] = "WAP"
+//            orderDict["INDUSTRY_TYPE_ID"] = "Retail"
+//            orderDict["WEBSITE"] = "worldpressplg"
+//            //Order configuration in the order object
+//            orderDict["TXN_AMOUNT"] = "5"
+//            orderDict["ORDER_ID"] = AppUtility.generateOrderIDWithPrefix("swiftybase")
+//            orderDict["REQUEST_TYPE"] = "DEFAULT"
+//            orderDict["CUST_ID"] = "1234567890"
+//            
+//            let order: PGOrder = PGOrder(params: orderDict)
+//            
+//            //Step 4: Choose the PG server. In your production build dont call selectServerDialog. Just create a instance of the
+//            //PGTransactionViewController and set the serverType to eServerTypeProduction
+//            PGServerEnvironment.selectServerDialog(self, completionHandler: {(type: ServerType) -> Void in
+//                
+//                let txnController = PGTransactionViewController.init(transactionFor: order)
+//                
+//                if type != eServerTypeNone {
+//                    txnController?.serverType = type
+//                    txnController?.merchant = mc
+//                    txnController?.delegate = self
+//                    self.showController(txnController!)
+//                }
+//            })
 
         }
 
@@ -242,6 +245,30 @@ class BaseControlsDemoView: BaseView,BaseRadioButtonDelegate,PGTransactionDelega
         radioButtonController?.pressed(male)
         
         
+    }
+    
+    func parse (apiKey: String, latitude: Double, longtitude: Double){
+        
+        
+        let jsonUrlString = "https://api.darksky.net/forecast/\(apiKey)/\(latitude),\(longtitude)"
+        
+        guard let url = URL(string: jsonUrlString) else{
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { (data, res, err) in
+            
+            guard let data = data else {
+                return
+            }
+            
+            do {
+                
+            } catch {
+                print("didnt work")
+            }
+            
+            }.resume()
         
     }
     

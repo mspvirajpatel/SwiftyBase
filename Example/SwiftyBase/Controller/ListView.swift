@@ -22,14 +22,15 @@ public enum PageView : Int {
     case Download = 4
     case ChangeLang = 5
     case Search = 6
-    static let allValues = [unknown, Button, APICall, Plist, Country, Download, ChangeLang,Search]
+    case SnapchatScrollView = 7
+    static let allValues = [unknown, Button, APICall, Plist, Country, Download, ChangeLang,Search,SnapchatScrollView]
 }
 
 class ListView: BaseView,UITableViewDataSource, UITableViewDelegate, BaseSearchDelegate{
     
     // MARK: - Attributes -
     
-    var listControls : NSArray = ["lstBase","lstAPI","lstPlist","lstCountry","lstDownload","lstLanguage","Search View"]
+    var listControls : NSArray = ["lstBase","lstAPI","lstPlist","lstCountry","lstDownload","lstLanguage","Search View","Snapchat Scroll View"]
  
     var imgView : BaseImageView!
     
@@ -243,8 +244,27 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate, BaseSearchD
             
         case PageView.Search.rawValue:
             self.opensearch()
+           
             break
+           
+        case PageView.SnapchatScrollView.rawValue:
+            let left = UIViewController.init()
+            left.view.backgroundColor = #colorLiteral(red: 0.5211794972, green: 0.7426617742, blue: 0, alpha: 1)
+            let middle = UIViewController.init()
+            middle.view.backgroundColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
+            let right = UIViewController.init()
+            right.view.backgroundColor = #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)
+            let top = UIViewController.init()
+            top.view.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+            let bottom = UIViewController.init()
+            bottom.view.backgroundColor = #colorLiteral(red: 1, green: 0.5746383667, blue: 0, alpha: 1)
             
+            let container = BaseScrollViewController.containerViewWith(left,middleVC: middle,rightVC: right,topVC: top, bottomVC: bottom)
+            
+            container.maximumWidthFirstView = 200
+            self.getViewControllerFromSubView()?.navigationController?.pushViewController(container, animated: true)
+            
+           
         default:
             break
         }

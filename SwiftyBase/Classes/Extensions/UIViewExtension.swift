@@ -7,12 +7,36 @@
 //
 
 import Foundation
+import UIKit
 
 // MARK: - UIView Extension -
 
 private var activityIndicatorAssociationKey: UInt8 = 0
 
 public extension UIView {
+   
+    public func convertLocalizables() {
+        if subviews.isEmpty {
+            return
+        }
+        
+        for aSubview: UIView in subviews {
+            if let aTextField = aSubview as? UITextField {
+                aTextField.text = NSLocalizedString(aTextField.text!, comment: "")
+                if let placeholder = aTextField.placeholder {
+                    aTextField.placeholder = NSLocalizedString(placeholder, comment: "")
+                }
+            } else if let aTextView = aSubview as? UITextView {
+                if let text = aTextView.text {
+                    aTextView.text = NSLocalizedString(text, comment: "")
+                }
+            } else if let aButton = aSubview as? UIButton {
+                aButton.titleLabel?.text = NSLocalizedString((aButton.titleLabel?.text)!, comment: "")
+            } else {
+                aSubview.convertLocalizables()
+            }
+        }
+    }
     
     public var x: CGFloat {
         get {

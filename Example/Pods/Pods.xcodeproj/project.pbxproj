@@ -106,6 +106,8 @@
 		7E259D981F69696500537E3F /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E259D971F69696500537E3F /* App.swift */; };
 		7E259D9A1F696A6500537E3F /* NSDataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E259D991F696A6500537E3F /* NSDataExtension.swift */; };
 		7E259D9C1F696A8200537E3F /* NSStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E259D9B1F696A8200537E3F /* NSStringExtension.swift */; };
+		7E83FBDF1F6A64C300D968D9 /* BaseScrollViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E83FBDE1F6A64C300D968D9 /* BaseScrollViewViewController.swift */; };
+		7E83FBE11F6A64D700D968D9 /* BaseVerticalScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E83FBE01F6A64D700D968D9 /* BaseVerticalScrollViewController.swift */; };
 		7F6750C7B1847733370B18C4CBFE32DF /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE1F2D1C9D5935F6B6B5CC49C89E323 /* Errors.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		8015239010C1D642F14C105F8FF8E035 /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC2EAD622CBF58EAD71675C54310955 /* Expression.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		80382CC5A5BD9A3E984706DC04B4B9F0 /* NSDictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE5A50BB2F77C701C4572E6A23D4D4E /* NSDictionaryExtension.swift */; };
@@ -356,6 +358,8 @@
 		7E259D971F69696500537E3F /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		7E259D991F696A6500537E3F /* NSDataExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDataExtension.swift; sourceTree = "<group>"; };
 		7E259D9B1F696A8200537E3F /* NSStringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSStringExtension.swift; sourceTree = "<group>"; };
+		7E83FBDE1F6A64C300D968D9 /* BaseScrollViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseScrollViewViewController.swift; sourceTree = "<group>"; };
+		7E83FBE01F6A64D700D968D9 /* BaseVerticalScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseVerticalScrollViewController.swift; sourceTree = "<group>"; };
 		7FE7DAEFE89DD4FD50B980F9C9D6B7B2 /* Functional.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Functional.swift; path = Sources/Nimble/Utils/Functional.swift; sourceTree = "<group>"; };
 		856B2E5E4EC8E2BD9ED45AAD6930A672 /* NMBStringify.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = NMBStringify.m; path = Sources/NimbleObjectiveC/NMBStringify.m; sourceTree = "<group>"; };
 		85CCE16BAD2127DFE1FE2DE83F59957A /* SideMenuTransition.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SideMenuTransition.swift; sourceTree = "<group>"; };
@@ -919,6 +923,8 @@
 				622B87FBE7F323B4753E57178CCD7540 /* CustomPresentationController.swift */,
 				7D96AAE9F982A2F929218644313A90E5 /* SideMenu */,
 				7E259D951F69673D00537E3F /* BaseTabBarController.swift */,
+				7E83FBDE1F6A64C300D968D9 /* BaseScrollViewViewController.swift */,
+				7E83FBE01F6A64D700D968D9 /* BaseVerticalScrollViewController.swift */,
 			);
 			name = Controller;
 			path = SwiftyBase/Classes/Controller;
@@ -1169,7 +1175,9 @@
 				DB3F301E79FDE2B1D7BB0CC87D137384 /* BaseSearchBar.swift in Sources */,
 				EDCD5D2D688A57203B109910B592A55B /* BaseSearchView.swift in Sources */,
 				BDC5D09EF1A7ED9DB9C1AF9AEE1A442C /* BaseSegment.swift in Sources */,
+				7E83FBDF1F6A64C300D968D9 /* BaseScrollViewViewController.swift in Sources */,
 				1A7C01BA899011980B0B7D7A488ED702 /* BaseTextField.swift in Sources */,
+				7E83FBE11F6A64D700D968D9 /* BaseVerticalScrollViewController.swift in Sources */,
 				004EFDF39E20C73B0C82FB8C258527C2 /* BaseTextView.swift in Sources */,
 				3CD6288D701ADF7CB4C86C93C9D6172E /* BaseToast.swift in Sources */,
 				7E259D881F695E9100537E3F /* UITableViewCellExtension.swift in Sources */,
