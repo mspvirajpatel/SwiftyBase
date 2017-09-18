@@ -8,14 +8,14 @@
 
 import Foundation
 
-class AppInterfaceUtility: NSObject {
+open class AppInterfaceUtility: NSObject {
     
-    class func getDeviceScreenSize() -> CGSize{
+    public class func getDeviceScreenSize() -> CGSize{
         let screenBounds: CGRect = UIScreen.main.bounds
         return screenBounds.size
     }
     
-    class func getAppropriateSizeFromSize(_ iSize: CGSize, withDivision divider: CGFloat, andInterSpacing interSpacing: CGFloat) -> CGSize {
+    public class func getAppropriateSizeFromSize(_ iSize: CGSize, withDivision divider: CGFloat, andInterSpacing interSpacing: CGFloat) -> CGSize {
         
         let iWidth: CGFloat = iSize.width
         let iHeight: CGFloat = iSize.height
@@ -39,7 +39,7 @@ class AppInterfaceUtility: NSObject {
         return oSize
     }
     
-    class func aspectScaledImageSizeForImageView(_ iv: UIImageView, image: UIImage) -> CGSize {
+    public class func aspectScaledImageSizeForImageView(_ iv: UIImageView, image: UIImage) -> CGSize {
         
         var x: CGFloat
         var y: CGFloat
@@ -107,13 +107,13 @@ class AppInterfaceUtility: NSObject {
         return CGSize(width: a, height: b)
     }
     
-    class func cropImage(_ image: UIImage, fromRect rect: CGRect) -> UIImage {
+    public class func cropImage(_ image: UIImage, fromRect rect: CGRect) -> UIImage {
         let imageRef: CGImage = image.cgImage!.cropping(to: rect)!
         let croppedImage: UIImage = UIImage(cgImage: imageRef)
         return croppedImage
     }
     
-    class func imageFromColor(_ color: UIColor) -> UIImage {
+    public class func imageFromColor(_ color: UIColor) -> UIImage {
         let rect: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1)
         UIGraphicsBeginImageContext(rect.size)
         
@@ -127,7 +127,7 @@ class AppInterfaceUtility: NSObject {
         return image
     }
     
-    class func createImageFromView(_ view: UIView) -> UIImage {
+    public class func createImageFromView(_ view: UIView) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(view.bounds.size, true, 0.0)
         
         let context: CGContext = UIGraphicsGetCurrentContext()!
@@ -139,7 +139,7 @@ class AppInterfaceUtility: NSObject {
         return snapshotImage
     }
     
-    class func setCircleViewWith(_ borderColor: UIColor, width: CGFloat, ofView view: UIView) {
+    public class func setCircleViewWith(_ borderColor: UIColor, width: CGFloat, ofView view: UIView) {
         
         view.layer.cornerRadius = (view.frame.size.width / 2)
         view.layer.masksToBounds = (true)
@@ -155,7 +155,7 @@ class AppInterfaceUtility: NSObject {
         view.superview?.layer.addSublayer(containerLayer)
     }
     
-    class var currentRegion: String? {
+    public class var currentRegion: String? {
         return (Locale.current as NSLocale).object(forKey: NSLocale.Key.countryCode) as? String
     }
     
@@ -183,7 +183,7 @@ class AppInterfaceUtility: NSObject {
     }
     
     /// MARK: converts NSData to JSON dictionary
-    fileprivate static func dataToJsonDict(_ data: Data?) -> Any? {
+    public static func dataToJsonDict(_ data: Data?) -> Any? {
         if let d = data {
             var error: NSError?
             let json: Any?

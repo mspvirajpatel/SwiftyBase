@@ -90,12 +90,12 @@ class LeftMenuCell : UITableViewCell {
         
         imgIcon = BaseImageView(type:.unknown, superView: innerView)
         imgIcon.contentMode = .scaleAspectFit
-        imgIcon.tintColor = Color.activityText.value
+        imgIcon.tintColor = AppColor.activityText.value
         
         //imgIcon.backgroundColor = UIColor.red
         
         lblMenuText = BaseLabel(labelType: .large, superView: innerView)
-        lblMenuText.textColor = Color.activityText.value
+        lblMenuText.textColor = AppColor.activityText.value
         
         lblMenuText.numberOfLines = 1
         

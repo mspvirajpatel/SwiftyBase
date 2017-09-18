@@ -207,7 +207,7 @@ open class BaseViewController: UIViewController , UINavigationControllerDelegate
     
     open func loadViewControls(){
         
-        self.view.backgroundColor = Color.appPrimaryBG.value
+        self.view.backgroundColor = AppColor.appPrimaryBG.value
         self.view.addSubview(aView)
         self.view.isExclusiveTouch = true
         self.view.isMultipleTouchEnabled = true

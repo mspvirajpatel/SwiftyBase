@@ -187,7 +187,7 @@ public extension UIImage{
         
         //Ractangle
         let rectangle = CGRect(x: 0, y: (imageSize.height) - (stringBox.height), width: stringBox.width + 110, height: stringBox.height)
-        context!.setFillColor(Color.appPrimaryBG.value.cgColor)
+        context!.setFillColor(AppColor.appPrimaryBG.value.cgColor)
         context!.addRect(rectangle)
         context!.drawPath(using: .fill)
         

@@ -202,28 +202,28 @@ open class BaseButton: UIButton
             
         case .primary:
             
-            self.backgroundColor  = Color.buttonPrimaryBG.value
-            self.setTitleColor(Color.buttonPrimaryTitle.value, for: UIControlState())
+            self.backgroundColor  = AppColor.buttonPrimaryBG.value
+            self.setTitleColor(AppColor.buttonPrimaryTitle.value, for: UIControlState())
             self.titleLabel?.font = UIFont(name: FontStyle.bold, size: 14.0)
             self.titleEdgeInsets  = UIEdgeInsetsMake(3, 0, 0, 0)
             //For set Border
-            self.setBorder(Color.buttonBorder.value, width: 1.5, radius: ControlConstant.borderRadius)
+            self.setBorder(AppColor.buttonBorder.value, width: 1.5, radius: ControlConstant.borderRadius)
             
             break
             
         case .secondary:
             
-            self.backgroundColor  = Color.buttonSecondaryBG.value
-            self.setTitleColor(Color.buttonSecondaryTitle.value, for: UIControlState())
+            self.backgroundColor  = AppColor.buttonSecondaryBG.value
+            self.setTitleColor(AppColor.buttonSecondaryTitle.value, for: UIControlState())
             self.titleLabel?.font = UIFont(name: FontStyle.bold, size: 14.0)
             self.titleEdgeInsets  = UIEdgeInsetsMake(3, 0, 0, 0)
-            self.setBorder(Color.buttonBorder.value, width: 1.5, radius: ControlConstant.borderRadius)
+            self.setBorder(AppColor.buttonBorder.value, width: 1.5, radius: ControlConstant.borderRadius)
             break
             
         case .transparent:
             
             self.backgroundColor  = UIColor.clear
-            self.setTitleColor(Color.buttonPrimaryTitle.value, for: .normal)
+            self.setTitleColor(AppColor.buttonPrimaryTitle.value, for: .normal)
             self.titleLabel?.font = currentDevice.isIpad ? UIFont(name: FontStyle.bold, size: 16.0)! : UIFont(name: FontStyle.bold, size: 14.0)!
             self.titleEdgeInsets = UIEdgeInsetsMake(3, 0, 0, 0)
             break;
@@ -243,8 +243,8 @@ open class BaseButton: UIButton
             layer.addSublayer(fillCircleLayer)
             self.titleEdgeInsets            = UIEdgeInsetsMake(0, 30, 0, 0)
             self.toggleButon()
-            self.setTitleColor(Color.buttonPrimaryTitle.value, for: UIControlState())
-            self.circleColor                = Color.buttonPrimaryBG.value
+            self.setTitleColor(AppColor.buttonPrimaryTitle.value, for: UIControlState())
+            self.circleColor                = AppColor.buttonPrimaryBG.value
             self.titleLabel?.font           = UIFont(name: FontStyle.bold, size: 14.0)
             self.contentHorizontalAlignment = .left
             self.circleRadius = 10.0
@@ -252,19 +252,19 @@ open class BaseButton: UIButton
             
         case .roundedClose:
             
-            self.backgroundColor  = Color.buttonPrimaryBG.value
-            self.setTitleColor(Color.buttonPrimaryTitle.value, for: .normal)
+            self.backgroundColor  = AppColor.buttonPrimaryBG.value
+            self.setTitleColor(AppColor.buttonPrimaryTitle.value, for: .normal)
             self.titleLabel?.font = currentDevice.isIpad ? UIFont(name: FontStyle.bold, size: 16.0)! : UIFont(name: FontStyle.bold, size: 14.0)!
             self.titleEdgeInsets  = UIEdgeInsetsMake(3, 0, 0, 0)
-            self.setBorder(Color.buttonBorder.value, width: 1.0, radius: ControlConstant.borderRadius)
+            self.setBorder(AppColor.buttonBorder.value, width: 1.0, radius: ControlConstant.borderRadius)
             break
             
         case .checkbox:
             
-            self.backgroundColor   = Color.buttonSecondaryBG.value
+            self.backgroundColor   = AppColor.buttonSecondaryBG.value
             self.setImage(UIImage(named: ""), for: UIControlState.normal)
             self.setImage(UIImage(named: ""), for: UIControlState.highlighted)
-            self.layer.borderColor = Color.buttonBorder.value.cgColor
+            self.layer.borderColor = AppColor.buttonBorder.value.cgColor
             self.layer.borderWidth = 1.0
 //            self.setFAIcon(icon: FAType.FACheck, iconSize: 20.0, forState: UIControlState.normal)
             
@@ -281,8 +281,8 @@ open class BaseButton: UIButton
             
         case .dropDown:
             
-            self.backgroundColor  = Color.buttonSecondaryBG.value
-            self.setTitleColor(Color.buttonPrimaryTitle.value, for: .normal)
+            self.backgroundColor  = AppColor.buttonSecondaryBG.value
+            self.setTitleColor(AppColor.buttonPrimaryTitle.value, for: .normal)
             self.titleLabel?.font = UIFont(name: FontStyle.bold, size: 13.0)
             self.titleEdgeInsets  = UIEdgeInsetsMake(3, 10, 0, 35)
             self.contentHorizontalAlignment = .left
@@ -367,7 +367,7 @@ open class BaseButton: UIButton
             dropDownIcon = UILabel()
             dropDownIcon .font = UIFont(name: FontStyle.bold, size: 13.0)
 //            dropDownIcon .setFAIcon(icon: FAType.FAChevronDown, iconSize: 20.0)
-//            dropDownIcon .setFAColor(color: Color.buttonPrimaryTitle.value)
+//            dropDownIcon .setFAColor(color: AppColor.buttonPrimaryTitle.value)
             dropDownIcon.translatesAutoresizingMaskIntoConstraints = false
             self.addSubview(dropDownIcon)
             

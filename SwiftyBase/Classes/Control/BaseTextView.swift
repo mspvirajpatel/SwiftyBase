@@ -67,7 +67,7 @@ open class BaseTextView: UITextView, UITextViewDelegate, UIScrollViewDelegate {
                 placeHolderLabel.font = self.font
                 placeHolderLabel.backgroundColor = UIColor.clear
                 
-                placeHolderLabel.textColor = Color.textFieldPlaceholder.withAlpha(0.45)
+                placeHolderLabel.textColor = AppColor.textFieldPlaceholder.withAlpha(0.45)
                 placeHolderLabel.alpha = 0.0
                 
                 placeHolderLabel.tag = 999
@@ -115,10 +115,10 @@ open class BaseTextView: UITextView, UITextViewDelegate, UIScrollViewDelegate {
         self.autocapitalizationType = .sentences
         self.autocorrectionType = .default
         self.keyboardAppearance = .dark
-        self.textColor = Color.textFieldText.value
-        self.backgroundColor = Color.textFieldBG.value
+        self.textColor = AppColor.textFieldText.value
+        self.backgroundColor = AppColor.textFieldBG.value
         self.font = UIFont(name: FontStyle.medium, size: 13.0)
-        self.setBorder(Color.textFieldBorder.value, width: 1.5, radius: ControlConstant.borderRadius)
+        self.setBorder(AppColor.textFieldBorder.value, width: 1.5, radius: ControlConstant.borderRadius)
     }
     
     func setlayout(){
@@ -129,7 +129,7 @@ open class BaseTextView: UITextView, UITextViewDelegate, UIScrollViewDelegate {
     // MARK: - Public Interface -
     /// Method for show the error on textview
     open func setErrorBorder(){
-        self.setBorder(Color.textFieldErrorBorder.withAlpha(0.45), width: ControlConstant.txtBorderWidth, radius: ControlConstant.txtBorderRadius)
+        self.setBorder(AppColor.textFieldErrorBorder.withAlpha(0.45), width: ControlConstant.txtBorderWidth, radius: ControlConstant.txtBorderRadius)
     }
     
     /// method for reset the scrollview content off when keyboard close or done button clicked.
@@ -178,7 +178,49 @@ open class BaseTextView: UITextView, UITextViewDelegate, UIScrollViewDelegate {
     
     // MARK: - Internal Helpers -
     
+    
+    
+    
     func setScrollViewContentOffsetForView(_ view : UIView){
+        
+        AppUtility.executeTaskInGlobalQueueWithCompletion{ [weak self] in
+            
+            if self == nil{
+                return
+            }
+            var viewRect : CGRect
+          
+            var scrollView : UIScrollView? = self!.getScrollViewFromView(self)
+            
+            if(scrollView != nil){
+                viewRect = view.frame
+                let screenRect: CGRect = UIScreen.main.bounds
+                let viewableScreenHeight: CGFloat = screenRect.size.height - 308
+                // When the user is on a form field, get the current form field y position to where the scroll view should move to
+                let currentFormFieldYPosition: CGFloat = viewRect.origin.y
+                // I want the current form field y position to be 100dp from the keyboard y position.
+                // 50dp for the current form field to be visible and another 50dp for the next form field so users can see it.
+                let leftoverTopHeight: CGFloat = viewableScreenHeight - 150
+                // If the current form field y position is greater than the left over top height, that means that the current form field is hidden
+                // We make the calculations and then move the scroll view to the right position
+                if currentFormFieldYPosition > leftoverTopHeight {
+                    AppUtility.executeTaskInMainQueueWithCompletion{ [weak self] in
+                        
+                        if self == nil{
+                            return
+                        }
+                        let movedScreenPosition: CGFloat = currentFormFieldYPosition - leftoverTopHeight
+                        
+                        scrollView?.setContentOffset(CGPoint(x: 0.0, y: movedScreenPosition), animated: true)
+                        
+                        scrollView = nil
+                    }
+                }
+                else {
+                    self?.resetScrollView()
+                }
+            }
+        }
         
         AppUtility.executeTaskInGlobalQueueWithCompletion{ [weak self] in
             if self == nil{

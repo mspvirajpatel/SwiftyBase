@@ -18,18 +18,18 @@ open class BaseSegment: UIView {
     open var segmentViewHeight : CGFloat =  50.0
     open var tabbedEventBlock : SegmentTabbedEvent?
     
-    open var KSegementSelectedTitleColor = Color.segmentSelectedTitle.value
-    open var KSegementSelectedBackgroundColor = Color.segmentSelectedBG.value
+    open var KSegementSelectedTitleColor = AppColor.segmentSelectedTitle.value
+    open var KSegementSelectedBackgroundColor = AppColor.segmentSelectedBG.value
     
-    open var KSegementDeselectedTitleColor = Color.segmentTitle.value
-    open var KSegementBackgroundColor = Color.segmentBG.value
+    open var KSegementDeselectedTitleColor = AppColor.segmentTitle.value
+    open var KSegementBackgroundColor = AppColor.segmentBG.value
     
-    open var KSegmentBorderColor = Color.segmentBorder.value
+    open var KSegmentBorderColor = AppColor.segmentBorder.value
     open var KSegmentBorderWidth : CGFloat = 2.0
     
     open var kSegmentButtonFont = UIFont(name: FontStyle.bold, size: 17.0)
     
-    open var KhighlightBackgroundColor = Color.segmentSelectedTitle.withAlpha(0.1)
+    open var KhighlightBackgroundColor = AppColor.segmentSelectedTitle.withAlpha(0.1)
     
     // MARK: - Lifecycle -
     

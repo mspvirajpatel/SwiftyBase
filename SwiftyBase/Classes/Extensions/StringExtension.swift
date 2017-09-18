@@ -7,11 +7,15 @@
 //
 
 import Foundation
+import UIKit
 
 // MARK: - String Extension -
 
 public extension String {
    
+    public var isEven:Bool     {return (self.toInt()! % 2 == 0)}
+    public var isOdd:Bool      {return (self.toInt()! % 2 != 0)}
+    
     public func localize(comment: String?) -> String {
         if comment != nil
         {
@@ -1251,6 +1255,19 @@ public extension String {
         
         return specialrang.location != NSNotFound
     }
+   
+    ///*
+    public func matchRegex(_ pattern: String) -> Bool {
+        /*
+         guard let searchResults = range(of: pattern, options: .regularExpression) else {return false}
+         return searchResults.lowerBound == startIndex && searchResults.count == characters.count
+         */
+        guard let searchResults = range(of: pattern, options: .regularExpression) else {
+            return false
+        }
+        return searchResults.lowerBound == startIndex && searchResults.description.characters.count == characters.count
+    }
+
     
     ///Verify that it contains "special characters"
     public func isSpecialCharacter() -> Bool {

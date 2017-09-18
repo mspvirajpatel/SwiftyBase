@@ -15,7 +15,7 @@ import Foundation
 
 open class AppTheme : NSObject{
     
-    class func getFont(fontName : String, size : CGFloat) -> UIFont{
+    public class func getFont(fontName : String, size : CGFloat) -> UIFont{
         return UIFont(fontString: "\(fontName);\(size)")
     }
 }
@@ -34,9 +34,9 @@ public enum Font{
     case medium
 }
 
-public extension Color{
+public extension AppColor{
     
-    var value: UIColor {
+    public var value: UIColor {
         var instanceColor = UIColor.clear
         
         switch self {
@@ -75,7 +75,7 @@ public extension Color{
             instanceColor = UIColor(rgbValue: 0x333333, alpha: 1.0)
             break
             
-        // TODO: Application Background Colors
+        // TODO: Application Background AppColor
         case .appPrimaryBG: // this is application general dark backgroud color
             instanceColor = UIColor(rgbValue: 0x333333, alpha: 1.0)
             break
@@ -132,7 +132,7 @@ public extension Color{
             
         // TODO: UILable Color
         case .labelText:
-            instanceColor = UIColor(rgbValue: 0x6648da, alpha: 1.0)
+            instanceColor = UIColor(rgbValue: 0x000000, alpha: 1.0)
             break
             
         case .labelErrorText:
@@ -199,7 +199,7 @@ public extension Color{
     }
 }
 
-public enum Color{
+public enum AppColor{
     
     // Activity loader
     case activityLoader
@@ -214,7 +214,7 @@ public enum Color{
     case border
     case shadow
     
-    // Application Background Colors
+    // Application Background AppColor
     case appPrimaryBG
     case appSecondaryBG
     case appIntermidiateBG
@@ -258,7 +258,7 @@ public enum Color{
     // 1
     case custom(hexString: Int, alpha: CGFloat)
     // 2
-    func withAlpha(_ alpha: CGFloat) -> UIColor {
+    public func withAlpha(_ alpha: CGFloat) -> UIColor {
         return self.value.withAlphaComponent(CGFloat(alpha))
     }
 }

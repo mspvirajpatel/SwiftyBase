@@ -59,7 +59,7 @@ class APIDemoView: BaseView,UITableViewDataSource, UITableViewDelegate {
         listTableView.backgroundColor = UIColor.clear
         listTableView.separatorStyle = .singleLine
         
-        listTableView.separatorColor = Color.buttonSecondaryBG.value
+        listTableView.separatorColor = AppColor.buttonSecondaryBG.value
         
         listTableView.clipsToBounds = true
         

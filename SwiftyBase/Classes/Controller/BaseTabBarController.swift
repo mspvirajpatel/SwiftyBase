@@ -68,10 +68,7 @@ class TabBarController: UITabBarController {
         let appearance = UITabBarItem.appearance()
         appearance.setTitleTextAttributes([NSFontAttributeName : font!], for: .normal)
         appearance.setTitleTextAttributes([NSFontAttributeName : font!], for: .selected)
-        
-        self.tabBar.tintColor = Color.appPrimaryBG.value
-        self.tabBar.barTintColor = Color.appPrimaryBG.value
-        
+            
 //        for arrayControllers in arrayControllers {
 //            
 //        }

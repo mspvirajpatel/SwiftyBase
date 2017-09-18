@@ -17,7 +17,25 @@ public enum PresentationDirection {
     case top, right, bottom, left
 }
 
+//extension UIViewController: UIGestureRecognizerDelegate {
+//    public func isSwipeToBackEnable() {
+//        if let navigationController = navigationController {
+//            navigationController.interactivePopGestureRecognizer?.isEnabled = false
+//            navigationController.interactivePopGestureRecognizer?.delegate = nil
+//        }
+//    }
+//    public func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+//        return true
+//    }
+//}
+
 public extension UIViewController {
+   
+    public var shouldShowBackButton: Bool {
+        get {
+            return true
+        }
+    }
     
     public var tabBarHeight: CGFloat {
         if let me = self as? UINavigationController, let visibleViewController = me.visibleViewController {

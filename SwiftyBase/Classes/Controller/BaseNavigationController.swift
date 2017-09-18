@@ -13,7 +13,7 @@
 #endif
 
 @IBDesignable
-open class BaseNavigationController: UINavigationController,UIGestureRecognizerDelegate, CAAnimationDelegate{
+open class BaseNavigationController: UINavigationController, CAAnimationDelegate{
     
     // MARK: - Interface
     @IBInspectable open var clearBackTitle: Bool = true
@@ -67,15 +67,15 @@ open class BaseNavigationController: UINavigationController,UIGestureRecognizerD
         
         var navigationBarFont: UIFont? = UIFont(name: FontStyle.medium, size: 17.0)
         
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: Color.navigationBG.value,
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: AppColor.navigationBG.value,
                                                             NSFontAttributeName: navigationBarFont!] as [String : Any]
         
-        self.navigationBar.tintColor = Color.navigationBG.value
-        self.navigationBar.barTintColor = Color.appPrimaryBG.value
+        self.navigationBar.tintColor = AppColor.navigationBG.value
+        self.navigationBar.barTintColor = AppColor.appPrimaryBG.value
         self.navigationBar.isTranslucent = false
-        self.view.backgroundColor = Color.appPrimaryBG.value
+        self.view.backgroundColor = AppColor.appPrimaryBG.value
      
-        self.navigationBar.setBottomBorder(Color.navigationBottomBorder.value, width: 1.0)
+        self.navigationBar.setBottomBorder(AppColor.navigationBottomBorder.value, width: 1.0)
         
         
         // self.edgesForExtendedLayout = UIRectEdge.none

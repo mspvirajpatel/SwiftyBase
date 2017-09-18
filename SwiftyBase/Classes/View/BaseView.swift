@@ -57,7 +57,7 @@ open class BaseView: UIView {
         }
     }
     /// The shadow color of the `ShadowView`, inspectable in Interface Builder
-    @IBInspectable open var shadowColor: UIColor = Color.shadow.value {
+    @IBInspectable open var shadowColor: UIColor = AppColor.shadow.value {
         didSet {
             self.updateProperties()
         }
@@ -357,7 +357,7 @@ open class BaseView: UIView {
                 self!.errorMessageLabel.textAlignment = .center
                 
                 self!.errorMessageLabel.backgroundColor = UIColor.clear
-                self!.errorMessageLabel.textColor = Color.labelErrorText.withAlpha(1.0)
+                self!.errorMessageLabel.textColor = AppColor.labelErrorText.withAlpha(1.0)
                 
                 self!.errorMessageLabel.tag = -1
                 self!.addSubview(self!.errorMessageLabel)

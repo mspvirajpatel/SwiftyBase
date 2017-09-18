@@ -65,7 +65,7 @@ class SideMenuView: BaseView {
     {
         super.loadViewControls()
         
-        self.backgroundColor = Color.appPrimaryBG.value
+        self.backgroundColor = AppColor.appPrimaryBG.value
         
         userProfileView = UIView()
         userProfileView.layer .setValue("userProfileView", forKey: ControlConstant.name)
@@ -93,21 +93,21 @@ class SideMenuView: BaseView {
         
         seperatorView = UIView()
         seperatorView.layer .setValue("seperatorView", forKey: ControlConstant.name)
-        seperatorView.backgroundColor = Color.appSecondaryBG.value
+        seperatorView.backgroundColor = AppColor.appSecondaryBG.value
         seperatorView.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(seperatorView)
         
         lblUserName = BaseLabel(labelType: .small, superView: userProfileView)
         lblUserName.layer .setValue("lblUserName", forKey: ControlConstant.name)
         lblUserName.text = ""
-        lblUserName.textColor = Color.appSecondaryBG.value
+        lblUserName.textColor = AppColor.appSecondaryBG.value
         lblUserName.isHidden = true
         lblUserName.textAlignment = .left
         
         lblUserRealName = BaseLabel(labelType: .large, superView: userProfileView)
         lblUserRealName.layer .setValue("lblUserRealName", forKey: ControlConstant.name)
         lblUserRealName.text = ""
-        lblUserRealName.textColor = Color.appSecondaryBG.value
+        lblUserRealName.textColor = AppColor.appSecondaryBG.value
         lblUserRealName.isHidden = true
         
         tblMenu = UITableView(frame: .zero, style: .grouped)
@@ -295,17 +295,17 @@ extension SideMenuView : UITableViewDataSource{
         
         if indexPath == selectedCell
         {
-            cell.lblMenuText.textColor = Color.navigationBottomBorder.value
+            cell.lblMenuText.textColor = AppColor.navigationBottomBorder.value
             if let image = UIImage(named: cellData["icon"] as! String) {
-                cell.imgIcon.image = image.maskWithColor(Color.navigationBottomBorder.value)
-                cell.backgroundColor = Color.navigationTitle.value
+                cell.imgIcon.image = image.maskWithColor(AppColor.navigationBottomBorder.value)
+                cell.backgroundColor = AppColor.navigationTitle.value
             }
         }
         else
         {
-            cell.lblMenuText?.textColor = Color.navigationBottomBorder.value
+            cell.lblMenuText?.textColor = AppColor.navigationBottomBorder.value
             if let image = UIImage(named: cellData["icon"] as! String) {
-                cell.imgIcon.image = image.maskWithColor(Color.navigationBottomBorder.value)
+                cell.imgIcon.image = image.maskWithColor(AppColor.navigationBottomBorder.value)
                 cell.backgroundColor = UIColor.clear
             }
         }
@@ -325,7 +325,7 @@ extension SideMenuView : UITableViewDataSource{
         
         let lbltext : UILabel = UILabel(frame: CGRect(x: 10, y:5, width: headerView.bounds.size.width, height: 20))
         
-        lbltext.textColor = Color.navigationBottomBorder.value
+        lbltext.textColor = AppColor.navigationBottomBorder.value
         lbltext.text = ((arrMenuData[section] as! NSDictionary)["title"] as? String)?.localize()
         headerView.addSubview(lbltext)
         return headerView

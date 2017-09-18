@@ -101,7 +101,7 @@ class Tests: XCTestCase {
     }
     
     func testClearImageData() {
-        ImageDownloader.clearAllTheCachedImages()
+        ImageDownload.clearAllTheCachedImages()
         XCTAssert(true , "Sucess")
     }
     

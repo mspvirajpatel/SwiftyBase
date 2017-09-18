@@ -23,14 +23,15 @@ public enum PageView : Int {
     case ChangeLang = 5
     case Search = 6
     case SnapchatScrollView = 7
-    static let allValues = [unknown, Button, APICall, Plist, Country, Download, ChangeLang,Search,SnapchatScrollView]
+    case ImageView = 8
+    static let allValues = [unknown, Button, APICall, Plist, Country, Download, ChangeLang,Search,SnapchatScrollView,ImageView]
 }
 
 class ListView: BaseView,UITableViewDataSource, UITableViewDelegate, BaseSearchDelegate{
     
     // MARK: - Attributes -
     
-    var listControls : NSArray = ["lstBase","lstAPI","lstPlist","lstCountry","lstDownload","lstLanguage","Search View","Snapchat Scroll View"]
+    var listControls : NSArray = ["lstBase","lstAPI","lstPlist","lstCountry","lstDownload","lstLanguage","Search View","Snapchat Scroll View","ImageView"]
  
     var imgView : BaseImageView!
     
@@ -90,7 +91,7 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate, BaseSearchD
         personListTableView.backgroundColor = UIColor.clear
         personListTableView.separatorStyle = .singleLine
         
-        personListTableView.separatorColor = Color.buttonSecondaryBG.value
+        personListTableView.separatorColor = AppColor.buttonSecondaryBG.value
         
         personListTableView.clipsToBounds = true
         
@@ -264,7 +265,10 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate, BaseSearchD
             container.maximumWidthFirstView = 200
             self.getViewControllerFromSubView()?.navigationController?.pushViewController(container, animated: true)
             
-           
+        case PageView.ImageView.rawValue:
+            self.getViewControllerFromSubView()?.navigationController?.pushViewController(DisplayAllImageController(), animated: true)
+            
+            break
         default:
             break
         }

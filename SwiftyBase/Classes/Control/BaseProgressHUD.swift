@@ -254,7 +254,7 @@ open class BaseProgressHUD: UIView {
         return UIFont(descriptor: fontDescriptor, size: font?.pointSize ?? 0.0)
     }
     
-    // MARK: Colors
+    // MARK: AppColor
     /// get a complementary color to this color:
     private class func getComplementaryForColor(color: UIColor, relativeTo: UIColor) -> UIColor {
         let original = CIColor(color: color)

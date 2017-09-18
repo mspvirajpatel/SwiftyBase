@@ -121,7 +121,7 @@ class BaseControlsDemoView: BaseView,BaseRadioButtonDelegate,PGTransactionDelega
                                                 
                                                 let pick:BaseDatePicker = BaseDatePicker()
                                                 pick.titleString = "Select Date"
-                                                pick.buttonColor = Color.buttonPrimaryBG.value
+                                                pick.buttonColor = AppColor.buttonPrimaryBG.value
                                                 pick.pickerMode  = .date
                                                 pick.block = { (date) in
                                                     print(date ?? "No Date")

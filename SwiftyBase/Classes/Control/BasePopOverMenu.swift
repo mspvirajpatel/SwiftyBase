@@ -104,7 +104,7 @@ public class BasePopOverMenu : NSObject {
     
     fileprivate lazy var backgroundView : UIView = {
         let view = UIView(frame: UIScreen.main.bounds)
-        view.backgroundColor = Color.custom(hexString: 0x00000, alpha: 0.1).value
+        view.backgroundColor = AppColor.custom(hexString: 0x00000, alpha: 0.1).value
         view.addGestureRecognizer(self.tapGesture)
         return view
     }()

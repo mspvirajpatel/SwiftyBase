@@ -112,7 +112,7 @@ open class BaseImageView: UIImageView {
         case BaseImageViewType.logo:
             
             self.contentMode = .scaleAspectFit
-            self.setBorder(Color.border.withAlpha(0.5), width: 0.0, radius: 2.0)
+            self.setBorder(AppColor.border.withAlpha(0.5), width: 0.0, radius: 2.0)
             self.clipsToBounds = true
             self.tag = 0
             self.isUserInteractionEnabled = true
@@ -202,9 +202,9 @@ public extension BaseImageView{
      - parameters:
      - url: Download Image URL
      - returns:
-     `ImageDownloader` for pause,cancel the download
+     `ImageDownload` for pause,cancel the download
      */
-    public func setImageFromURL(_ url:String) -> ImageDownloader {
+    public func setImageFromURL(_ url:String) -> ImageDownload {
         return self.setImageFromURL(url, placeholder: nil, progress: nil, completion: nil)
     }
     
@@ -217,7 +217,7 @@ public extension BaseImageView{
      `ImageDownloader` for pause,cancel the download
      */
     
-    public func setImageFromURL(_ url:String, placeholder: UIImage?) -> ImageDownloader {
+    public func setImageFromURL(_ url:String, placeholder: UIImage?) -> ImageDownload {
         return self.setImageFromURL(url, placeholder: placeholder, progress: nil, completion: nil)
     }
     
@@ -227,10 +227,10 @@ public extension BaseImageView{
      - url: Download Image URL
      - progress: Callback function for progress. It will include Float value 0 to 1.
      - returns:
-     `ImageDownloader` for pause,cancel the download
+     `ImageDownload` for pause,cancel the download
      */
     
-    public func setImageFromURL(_ url: String, progress:((_ value: Float) -> Void)?) -> ImageDownloader {
+    public func setImageFromURL(_ url: String, progress:((_ value: Float) -> Void)?) -> ImageDownload {
         return self.setImageFromURL(url, placeholder: nil, progress: progress, completion: nil)
     }
     
@@ -244,7 +244,7 @@ public extension BaseImageView{
      `ImageDownloader` for pause,cancel the download
      */
     
-    public func setImageFromURL(_ url:String, placeholder: UIImage?, progress:((_ value: Float) -> Void)?) -> ImageDownloader {
+    public func setImageFromURL(_ url:String, placeholder: UIImage?, progress:((_ value: Float) -> Void)?) -> ImageDownload {
         return self.setImageFromURL(url, placeholder: placeholder, progress: progress, completion: nil)
     }
     
@@ -258,7 +258,7 @@ public extension BaseImageView{
      `ImageDownloader` for pause,cancel the download
      */
     
-    public func setImageFromURL(_ url: String, progress:((_ value: Float) -> Void)?,completion:((UIImage?,Bool) -> Void)?) -> ImageDownloader {
+    public func setImageFromURL(_ url: String, progress:((_ value: Float) -> Void)?,completion:((UIImage?,Bool) -> Void)?) -> ImageDownload {
         
         return self.setImageFromURL(url, placeholder: nil, progress: progress, completion: completion)
         
@@ -275,7 +275,7 @@ public extension BaseImageView{
      `ImageDownloader` for pause,cancel the download
      */
     
-    public func setImageFromURL(_ url: String, placeholder: UIImage?, progress:((_ value: Float) -> Void)?,completion:((_ image: UIImage?,_ success: Bool) -> Void)?) -> ImageDownloader {
+    public func setImageFromURL(_ url: String, placeholder: UIImage?, progress:((_ value: Float) -> Void)?,completion:((_ image: UIImage?,_ success: Bool) -> Void)?) -> ImageDownload {
       
         progressIndicatorView.layoutSubviews()
         self.progressIndicatorView.frame.origin = self.center
@@ -287,7 +287,7 @@ public extension BaseImageView{
         
         self.image = placeholder
         
-        let downloader = ImageDownloader()
+        let downloader = ImageDownload()
         
         downloader.downloadImageWithProgress(url, progress: progress, completion: {
             (image,success) in
@@ -315,7 +315,7 @@ public extension BaseImageView{
     
 }
 
-public class ImageDownloader: NSObject {
+public class ImageDownload: NSObject {
     
     var downloadTask: URLSessionDownloadTask?
     var downloadImageURL: String = ""
@@ -523,7 +523,7 @@ public class ImageDownloader: NSObject {
 }
 
 
-extension ImageDownloader: URLSessionDelegate {
+extension ImageDownload: URLSessionDelegate {
     
     public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void)
     {
@@ -534,7 +534,7 @@ extension ImageDownloader: URLSessionDelegate {
     
 }
 
-extension ImageDownloader: URLSessionDownloadDelegate {
+extension ImageDownload: URLSessionDownloadDelegate {
     
     public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         
@@ -608,6 +608,6 @@ extension ImageDownloader: URLSessionDownloadDelegate {
 //})
 //Clear Cache
 //
-//ImageDownloader.clearAllTheCachedImages()
+//ImageDownload.clearAllTheCachedImages()
 //var downloader = ImageDownloader()
 //downloader.deleteCacheImage("file URL")

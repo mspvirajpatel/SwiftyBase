@@ -139,7 +139,7 @@ open class BaseTextField: UITextField, UITextFieldDelegate {
         if(self.placeholder!.responds(to: #selector(NSString.draw(at:withAttributes:))))
         {
             
-            var attributes : [String : AnyObject]! = [NSForegroundColorAttributeName : Color.textFieldPlaceholder.withAlpha(0.45),
+            var attributes : [String : AnyObject]! = [NSForegroundColorAttributeName : AppColor.textFieldPlaceholder.withAlpha(0.45),
                                                       NSFontAttributeName : self.font!]
             
             var boundingRect : CGRect! = self.placeholder!.boundingRect(with: rect.size, options: NSStringDrawingOptions(rawValue: 0), attributes: attributes, context: nil)
@@ -279,10 +279,10 @@ open class BaseTextField: UITextField, UITextFieldDelegate {
         self.autocorrectionType = .default
         
         
-        self.backgroundColor = Color.textFieldBG.value
-        self.textColor = Color.textFieldText.value
+        self.backgroundColor = AppColor.textFieldBG.value
+        self.textColor = AppColor.textFieldText.value
         self.font = UIFont(name: FontStyle.medium, size: 13.0)
-        self.setBorder(Color.textFieldBorder.value,
+        self.setBorder(AppColor.textFieldBorder.value,
                        width: 1.5,
                        radius: ControlConstant.borderRadius)
     }
@@ -355,14 +355,14 @@ open class BaseTextField: UITextField, UITextFieldDelegate {
      Method for show the error border on textfield when user input invalide content.
      */
     open func setErrorBorder(){
-        self.setBorder(Color.textFieldErrorBorder.withAlpha(0.6), width: ControlConstant.txtBorderWidth, radius: ControlConstant.txtBorderRadius)
+        self.setBorder(AppColor.textFieldErrorBorder.withAlpha(0.6), width: ControlConstant.txtBorderWidth, radius: ControlConstant.txtBorderRadius)
     }
     
     /**
      Method for remove the error border on textfield when user input valid content.
      */
     open func clearErrorBorder(){
-        self.setBorder(Color.textFieldErrorBorder.withAlpha(0.6), width: ControlConstant.txtBorderWidth, radius: ControlConstant.txtBorderRadius)
+        self.setBorder(AppColor.textFieldErrorBorder.withAlpha(0.6), width: ControlConstant.txtBorderWidth, radius: ControlConstant.txtBorderRadius)
     }
     
     /**
@@ -412,19 +412,34 @@ open class BaseTextField: UITextField, UITextFieldDelegate {
             if self == nil{
                 return
             }
-            
+            var viewRect : CGRect
             var scrollView : UIScrollView? = self!.getScrollViewFromView(self)
             if(scrollView != nil){
-                
-                AppUtility.executeTaskInMainQueueWithCompletion{ [weak self] in
-                    
-                    if self == nil{
-                        return
+                viewRect = view.frame
+                let screenRect: CGRect = UIScreen.main.bounds
+                let viewableScreenHeight: CGFloat = screenRect.size.height - 308
+                // When the user is on a form field, get the current form field y position to where the scroll view should move to
+                let currentFormFieldYPosition: CGFloat = viewRect.origin.y
+                // I want the current form field y position to be 100dp from the keyboard y position.
+                // 50dp for the current form field to be visible and another 50dp for the next form field so users can see it.
+                let leftoverTopHeight: CGFloat = viewableScreenHeight - 150
+                // If the current form field y position is greater than the left over top height, that means that the current form field is hidden
+                // We make the calculations and then move the scroll view to the right position
+                if currentFormFieldYPosition > leftoverTopHeight {
+                    AppUtility.executeTaskInMainQueueWithCompletion{ [weak self] in
+                        
+                        if self == nil{
+                            return
+                        }
+                        let movedScreenPosition: CGFloat = currentFormFieldYPosition - leftoverTopHeight
+                        
+                        scrollView?.setContentOffset(CGPoint(x: 0.0, y: movedScreenPosition), animated: true)
+                        
+                        scrollView = nil
                     }
-                    
-                    scrollView?.setContentOffset(CGPoint(x: 0.0, y: view.frame.origin.y), animated: true)
-                   
-                    scrollView = nil
+                }
+                else {
+                    self?.resetScrollView()
                 }
             }
         }

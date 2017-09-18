@@ -107,32 +107,32 @@ open class BaseLabel: UILabel {
         case .large:
             
             self.font = UIFont(name: FontStyle.bold, size: SystemConstants.IS_IPAD ? 24.0 : 18.0)
-            self.textColor = Color.labelText.value
+            self.textColor = AppColor.labelText.value
             self.textAlignment = .left
             break
             
         case .medium:
             
             self.font = UIFont(name: FontStyle.medium, size: SystemConstants.IS_IPAD ? 20.0 : 15.0)
-            self.textColor = Color.labelText.value
+            self.textColor = AppColor.labelText.value
             self.textAlignment = .left
             break
             
         case .small:
             
             self.font = UIFont(name: FontStyle.regular, size: SystemConstants.IS_IPAD ? 17.0 : 13.0)
-            self.textColor = Color.labelText.value
+            self.textColor = AppColor.labelText.value
             self.textAlignment = .center
             break
             
         case .primaryTitle:
             self.font = UIFont(name: FontStyle.medium, size: SystemConstants.IS_IPAD ? 22.0 : 16.0)
-            self.textColor = Color.labelText.value
+            self.textColor = AppColor.labelText.value
             
             break
             
         case .secondaryTitle:
-            self.textColor =  Color.labelText.value //UIColor(rgbValue: ColorStyle.btnSecondText, alpha: 1.0)
+            self.textColor =  AppColor.labelText.value //UIColor(rgbValue: ColorStyle.btnSecondText, alpha: 1.0)
             self.font = UIFont(name: FontStyle.medium, size: SystemConstants.IS_IPAD ? 44.0 : 40.0)
             self.layer.masksToBounds = false
             self.layer.shadowColor = UIColor.black.cgColor
