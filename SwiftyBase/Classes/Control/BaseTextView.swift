@@ -55,7 +55,7 @@ open class BaseTextView: UITextView, UITextViewDelegate, UIScrollViewDelegate {
     override open func draw(_ rect: CGRect) {
         superview?.draw(rect)
         
-        if(self.placeholder.characters.count > 0){
+        if(self.placeholder.count > 0){
             
             if(placeHolderLabel == nil){
                 
@@ -81,7 +81,7 @@ open class BaseTextView: UITextView, UITextViewDelegate, UIScrollViewDelegate {
             
         }
         
-        if(self.text!.characters.count == 0 && self.placeholder.characters.count > 0){
+        if(self.text!.count == 0 && self.placeholder.count > 0){
             self.viewWithTag(999)?.alpha = 1
         }
         
@@ -117,7 +117,7 @@ open class BaseTextView: UITextView, UITextViewDelegate, UIScrollViewDelegate {
         self.keyboardAppearance = .dark
         self.textColor = AppColor.textFieldText.value
         self.backgroundColor = AppColor.textFieldBG.value
-        self.font = UIFont(name: FontStyle.medium, size: 13.0)
+        self.font = Font(.installed(.AppleMedium), size:  SystemConstants.IS_IPAD ? .standard(.h3) : .standard(.h4) ).instance
         self.setBorder(AppColor.textFieldBorder.value, width: 1.5, radius: ControlConstant.borderRadius)
     }
     
@@ -349,7 +349,7 @@ open class BaseTextView: UITextView, UITextViewDelegate, UIScrollViewDelegate {
     // MARK: - UITextView Delegate Methods -
     
     public func textViewDidChange(_ textView: UITextView){
-        if(self.placeholder.characters.count == 0){
+        if(self.placeholder.count == 0){
             return
         }
         

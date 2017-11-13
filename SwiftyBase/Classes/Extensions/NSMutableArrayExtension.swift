@@ -13,15 +13,6 @@ public extension NSMutableArray {
     // MARK: - Instance functions -
     
     /**
-     Create a reversed array from self
-     
-     - returns: Returns the reversed array
-     */
-    public override func reversedArray() -> NSMutableArray {
-        return super.reversedArray() as! NSMutableArray
-    }
-    
-    /**
      Move an object from an index to another
      
      - parameter from: The index to move from

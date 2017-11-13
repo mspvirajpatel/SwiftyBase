@@ -64,19 +64,19 @@ public extension NSObject
             return false
         }
         
-        var m1 = class_getInstanceMethod(self, s1)
-        var m2 = class_getInstanceMethod(self, s2)
+        var m1 = class_getInstanceMethod(self, s1!)
+        var m2 = class_getInstanceMethod(self, s2!)
         
         if m1 == nil || m2 == nil {
             return false
         }
         
-        class_addMethod(self, s1, method_getImplementation(m1), method_getTypeEncoding(m1))
-        class_addMethod(self, s2, method_getImplementation(m2), method_getTypeEncoding(m2))
+        class_addMethod(self, s1!, method_getImplementation(m1!), method_getTypeEncoding(m1!))
+        class_addMethod(self, s2!, method_getImplementation(m2!), method_getTypeEncoding(m2!))
         
-        m1 = class_getInstanceMethod(self, s1)
-        m2 = class_getInstanceMethod(self, s2)
-        method_exchangeImplementations(m1, m2)
+        m1 = class_getInstanceMethod(self, s1!)
+        m2 = class_getInstanceMethod(self, s2!)
+        method_exchangeImplementations(m1!, m2!)
         
         return true
     }

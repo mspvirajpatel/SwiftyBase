@@ -6,33 +6,7 @@
 //
 //
 
-import Foundation
-#if os(macOS)
-    import Cocoa
-#else
-    import UIKit
-#endif
-
-open class AppTheme : NSObject{
-    
-    public class func getFont(fontName : String, size : CGFloat) -> UIFont{
-        return UIFont(fontString: "\(fontName);\(size)")
-    }
-}
-
-public struct FontStyle{
-    static let bold = "AppleSDGothicNeo-Bold"
-    static let regular = "AppleSDGothicNeo-Regular"
-    static let light = ""
-    static let medium = "AppleSDGothicNeo-Medium"
-}
-
-public enum Font{
-    case bold
-    case regular
-    case light
-    case medium
-}
+import UIKit
 
 public extension AppColor{
     
@@ -262,3 +236,104 @@ public enum AppColor{
         return self.value.withAlphaComponent(CGFloat(alpha))
     }
 }
+
+//For Font
+
+//let system12            = Font(.system, size: .standard(.h5)).instance
+//let robotoThin20        = Font(.installed(.RobotoThin), size: .standard(.h1)).instance
+//let robotoBlack14       = Font(.installed(.OpenSansLight), size: .standard(.h4)).instance
+//let helveticaLight13    = Font(.custom("Helvetica-Light"), size: .custom(13.0)).instance
+
+struct Font {
+    enum FontType {
+        case installed(FontName)
+        case custom(String)
+        case system
+        case systemBold
+        case systemItatic
+    }
+    enum FontSize {
+        case standard(StandardSize)
+        case custom(Double)
+        var value: Double {
+            switch self {
+            case .standard(let size):
+                return size.rawValue
+            case .custom(let customSize):
+                return customSize
+            }
+        }
+    }
+    enum FontName: String {
+        case AppleBold              = "AppleSDGothicNeo-Bold"
+        case Appleregular           = "AppleSDGothicNeo-Regular"
+        case AppleMedium            = "AppleSDGothicNeo-Medium"
+        case OpenSansLight          = "OpenSans-Light"
+        case RobotoItalic           = "Roboto-Italic"
+        case RobotoLight            = "Roboto_Light"
+        case RobotoLightItalic      = "Roboto-LightItalic"
+        case RobotoMedium           = "Roboto-Medium"
+        case RobotoMediumItalic     = "Roboto-MediumItalic"
+        case RobotoRegular          = "Roboto-Regular"
+        case RobotoThin             = "Roboto-Thin"
+        case RobotoThinItalic       = "Roboto-ThinItalic"
+    }
+    enum StandardSize: Double {
+        case h = 25.0
+        case h1 = 20.0
+        case h2 = 18.0
+        case h3 = 16.0
+        case h4 = 14.0
+        case h5 = 12.0
+        case h6 = 10.0
+        
+    }
+    
+    // 1
+    var type: FontType
+    var size: FontSize
+    // 2
+    init(_ type: FontType, size: FontSize) {
+        self.type = type
+        self.size = size
+    }
+}
+
+class Utility {
+    /// Logs all available fonts from iOS SDK and installed custom font
+    class func logAllAvailableFonts() {
+        for family in UIFont.familyNames {
+            dLog("\(family)")
+            for name in UIFont.fontNames(forFamilyName: family) {
+                dLog("   \(name)")
+            }
+        }
+    }
+}
+
+extension Font {
+    var instance: UIFont {
+        var instanceFont: UIFont!
+        switch type {
+        case .custom(let fontName):
+            guard let font =  UIFont(name: fontName, size: CGFloat(size.value)) else {
+                fatalError("\(fontName) font is not installed, make sure it is added in Info.plist and logged with Utility.logAllAvailableFonts()")
+            }
+            instanceFont = font
+        case .installed(let fontName):
+            guard let font =  UIFont(name: fontName.rawValue, size: CGFloat(size.value)) else {
+                fatalError("\(fontName.rawValue) font is not installed, make sure it is added in Info.plist and logged with Utility.logAllAvailableFonts()")
+            }
+            instanceFont = font
+        case .system:
+            instanceFont = UIFont.systemFont(ofSize: CGFloat(size.value))
+        case .systemBold:
+            instanceFont = UIFont.boldSystemFont(ofSize: CGFloat(size.value))
+        case .systemItatic:
+            instanceFont = UIFont.italicSystemFont(ofSize: CGFloat(size.value))
+       
+        }
+        return instanceFont
+    }
+}
+

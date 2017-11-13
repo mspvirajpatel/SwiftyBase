@@ -112,7 +112,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CAAnimationDelegate {
         self.listView = ListController.init()
         menuController = SideMenuController()
         
-        navigation = BaseNavigationController(rootViewController: self.listView)
+        navigation = BaseNavigationController.init(rootViewController: self.listView)
        
         let menuLeftNavigationController = UISideMenuNavigationController.init(rootViewController: menuController)
         
@@ -129,7 +129,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CAAnimationDelegate {
         
     }
     
-    func rotated() {
+    @objc func rotated() {
         if UIDeviceOrientationIsLandscape(UIDevice.current.orientation) {
             print("Landscape")
         }

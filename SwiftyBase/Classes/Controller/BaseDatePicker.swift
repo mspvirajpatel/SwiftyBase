@@ -115,7 +115,7 @@ open class BaseDatePicker: UIViewController {
         self.transitioningDelegate = self
     }
     
-    open func confirmButton_Click(){
+    @objc open func confirmButton_Click(){
         if block != nil {
             self.dismiss(animated: true, completion: nil)
             let df:DateFormatter = DateFormatter.init()

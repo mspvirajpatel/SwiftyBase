@@ -159,7 +159,7 @@ public final class BaseCountriesPicker: UIViewController, UISearchBarDelegate, U
     }
     
     /// Function for done button
-    func done(){
+    @objc func done(){
         
         delegate?.countriesViewController(self, didSelectCountries: selectedCountries)
         self.dismiss(animated: true, completion: nil)
@@ -167,7 +167,7 @@ public final class BaseCountriesPicker: UIViewController, UISearchBarDelegate, U
     }
     
     /// Function for cancel button
-    func cancel(){
+    @objc func cancel(){
         
         delegate?.countriesViewControllerDidCancel(self)
         self.dismiss(animated: true, completion: nil)

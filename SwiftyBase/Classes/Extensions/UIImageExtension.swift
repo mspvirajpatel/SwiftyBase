@@ -28,6 +28,14 @@ public extension CGSize {
 
 public extension UIImage {
     
+    public func scaleToSize(newSize: CGSize) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
+        draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
+        let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext();
+        return newImage
+    }
+    
     // resize image with max dimention option & compressRatio like 0.5
     public func compressImage(to maxDimention: CGFloat,compressRatio:CGFloat) -> UIImage {
        
@@ -143,8 +151,8 @@ public extension UIImage{
     
     public func waterMarkedImage(waterMarkText:String, corner:WaterMarkCorner = .BottomRight, margin:CGPoint = CGPoint(x: 20, y: 20), waterMarkTextColor:UIColor = UIColor.white, waterMarkTextFont:UIFont = UIFont.systemFont(ofSize: 20), backgroundColor:UIColor = UIColor.clear) -> UIImage{
         
-        let textAttributes = [NSForegroundColorAttributeName:waterMarkTextColor, NSFontAttributeName:waterMarkTextFont]
-        let textSize = NSString(string: waterMarkText).size(attributes: textAttributes)
+        let textAttributes = [NSAttributedStringKey.foregroundColor:waterMarkTextColor, NSAttributedStringKey.font:waterMarkTextFont]
+        let textSize = NSString(string: waterMarkText).size(withAttributes: textAttributes)
         var textFrame = CGRect.init(x: 0, y: 0, width: textSize.width, height: textSize.width)
         
         let imageSize = self.size
@@ -173,7 +181,7 @@ public extension UIImage{
     
     public func editWithText(text : String,setImage : UIImage) -> UIImage? {
         
-        let font : UIFont! = UIFont(name: FontStyle.medium, size: 50.0)
+        let font : UIFont! = Font(.installed(.AppleMedium), size:  SystemConstants.IS_IPAD ? .standard(.h) : .standard(.h) ).instance
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = NSTextAlignment.left
         
@@ -182,7 +190,7 @@ public extension UIImage{
         let context = UIGraphicsGetCurrentContext()
         self.draw(at: .zero)
         
-        let stringBox : CGSize = NSString(string: text).size(attributes: [NSFontAttributeName : font])
+        let stringBox : CGSize = NSString(string: text).size(withAttributes: [NSAttributedStringKey.font : font])
         
         
         //Ractangle
@@ -199,7 +207,7 @@ public extension UIImage{
         
         //Labale
         let lableRact = CGRect(x: 90, y: (imageSize.height) - stringBox.height, width: stringBox.width, height: stringBox.height)
-        text.draw(in: lableRact.integral, withAttributes: [NSFontAttributeName : font, NSForegroundColorAttributeName : UIColor.white , NSParagraphStyleAttributeName : paragraphStyle])
+        text.draw(in: lableRact.integral, withAttributes: [NSAttributedStringKey.font : font, NSAttributedStringKey.foregroundColor : UIColor.white , NSAttributedStringKey.paragraphStyle : paragraphStyle])
         
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()

@@ -36,7 +36,7 @@ open class BaseRippleView: UIView {
             super.backgroundColor = newValue
             rippleBackgroundView.backgroundColor = newValue ?? .clear
             if let color = newValue {
-                rippleColor = color.isLight ? color.darker(by: 10) : color.lighter(by: 10)
+                rippleColor = color.lighterColorForColor()!
             }
         }
     }

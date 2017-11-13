@@ -99,12 +99,14 @@ class PhotoCollectionCell: UICollectionViewCell {
     func safeAddObserver() {
         if self.parentTableView != nil {
             defer {
+                
             }
             do {
                 self.parentTableView.addObserver(self, forKeyPath: "contentOffset", options: [NSKeyValueObservingOptions.new , NSKeyValueObservingOptions.old], context: nil)
             }
-            catch {
-                
+            catch let error as NSError
+            {
+                print("Error :- \(error.localizedDescription)")
             }
         }
     }
@@ -116,9 +118,9 @@ class PhotoCollectionCell: UICollectionViewCell {
             do {
                 self.parentTableView.removeObserver(self, forKeyPath: "contentOffset", context: nil)
             }
-            catch
+            catch let error as NSError
             {
-            
+                print("Error :- \(error.localizedDescription)")
             }
         }
     }

@@ -72,7 +72,7 @@ class CustomPresentationController: UIPresentationController {
         return frame
     }
     
-    func dismissSelf(){
+    @objc func dismissSelf(){
         self.presentedViewController.dismiss(animated: true, completion: nil)
     }
     

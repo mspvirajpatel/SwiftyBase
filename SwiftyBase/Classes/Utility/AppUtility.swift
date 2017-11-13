@@ -10,6 +10,8 @@
 import UIKit
 import SystemConfiguration
 import UserNotifications
+import Photos
+import SystemConfiguration.SCNetwork
 
 open class AppUtility: NSObject {
     
@@ -33,6 +35,17 @@ open class AppUtility: NSObject {
         let isReachable = (flags.rawValue & UInt32(kSCNetworkFlagsReachable)) != 0
         let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
         completion(isReachable && !needsConnection )
+    }
+    
+    public class func getAssetThumbnail(asset: PHAsset) -> UIImage {
+        let manager = PHImageManager.default()
+        let option = PHImageRequestOptions()
+        var thumbnail = UIImage()
+        option.isSynchronous = true
+        manager.requestImage(for: asset, targetSize: CGSize(width: asset.pixelWidth, height: asset.pixelHeight), contentMode: .aspectFit, options: option, resultHandler: {(result, info)->Void in
+            thumbnail = result!
+        })
+        return thumbnail
     }
     
     public class func getDelegate() -> AnyObject? {
@@ -309,7 +322,7 @@ open class AppUtility: NSObject {
     }
     
     public class func isValidPhoneNoCountTen(_ mobileNo : String) -> Bool    {
-        return mobileNo.characters.count == 10 ? true : false
+        return mobileNo.count == 10 ? true : false
     }
     
     class func isOnlyNumber (_ candidate: String) -> Bool {
@@ -345,7 +358,7 @@ open class AppUtility: NSObject {
     
     class func validateCharCount(_ name: String,minLimit : Int,maxLimit : Int) -> Bool    {
         // check the name is between 4 and 16 characters
-        if !(minLimit...maxLimit ~= name.characters.count) {
+        if !(minLimit...maxLimit ~= name.count) {
             return false
         }
         return true
@@ -354,7 +367,7 @@ open class AppUtility: NSObject {
     
     // check the name is between 4 and 16 characters
     public func validateCharCount(_ name: String,minLimit : Int,maxLimit : Int) -> Bool    {
-        if !(minLimit...maxLimit ~= name.characters.count) {
+        if !(minLimit...maxLimit ~= name.count) {
             return false
         }
         return true
@@ -588,6 +601,46 @@ open class AppUtility: NSObject {
         UIGraphicsEndImageContext()
         
         return image!
+    }
+    
+    class func saveFile(text: String, to fileNamed: String, folder: String = "ATP45") -> URL? {
+        guard let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first else { return nil}
+        guard let writePath = NSURL(fileURLWithPath: path).appendingPathComponent(folder) else { return  nil}
+        do {
+            try FileManager.default.createDirectory(atPath: writePath.path, withIntermediateDirectories: true)
+        } catch let error as NSError {
+            dLog("Unable to create directory \(error.debugDescription)")
+        }
+        
+        let file : URL = writePath.appendingPathComponent(fileNamed + ".txt")
+        
+        if File.exists(path: file) {
+            do{
+                try FileManager.default.removeItem(at: file)
+                return File.write(path: file, content: text)
+            }
+            catch let error as NSError {
+                dLog("Unable to create directory \(error.debugDescription)")
+                return nil
+            }
+            
+        } else {
+            return File.write(path: file, content: text)
+        }
+    }
+    
+    class func readFromDocumentsFile(fileName:String) -> String? {
+        guard let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first else { return nil}
+        guard let writePath = NSURL(fileURLWithPath: path).appendingPathComponent("ATP45") else { return  nil}
+        
+        let file = writePath.appendingPathComponent(fileName + ".txt")
+        
+        if File.exists(path: file) {
+            return File.read(path: file)
+        } else {
+            //files = "*ERROR* \(fileName) does not exist."
+            return nil
+        }
     }
     
     // MARK: - Get IP Address of Device

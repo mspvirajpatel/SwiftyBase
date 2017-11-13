@@ -1095,36 +1095,7 @@ public extension UIView {
             }
         }
     }
-    
-    /**
-     Create a heartbeat effect on the UIView
-     
-     - parameter duration: Seconds of animation
-     */
-    public func heartbeatViewWithDuration(duration: CGFloat) {
-        let maxSize: CGFloat = 1.4, durationPerBeat: CGFloat = 0.5
-        
-        let animation: CAKeyframeAnimation = CAKeyframeAnimation(keyPath: "transform")
-        
-        let scale1: CATransform3D = CATransform3DMakeScale(0.8, 0.8, 1)
-        let scale2: CATransform3D = CATransform3DMakeScale(maxSize, maxSize, 1)
-        let scale3: CATransform3D = CATransform3DMakeScale(maxSize - 0.3, maxSize - 0.3, 1)
-        let scale4: CATransform3D = CATransform3DMakeScale(1.0, 1.0, 1)
-        
-        let frameValues: Array = [NSValue(caTransform3D: scale1), NSValue(caTransform3D: scale2), NSValue(caTransform3D: scale3), NSValue(caTransform3D: scale4)]
-        
-        animation.values = frameValues
-        
-        let frameTimes: Array = [NSNumber(value: 0.05), NSNumber(value: 0.2), NSNumber(value: 0.6), NSNumber(value: 1.0)]
-        animation.keyTimes = frameTimes
-        
-        animation.fillMode = kCAFillModeForwards
-        animation.duration = TimeInterval(durationPerBeat)
-        animation.repeatCount = Float(duration / durationPerBeat)
-        
-        self.layer.add(animation, forKey: "heartbeat")
-    }
-    
+   
     /**
      Adds a motion effect to the view
      */

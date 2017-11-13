@@ -18,8 +18,8 @@
  - default unknown: this is default type
  
  */
-public enum BaseButtonType : Int
-{
+public enum BaseButtonType : Int {
+    
     case unknown = -1
     case primary = 1
     case secondary
@@ -29,7 +29,37 @@ public enum BaseButtonType : Int
     case transparent
     case checkbox
     case dropDown
+    
+    case none
+    
+    init(named baseButtonType: String) {
+        switch baseButtonType
+        {
+        case "unknown": self = .unknown
+            break
+        case "primary": self = .primary
+            break
+        case "secondary": self = .secondary
+            break
+        case "radio": self = .radio
+            break
+        case "roundedClose": self = .roundedClose
+            break
+        case "close": self = .close
+            break
+        case "transparent": self = .transparent
+            break
+        case "checkbox": self = .checkbox
+            break
+        case "dropDown": self = .dropDown
+            break
+        default: self = .none
+            break
+        }
+    }
+    
 }
+
 
 /**
  This is Base Class of BaseButton. Use this class in whole application where you want to use button.
@@ -54,6 +84,14 @@ open class BaseButton: UIButton
     // MARK: - For Radio Button
     fileprivate var circleLayer : CAShapeLayer! = CAShapeLayer()
     fileprivate var fillCircleLayer : CAShapeLayer! = CAShapeLayer()
+   
+    @IBInspectable var ButtonType: String? {
+        willSet {
+            baseButtonType = BaseButtonType(named: newValue ?? "")
+            self.setCommonProperties()
+            
+        }
+    }
     
     override open var isSelected: Bool {
         didSet {
@@ -76,9 +114,9 @@ open class BaseButton: UIButton
     /**
      Radius of RadioButton circle.
      */
-    @IBInspectable open var circleRadius: CGFloat! = 5.0
+    open var circleRadius: CGFloat! = 5.0
     
-    @IBInspectable open var cornerRadius2: CGFloat! {
+    open var cornerButtonRadius: CGFloat! {
         get {
             return layer.cornerRadius
         }
@@ -166,6 +204,12 @@ open class BaseButton: UIButton
         circleColor              = nil
         circleRadius = nil
     }
+  
+    override open func awakeFromNib() {
+        super.awakeFromNib()
+        
+        self.setCommonProperties()
+    }
     
     /**
      Here we had override the layoutSubviews method for do the layout work when its called. its necessory, when useing the Autolayout Because here he we get the actual / real frame of view.
@@ -204,7 +248,7 @@ open class BaseButton: UIButton
             
             self.backgroundColor  = AppColor.buttonPrimaryBG.value
             self.setTitleColor(AppColor.buttonPrimaryTitle.value, for: UIControlState())
-            self.titleLabel?.font = UIFont(name: FontStyle.bold, size: 14.0)
+            self.titleLabel?.font = Font(.installed(.AppleMedium), size: .standard(.h3)).instance
             self.titleEdgeInsets  = UIEdgeInsetsMake(3, 0, 0, 0)
             //For set Border
             self.setBorder(AppColor.buttonBorder.value, width: 1.5, radius: ControlConstant.borderRadius)
@@ -215,7 +259,7 @@ open class BaseButton: UIButton
             
             self.backgroundColor  = AppColor.buttonSecondaryBG.value
             self.setTitleColor(AppColor.buttonSecondaryTitle.value, for: UIControlState())
-            self.titleLabel?.font = UIFont(name: FontStyle.bold, size: 14.0)
+            self.titleLabel?.font = Font(.installed(.AppleMedium), size: .standard(.h3)).instance
             self.titleEdgeInsets  = UIEdgeInsetsMake(3, 0, 0, 0)
             self.setBorder(AppColor.buttonBorder.value, width: 1.5, radius: ControlConstant.borderRadius)
             break
@@ -224,7 +268,7 @@ open class BaseButton: UIButton
             
             self.backgroundColor  = UIColor.clear
             self.setTitleColor(AppColor.buttonPrimaryTitle.value, for: .normal)
-            self.titleLabel?.font = currentDevice.isIpad ? UIFont(name: FontStyle.bold, size: 16.0)! : UIFont(name: FontStyle.bold, size: 14.0)!
+            self.titleLabel?.font = currentDevice.isIpad ? Font(.installed(.AppleMedium), size: .standard(.h2)).instance : Font(.installed(.AppleMedium), size: .standard(.h3)).instance
             self.titleEdgeInsets = UIEdgeInsetsMake(3, 0, 0, 0)
             break;
             
@@ -245,7 +289,7 @@ open class BaseButton: UIButton
             self.toggleButon()
             self.setTitleColor(AppColor.buttonPrimaryTitle.value, for: UIControlState())
             self.circleColor                = AppColor.buttonPrimaryBG.value
-            self.titleLabel?.font           = UIFont(name: FontStyle.bold, size: 14.0)
+            self.titleLabel?.font           = Font(.installed(.AppleMedium), size: .standard(.h3)).instance
             self.contentHorizontalAlignment = .left
             self.circleRadius = 10.0
             break
@@ -254,7 +298,7 @@ open class BaseButton: UIButton
             
             self.backgroundColor  = AppColor.buttonPrimaryBG.value
             self.setTitleColor(AppColor.buttonPrimaryTitle.value, for: .normal)
-            self.titleLabel?.font = currentDevice.isIpad ? UIFont(name: FontStyle.bold, size: 16.0)! : UIFont(name: FontStyle.bold, size: 14.0)!
+            self.titleLabel?.font = currentDevice.isIpad ? Font(.installed(.AppleMedium), size: .standard(.h2)).instance : Font(.installed(.AppleMedium), size: .standard(.h3)).instance
             self.titleEdgeInsets  = UIEdgeInsetsMake(3, 0, 0, 0)
             self.setBorder(AppColor.buttonBorder.value, width: 1.0, radius: ControlConstant.borderRadius)
             break
@@ -283,7 +327,7 @@ open class BaseButton: UIButton
             
             self.backgroundColor  = AppColor.buttonSecondaryBG.value
             self.setTitleColor(AppColor.buttonPrimaryTitle.value, for: .normal)
-            self.titleLabel?.font = UIFont(name: FontStyle.bold, size: 13.0)
+            self.titleLabel?.font = Font(.installed(.AppleMedium), size: .standard(.h3)).instance
             self.titleEdgeInsets  = UIEdgeInsetsMake(3, 10, 0, 35)
             self.contentHorizontalAlignment = .left
             break
@@ -365,7 +409,7 @@ open class BaseButton: UIButton
             
             var dropDownIcon : UILabel!
             dropDownIcon = UILabel()
-            dropDownIcon .font = UIFont(name: FontStyle.bold, size: 13.0)
+            dropDownIcon .font =  Font(.installed(.AppleMedium), size:  SystemConstants.IS_IPAD ? .standard(.h3) : .standard(.h4) ).instance
 //            dropDownIcon .setFAIcon(icon: FAType.FAChevronDown, iconSize: 20.0)
 //            dropDownIcon .setFAColor(color: AppColor.buttonPrimaryTitle.value)
             dropDownIcon.translatesAutoresizingMaskIntoConstraints = false
@@ -442,7 +486,7 @@ open class BaseButton: UIButton
      This method is Target method of button when button clicke, touchup inside etc. Its execute the TouchUp block and control passed to resepective view and viewcontroller where it's set.
      - parameter sender: Object of clicked button.
      */
-    open func buttonTouchUpInsideAction(_ sender : AnyObject)
+    @objc open func buttonTouchUpInsideAction(_ sender : AnyObject)
     {
         self.backgroundColor = originalBackgroundColor
         switch baseButtonType

@@ -172,7 +172,7 @@ public extension NSString {
     public func heightForWidth(width: CGFloat, font: UIFont) -> CGFloat {
         var size: CGSize = CGSize.zero
         if self.length > 0 {
-            let frame: CGRect = self.boundingRect(with:CGSize.init(width: width, height: 999999), options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName : font], context: nil)
+            let frame: CGRect = self.boundingRect(with:CGSize.init(width: width, height: 999999), options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font : font], context: nil)
             size = CGSize.init(width: frame.size.width, height: frame.size.height + 1)
             
         }

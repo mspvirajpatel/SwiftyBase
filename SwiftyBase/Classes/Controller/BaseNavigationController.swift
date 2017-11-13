@@ -6,11 +6,7 @@
 //
 //
 
-#if os(macOS)
-    import Cocoa
-#else
-    import UIKit
-#endif
+import UIKit
 
 @IBDesignable
 open class BaseNavigationController: UINavigationController, CAAnimationDelegate{
@@ -47,6 +43,16 @@ open class BaseNavigationController: UINavigationController, CAAnimationDelegate
     }
     
     
+    override open var prefersStatusBarHidden: Bool {
+        get {
+            return true
+        }
+    }
+    
+    override open var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
@@ -65,17 +71,28 @@ open class BaseNavigationController: UINavigationController, CAAnimationDelegate
         
         self.navigationBar.isTranslucent = false
         
-        var navigationBarFont: UIFont? = UIFont(name: FontStyle.medium, size: 17.0)
+        var navigationBarFont: UIFont? = Font(.installed(.AppleMedium), size: .standard(.h3)).instance
         
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: AppColor.navigationBG.value,
-                                                            NSFontAttributeName: navigationBarFont!] as [String : Any]
+        if #available(iOS 11.0, *) {
+            
+            let navigationLargeFont: UIFont? = Font(.installed(.AppleMedium), size: .standard(.h)).instance
+            
+            self.navigationBar.prefersLargeTitles = true
+            self.navigationItem.largeTitleDisplayMode = .automatic
+            
+            self.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue): AppColor.navigationBG.value,
+                                                           NSAttributedStringKey(rawValue: NSAttributedStringKey.font.rawValue): navigationLargeFont!]
+        } else {
+            // Fallback on earlier versions
+        }
+        
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue): AppColor.navigationBG.value,
+                                                            NSAttributedStringKey(rawValue: NSAttributedStringKey.font.rawValue): navigationBarFont!]
         
         self.navigationBar.tintColor = AppColor.navigationBG.value
         self.navigationBar.barTintColor = AppColor.appPrimaryBG.value
         self.navigationBar.isTranslucent = false
         self.view.backgroundColor = AppColor.appPrimaryBG.value
-     
-        self.navigationBar.setBottomBorder(AppColor.navigationBottomBorder.value, width: 1.0)
         
         
         // self.edgesForExtendedLayout = UIRectEdge.none

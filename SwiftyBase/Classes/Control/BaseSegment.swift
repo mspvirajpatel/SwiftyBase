@@ -27,7 +27,7 @@ open class BaseSegment: UIView {
     open var KSegmentBorderColor = AppColor.segmentBorder.value
     open var KSegmentBorderWidth : CGFloat = 2.0
     
-    open var kSegmentButtonFont = UIFont(name: FontStyle.bold, size: 17.0)
+    open var kSegmentButtonFont = Font(.installed(.AppleMedium), size:  SystemConstants.IS_IPAD ? .standard(.h3) : .standard(.h4) ).instance
     
     open var KhighlightBackgroundColor = AppColor.segmentSelectedTitle.withAlpha(0.1)
     
@@ -266,7 +266,7 @@ open class BaseSegment: UIView {
     
     // MARK: - User Interaction -
     
-    public func segmentTabbed(_ sender : AnyObject){
+    @objc public func segmentTabbed(_ sender : AnyObject){
         let currentButton : UIButton = (sender as? UIButton)!
         currentButton.setBottomBorder(KSegmentBorderColor, width: KSegmentBorderWidth)
         currentButton.setTitleColor(KSegementSelectedTitleColor, for: UIControlState())

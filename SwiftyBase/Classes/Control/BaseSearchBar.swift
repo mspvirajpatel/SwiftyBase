@@ -309,7 +309,7 @@ open class BaseSearchBar : UIView, UITextFieldDelegate, UIGestureRecognizerDeleg
     
     // MARK: animation
     
-    func changeStateIfPossible(_ gestureRecognizer: UITapGestureRecognizer)
+    @objc func changeStateIfPossible(_ gestureRecognizer: UITapGestureRecognizer)
     {
         switch self.state
         {
@@ -434,7 +434,7 @@ open class BaseSearchBar : UIView, UITextFieldDelegate, UIGestureRecognizerDeleg
     
     func textDidChange(_ notification: Notification?)
     {
-        let hasText: Bool = self.searchField.text!.characters.count != 0
+        let hasText: Bool = self.searchField.text!.count != 0
         
         if hasText
         {
@@ -515,7 +515,7 @@ open class BaseSearchBar : UIView, UITextFieldDelegate, UIGestureRecognizerDeleg
     
     // MARK: keyboard
     
-    func keyboardWillShow(_ notification: Notification?)
+    @objc func keyboardWillShow(_ notification: Notification?)
     {
         if self.searchField.isFirstResponder
         {
@@ -523,7 +523,7 @@ open class BaseSearchBar : UIView, UITextFieldDelegate, UIGestureRecognizerDeleg
         }
     }
     
-    func keyboardWillHide(_ notification: Notification?)
+    @objc func keyboardWillHide(_ notification: Notification?)
     {
         if self.searchField.isFirstResponder
         {
@@ -531,12 +531,12 @@ open class BaseSearchBar : UIView, UITextFieldDelegate, UIGestureRecognizerDeleg
         }
     }
     
-    func dismissKeyboard(_ gestureRecognizer: UITapGestureRecognizer)
+    @objc func dismissKeyboard(_ gestureRecognizer: UITapGestureRecognizer)
     {
         if (self.searchField.isFirstResponder)
         {
             self.window?.endEditing(true)
-            if (self.state == BaseSearchBarState.searchBarVisible && self.searchField.text!.characters.count == 0)
+            if (self.state == BaseSearchBarState.searchBarVisible && self.searchField.text!.count == 0)
             {
                 self.hideSearchBar(nil)
             }

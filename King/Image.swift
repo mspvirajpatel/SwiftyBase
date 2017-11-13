@@ -603,7 +603,7 @@ extension Kingfisher where Base: Image {
         #if os(watchOS)
             return base
         #else
-            return apply(.colorControl(brightness, contrast, saturation, inputEV))
+            return apply(.colorControl((brightness, contrast, saturation, inputEV)))
         #endif
     }
 }

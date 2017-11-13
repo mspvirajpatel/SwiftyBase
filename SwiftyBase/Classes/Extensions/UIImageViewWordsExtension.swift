@@ -19,14 +19,14 @@ import UIKit
 
 public extension UIImageView {
     
-    public func image(with word: String, color: UIColor? = nil, circular: Bool = true, fontAttributes: [String : AnyObject] = [:]){
+    public func image(with word: String, color: UIColor? = nil, circular: Bool = true, fontAttributes: [NSAttributedStringKey : Any] = [:]){
         var imageViewString: String = ""
         
-        let wordsArray = word.characters.split{$0 == " "}.map(String.init)
+        let wordsArray = word.split{$0 == " "}.map(String.init)
         
         for word in wordsArray {
             imageViewString += word[0]
-            if imageViewString.characters.count >= 2 {
+            if imageViewString.count >= 2 {
                 break
             }
         }
@@ -34,17 +34,17 @@ public extension UIImageView {
         imageSnapShotFromWords(snapShotString: imageViewString, color: color, circular: circular, fontAttributes: fontAttributes)
     }
     
-    fileprivate func imageSnapShotFromWords(snapShotString: String, color: UIColor?, circular: Bool, fontAttributes: [String : AnyObject]?) {
+    fileprivate func imageSnapShotFromWords(snapShotString: String, color: UIColor?, circular: Bool, fontAttributes: [NSAttributedStringKey : Any]?) {
         
-        let attributes: [String : AnyObject]
+        let attributes: [NSAttributedStringKey : Any]
         
         if let attr = fontAttributes, attr.keys.count > 0 {
             attributes = attr
         }
         else {
             attributes = [
-                NSForegroundColorAttributeName : UIColor.white,
-                NSFontAttributeName : UIFont.systemFont(ofSize: self.bounds.width * 0.4)
+                NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue) : UIColor.white,
+                NSAttributedStringKey(rawValue: NSAttributedStringKey.font.rawValue) : UIFont.systemFont(ofSize: self.bounds.width * 0.4)
             ]
         }
         
@@ -71,7 +71,7 @@ public extension UIImageView {
         context.setFillColor(imageBackgroundColor.cgColor)
         context.fill(CGRect(x: 0, y: 0, width: self.bounds.size.width, height: self.bounds.size.height))
         
-        let textSize = snapShotString.size(attributes: attributes)
+        let textSize = snapShotString.size(withAttributes: attributes)
         
         snapShotString.draw(in: CGRect(x: bounds.size.width/2 - textSize.width/2,
                                        y: bounds.size.height/2 - textSize.height/2,

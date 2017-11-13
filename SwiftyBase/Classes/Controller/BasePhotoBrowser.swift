@@ -285,13 +285,9 @@ extension PhotoBrowser {
         
             let currentCell = self.collectionView.cellForItem(at: IndexPath(row: self.currentIndex, section: 0)) as! PhotoViewCell
             guard let currentImage = currentCell.imageView.image else { return }
-            
-            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
-                
-                UIImageWriteToSavedPhotosAlbum(currentImage, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
-                
-            })
-            
+            AppUtility.executeTaskInGlobalQueueWithCompletion {
+                 UIImageWriteToSavedPhotosAlbum(currentImage, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
+            }
         }
         toolBar.extraBtnOnClick = {[unowned self] (extraBtn: UIButton) in
             
@@ -457,12 +453,16 @@ extension PhotoBrowser {
         
         UIGraphicsBeginImageContextWithOptions(view.frame.size, false, 0.0)
         let context = UIGraphicsGetCurrentContext()
-        view.layer.render(in: context!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
+        if context != nil{
+            view.layer.render(in: context!)
+            let image = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            
+            let imageView = UIImageView(image: image)
+            return imageView
+        }
+        return UIView()
         
-        let imageView = UIImageView(image: image)
-        return imageView
         
     }
     
@@ -605,7 +605,7 @@ class PhotoViewCell: UICollectionViewCell {
     //MARK:-
     
 
-    func handleSingleTap(_ ges: UITapGestureRecognizer) {
+    @objc func handleSingleTap(_ ges: UITapGestureRecognizer) {
        
         if scrollView.zoomScale != scrollView.minimumZoomScale {
             scrollView.setZoomScale(scrollView.minimumZoomScale, animated: false)
@@ -613,7 +613,7 @@ class PhotoViewCell: UICollectionViewCell {
         singleTapAction?(ges)
     }
     
-    func handleDoubleTap(_ ges: UITapGestureRecognizer) {
+    @objc func handleDoubleTap(_ ges: UITapGestureRecognizer) {
        
         if imageView.image == nil { return }
         
@@ -673,10 +673,10 @@ extension PhotoViewCell {
         }
         
         image =  image ?? UIImage(named: "2")
-        downloadTask = imageView.kf_setImage(with: url, placeholder: image, options: nil, progressBlock: { [weak self] (receivedSize, totalSize) in
-            let progress = Double(receivedSize) / Double(totalSize)
+        downloadTask = imageView.kf.setImage(with: url, placeholder: image, options: nil, progressBlock: { [weak self] (receivedSize, totalSize) in
+            _ = Double(receivedSize) / Double(totalSize)
            
-            if let sSelf = self {
+            if self != nil {
                 
 //                sSelf.hud?.progress = progress
             }
@@ -827,10 +827,10 @@ class PhotoToolBar: UIView {
         addSubview(extraBtn)
     }
     
-    func saveBtnOnClick(_ btn: UIButton) {
+    @objc func saveBtnOnClick(_ btn: UIButton) {
         saveBtnOnClick?(btn)
     }
-    func extraBtnOnClick(_ btn: UIButton) {
+    @objc func extraBtnOnClick(_ btn: UIButton) {
         extraBtnOnClick?(btn)
     }
     

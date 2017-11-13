@@ -165,7 +165,7 @@ extension AppDownloadManager {
             resumeDictionary = try PropertyListSerialization.propertyList(from: resumeData!, options: PropertyListSerialization.MutabilityOptions(), format: nil) as AnyObject!
             var localFilePath = (resumeDictionary?["NSURLSessionResumeInfoLocalPath"] as? String)
             
-            if localFilePath == nil || localFilePath?.characters.count < 1 {
+            if localFilePath == nil || localFilePath?.count < 1 {
                 localFilePath = (NSTemporaryDirectory() as String) + (resumeDictionary["NSURLSessionResumeInfoTempFileName"] as! String)
             }
             

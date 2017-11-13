@@ -80,7 +80,7 @@ open class BaseSearchView: UIView, UITableViewDelegate, UITableViewDataSource, U
         })
     }
     
-    public func dismiss()  {
+    @objc public func dismiss()  {
         self.searchField.text = ""
         self.items.removeAll()
         self.tableView.removeFromSuperview()

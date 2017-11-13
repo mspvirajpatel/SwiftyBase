@@ -128,6 +128,19 @@ open class BaseViewController: UIViewController , UINavigationControllerDelegate
         }
     }
     
+    init( titleString: String){
+        
+        super.init(nibName: nil, bundle: nil)
+        
+        navigationTitleString = titleString
+        
+        AppUtility.executeTaskInMainQueueWithCompletion {
+            self.navigationItem.title = self.navigationTitleString
+        }
+        
+        modalPresentationStyle = .custom
+    }
+    
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -249,7 +262,7 @@ open class BaseViewController: UIViewController , UINavigationControllerDelegate
         tintedImage = nil
     }
     
-    public func openslider() {
+    @objc public func openslider() {
         self.view.endEditing(true)
         self.present(SideMenuManager.menuLeftNavigationController!, animated: true, completion: nil)
     }
@@ -260,6 +273,21 @@ open class BaseViewController: UIViewController , UINavigationControllerDelegate
 
     // MARK: - User Interaction -
     
+    //MARK:- After DidLayout Actions
+    
+    override open func viewDidLayoutSubviews() {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(BaseViewController.didFinishLayout), object: nil)
+        self.perform(#selector(BaseViewController.didFinishLayout), with: nil, afterDelay: 0)
+    }
+    
+    //When all subviews finish layout...
+    
+    @objc func didFinishLayout() {
+        
+        //Does nothing, as this method will be overriden in the subclasses, if it is required.
+    }
+    
+    // MARK: - Internal Helpers -
     
     // MARK: - Internal Helpers -
     

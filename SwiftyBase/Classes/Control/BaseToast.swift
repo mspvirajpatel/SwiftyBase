@@ -160,7 +160,7 @@ public extension UIView {
     fileprivate func showToast(toast: UIView, duration: Double, position: AnyObject) {
         let existToast = objc_getAssociatedObject(self, &BaseToastView) as! UIView?
         if existToast != nil {
-            if let timer: Timer = objc_getAssociatedObject(existToast, &BaseToastTimer) as? Timer {
+            if let timer: Timer = objc_getAssociatedObject(existToast as Any, &BaseToastTimer) as? Timer {
                 timer.invalidate()
             }
             hideToast(toast: existToast!, force: false);
@@ -227,7 +227,7 @@ public extension UIView {
             activityIndicatorView.frame.origin.y -= 10
             let activityMessageLabel = UILabel(frame: CGRect(x: activityView.bounds.origin.x, y: (activityIndicatorView.frame.origin.y + activityIndicatorView.frame.size.height + 10), width: activityView.bounds.size.width, height: 20))
             activityMessageLabel.textColor = UIView.toastFontColor()
-            activityMessageLabel.font = (msg.characters.count<=10) ? UIFont(name:UIView.toastFontName(), size: 16) : UIFont(name:UIView.toastFontName(), size: 13)
+            activityMessageLabel.font = (msg.count<=10) ? UIFont(name:UIView.toastFontName(), size: 16) : UIFont(name:UIView.toastFontName(), size: 13)
             activityMessageLabel.textAlignment = .center
             activityMessageLabel.text = msg
             activityView.addSubview(activityMessageLabel)
@@ -288,11 +288,11 @@ public extension UIView {
         }
     }
     
-    func toastTimerDidFinish(_ timer: Timer) {
+    @objc func toastTimerDidFinish(_ timer: Timer) {
         hideToast(toast: timer.userInfo as! UIView)
     }
     
-    func handleToastTapped(_ recognizer: UITapGestureRecognizer) {
+    @objc func handleToastTapped(_ recognizer: UITapGestureRecognizer) {
         let timer = objc_getAssociatedObject(self, &BaseToastTimer) as! Timer
         timer.invalidate()
         
@@ -431,19 +431,3 @@ public extension UIView {
     
 }
 
-public extension String {
-    
-    func stringHeightWithFontSize(_ fontSize: CGFloat,width: CGFloat) -> CGFloat {
-        let font = UIFont(name: UIView.toastFontName(), size: BaseToastFontSize)
-        let size = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineBreakMode = .byWordWrapping
-        let attributes = [NSFontAttributeName:font!,
-                          NSParagraphStyleAttributeName:paragraphStyle.copy()]
-        
-        let text = self as NSString
-        let rect = text.boundingRect(with: size, options:.usesLineFragmentOrigin, attributes: attributes, context:nil)
-        return rect.size.height
-    }
-    
-}

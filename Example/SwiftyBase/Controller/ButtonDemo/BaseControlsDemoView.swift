@@ -258,15 +258,10 @@ class BaseControlsDemoView: BaseView,BaseRadioButtonDelegate,PGTransactionDelega
         
         URLSession.shared.dataTask(with: url) { (data, res, err) in
             
-            guard let data = data else {
+            guard data != nil else {
                 return
             }
-            
-            do {
-                
-            } catch {
-                print("didnt work")
-            }
+           
             
             }.resume()
         

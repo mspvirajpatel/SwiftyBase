@@ -90,7 +90,7 @@ open class BaseRadioButton: NSObject
         buttonsArray = aButtonsArray
     }
     
-    open func pressed(_ sender: BaseButton) {
+    @objc open func pressed(_ sender: BaseButton) {
         if(sender.isSelected) {
             if shouldLetDeSelect {
                 sender.isSelected = true

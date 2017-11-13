@@ -202,7 +202,7 @@ open class ImageViewer: UIViewController {
     }
     
     // MARK: - Actions
-    func gestureRecognizerDidPan(_ recognizer: UIPanGestureRecognizer) {
+    @objc func gestureRecognizerDidPan(_ recognizer: UIPanGestureRecognizer) {
         if scrollView.zoomScale != 1.0 || isAnimating {
             return
         }
@@ -226,16 +226,16 @@ open class ImageViewer: UIViewController {
         }
     }
     
-    func didSingleTap(_ recognizer: UITapGestureRecognizer) {
+    @objc func didSingleTap(_ recognizer: UITapGestureRecognizer) {
         scrollView.zoomScale == 1.0 ? dismissViewController() : scrollView.setZoomScale(1.0, animated: true)
     }
     
-    func didDoubleTap(_ recognizer: UITapGestureRecognizer) {
+    @objc func didDoubleTap(_ recognizer: UITapGestureRecognizer) {
         let pointInView = recognizer.location(in: imageView)
         zoomInZoomOut(pointInView)
     }
     
-    func closeButtonTapped(_ sender: UIButton) {
+    @objc func closeButtonTapped(_ sender: UIButton) {
         if scrollView.zoomScale != 1.0 {
             scrollView.setZoomScale(1.0, animated: true)
         }
@@ -342,7 +342,7 @@ public extension UIImageView {
         addGestureRecognizer(gestureRecognizer)
     }
     
-    internal func didTap(_ recognizer: ImageViewerTapGestureRecognizer) {
+    @objc internal func didTap(_ recognizer: ImageViewerTapGestureRecognizer) {
         let imageViewer = ImageViewer(senderView: self, backgroundColor: recognizer.backgroundColor)
         imageViewer.presentFromRootViewController()
     }

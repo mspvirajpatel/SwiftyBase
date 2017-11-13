@@ -395,10 +395,10 @@ public class ImageDownload: NSObject {
             
             do {
                 try data.write(to: URL(fileURLWithPath: file), options: .atomicWrite)
-                
             }
-            catch {
-                print ("Saving Error")
+            catch let error as NSError
+            {
+                print("Error :- \(error.localizedDescription)")
             }
         }
     }

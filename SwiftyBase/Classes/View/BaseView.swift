@@ -350,7 +350,7 @@ open class BaseView: UIView {
             else{
                 self!.errorMessageLabel = UILabel(frame: (self?.bounds)!)
                 
-                self!.errorMessageLabel.font = UIFont(name: FontStyle.medium, size: 15.0)
+                self!.errorMessageLabel.font = Font(.installed(.AppleMedium), size:  SystemConstants.IS_IPAD ? .standard(.h3) : .standard(.h4) ).instance
                 self!.errorMessageLabel.numberOfLines = 0
                 
                 self!.errorMessageLabel.preferredMaxLayoutWidth = 200

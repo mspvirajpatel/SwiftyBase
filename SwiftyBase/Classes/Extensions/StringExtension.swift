@@ -12,7 +12,30 @@ import UIKit
 // MARK: - String Extension -
 
 public extension String {
-   
+  
+    public func stringHeightWithFontSize(_ fontSize: CGFloat,width: CGFloat) -> CGFloat {
+        let font = UIFont(name: UIView.toastFontName(), size: BaseToastFontSize)
+        let size = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineBreakMode = .byWordWrapping
+        let attributes = [NSAttributedStringKey.font:font!,
+                          NSAttributedStringKey.paragraphStyle:paragraphStyle.copy()]
+        
+        let text = self as NSString
+        let rect = text.boundingRect(with: size, options:.usesLineFragmentOrigin, attributes: attributes, context:nil)
+        return rect.size.height
+    }
+    
+    public func withoutWhitespace() -> String {
+        return self.replacingOccurrences(of: "\n", with: "")
+            .replacingOccurrences(of: "\r", with: "")
+            .replacingOccurrences(of: "\0", with: "")
+    }
+    
+    public func isEqualToString(find: String) -> Bool {
+        return String(format: self) == find
+    }
+    
     public var isEven:Bool     {return (self.toInt()! % 2 == 0)}
     public var isOdd:Bool      {return (self.toInt()! % 2 != 0)}
     
@@ -74,7 +97,7 @@ public extension String {
      */
     @discardableResult public func subFrom(_ indexOrSubstring: Any) -> String {
         if var index = indexOrSubstring as? Int {
-            if index < 0 { index += self.characters.count }
+            if index < 0 { index += self.count }
             return self.substring(from: self.index(self.startIndex, offsetBy: index))
             
         } else if let substr = indexOrSubstring as? String {
@@ -96,7 +119,7 @@ public extension String {
      */
     @discardableResult public func subTo(_ indexOrSubstring: Any) -> String {
         if var index = indexOrSubstring as? Int {
-            if index < 0 { index += self.characters.count }
+            if index < 0 { index += self.count }
             return self.substring(to: self.index(self.startIndex, offsetBy: index))
             
         } else if let substr = indexOrSubstring as? String {
@@ -165,7 +188,7 @@ public extension String {
             
             let matchRange = exp.rangeOfFirstMatch(in: self,
                                                    options:options,
-                                                   range: NSMakeRange(0, self.characters.count))
+                                                   range: NSMakeRange(0, self.count))
             
             if matchRange.location != NSNotFound {
                 return self.subAt(matchRange)
@@ -190,7 +213,7 @@ public extension String {
             
             return exp.stringByReplacingMatches(in: self,
                                                 options: options,
-                                                range: NSMakeRange(0, self.characters.count),
+                                                range: NSMakeRange(0, self.count),
                                                 withTemplate: template)
         }
         
@@ -200,10 +223,10 @@ public extension String {
     // MARK: - Variables -
     
     var first: String {
-        return String(characters.prefix(1))
+        return String(prefix(1))
     }
     var lowerFirst: String {
-        return first.lowercased() + String(characters.dropFirst())
+        return first.lowercased() + String(dropFirst())
     }
     
     
@@ -316,9 +339,9 @@ public extension String {
      */
     func detectLanguage() -> String? {
         if self.lengthOfString > 4 {
-            let tagger = NSLinguisticTagger(tagSchemes:[NSLinguisticTagSchemeLanguage], options: 0)
+            let tagger = NSLinguisticTagger(tagSchemes:[NSLinguisticTagScheme.language], options: 0)
             tagger.string = self
-            return tagger.tag(at: 0, scheme: NSLinguisticTagSchemeLanguage, tokenRange: nil, sentenceRange: nil)
+            return tagger.tag(at: 0, scheme: NSLinguisticTagScheme.language, tokenRange: nil, sentenceRange: nil).map { $0.rawValue }
         }
         return nil
     }
@@ -330,9 +353,9 @@ public extension String {
      */
     func detectScript() -> String? {
         if self.lengthOfString > 1 {
-            let tagger = NSLinguisticTagger(tagSchemes:[NSLinguisticTagSchemeScript], options: 0)
+            let tagger = NSLinguisticTagger(tagSchemes:[NSLinguisticTagScheme.script], options: 0)
             tagger.string = self
-            return tagger.tag(at: 0, scheme: NSLinguisticTagSchemeScript, tokenRange: nil, sentenceRange: nil)
+            return tagger.tag(at: 0, scheme: NSLinguisticTagScheme.script, tokenRange: nil, sentenceRange: nil).map { $0.rawValue }
         }
         return nil
     }
@@ -440,7 +463,7 @@ public extension String {
         let results = hashtagDetector?.matches(in: self, options: NSRegularExpression.MatchingOptions.withoutAnchoringBounds, range: NSMakeRange(0, self.utf16.count)).map { $0 }
         
         return results?.map({
-            (self as NSString).substring(with: $0.rangeAt(1))
+            (self as NSString).substring(with: $0.range(at: 1))
         })
     }
     
@@ -465,7 +488,7 @@ public extension String {
         let results = hashtagDetector?.matches(in: self, options: NSRegularExpression.MatchingOptions.withoutAnchoringBounds, range: NSMakeRange(0, self.utf16.count)).map { $0 }
         
         return results?.map({
-            (self as NSString).substring(with: $0.rangeAt(1))
+            (self as NSString).substring(with: $0.range(at: 1))
         })
     }
     
@@ -562,7 +585,7 @@ public extension String {
     public func heightForWidth(width: CGFloat, font: UIFont) -> CGFloat {
         var size: CGSize = CGSize.zero
         if self.lengthOfString > 0 {
-            let frame: CGRect = self.boundingRect(with: CGSize.init(width: width, height: 999999), options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName : font], context: nil)
+            let frame: CGRect = self.boundingRect(with: CGSize.init(width: width, height: 999999), options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font : font], context: nil)
             size = CGSize.init(width: frame.size.width, height: frame.size.height)
             
         }
@@ -577,7 +600,7 @@ public extension String {
         
         let number : NSNumber! = NumberFormatter().number(from: self)
         if (number != nil){
-            floatNumber = CGFloat(number)
+            floatNumber = CGFloat(truncating: number)
             
         }
         return floatNumber
@@ -614,7 +637,7 @@ public extension String {
     /// True if it is palindrome, false otherwise.
     public func isPalindrome() -> Bool {
         let selfString = self.lowercased().replacingOccurrences(of: " ", with: "")
-        let otherString = String(selfString.characters.reversed())
+        let otherString = String(selfString.reversed())
         return selfString == otherString
     }
     
@@ -647,14 +670,14 @@ public extension String {
    
     public func camelize() -> String {
         let source = clean(with: " ", allOf: "-", "_")
-        if source.characters.contains(" ") {
-            let first = source.substring(to: source.characters.index(source.startIndex, offsetBy: 1))
+        if source.contains(" ") {
+            let first = source.substring(to: source.index(source.startIndex, offsetBy: 1))
             let cammel = NSString(format: "%@", (source as NSString).capitalized.replacingOccurrences(of: " ", with: "", options: [], range: nil)) as String
-            let rest = String(cammel.characters.dropFirst())
+            let rest = String(cammel.dropFirst())
             return "\(first)\(rest)"
         } else {
-            let first = (source as NSString).lowercased.substring(to: source.characters.index(source.startIndex, offsetBy: 1))
-            let rest = String(source.characters.dropFirst())
+            let first = (source as NSString).lowercased.substring(to: source.index(source.startIndex, offsetBy: 1))
+            let rest = String(source.dropFirst())
             return "\(first)\(rest)"
         }
     }
@@ -670,9 +693,9 @@ public extension String {
     public func chompLeft(_ prefix: String) -> String {
         if let prefixRange = range(of: prefix) {
             if prefixRange.upperBound >= endIndex {
-                return self[startIndex..<prefixRange.lowerBound]
+                return String(self[startIndex..<prefixRange.lowerBound])
             } else {
-                return self[prefixRange.upperBound..<endIndex]
+                return String(self[prefixRange.upperBound..<endIndex])
             }
         }
         return self
@@ -681,9 +704,9 @@ public extension String {
     public func chompRight(_ suffix: String) -> String {
         if let suffixRange = range(of: suffix, options: .backwards) {
             if suffixRange.upperBound >= endIndex {
-                return self[startIndex..<suffixRange.lowerBound]
+                return String(self[startIndex..<suffixRange.lowerBound])
             } else {
-                return self[suffixRange.upperBound..<endIndex]
+                return String(self[suffixRange.upperBound..<endIndex])
             }
         }
         return self
@@ -767,11 +790,11 @@ public extension String {
     ///                                 "Let's try this function?" ->
     ///                                 "?noitcnuf siht yrt S'tel"
     public func reversed(preserveFormat: Bool = false) -> String {
-        guard !self.characters.isEmpty else {
+        guard !self.isEmpty else {
             return ""
         }
         
-        var reversed = String(self.removeExtraSpaces().characters.reversed())
+        var reversed = String(self.removeExtraSpaces().reversed())
         
         if !preserveFormat {
             return reversed
@@ -806,18 +829,9 @@ public extension String {
         return self.trimmingCharacters(in: CharacterSet(charactersIn: "<>")).replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "-", with: "")
     }
     
-    public static func random(ofLength length: Int) -> String {
-        guard length > 0 else { return "" }
-        let base = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        return (0..<length).reduce("") {
-            let randomIndex = arc4random_uniform(UInt32(base.characters.count))
-            let randomCharacter = "\(base[base.index(base.startIndex, offsetBy: IndexDistance(randomIndex))])"
-            return $0.0 + randomCharacter
-        }
-    }
-    
+   
     public func isAlpha() -> Bool {
-        for chr in characters {
+        for chr in self.characters {
             if (!(chr >= "a" && chr <= "z") && !(chr >= "A" && chr <= "Z") ) {
                 return false
             }
@@ -828,7 +842,7 @@ public extension String {
     
     public func indexOf(_ substring: String) -> Int? {
         if let range = range(of: substring) {
-            return characters.distance(from: startIndex, to: range.lowerBound)
+            return distance(from: startIndex, to: range.lowerBound)
         }
         return nil
     }
@@ -856,20 +870,8 @@ public extension String {
     
     public var lengthOfString: Int {
         get {
-            return self.characters.count
+            return self.count
         }
-    }
-    
-    public func pad(_ n: Int, _ string: String = " ") -> String {
-        return "".join([string.times(n), self, string.times(n)])
-    }
-    
-    public func padLeft(_ n: Int, _ string: String = " ") -> String {
-        return "".join([string.times(n), self])
-    }
-    
-    public func padRight(_ n: Int, _ string: String = " ") -> String {
-        return "".join([self, string.times(n)])
     }
     
     public func slugify(withSeparator separator: Character = "-") -> String {
@@ -881,15 +883,11 @@ public extension String {
     }
     
     public func split(_ separator: Character) -> [String] {
-        return characters.split{$0 == separator}.map(String.init)
+        return split{$0 == separator}.map(String.init)
     }
     
     public func startsWith(_ prefix: String) -> Bool {
         return hasPrefix(prefix)
-    }
-    
-    public func times(_ n: Int) -> String {
-        return (0..<n).reduce("") { $0.0 + self }
     }
     
     public func toFloat() -> Float? {
@@ -924,21 +922,21 @@ public extension String {
     
     public func trimmedLeft() -> String {
         if let range = rangeOfCharacter(from: CharacterSet.whitespacesAndNewlines.inverted) {
-            return self[range.lowerBound..<endIndex]
+            return String(self[range.lowerBound..<endIndex])
         }
         return self
     }
     
     public func trimmedRight() -> String {
         if let range = rangeOfCharacter(from: CharacterSet.whitespacesAndNewlines.inverted, options: NSString.CompareOptions.backwards) {
-            return self[startIndex..<range.upperBound]
+            return String(self[startIndex..<range.upperBound])
         }
         return self
     }
     
     public subscript(i: Int) -> Character {
         get {
-            let index = self.characters.index(self.startIndex, offsetBy: i)
+            let index = self.index(self.startIndex, offsetBy: i)
             return self[index]
         }
     }
@@ -1061,16 +1059,16 @@ public extension String {
 
     public subscript(r: Range<Int>) -> String {
         get {
-            let startIndex = self.characters.index(self.startIndex, offsetBy: r.lowerBound)
-            let endIndex = self.characters.index(self.startIndex, offsetBy: r.upperBound - r.lowerBound)
-            return self[startIndex..<endIndex]
+            let startIndex = self.index(self.startIndex, offsetBy: r.lowerBound)
+            let endIndex = self.index(self.startIndex, offsetBy: r.upperBound - r.lowerBound)
+            return String(self[startIndex..<endIndex])
         }
     }
     
     public func substring(_ startIndex: Int, length: Int) -> String {
-        let start = self.characters.index(self.startIndex, offsetBy: startIndex)
-        let end = self.characters.index(self.startIndex, offsetBy: startIndex + length)
-        return self[start..<end]
+        let start = self.index(self.startIndex, offsetBy: startIndex)
+        let end = self.index(self.startIndex, offsetBy: startIndex + length)
+        return String(self[start..<end])
     }
     
 
@@ -1114,7 +1112,7 @@ public extension String {
     /// String size
     public func toSize(size: CGSize, fontSize: CGFloat, maximumNumberOfLines: Int = 0) -> CGSize {
         let font = UIFont.systemFont(ofSize: fontSize)
-        var size = self.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes:[NSFontAttributeName : font], context: nil).size
+        var size = self.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes:[NSAttributedStringKey.font : font], context: nil).size
         if maximumNumberOfLines > 0 {
             size.height = min(size.height, CGFloat(maximumNumberOfLines) * font.lineHeight)
         }
@@ -1139,20 +1137,20 @@ public extension String {
         let boundingBox = self.boundingRect(
             with: constraintRect,
             options: .usesLineFragmentOrigin,
-            attributes: [NSFontAttributeName: font],
+            attributes: [NSAttributedStringKey.font: font],
             context: nil)
         return boundingBox.height
     }
     
     /// Underline
     public func underline() -> NSAttributedString {
-        let underlineString = NSAttributedString(string: self, attributes: [NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue])
+        let underlineString = NSAttributedString(string: self, attributes: [NSAttributedStringKey.underlineStyle: NSUnderlineStyle.styleSingle.rawValue])
         return underlineString
     }
     
     // italic
     public func italic() -> NSAttributedString {
-        let italicString = NSMutableAttributedString(string: self, attributes: [NSFontAttributeName: UIFont.italicSystemFont(ofSize: UIFont.systemFontSize)])
+        let italicString = NSMutableAttributedString(string: self, attributes: [NSAttributedStringKey.font: UIFont.italicSystemFont(ofSize: UIFont.systemFontSize)])
         return italicString
     }
     
@@ -1162,7 +1160,7 @@ public extension String {
         
         let range = (self as NSString).range(of: text)
         if range.location != NSNotFound {
-            attributedText.setAttributes([NSForegroundColorAttributeName: color], range: range)
+            attributedText.setAttributes([NSAttributedStringKey.foregroundColor: color], range: range)
         }
         
         return attributedText
@@ -1265,7 +1263,7 @@ public extension String {
         guard let searchResults = range(of: pattern, options: .regularExpression) else {
             return false
         }
-        return searchResults.lowerBound == startIndex && searchResults.description.characters.count == characters.count
+        return searchResults.lowerBound == startIndex && searchResults.description.count == count
     }
 
     

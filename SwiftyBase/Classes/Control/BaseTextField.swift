@@ -74,7 +74,7 @@ open class BaseTextField: UITextField, UITextFieldDelegate {
    
     public var btnShowPassword : UIButton!
     
-    @IBInspectable open var BaseTextFieldTypeName: String? {
+    @IBInspectable open var TextFieldType: String? {
         willSet {
             type = BaseTextFieldType(named: newValue ?? "primary")
             self.setCommonProperties()
@@ -139,8 +139,8 @@ open class BaseTextField: UITextField, UITextFieldDelegate {
         if(self.placeholder!.responds(to: #selector(NSString.draw(at:withAttributes:))))
         {
             
-            var attributes : [String : AnyObject]! = [NSForegroundColorAttributeName : AppColor.textFieldPlaceholder.withAlpha(0.45),
-                                                      NSFontAttributeName : self.font!]
+            var attributes : [NSAttributedStringKey : Any]! = [NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue) : AppColor.textFieldPlaceholder.withAlpha(0.45),
+                                                               NSAttributedStringKey.font : self.font!]
             
             var boundingRect : CGRect! = self.placeholder!.boundingRect(with: rect.size, options: NSStringDrawingOptions(rawValue: 0), attributes: attributes, context: nil)
             
@@ -281,7 +281,7 @@ open class BaseTextField: UITextField, UITextFieldDelegate {
         
         self.backgroundColor = AppColor.textFieldBG.value
         self.textColor = AppColor.textFieldText.value
-        self.font = UIFont(name: FontStyle.medium, size: 13.0)
+        self.font = Font(.installed(.AppleMedium), size:  SystemConstants.IS_IPAD ? .standard(.h3) : .standard(.h4) ).instance
         self.setBorder(AppColor.textFieldBorder.value,
                        width: 1.5,
                        radius: ControlConstant.borderRadius)
@@ -395,7 +395,7 @@ open class BaseTextField: UITextField, UITextFieldDelegate {
     
     
     // MARK: - Internal Helpers -
-    func btnShowPassword(sender : UIButton) -> Void
+    @objc func btnShowPassword(sender : UIButton) -> Void
     {
         self.isSecureTextEntry = !self.isSecureTextEntry
         self.text = self.text?.trimmingCharacters(in: NSCharacterSet.whitespaces)
@@ -620,10 +620,10 @@ open class BaseTextField: UITextField, UITextFieldDelegate {
         var oldlength : Int = 0
         if textField.text != nil
         {
-            oldlength = (textField.text?.characters.count)!
+            oldlength = (textField.text?.count)!
         }
         
-        let replaceMentLength : Int = string .characters.count
+        let replaceMentLength : Int = string.count
         let rangeLength : Int = range.length
         
         let newLength : Int = oldlength - rangeLength + replaceMentLength
