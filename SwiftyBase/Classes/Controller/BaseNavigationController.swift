@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 @IBDesignable
 open class BaseNavigationController: UINavigationController, CAAnimationDelegate{

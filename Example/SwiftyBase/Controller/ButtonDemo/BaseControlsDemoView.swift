@@ -32,6 +32,8 @@ class BaseControlsDemoView: BaseView,BaseRadioButtonDelegate,PGTransactionDelega
     
     var female : BaseButton!
     
+    var editField: PartiallyEditField!
+    
     //For radiobutton
     var radioButtonController: BaseRadioButton?
     
@@ -86,6 +88,13 @@ class BaseControlsDemoView: BaseView,BaseRadioButtonDelegate,PGTransactionDelega
         baseTextField.layer.setValue("baseTextField", forKey: ControlConstant.name)
         baseTextField.placeholder = "Enter Password"
         
+       
+        editField = PartiallyEditField.init(frame: CGRect.init(x: 20, y: 20, width: 320, height: 40))
+        containerView.addSubview(editField)
+        editField.translatesAutoresizingMaskIntoConstraints = false
+         editField.layer.setValue("editField", forKey: ControlConstant.name)
+        editField.setup(withPreText: "@gmail.com", color: UIColor.red)
+        editField.preTextSide = .kRight
         
         let baseTextView : BaseTextView = BaseTextView.init(iSuperView: containerView)
         baseTextView.layer.setValue("baseTextView", forKey: ControlConstant.name)
@@ -286,7 +295,7 @@ class BaseControlsDemoView: BaseView,BaseRadioButtonDelegate,PGTransactionDelega
         
         baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|-20@1000-[baseEmailTextField(widthTextField)]-20@1000-|", options:NSLayoutFormatOptions(rawValue: 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
         
-        baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|-20-[baseEmailTextField]-controlTopBottomPadding-[baseTextField]-controlTopBottomPadding-[baseTextView(120)]-controlTopBottomPadding-[btnPrimary]-controlTopBottomPadding-[btnSecondary]-controlTopBottomPadding-[btnPaytmBuy]-controlTopBottomPadding-[baseSegment]-controlTopBottomPadding-[male][female]-60-|", options:[.alignAllLeading , .alignAllTrailing], metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
+        baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|-20-[baseEmailTextField]-controlTopBottomPadding-[baseTextField]-controlTopBottomPadding-[baseTextView(120)]-controlTopBottomPadding-[btnPrimary]-controlTopBottomPadding-[btnSecondary]-controlTopBottomPadding-[btnPaytmBuy]-controlTopBottomPadding-[baseSegment]-controlTopBottomPadding-[male][female]-60-[editField(40)]-|", options:[.alignAllLeading , .alignAllTrailing], metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
         
         containerView.addConstraints(baseLayout.control_H)
         containerView.addConstraints(baseLayout.control_V)

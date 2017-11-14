@@ -11,6 +11,7 @@
 #else
     import UIKit
 #endif
+import Foundation
 
 /**
  This is List of Base Button Type. If want to add new type just define in this and Handle that type in BaseButton Class.

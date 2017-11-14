@@ -99,15 +99,9 @@ class PhotoCollectionCell: UICollectionViewCell {
     func safeAddObserver() {
         if self.parentTableView != nil {
             defer {
-                
             }
-            do {
-                self.parentTableView.addObserver(self, forKeyPath: "contentOffset", options: [NSKeyValueObservingOptions.new , NSKeyValueObservingOptions.old], context: nil)
-            }
-            catch let error as NSError
-            {
-                print("Error :- \(error.localizedDescription)")
-            }
+            self.parentTableView.addObserver(self, forKeyPath: "contentOffset", options: [NSKeyValueObservingOptions.new , NSKeyValueObservingOptions.old], context: nil)
+           
         }
     }
     func safeRemoveObserver() {
@@ -115,13 +109,8 @@ class PhotoCollectionCell: UICollectionViewCell {
             defer {
                 self.parentTableView = nil
             }
-            do {
-                self.parentTableView.removeObserver(self, forKeyPath: "contentOffset", context: nil)
-            }
-            catch let error as NSError
-            {
-                print("Error :- \(error.localizedDescription)")
-            }
+            self.parentTableView.removeObserver(self, forKeyPath: "contentOffset", context: nil)
+            
         }
     }
     override func layoutSubviews(){

@@ -145,6 +145,7 @@
 		8263BEC51FB9DA1C00CC47EF /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8263BEB11FB9DA1C00CC47EF /* String+MD5.swift */; };
 		8263BEC61FB9DA1C00CC47EF /* ThreadHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8263BEB21FB9DA1C00CC47EF /* ThreadHelper.swift */; };
 		8263BEC71FB9DA1C00CC47EF /* UIButton+Kingfisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8263BEB31FB9DA1C00CC47EF /* UIButton+Kingfisher.swift */; };
+		8263BEC91FB9DBB400CC47EF /* PartiallyEditField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8263BEC81FB9DBB400CC47EF /* PartiallyEditField.swift */; };
 		8349D9B92B02ACFF7CDE10E473ED4320 /* QuickSpecBase.m in Sources */ = {isa = PBXBuildFile; fileRef = E585A4F6C1434FD922B8371E432B5051 /* QuickSpecBase.m */; };
 		83AAC129B28778AAA9CD3DC20B515D8B /* HooksPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9245B48A46AAC45502A6B8A2AB745038 /* HooksPhase.swift */; };
 		8596D01C3DE03F7BFB642722BF4F5B5C /* CharacterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EF585CB6BA87ABBB65D6A292323B25 /* CharacterExtension.swift */; };
@@ -399,6 +400,7 @@
 		8263BEB11FB9DA1C00CC47EF /* String+MD5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+MD5.swift"; sourceTree = "<group>"; };
 		8263BEB21FB9DA1C00CC47EF /* ThreadHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadHelper.swift; sourceTree = "<group>"; };
 		8263BEB31FB9DA1C00CC47EF /* UIButton+Kingfisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Kingfisher.swift"; sourceTree = "<group>"; };
+		8263BEC81FB9DBB400CC47EF /* PartiallyEditField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartiallyEditField.swift; sourceTree = "<group>"; };
 		829CA47FBDF0A83BF67F7102D4CD40E6 /* ExampleGroup.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExampleGroup.swift; path = Sources/Quick/ExampleGroup.swift; sourceTree = "<group>"; };
 		82FB28671B85E5F52C42D4B35048E3B4 /* BaseSilder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BaseSilder.swift; sourceTree = "<group>"; };
 		8397F0BB27646D6990D83CBF546591AA /* BaseDrawerMenuItem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BaseDrawerMenuItem.swift; sourceTree = "<group>"; };
@@ -965,6 +967,7 @@
 				58E5E8B29632F2CFC13315B585E64E26 /* BaseTextView.swift */,
 				32B6BF0E937E52D417A9D417D93D4551 /* BaseToast.swift */,
 				CC920A0CF8921F3B9CC445F9DB28A0D8 /* FullScreenImage */,
+				8263BEC81FB9DBB400CC47EF /* PartiallyEditField.swift */,
 			);
 			name = Control;
 			path = SwiftyBase/Classes/Control;
@@ -1378,6 +1381,7 @@
 				09090DA4BEF6749EA4E755FF5FBBB3A8 /* NSDataExtension.swift in Sources */,
 				8263BEC31FB9DA1C00CC47EF /* RequestModifier.swift in Sources */,
 				F00C83A4F1FBE50F9FCB9ACF73B11A18 /* NSDateExtension.swift in Sources */,
+				8263BEC91FB9DBB400CC47EF /* PartiallyEditField.swift in Sources */,
 				431507A1A63FF213A2950782221213B8 /* NSDictionaryExtension.swift in Sources */,
 				11A3FAA8A5CC7901C01F79B47D762E30 /* NSFileManagerExtension.swift in Sources */,
 				1F47FBCB4A57BEA8E59153E68350C3D6 /* NSMutableArrayExtension.swift in Sources */,

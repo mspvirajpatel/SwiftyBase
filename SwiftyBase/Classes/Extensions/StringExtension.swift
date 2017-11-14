@@ -11,8 +11,213 @@ import UIKit
 
 // MARK: - String Extension -
 
+/**
+ *  x || X -> Any character
+ *  c || C -> Alphabetic character
+ *  n || N -> Numerical character
+ */
+
 public extension String {
-  
+    
+    public subscript (i: Int) -> String {
+        return self[Range(i ..< i + 1)]
+    }
+    
+    public subscript (r: Range<Int>) -> String {
+        let range = Range(uncheckedBounds: (lower: max(0, min(count, r.lowerBound)),
+                                            upper: min(count, max(0, r.upperBound))))
+        let start = index(startIndex, offsetBy: range.lowerBound)
+        let end = index(start, offsetBy: range.upperBound - range.lowerBound)
+        return String(self[Range(start ..< end)])
+    }
+}
+public extension String {
+    
+    fileprivate static let ANYONE_CHAR_UPPER = "X"
+    fileprivate static let ONLY_CHAR_UPPER = "C"
+    fileprivate static let ONLY_NUMBER_UPPER = "N"
+    fileprivate static let ANYONE_CHAR = "x"
+    fileprivate static let ONLY_CHAR = "c"
+    fileprivate static let ONLY_NUMBER = "n"
+    
+    public func format(_ format: String, oldString: String) -> String {
+        let stringUnformated = self.unformat(format, oldString: oldString)
+        var newString = String()
+        var counter = 0
+        if stringUnformated.count == counter {
+            return newString
+        }
+        for i in 0..<format.count {
+            var stringToAdd = ""
+            let unicharFormatString = format[i]
+            let charFormatString = unicharFormatString
+            let charFormatStringUpper = unicharFormatString.uppercased()
+            let unicharString = stringUnformated[counter]
+            let charString = unicharString
+            let charStringUpper = unicharString.uppercased()
+            if charFormatString == String.ANYONE_CHAR {
+                stringToAdd = charString
+                counter += 1
+            } else if charFormatString == String.ANYONE_CHAR_UPPER {
+                stringToAdd = charStringUpper
+                counter += 1
+            } else if charFormatString == String.ONLY_CHAR_UPPER {
+                counter += 1
+                if charStringUpper.isChar() {
+                    stringToAdd = charStringUpper
+                }
+            } else if charFormatString == String.ONLY_CHAR {
+                counter += 1
+                if charString.isChar() {
+                    stringToAdd = charString
+                }
+            } else if charFormatStringUpper == String.ONLY_NUMBER_UPPER {
+                counter += 1
+                if charString.isNumber() {
+                    stringToAdd = charString
+                }
+            } else {
+                stringToAdd = charFormatString
+            }
+            
+            newString += stringToAdd
+            if counter == stringUnformated.count {
+                if i == format.count - 2 {
+                    let lastUnicharFormatString = format[i + 1]
+                    let lastCharFormatStringUpper = lastUnicharFormatString.uppercased()
+                    let lasrCharControl = (!(lastCharFormatStringUpper == String.ONLY_CHAR_UPPER) &&
+                        !(lastCharFormatStringUpper == String.ONLY_NUMBER_UPPER) &&
+                        !(lastCharFormatStringUpper == String.ANYONE_CHAR_UPPER))
+                    if lasrCharControl {
+                        newString += lastUnicharFormatString
+                    }
+                }
+                break
+            }
+        }
+        return newString
+    }
+    
+    public func unformat(_ format: String, oldString: String) -> String {
+        var string: String = self
+        var undefineChars = [String]()
+        for i in 0..<format.count {
+            let unicharFormatString = format[i]
+            let charFormatString = unicharFormatString
+            let charFormatStringUpper = unicharFormatString.uppercased()
+            if !(charFormatStringUpper == String.ANYONE_CHAR_UPPER) &&
+                !(charFormatStringUpper == String.ONLY_CHAR_UPPER) &&
+                !(charFormatStringUpper == String.ONLY_NUMBER_UPPER) {
+                var control = false
+                for i in 0..<undefineChars.count {
+                    if undefineChars[i] == charFormatString {
+                        control = true
+                    }
+                }
+                if !control {
+                    undefineChars.append(charFormatString)
+                }
+            }
+        }
+        if oldString.count - 1 == string.count {
+            var changeCharIndex = 0
+            for i in 0..<string.count {
+                let unicharString = string[i]
+                let charString = unicharString
+                let unicharString2 = oldString[i]
+                let charString2 = unicharString2
+                if charString != charString2 {
+                    changeCharIndex = i
+                    break
+                }
+            }
+            let changedUnicharString = oldString[changeCharIndex]
+            let changedCharString = changedUnicharString
+            var control = false
+            for i in 0..<undefineChars.count {
+                if changedCharString == undefineChars[i] {
+                    control = true
+                    break
+                }
+            }
+            if control {
+                var i = changeCharIndex - 1
+                while i >= 0 {
+                    let findUnicharString = oldString[i]
+                    let findCharString = findUnicharString
+                    var control2 = false
+                    for j in 0..<undefineChars.count {
+                        if findCharString == undefineChars[j] {
+                            control2 = true
+                            break
+                        }
+                    }
+                    if !control2 {
+                        string = (oldString as NSString).replacingCharacters(in: NSRange(location: i, length: 1), with: "")
+                        break
+                    }
+                    i -= 1
+                }
+            }
+        }
+        for i in 0..<undefineChars.count {
+            string = string.replacingOccurrences(of: undefineChars[i], with: "")
+        }
+        return string
+    }
+    
+    public func isChar() -> Bool {
+        return regexControlString(pattern: "[a-zA-ZğüşöçıİĞÜŞÖÇ]")
+    }
+    
+    public func isNumber() -> Bool {
+        return regexControlString(pattern: "^[0-9]*$")
+    }
+    
+    public func regexControlString(pattern: String) -> Bool {
+        do {
+            let regex = try NSRegularExpression(pattern: pattern, options: [])
+            let numberOfMatches = regex.numberOfMatches(in: self, options: [], range: NSRange(location: 0, length: self.count))
+            return numberOfMatches == self.count
+        } catch {
+            return false
+        }
+    }
+}
+
+
+public extension String {
+    public func index(from: Int) -> Index {
+        return self.index(startIndex, offsetBy: from)
+    }
+    
+    public func substring(fromValue: Int) -> String {
+        let start = index(startIndex, offsetBy: fromValue)
+        return String(self[start ..< endIndex])
+    }
+    
+    public func substring(toValue: Int) -> String {
+        let start = index(startIndex, offsetBy: toValue)
+        return String(self[start ... endIndex])
+    }
+    
+//    subscript (i: Int) -> String {
+//        return self[Range(i ..< i + 1)]
+//    }
+//
+//    subscript (r: Range<Int>) -> String {
+//        let range = Range(uncheckedBounds: (lower: max(0, min(count, r.lowerBound)),
+//                                            upper: min(count, max(0, r.upperBound))))
+//        let start = index(startIndex, offsetBy: range.lowerBound)
+//        let end = index(start, offsetBy: range.upperBound - range.lowerBound)
+//        return String(self[Range(start ..< end)])
+//    }
+    
+    public func substring(withValue r: Range<Int>) -> String {
+        return String(self[r])
+        
+    }
+    
     public func stringHeightWithFontSize(_ fontSize: CGFloat,width: CGFloat) -> CGFloat {
         let font = UIFont(name: UIView.toastFontName(), size: BaseToastFontSize)
         let size = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
@@ -87,117 +292,6 @@ public extension String {
         
         return parameters
     }
-    
-    /**
-     * Return substring from index or to some particular string.
-     * Usages:
-     "hello world".subFrom(6)        //"world"
-     "hello world".subFrom(-5)       //"world"
-     "hello world".subFrom("wo")     //"world"
-     */
-    @discardableResult public func subFrom(_ indexOrSubstring: Any) -> String {
-        if var index = indexOrSubstring as? Int {
-            if index < 0 { index += self.count }
-            return self.substring(from: self.index(self.startIndex, offsetBy: index))
-            
-        } else if let substr = indexOrSubstring as? String {
-            if let range = self.range(of: substr) {
-                return self.substring(from: range.lowerBound)
-            }
-        }
-        
-        return ""
-    }
-    
-    
-    /**
-     * Return substring to index or to some particular string.
-     * Usages:
-     "hello world".subTo(5)          //"hello"
-     "hello world".subTo(-6)         //"hello"
-     "hello world".subTo(" ")        //"hello"
-     */
-    @discardableResult public func subTo(_ indexOrSubstring: Any) -> String {
-        if var index = indexOrSubstring as? Int {
-            if index < 0 { index += self.count }
-            return self.substring(to: self.index(self.startIndex, offsetBy: index))
-            
-        } else if let substr = indexOrSubstring as? String {
-            if let range = self.range(of: substr) {
-                return self.substring(to: range.lowerBound)
-            }
-        }
-        
-        return ""
-    }
-    
-    
-    /**
-     * Return substring at index or in range.
-     * Usages:
-     "hello world".subAt(1)          //"e"
-     "hello world".subAt(1..<4)      //"ell"
-     */
-    @discardableResult public func subAt(_ indexOrRange: Any) -> String {
-        if let index = indexOrRange as? Int {
-            return String(self[self.index(self.startIndex, offsetBy: index)])
-            
-        } else if let range = indexOrRange as? Range<String.Index> {
-            return self.substring(with: range)
-            
-        } else if let range = indexOrRange as? Range<Int> {
-            let lower = self.index(self.startIndex, offsetBy: range.lowerBound)
-            let upper = self.index(self.startIndex, offsetBy: range.upperBound)
-            return self.substring(with: lower..<upper)
-            
-        } else if let range = indexOrRange as? CountableRange<Int> {
-            let lower = self.index(self.startIndex, offsetBy: range.lowerBound)
-            let upper = self.index(self.startIndex, offsetBy: range.upperBound)
-            return self.substring(with: lower..<upper)
-            
-        } else if let range = indexOrRange as? ClosedRange<Int> {
-            let lower = self.index(self.startIndex, offsetBy: range.lowerBound)
-            let upper = self.index(self.startIndex, offsetBy: range.upperBound + 1)
-            return self.substring(with: lower..<upper)
-            
-        } else if let range = indexOrRange as? CountableClosedRange<Int> {
-            let lower = self.index(self.startIndex, offsetBy: range.lowerBound)
-            let upper = self.index(self.startIndex, offsetBy: range.upperBound + 1)
-            return self.substring(with: lower..<upper)
-            
-        } else if let range = indexOrRange as? NSRange {
-            let lower = self.index(self.startIndex, offsetBy: range.location)
-            let upper = self.index(self.startIndex, offsetBy: range.location + range.length)
-            return self.substring(with: lower..<upper)
-        }
-        
-        return ""
-    }
-    
-    
-    /**
-     * Return substring that match the pattern.
-     * Usages:
-     "abc123".subMatch("\\d+")       //"123"
-     */
-    @discardableResult public func subMatch(_ pattern: String) -> String {
-        let options = NSRegularExpression.Options(rawValue: 0)
-        
-        if let exp = try? NSRegularExpression(pattern: pattern, options: options) {
-            let options = NSRegularExpression.MatchingOptions(rawValue: 0)
-            
-            let matchRange = exp.rangeOfFirstMatch(in: self,
-                                                   options:options,
-                                                   range: NSMakeRange(0, self.count))
-            
-            if matchRange.location != NSNotFound {
-                return self.subAt(matchRange)
-            }
-        }
-        
-        return ""
-    }
-    
     
     /**
      * Replace substring with template.
@@ -666,22 +760,6 @@ public extension String {
         UIPasteboard.general.string = self
     }
     
-    // https://gist.github.com/stevenschobert/540dd33e828461916c11
-   
-    public func camelize() -> String {
-        let source = clean(with: " ", allOf: "-", "_")
-        if source.contains(" ") {
-            let first = source.substring(to: source.index(source.startIndex, offsetBy: 1))
-            let cammel = NSString(format: "%@", (source as NSString).capitalized.replacingOccurrences(of: " ", with: "", options: [], range: nil)) as String
-            let rest = String(cammel.dropFirst())
-            return "\(first)\(rest)"
-        } else {
-            let first = (source as NSString).lowercased.substring(to: source.index(source.startIndex, offsetBy: 1))
-            let rest = String(source.dropFirst())
-            return "\(first)\(rest)"
-        }
-    }
-    
     public func capitalize() -> String {
         return capitalized
     }
@@ -831,7 +909,7 @@ public extension String {
     
    
     public func isAlpha() -> Bool {
-        for chr in self.characters {
+        for chr in self {
             if (!(chr >= "a" && chr <= "z") && !(chr >= "A" && chr <= "Z") ) {
                 return false
             }
@@ -934,12 +1012,12 @@ public extension String {
         return self
     }
     
-    public subscript(i: Int) -> Character {
-        get {
-            let index = self.index(self.startIndex, offsetBy: i)
-            return self[index]
-        }
-    }
+//    public subscript(i: Int) -> Character {
+//        get {
+//            let index = self.index(self.startIndex, offsetBy: i)
+//            return self[index]
+//        }
+//    }
 
     
     /// Returns the last path component
@@ -1052,19 +1130,7 @@ public extension String {
         
         return nsSt.appendingPathExtension(ext)
     }
-    
-    public subscript (i: Int) -> String {
-        return String(self[i] as Character)
-    }
-
-    public subscript(r: Range<Int>) -> String {
-        get {
-            let startIndex = self.index(self.startIndex, offsetBy: r.lowerBound)
-            let endIndex = self.index(self.startIndex, offsetBy: r.upperBound - r.lowerBound)
-            return String(self[startIndex..<endIndex])
-        }
-    }
-    
+   
     public func substring(_ startIndex: Int, length: Int) -> String {
         let start = self.index(self.startIndex, offsetBy: startIndex)
         let end = self.index(self.startIndex, offsetBy: startIndex + length)
@@ -1246,13 +1312,13 @@ public extension String {
     }
     
     /// Verify that it is a number
-    public func isNumber() -> Bool {
-        let cs: CharacterSet = CharacterSet(charactersIn: "0123456789")
-        
-        let specialrang: NSRange = (self as NSString).rangeOfCharacter(from: cs)
-        
-        return specialrang.location != NSNotFound
-    }
+//    public func isNumber() -> Bool {
+//        let cs: CharacterSet = CharacterSet(charactersIn: "0123456789")
+//
+//        let specialrang: NSRange = (self as NSString).rangeOfCharacter(from: cs)
+//
+//        return specialrang.location != NSNotFound
+//    }
    
     ///*
     public func matchRegex(_ pattern: String) -> Bool {

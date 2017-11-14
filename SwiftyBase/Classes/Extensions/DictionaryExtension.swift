@@ -203,12 +203,6 @@ public func - <K, V: Equatable> (first: [K: V], second: [K: V]) -> [K: V] {
     return first.difference(second)
 }
 
-/// EZSE: Union operator
-public func | <K: Hashable, V> (first: [K: V], second: [K: V]) -> [K: V] {
-    return first.union(second)
-}
-
-
 public extension Dictionary where Key: ExpressibleByStringLiteral {
     
     ///  Merge the keys/values of two dictionaries.
