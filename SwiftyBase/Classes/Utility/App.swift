@@ -23,7 +23,7 @@ let APP_DELEGATE: UIApplicationDelegate? = UIApplication.shared.delegate
 /// This class adds some useful functions for the App
 public class App {
     // MARK: - Class functions -
-    
+
     /**
      Executes a block only if in DEBUG mode
      
@@ -34,7 +34,7 @@ public class App {
             block()
         #endif
     }
-    
+
     /**
      Executes a block on first start of the App.
      Remember to execute UI instuctions on main thread
@@ -48,10 +48,10 @@ public class App {
             defaults.set(true, forKey: HasBeenOpened)
             defaults.synchronize()
         }
-        
+
         block(!hasBeenOpened)
     }
-    
+
     /**
      Executes a block on first start of the App for current version.
      Remember to execute UI instuctions on main thread
@@ -65,10 +65,10 @@ public class App {
             defaults.set(true, forKey: HasBeenOpenedForCurrentVersion)
             defaults.synchronize()
         }
-        
+
         block(!hasBeenOpenedForCurrentVersion)
     }
-    
+
     /**
      Executes a block on first start of the App for current given version.
      Remember to execute UI instuctions on main thread
@@ -83,10 +83,10 @@ public class App {
             defaults.set(true, forKey: HasBeenOpened + "\(version)")
             defaults.synchronize()
         }
-        
+
         block(!hasBeenOpenedForVersion)
     }
-    
+
     /// Returns if is the first start of the App
     public static var isFirstStart: Bool {
         let defaults = UserDefaults.standard
@@ -97,7 +97,7 @@ public class App {
             return false
         }
     }
-    
+
     /// Returns if is the first start of the App for current version
     public static var isFirstStartForCurrentVersion: Bool {
         let defaults = UserDefaults.standard
@@ -108,7 +108,7 @@ public class App {
             return false
         }
     }
-    
+
     /**
      Returns if is the first start of the App for the given version
      
@@ -128,17 +128,17 @@ public class App {
 }
 
 public extension App {
-    
+
     public static var name: String = { return App.string(forKey: "CFBundleName") }()
     public static var version: String = { return App.string(forKey: "CFBundleShortVersionString") }()
     public static var build: String = { return App.string(forKey: "CFBundleVersion") }()
     public static var executable: String = { return App.string(forKey: "CFBundleExecutable") }()
     public static var bundle: String = { return App.string(forKey: "CFBundleIdentifier") }()
-    
+
     private static func string(forKey key: String) -> String {
         guard let infoDictionary = Bundle.main.infoDictionary,
             let value = infoDictionary[key] as? String else { return "" }
-        
+
         return value
     }
 }

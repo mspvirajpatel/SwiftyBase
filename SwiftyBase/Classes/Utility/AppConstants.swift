@@ -24,10 +24,10 @@ import Foundation
 public func dLog<T>(_ object: @autoclosure () -> T, filename: String = #file, _ function: String = #function, _ line: Int = #line) {
     #if DEBUG
         let value = object()
-        
+
         let fileURL = filename.lastPathComponent.stringByDeletingPathExtension
         let queue = Thread.isMainThread ? "UI" : "BG"
-        
+
         print("<\(queue)> \(fileURL) \(function)[\(line)] :-> " + String(reflecting: value))
     #endif
 }
@@ -48,10 +48,10 @@ public func dLogDump<T>(_ object: @autoclosure () -> T, label: String? = nil, _ 
         let value = object()
         let fileURL = NSURL(string: file)?.lastPathComponent ?? "Unknown file"
         let queue = Thread.isMainThread ? "UI" : "BG"
-        
+
         print("--------")
         print("<\(queue)> \(fileURL) \(function):[\(line)] ")
-        label.flatMap{ print($0) }
+        label.flatMap { print($0) }
         dump(value)
         print("--------")
     #endif
@@ -60,55 +60,55 @@ public func dLogDump<T>(_ object: @autoclosure () -> T, label: String? = nil, _ 
 //  MARK: - System Constants -
 
 public struct SystemConstants {
-    
+
     public static let showLayoutArea = true
     public static let hideLayoutArea = false
     public static let showVersionNumber = 1
-    
+
     public static let IS_IPAD = (UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad)
     public static let IS_DEBUG = false
 }
 
 public struct ControlConstant {
-    
-    public static let controlKey : String = "ControlRequestKey"
-    public static let name : String = "controlName"
-   
-    public static let borderRadius : CGFloat = 3.0
-    
-    public static let horizontalPadding : CGFloat = 10.0
-    public static let verticalPadding : CGFloat = 10.0
-    
-    public static let txtBorderWidth : CGFloat = 1.5
-    public static let txtBorderRadius : CGFloat = 2.5
-    public static let textFieldHeight : CGFloat = 30.0
-    public static let textLeftPadding : CGFloat = 10.0
-    
+
+    public static let controlKey: String = "ControlRequestKey"
+    public static let name: String = "controlName"
+
+    public static let borderRadius: CGFloat = 3.0
+
+    public static let horizontalPadding: CGFloat = 10.0
+    public static let verticalPadding: CGFloat = 10.0
+
+    public static let txtBorderWidth: CGFloat = 1.5
+    public static let txtBorderRadius: CGFloat = 2.5
+    public static let textFieldHeight: CGFloat = 30.0
+    public static let textLeftPadding: CGFloat = 10.0
+
 }
 
 public struct Server {
-    
+
     //  Main Domain
-    
+
     static let socketRootUrl = "any Socket URl"
-    
+
     //  API - Sub Domain
-    
-    static func getFullAPIPath(_ apiURLString : String) -> String {
+
+    static func getFullAPIPath(_ apiURLString: String) -> String {
         return Server.socketRootUrl + apiURLString
     }
-    
-  
+
+
 }
 
 //  MARK: - Info / Error Message Constants -
 
 public struct ErrorMessage {
-    
+
     public static let noInternet = "⚠️ Internet connection is not available."
     public static let noCurrentLocation = "⚠️ Unable to find current location."
     public static let noCameraAvailable = "⚠️ Camera is not available in device."
-    
+
 }
 
 // MARK: - Device Compatibility

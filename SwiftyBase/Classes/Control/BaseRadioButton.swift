@@ -11,7 +11,7 @@ import UIKit
 
 /// RadioButtonControllerDelegate. Delegate optionally implements didSelectButton that receives selected button
 @objc public protocol BaseRadioButtonDelegate {
-    
+
     /**
      This function is called when a button is selected. If 'shouldLetDeSelect' is true, and a button is deselected, this function
      is called with a nil.
@@ -22,16 +22,16 @@ import UIKit
 
 open class BaseRadioButton: NSObject
 {
-    
+
     fileprivate var buttonsArray = [BaseButton]()
-    public var currentSelectedButton:BaseButton!
-    weak public var delegate : BaseRadioButtonDelegate? = nil
-    
+    public var currentSelectedButton: BaseButton!
+    weak public var delegate: BaseRadioButtonDelegate? = nil
+
     /**
      Set whether a selected radio button can be deselected or not. Default value is false.
      */
     public var shouldLetDeSelect = false
-    
+
     /**
      Variadic parameter init that accepts BaseButtons.
      
@@ -44,7 +44,7 @@ open class BaseRadioButton: NSObject
         }
         self.buttonsArray = buttons
     }
-    
+
     /**
      Add a BaseButton to Controller
      - parameter button: Add the button to controller.
@@ -53,7 +53,7 @@ open class BaseRadioButton: NSObject
         buttonsArray.append(aButton)
         aButton.addTarget(self, action: #selector(BaseRadioButton.pressed(_:)), for: UIControlEvents.touchUpInside)
     }
-    
+
     /**
      Remove a BaseButton from controller.
      - parameter button: Button to be removed from controller.
@@ -69,7 +69,7 @@ open class BaseRadioButton: NSObject
                 iteratingButton = nil
             }
         }
-        
+
         if(iteratingButton != nil) {
             buttonsArray.remove(at: iteration)
             iteratingButton!.removeTarget(self, action: #selector(BaseRadioButton.pressed(_:)), for: UIControlEvents.touchUpInside)
@@ -89,13 +89,13 @@ open class BaseRadioButton: NSObject
         }
         buttonsArray = aButtonsArray
     }
-    
+
     @objc open func pressed(_ sender: BaseButton) {
         if(sender.isSelected) {
             if shouldLetDeSelect {
                 sender.isSelected = true
                 currentSelectedButton = sender
-                
+
             }
         } else {
             for aButton in buttonsArray {

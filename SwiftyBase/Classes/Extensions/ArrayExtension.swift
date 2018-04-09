@@ -11,7 +11,7 @@ import Foundation
 /// This extension adds some useful functions to Array
 public extension Array {
     // MARK: - Instance functions -
-    
+
     /**
      Get the object at a given index in safe mode (nil if self is empty or out of range)
      
@@ -26,34 +26,34 @@ public extension Array {
             return nil
         }
     }
-    
-    
+
+
     /// EZSE: Returns a random element from the array.
     public func random() -> Element? {
         guard self.count > 0 else {
             return nil
         }
-        
+
         let index = Int(arc4random_uniform(UInt32(self.count)))
         return self[index]
     }
-    
+
     /// EZSE: Prepends an object to the array.
     public mutating func insertAsFirst(_ newElement: Element) {
         insert(newElement, at: 0)
     }
-    
+
     /// EZSE: Shuffles the array in-place using the Fisher-Yates-Durstenfeld algorithm.
     public mutating func shuffle() {
         var j: Int
-        
-        for i in 0..<(self.count-2) {
+
+        for i in 0..<(self.count - 2) {
             j = Int(arc4random_uniform(UInt32(self.count - i)))
-            if i != i+j { self.swapAt(i, i+j) }
+            if i != i + j { self.swapAt(i, i + j) }
         }
     }
-    
-    
+
+
     /**
      Convert self to JSON as String
      
@@ -62,7 +62,7 @@ public extension Array {
     func arrayToJSON() throws -> String {
         return try Array.arrayToJSON(array: self as AnyObject)
     }
-    
+
     /**
      Simulates the array as a circle. When it is out of range, begins again
      
@@ -73,7 +73,7 @@ public extension Array {
     func objectAtCircleIndex(index: Int) -> Element {
         return self[self.superCircle(index: index, size: self.count)]
     }
-    
+
     /**
      Private, to get the index as a circle
      
@@ -91,10 +91,10 @@ public extension Array {
         if _index >= maxSize {
             _index = _index % maxSize
         }
-        
+
         return _index
     }
-    
+
     /**
      Move object from an index to another
      
@@ -105,7 +105,7 @@ public extension Array {
         if to != from {
             let obj: Element = self.safeObjectAtIndex(index: from)!
             self.remove(at: from)
-            
+
             if to >= self.count {
                 self.append(obj)
             } else {
@@ -113,7 +113,7 @@ public extension Array {
             }
         }
     }
-    
+
     /**
      Create a reversed array from self
      
@@ -122,9 +122,9 @@ public extension Array {
     func reversedArray() -> Array {
         return Array.reversedArray(array: self)
     }
-    
+
     // MARK: - Class functions -
-    
+
     /**
      Create a reversed array from the given array
      
@@ -135,7 +135,7 @@ public extension Array {
     static func reversedArray(array: Array) -> Array {
         return array.reversed()
     }
-    
+
     /**
      Create a reversed array from the given array
      

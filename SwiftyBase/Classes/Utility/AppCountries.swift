@@ -9,12 +9,12 @@ import Foundation
 
 /// Class to create array of all countries
 open class Countries {
-    
+
     /// Countries of the world
     open fileprivate(set) static var countries: [Country] = {
-        
+
         var countries: [Country] = []
-        
+
         countries.append(Country(countryCode: "AF", phoneExtension: "93", isMain: true))
         countries.append(Country(countryCode: "AL", phoneExtension: "355", isMain: true))
         countries.append(Country(countryCode: "DZ", phoneExtension: "213", isMain: true))
@@ -255,12 +255,12 @@ open class Countries {
         countries.append(Country(countryCode: "YE", phoneExtension: "967", isMain: true))
         countries.append(Country(countryCode: "ZM", phoneExtension: "260", isMain: true))
         countries.append(Country(countryCode: "ZW", phoneExtension: "263", isMain: true))
-        
-        
+
+
         return countries
     }()
-    
-    
+
+
     /// Find a country based on it's phone extension
     ///
     /// - Parameter phoneExtension: phone extension, exe. 1
@@ -274,7 +274,7 @@ open class Countries {
         }
         return Country.emptyCountry
     }
-    
+
     /// Find a country based on it's country code
     ///
     /// - Parameter countryCode: countryCode, exe. 39
@@ -287,8 +287,8 @@ open class Countries {
         }
         return Country.emptyCountry
     }
-    
-    
+
+
     /// Find all countries from array of country codes
     ///
     /// - Parameter countryCodes: array of country codes

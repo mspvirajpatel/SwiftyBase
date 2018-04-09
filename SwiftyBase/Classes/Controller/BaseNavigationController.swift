@@ -10,17 +10,17 @@ import UIKit
 import Foundation
 
 @IBDesignable
-open class BaseNavigationController: UINavigationController, CAAnimationDelegate{
-    
+open class BaseNavigationController: UINavigationController, CAAnimationDelegate {
+
     // MARK: - Interface
     @IBInspectable open var clearBackTitle: Bool = true
-    
+
     @IBInspectable open var NavigationtintColor: UIColor = UIColor.clear {
         willSet {
             self.navigationBar.tintColor = newValue
         }
     }
-    
+
     @IBInspectable open var NavigationbarTintColor: UIColor {
         get {
             return self.navigationBar.barTintColor!
@@ -29,86 +29,86 @@ open class BaseNavigationController: UINavigationController, CAAnimationDelegate
             self.navigationBar.barTintColor = newValue
         }
     }
-    
+
     @IBInspectable open var BottomBoarderColor: UIColor = UIColor.clear {
         willSet {
             self.navigationBar.setBottomBorder(newValue, width: 1.0)
         }
     }
-    
+
     // MARK: - Lifecycle -
-    
+
     override open func viewDidLoad() {
         super.viewDidLoad()
         setDefaultParameters()
     }
-    
-    
+
+
     override open var prefersStatusBarHidden: Bool {
         get {
             return true
         }
     }
-    
+
     override open var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    
+
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
-    
+
     override open func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
+
     }
-    
+
     // MARK: - Layout -
-    
-    
+
+
     // MARK: - Public Interface -
-    
-    func setDefaultParameters(){
-        
+
+    func setDefaultParameters() {
+
         self.navigationBar.isTranslucent = false
-        
+
         var navigationBarFont: UIFont? = Font(.installed(.AppleMedium), size: .standard(.h3)).instance
-        
+
         if #available(iOS 11.0, *) {
-            
+
             let navigationLargeFont: UIFont? = Font(.installed(.AppleMedium), size: .standard(.h)).instance
-            
+
             self.navigationBar.prefersLargeTitles = true
             self.navigationItem.largeTitleDisplayMode = .automatic
-            
+
             self.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue): AppColor.navigationBG.value,
-                                                           NSAttributedStringKey(rawValue: NSAttributedStringKey.font.rawValue): navigationLargeFont!]
+                NSAttributedStringKey(rawValue: NSAttributedStringKey.font.rawValue): navigationLargeFont!]
         } else {
             // Fallback on earlier versions
         }
-        
+
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue): AppColor.navigationBG.value,
-                                                            NSAttributedStringKey(rawValue: NSAttributedStringKey.font.rawValue): navigationBarFont!]
-        
+            NSAttributedStringKey(rawValue: NSAttributedStringKey.font.rawValue): navigationBarFont!]
+
         self.navigationBar.tintColor = AppColor.navigationBG.value
         self.navigationBar.barTintColor = AppColor.appPrimaryBG.value
         self.navigationBar.isTranslucent = false
         self.view.backgroundColor = AppColor.appPrimaryBG.value
-        
-        
+
+
         // self.edgesForExtendedLayout = UIRectEdge.none
-        
+
         //        //transperant Navigation Bar
         //        self.navigationBar.setBackgroundImage(UIImage(), for: .default)
         //        self.navigationBar.shadowImage = UIImage()
         //        self.navigationBar.isTranslucent = true
-        
-        
-        defer{
+
+
+        defer {
             navigationBarFont = nil
         }
     }
-   
+
     open func animation()
     {
         // logo mask
@@ -117,13 +117,13 @@ open class BaseNavigationController: UINavigationController, CAAnimationDelegate
         self.view.layer.mask?.bounds = CGRect(x: 0, y: 0, width: 60, height: 60)
         self.view.layer.mask?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         self.view.layer.mask?.position = CGPoint(x: self.view.frame.width / 2, y: self.view.frame.height / 2)
-        
+
         // logo mask background view
         let maskBgView = UIView(frame: self.view.frame)
         maskBgView.backgroundColor = UIColor.white
         self.view.addSubview(maskBgView)
         self.view.bringSubview(toFront: maskBgView)
-        
+
         // logo mask animation
         let transformAnimation = CAKeyframeAnimation(keyPath: "bounds")
         transformAnimation.delegate = self
@@ -138,59 +138,59 @@ open class BaseNavigationController: UINavigationController, CAAnimationDelegate
         transformAnimation.isRemovedOnCompletion = false
         transformAnimation.fillMode = kCAFillModeForwards
         self.view.layer.mask?.add(transformAnimation, forKey: "maskAnimation")
-        
+
         // logo mask background view animation
         UIView.animate(withDuration: 0.1,
                        delay: 1.35,
                        options: UIViewAnimationOptions.curveEaseIn,
                        animations: {
-                        maskBgView.alpha = 0.0
-        },
+                           maskBgView.alpha = 0.0
+                       },
                        completion: { finished in
-                        maskBgView.removeFromSuperview()
-        })
-        
+                           maskBgView.removeFromSuperview()
+                       })
+
         // root view animation
         UIView.animate(withDuration: 0.25,
                        delay: 1.3,
                        options: UIViewAnimationOptions.transitionCrossDissolve,
                        animations: {
-                        (AppUtility.getDelegate() as! UIApplicationDelegate).window!!.rootViewController!.view.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
-        },
+                           (AppUtility.getDelegate() as! UIApplicationDelegate).window!!.rootViewController!.view.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
+                       },
                        completion: { finished in
-                        UIView.animate(withDuration: 0.3,
-                                       delay: 0.0,
-                                       options: UIViewAnimationOptions.curveEaseInOut,
-                                       animations: {
-                                        (AppUtility.getDelegate() as! UIApplicationDelegate).window!!.rootViewController!.view.transform = CGAffineTransform.identity
-                        },
-                                       completion: nil
-                        )
-        })
-        
+                           UIView.animate(withDuration: 0.3,
+                                          delay: 0.0,
+                                          options: UIViewAnimationOptions.curveEaseInOut,
+                                          animations: {
+                                              (AppUtility.getDelegate() as! UIApplicationDelegate).window!!.rootViewController!.view.transform = CGAffineTransform.identity
+                                          },
+                                          completion: nil
+                           )
+                       })
+
     }
-    
+
     // MARK: - User Interaction -
-   
+
     override open func pushViewController(_ viewController: UIViewController, animated: Bool) {
         controlClearBackTitle()
         super.pushViewController(viewController, animated: animated)
     }
-    
+
     override open func show(_ vc: UIViewController, sender: Any?) {
         controlClearBackTitle()
         super.show(vc, sender: sender)
     }
-    
+
     // MARK: - Internal Helpers -
 }
 
 extension BaseNavigationController {
-    
+
     open func controlClearBackTitle() {
         if self.clearBackTitle {
             topViewController?.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         }
     }
-    
+
 }

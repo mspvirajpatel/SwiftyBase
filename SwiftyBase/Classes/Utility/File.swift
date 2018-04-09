@@ -9,11 +9,11 @@ import Foundation
 import UIKit
 
 class File {
-    
+
     class func exists (path: URL) -> Bool {
         return FileManager().fileExists(atPath: path.path)
     }
-    
+
     class func read (path: URL, encoding: String.Encoding = String.Encoding.utf8) -> String? {
         if File.exists(path: path) {
             do {
@@ -24,19 +24,18 @@ class File {
                 return nil
             }
         }
-        
+
         return nil
     }
-    
+
     class func write (path: URL, content: String, encoding: String.Encoding = String.Encoding.utf8) -> URL? {
-        do{
+        do {
             try content.write(to: path, atomically: false, encoding: encoding)
             dLog("Save file path : \(path)")
             return path
         }
-        catch{
+        catch {
             return nil
         }
     }
 }
-

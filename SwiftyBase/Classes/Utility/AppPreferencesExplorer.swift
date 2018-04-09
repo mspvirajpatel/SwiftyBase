@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 public enum PreferenceType: String {
-    
+
     case about = "General&path=About"
     case accessibility = "General&path=ACCESSIBILITY"
     case airplaneMode = "AIRPLANE_MODE"
@@ -54,7 +54,7 @@ public enum PreferenceType: String {
     case tethering = "INTERNET_TETHERING"
     case blocked = "Phone&path=Blocked"
     case doNotDisturb = "DO_NOT_DISTURB"
-    
+
 }
 
 enum PreferenceExplorerError: Error {
@@ -62,13 +62,13 @@ enum PreferenceExplorerError: Error {
 }
 
 open class AppPreferencesExplorer {
-    
+
     // MARK: - Class properties -
-    
+
     static private let preferencePath = "App-Prefs:root"
-    
+
     // MARK: - Class methods -
-    
+
     public static func open(_ preferenceType: PreferenceType) throws {
         let appPath = "\(AppPreferencesExplorer.preferencePath)=\(preferenceType.rawValue)"
         if let url = URL(string: appPath) {
@@ -81,5 +81,5 @@ open class AppPreferencesExplorer {
             throw PreferenceExplorerError.notFound(appPath)
         }
     }
-    
+
 }

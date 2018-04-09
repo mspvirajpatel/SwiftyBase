@@ -28,11 +28,11 @@ public extension AppEnumerable where RawValue == Int {
     public static var elements: [Self] {
         return Array(enumerate)
     }
-    
+
     public static var count: Int {
         return elements.count
     }
-    
+
     public static var startIndex: Int {
         return 0
     }
