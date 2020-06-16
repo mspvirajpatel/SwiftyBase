@@ -15,7 +15,7 @@ public protocol AppEnumerable: RawRepresentable {
 }
 
 public extension AppEnumerable where RawValue == Int {
-    public static var enumerate: AnySequence<Self> {
+    static var enumerate: AnySequence<Self> {
         return AnySequence { () -> AnyIterator<Self> in
             var i = startIndex
             return AnyIterator { () -> Self? in
@@ -25,15 +25,16 @@ public extension AppEnumerable where RawValue == Int {
             }
         }
     }
-    public static var elements: [Self] {
+    
+    static var elements: [Self] {
         return Array(enumerate)
     }
 
-    public static var count: Int {
+    static var count: Int {
         return elements.count
     }
 
-    public static var startIndex: Int {
+    static var startIndex: Int {
         return 0
     }
 }

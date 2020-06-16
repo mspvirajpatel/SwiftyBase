@@ -388,7 +388,7 @@ extension AppDownloadManager {
         downloadTask.taskDescription = [fileName, fileURL, destinationPath].joined(separator: ",")
         downloadTask.resume()
 
-        debugPrint("session manager:\(sessionManager) url:\(url) request:\(request)")
+        debugPrint("session manager:\(String(describing: sessionManager)) url:\(url) request:\(request)")
 
         let downloadModel = AppDownloadModel.init(fileName: fileName, fileURL: fileURL, destinationPath: destinationPath)
         downloadModel.startTime = Date()

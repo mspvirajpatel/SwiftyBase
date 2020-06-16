@@ -103,7 +103,7 @@ public extension UserDefaults {
 
 public extension Character {
     /// Return true if character is emoji.
-    public var isEmoji: Bool {
+    var isEmoji: Bool {
         // http://stackoverflow.com/questions/30757193/find-out-if-character-in-string-is-emoji
         guard let scalarValue = String(self).unicodeScalars.first?.value else {
             return false
@@ -121,17 +121,17 @@ public extension Character {
     }
 
     /// Return true if character is number.
-    public var isNumber: Bool {
+    var isNumber: Bool {
         return Int(String(self)) != nil
     }
 
     /// Return integer from character (if applicable).
-    public var toInt: Int? {
+    var toInt: Int? {
         return Int(String(self))
     }
 
     /// Return string from character.
-    public var toString: String {
+    var toString: String {
         return String(self)
     }
 }

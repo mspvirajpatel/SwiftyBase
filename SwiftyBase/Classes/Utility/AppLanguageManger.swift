@@ -59,7 +59,7 @@ open class AppLanguageManger: Bundle {
 // MARK: NSNotification.Name extension
 public extension NSNotification.Name {
     // used to get notification when language change (if you have somthing to do)
-    public static var LanguageDidChange: NSNotification.Name {
+    static var LanguageDidChange: NSNotification.Name {
         return NSNotification.Name.init("languageDidChange")
     }
 }
@@ -69,7 +69,7 @@ public extension NSNotification.Name {
 public extension String {
 
     // used to localize string from code
-    public func localiz() -> String {
+    func localiz() -> String {
         guard let bundle = Bundle.main.path(forResource: AppLanguageManger.shared.currentLang, ofType: "lproj") else {
             return NSLocalizedString(self, comment: "")
         }

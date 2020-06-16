@@ -658,7 +658,7 @@ extension PhotoViewCell {
             return
         }
 
-        guard let urlString = photo.imageUrlString, let url = URL(string: urlString) else {
+        guard let urlString = photo.imageUrlString, let _ = URL(string: urlString) else {
             assert(false, "")
             return
         }

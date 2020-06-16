@@ -77,7 +77,7 @@ class APIDemoView: BaseView,UITableViewDataSource, UITableViewDelegate {
     override func setViewlayout(){
         super.setViewlayout()
         
-        baseLayout.viewDictionary = self.getDictionaryOfVariableBindings(superView: self, viewDic: NSDictionary()) as! [String : AnyObject]
+        baseLayout.viewDictionary = self.getDictionaryOfVariableBindings(superView: self, viewDic: NSDictionary()) as? [String : AnyObject]
         
         let controlTopBottomPadding : CGFloat = ControlConstant.verticalPadding
         let controlLeftRightPadding : CGFloat = ControlConstant.horizontalPadding

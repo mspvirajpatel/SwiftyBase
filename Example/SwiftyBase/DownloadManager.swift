@@ -98,7 +98,6 @@ class DownloadManager: NSObject
                 let status = PHPhotoLibrary.authorizationStatus()
                 switch status {
                 case .authorized:
-                    
                     AppCustomPhotoAlbum.sharedInstance.saveImage(image:image)
                     break
                     
@@ -107,7 +106,6 @@ class DownloadManager: NSObject
                     break
                 case .notDetermined:
                     // ask for permissions
-                    
                     
                     PHPhotoLibrary.requestAuthorization() {  [weak self] status in
                         if self == nil
@@ -130,6 +128,8 @@ class DownloadManager: NSObject
                         }
                         
                     }
+                default:
+                    return
                 }
                 // UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
             }
@@ -228,7 +228,7 @@ extension DownloadManager : AppDownloadManagerDelegate{
         if delegate != nil{
             delegate?.downloadRequestDidFailedWithError(error, downloadModel: downloadModel, index: index)
         }
-        debugPrint("Error while downloading file: \(downloadModel.fileName)  Error: \(error)")
+        debugPrint("Error while downloading file: \(downloadModel.fileName ?? "")  Error: \(error)")
     }
     
     //Oppotunity to handle destination does not exists error

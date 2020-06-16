@@ -18,7 +18,7 @@ public extension NSMutableArray {
      - parameter from: The index to move from
      - parameter to:   The index to move to
      */
-    public func moveObjectFromIndex(from: Int, toIndex to: Int) {
+    func moveObjectFromIndex(from: Int, toIndex to: Int) {
         if to != from {
             let obj: AnyObject? = self.safeObjectAtIndex(index: from)
             self.removeObject(at: from)
@@ -43,7 +43,7 @@ public extension NSMutableArray {
      
      - returns: Returns the given array ordered by the given key ascending or descending
      */
-    public static func sortArrayByKey(key: String, array: NSMutableArray, ascending: Bool) -> NSMutableArray {
+    static func sortArrayByKey(key: String, array: NSMutableArray, ascending: Bool) -> NSMutableArray {
         var tempArray: NSMutableArray = NSMutableArray()
         tempArray.addObjects(from: array as [AnyObject])
         

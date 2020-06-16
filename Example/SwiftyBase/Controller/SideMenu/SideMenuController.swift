@@ -125,7 +125,7 @@ class SideMenuController: BaseViewController {
                 
             }
             
-            defer {
+            do {
                 controller = nil
             }
         }

@@ -15,7 +15,7 @@ public extension NSDate {
     /**
      The simplified date structure
      */
-    public struct BFDateInformation {
+    struct BFDateInformation {
         /// Year
         var year = 0
         /// Month of the year
@@ -51,7 +51,7 @@ public extension NSDate {
          
          - returns: Returns the BFDateInformation instance
          */
-        public init(year: Int = 0, month: Int = 0, day: Int = 0, weekday: Int = 0, hour: Int = 0, minute: Int = 0, second: Int = 0, nanosecond: Int = 0) {
+        init(year: Int = 0, month: Int = 0, day: Int = 0, weekday: Int = 0, hour: Int = 0, minute: Int = 0, second: Int = 0, nanosecond: Int = 0) {
             self.year = year
             self.month = month
             self.day = day
@@ -69,7 +69,7 @@ public extension NSDate {
      
      - returns: Return the month
      */
-    public func month() -> NSDate {
+    func month() -> NSDate {
         let calendar = NSCalendar.autoupdatingCurrent
         let unitFlags = Set<Calendar.Component>([.year, .month, ])
         
@@ -92,7 +92,7 @@ public extension NSDate {
      
      - returns: Return weekday number
      */
-    public func weekday() -> Int {
+    func weekday() -> Int {
         let calendar = NSCalendar.autoupdatingCurrent
         let unitFlags = Set<Calendar.Component>([.year, .month, .day, .weekday])
         let comp = calendar.dateComponents(unitFlags, from: self as Date)
@@ -111,7 +111,7 @@ public extension NSDate {
      
      - returns: Return weekday as a localized string
      */
-    public func dayFromWeekday() -> NSString {
+    func dayFromWeekday() -> NSString {
         switch self.weekday() {
         case 1:
             return "SUNDAY"
@@ -171,7 +171,7 @@ public extension NSDate {
      
      - returns: Returns true if is same day, false if not
      */
-    public func isSameDay(anotherDate: NSDate) -> Bool {
+    func isSameDay(anotherDate: NSDate) -> Bool {
         let calendar = NSCalendar.autoupdatingCurrent
         let unitFlags = Set<Calendar.Component>([.year, .month, .day])
         let unitFlags2 = Set<Calendar.Component>([.year, .month, .day])
@@ -212,7 +212,7 @@ public extension NSDate {
      
      - returns: Returns self by adding the gived days number
      */
-    public func dateByAddingDays(days: Int) -> NSDate {
+    func dateByAddingDays(days: Int) -> NSDate {
         return self.addingTimeInterval(TimeInterval(days * 24 * 60 * 60))
     }
     
@@ -221,7 +221,7 @@ public extension NSDate {
      
      - returns: Returns the month string
      */
-    public func monthString() -> String {
+    func monthString() -> String {
         let dateFormatter: DateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM"
         
@@ -235,7 +235,7 @@ public extension NSDate {
      
      - returns: Returns the year string
      */
-    public func yearString() -> String {
+    func yearString() -> String {
         let dateFormatter: DateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy"
         
@@ -247,7 +247,7 @@ public extension NSDate {
      
      - returns: Date after removing all components but not year, month and day
      */
-    public func shortData() -> NSDate {
+    func shortData() -> NSDate {
         let calendar = NSCalendar.autoupdatingCurrent
         let unitFlags = Set<Calendar.Component>([.year, .month, .day])
         
@@ -263,7 +263,7 @@ public extension NSDate {
      
      - returns: Returns a true if self is greater than the given one, otherwise false
      */
-    public func isGreaterThanDate(dateToCompare: NSDate) -> Bool {
+    func isGreaterThanDate(dateToCompare: NSDate) -> Bool {
         //Declare Variables
         var isGreater = false
         
@@ -283,7 +283,7 @@ public extension NSDate {
      
      - returns: Returns a true if self is less than the given one, otherwise false
      */
-    public func isLessThanDate(dateToCompare: NSDate) -> Bool {
+    func isLessThanDate(dateToCompare: NSDate) -> Bool {
         //Declare Variables
         var isLess = false
         
@@ -302,7 +302,7 @@ public extension NSDate {
      
      - returns: Returns the month
      */
-    public static func month() -> NSDate {
+    static func month() -> NSDate {
         return NSDate().month()
     }
     
@@ -316,7 +316,7 @@ public extension NSDate {
      
      - returns: Returns the created NSDate
      */
-    public static func dateWithDatePart(date: NSDate, andTimePart time: NSDate) -> NSDate {
+    static func dateWithDatePart(date: NSDate, andTimePart time: NSDate) -> NSDate {
         let dateFormatter: DateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
         let datePortion: String = dateFormatter.string(from: date as Date)
@@ -349,7 +349,7 @@ public extension NSDate {
      
      - returns: Returns the given month as a localized string
      */
-    public static func monthStringWithMonthNumber(month: Int) -> String {
+    static func monthStringWithMonthNumber(month: Int) -> String {
         switch month {
         case 1:
             return "JANUARY"
@@ -401,7 +401,7 @@ public extension NSDate {
      
      - returns: Returns a String in the following format (dateSeparator = "/", usFormat to false and nanosecond to false). D/M/Y H:M:S. Example: 15/10/2013 10:38:43
      */
-    public static func dateInformationDescriptionWithInformation(info: BFDateInformation, dateSeparator: String = "/", usFormat: Bool = false, nanosecond: Bool = false) -> String {
+    static func dateInformationDescriptionWithInformation(info: BFDateInformation, dateSeparator: String = "/", usFormat: Bool = false, nanosecond: Bool = false) -> String {
         var description: String
         
         if usFormat {
@@ -419,7 +419,7 @@ public extension NSDate {
     
     
     /// EZSE: Converts NSDate to String
-    public func toString(dateStyle: DateFormatter.Style = .medium, timeStyle: DateFormatter.Style = .medium) -> String {
+    func toString(dateStyle: DateFormatter.Style = .medium, timeStyle: DateFormatter.Style = .medium) -> String {
         let formatter = DateFormatter()
         formatter.dateStyle = dateStyle
         formatter.timeStyle = timeStyle
@@ -427,42 +427,42 @@ public extension NSDate {
     }
     
     /// EZSE: Converts NSDate to String, with format
-    public func toString(format: String) -> String {
+    func toString(format: String) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = format
         return formatter.string(from: self as Date)
     }
     
     /// EZSE: Calculates how many days passed from now to date
-    public func daysInBetweenDate(_ date: Date) -> Double {
+    func daysInBetweenDate(_ date: Date) -> Double {
         var diff = self.timeIntervalSinceNow - date.timeIntervalSinceNow
         diff = fabs(diff/86400)
         return diff
     }
     
     /// EZSE: Calculates how many hours passed from now to date
-    public func hoursInBetweenDate(_ date: Date) -> Double {
+    func hoursInBetweenDate(_ date: Date) -> Double {
         var diff = self.timeIntervalSinceNow - date.timeIntervalSinceNow
         diff = fabs(diff/3600)
         return diff
     }
     
     /// EZSE: Calculates how many minutes passed from now to date
-    public func minutesInBetweenDate(_ date: Date) -> Double {
+    func minutesInBetweenDate(_ date: Date) -> Double {
         var diff = self.timeIntervalSinceNow - date.timeIntervalSinceNow
         diff = fabs(diff/60)
         return diff
     }
     
     /// EZSE: Calculates how many seconds passed from now to date
-    public func secondsInBetweenDate(_ date: Date) -> Double {
+    func secondsInBetweenDate(_ date: Date) -> Double {
         var diff = self.timeIntervalSinceNow - date.timeIntervalSinceNow
         diff = fabs(diff)
         return diff
     }
     
     /// EZSE: Easy creation of time passed String. Can be Years, Months, days, hours, minutes or seconds
-    public func timePassed() -> String {
+    func timePassed() -> String {
         let date = Date()
         let calendar = Calendar.current
         let components = (calendar as NSCalendar).components([.year, .month, .day, .hour, .minute, .second], from: self as Date, to: date, options: [])

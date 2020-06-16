@@ -10,37 +10,31 @@ import Foundation
 
 public extension Int{
     
-    public var isEven:Bool
-    {
+    var isEven: Bool {
         return (self % 2 == 0)
     }
     
-    public var isOdd:Bool
-    {
+    var isOdd: Bool {
         return (self % 2 != 0)
     }
     
-    public var isPositive:Bool
-    {
+    var isPositive: Bool {
         return (self >= 0)
     }
     
-    public var isNegative:Bool
-    {
+    var isNegative: Bool {
         return (self < 0)
     }
     
-    public var toDouble:Double
-    {
+    var toDouble: Double {
         return Double(self)
     }
     
-    public var toFloat:Float
-    {
+    var toFloat: Float {
         return Float(self)
     }
     
-    public var digits:Int {
+    var digits: Int {
         //this only works in bound of LONG_MAX 2147483647, the maximum value of int
         if(self == 0)
         {
@@ -49,10 +43,6 @@ public extension Int{
         else if(Int(fabs(Double(self))) <= LONG_MAX)
         {
             return Int(log10(fabs(Double(self)))) + 1
-        }
-        else
-        {
-            return -1; //out of bound
         }
     }
 }

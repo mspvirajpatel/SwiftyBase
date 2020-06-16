@@ -10,7 +10,7 @@ import UIKit
 
 public extension AppColor {
 
-    public var value: UIColor {
+    var value: UIColor {
         var instanceColor = UIColor.clear
 
         switch self {

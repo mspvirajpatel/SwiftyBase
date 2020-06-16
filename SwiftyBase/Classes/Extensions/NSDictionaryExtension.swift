@@ -16,18 +16,12 @@ public extension NSDictionary {
      
      - returns: Returns the JSON as String or nil if error while parsing
      */
-    @available(*, deprecated: 1.3.0, message: "Use dictionaryToJSON()")
-    public func dictionaryToJson()  throws-> String {
-        return try self.dictionaryToJSON()
-    }
-    
-    /**
-     Convert self to JSON as String
-     
-     - returns: Returns the JSON as String or nil if error while parsing
-     */
-    public func dictionaryToJSON() throws -> String {
-        return try NSDictionary.dictionaryToJSON(dictionary: self)
+    func dictionaryToJSON() -> String {
+        do {
+            return try NSDictionary.dictionaryToJSON(dictionary: self)
+        } catch {
+            return ""
+        }
     }
     
     /**
@@ -37,7 +31,7 @@ public extension NSDictionary {
      
      - returns: Value for the key Or nil
      */
-    public func safeObjectForKey(key: String) -> AnyObject? {
+    func safeObjectForKey(key: String) -> AnyObject? {
         if let value = self[key] {
             return value as AnyObject?
         } else {
@@ -54,8 +48,7 @@ public extension NSDictionary {
      
      - returns: Returns the JSON as String or nil if error while parsing
      */
-    @available(*, deprecated: 1.3.0, message: "Use dictionaryToJSON(_ )")
-    public static func dictionaryToJson(dictionary: NSDictionary) throws -> String {
+    static func dictionaryToJson(dictionary: NSDictionary) throws -> String {
         return try self.dictionaryToJSON(dictionary: dictionary)
     }
     
@@ -66,7 +59,8 @@ public extension NSDictionary {
      
      - returns: Returns the JSON as String or nil if error while parsing
      */
-    public static func dictionaryToJSON(dictionary: NSDictionary) throws -> String {
+    
+    static func dictionaryToJSON(dictionary: NSDictionary) throws -> String {
         var json: NSString
         let jsonData: NSData = try JSONSerialization.data(withJSONObject: dictionary, options: .prettyPrinted) as NSData
         
@@ -78,7 +72,7 @@ public extension NSDictionary {
     
     //Json String Convert
     
-    public func JSONString() -> NSString{
+    func JSONString() -> NSString{
         var jsonString : NSString = ""
         
         do
@@ -96,7 +90,7 @@ public extension NSDictionary {
     
     
     //  Convert NSDictionary to NSData
-    public var toNSData : Data! {
+    var toNSData : Data! {
         do {
             return try JSONSerialization.data(withJSONObject: self, options: .prettyPrinted)          // success ...
         } catch {
@@ -107,7 +101,7 @@ public extension NSDictionary {
     }
     
     //  Check key is exist in NSDictionary or not
-    public func has(_ key: Key) -> Bool {
+    func has(_ key: Key) -> Bool {
         return object(forKey: key) != nil
     }
     

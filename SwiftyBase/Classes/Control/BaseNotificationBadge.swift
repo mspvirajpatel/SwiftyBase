@@ -49,7 +49,7 @@ extension UIView {
         //Find badge in subviews if exists
         for view in self.subviews {
             if view.tag == 1 && view is BadgeLabel {
-                badgeLabel = view as! BadgeLabel
+                badgeLabel = view as? BadgeLabel
             }
         }
 
@@ -134,16 +134,16 @@ extension UIView {
         badgeLabel.translatesAutoresizingMaskIntoConstraints = false
 
         //add height constraint
-        self.addConstraint(NSLayoutConstraint(item: badgeLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: CGFloat(height)))
+        self.addConstraint(NSLayoutConstraint(item: badgeLabel!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: CGFloat(height)))
 
         //add width constraint
-        self.addConstraint(NSLayoutConstraint(item: badgeLabel, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: CGFloat(width)))
+        self.addConstraint(NSLayoutConstraint(item: badgeLabel!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: CGFloat(width)))
 
         //add vertical constraint
-        self.addConstraint(NSLayoutConstraint(item: badgeLabel, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.0, constant: centerX))
+        self.addConstraint(NSLayoutConstraint(item: badgeLabel!, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.0, constant: centerX))
 
         //add horizontal constraint
-        self.addConstraint(NSLayoutConstraint(item: badgeLabel, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: centerY))
+        self.addConstraint(NSLayoutConstraint(item: badgeLabel!, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: centerY))
 
         badgeLabel.layer.borderColor = appearnce.borderColor.cgColor
 

@@ -10,10 +10,9 @@ import Foundation
 
 fileprivate var cpkObjectAssociatedObject: UInt8 = 0
 
-public extension NSObject
-{
-    public func setValueFromDictionary(_ dicResponse : NSDictionary)
-    {
+public extension NSObject {
+    
+    func setValueFromDictionary(_ dicResponse : NSDictionary) {
         let mirror = Mirror(reflecting: self)
         let allKey : [String] = mirror.proparty()
         
@@ -42,13 +41,13 @@ public extension NSObject
      
      - returns: Returns if the object is valid
      */
-    public func isValid() -> Bool {
+    func isValid() -> Bool {
         return !self.isKind(of: NSNull.self)
     }
     
     
     @discardableResult
-    public static func cpk_swizzle(method1: Any, method2: Any) -> Bool {
+    static func cpk_swizzle(method1: Any, method2: Any) -> Bool {
         var s1 = method1 as? Selector
         var s2 = method2 as? Selector
         
@@ -87,7 +86,7 @@ public extension NSObject
     //    }
     
     @discardableResult
-    public func cpk_safePerform(selector: Selector) -> Any? {
+    func cpk_safePerform(selector: Selector) -> Any? {
         if self.responds(to: selector) {
             return self.perform(selector).takeRetainedValue()
         } else {
@@ -96,7 +95,7 @@ public extension NSObject
     }
     
     @discardableResult
-    public static func cpk_safePerform(selector: Selector) -> Any? {
+    static func cpk_safePerform(selector: Selector) -> Any? {
         if self.responds(to: selector) {
             return self.perform(selector).takeRetainedValue()
         } else {
@@ -104,7 +103,7 @@ public extension NSObject
         }
     }
     
-    public func cpk_associatedObjectFor(key: String) -> Any? {
+    func cpk_associatedObjectFor(key: String) -> Any? {
         if let dict = objc_getAssociatedObject(self, &cpkObjectAssociatedObject) as? NSMutableDictionary {
             return dict[key]
         } else {
@@ -112,7 +111,7 @@ public extension NSObject
         }
     }
     
-    public func cpk_setAssociated(object: Any?, forKey key: String) {
+    func cpk_setAssociated(object: Any?, forKey key: String) {
         var dict = objc_getAssociatedObject(self, &cpkObjectAssociatedObject) as? NSMutableDictionary
         
         if dict == nil {
@@ -128,10 +127,8 @@ public extension NSObject
 
 // MARK:  - Mirro Extension -
 
-public extension Mirror
-{
-    public func proparty() -> [String]
-    {
+public extension Mirror {
+    func proparty() -> [String] {
         var arrPropary : [String] = []
         
         for item in self.children

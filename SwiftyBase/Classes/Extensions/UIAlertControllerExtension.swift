@@ -9,7 +9,7 @@
 import Foundation
 
 public extension UIAlertController {
-    public func showAlert(animated: Bool = true, completionHandler: (() -> Void)? = nil) {
+    func showAlert(animated: Bool = true, completionHandler: (() -> Void)? = nil) {
         guard let rootVC = UIApplication.shared.keyWindow?.rootViewController else {
             return
         }

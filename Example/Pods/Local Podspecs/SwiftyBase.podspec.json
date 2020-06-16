@@ -1,7 +1,7 @@
 {
   "name": "SwiftyBase",
-  "version": "1.2.22",
-  "summary": "Base Project For iOS in Swift 3.0",
+  "version": "1.2.37",
+  "summary": "Base Project For iOS in Swift 5.0",
   "description": "Base Project Create for iOS. Into Base Project BaseController, BaseView, BaseNavigation ,BaseControls Added.",
   "homepage": "https://github.com/mspvirajpatel/SwiftyBase",
   "license": {
@@ -13,10 +13,14 @@
   },
   "source": {
     "git": "https://github.com/mspvirajpatel/SwiftyBase.git",
-    "tag": "1.2.22"
+    "tag": "1.2.37"
   },
   "platforms": {
     "ios": "9.0"
   },
-  "source_files": "SwiftyBase/Classes/**/*"
+  "source_files": "SwiftyBase/Classes/**/*",
+  "swift_versions": [
+    "5.0"
+  ],
+  "swift_version": "5.0"
 }

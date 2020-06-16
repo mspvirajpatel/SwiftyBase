@@ -17,7 +17,7 @@ public extension Date {
      
      :returns: the NSDate object.
      */
-    public init(dateString: String) {
+    init(dateString: String) {
         let dateStringFormatter = DateFormatter()
         dateStringFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss a"
         let d = dateStringFormatter.date(from: dateString)
@@ -34,14 +34,14 @@ public extension Date {
      
      :returns: a formatted string object.
      */
-    public func toString() -> String {
+    func toString() -> String {
         let dateStringFormatter = DateFormatter()
         dateStringFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss a"
         return dateStringFormatter.string(from: self)
     }
 
 
-    public func getCurrentUTCTimeStampe() -> TimeInterval
+    func getCurrentUTCTimeStampe() -> TimeInterval
     {
         let date = Date()
 
@@ -60,7 +60,7 @@ public extension Date {
 
     }
 
-    public func getTimeStampWithDateTime() -> TimeInterval
+    func getTimeStampWithDateTime() -> TimeInterval
     {
         let date = Date()
 
@@ -78,7 +78,7 @@ public extension Date {
         return Date(timeInterval: seconds, since: dateFormatter.date(from: UTCDate)!).timeIntervalSince1970
     }
 
-    public func initializeDateWithTime(_ hrs: Int, minutes: Int) -> TimeInterval {
+    func initializeDateWithTime(_ hrs: Int, minutes: Int) -> TimeInterval {
 
         let date = Date()
 
@@ -114,7 +114,7 @@ public extension Date {
     }
 
 
-    public func getDateFromTimeStampe(_ formate: String, timestampe: String) -> String?
+    func getDateFromTimeStampe(_ formate: String, timestampe: String) -> String?
     {
         let dateFormater: DateFormatter = DateFormatter()
         dateFormater .dateFormat = formate
@@ -123,7 +123,7 @@ public extension Date {
         return dateString
     }
 
-    public func setDateFromTimeStampe(_ formate: String, timestampe: Double) -> String?
+    func setDateFromTimeStampe(_ formate: String, timestampe: Double) -> String?
     {
         let dateFormatter = DateFormatter()
 
@@ -142,17 +142,17 @@ public extension Date {
     }
 
     //  Get Week day from date
-    public var weekDay: Int {
+    var weekDay: Int {
         return (Calendar.current as NSCalendar).component(.weekday, from: self)
     }
 
     //  Get Week index of month from date
-    public var weekOfMonth: Int {
+    var weekOfMonth: Int {
         return (Calendar.current as NSCalendar).component(.weekOfMonth, from: self)
     }
 
     //  Get Week day name from date
-    public var weekDayName: String {
+    var weekDayName: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "EEEE"
         return formatter.string(from: self)
@@ -160,21 +160,21 @@ public extension Date {
 
 
     //  Get Month name from date
-    public var monthName: String {
+    var monthName: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM"
         return formatter.string(from: self)
     }
 
     //  Get Hour and Minute from date
-    public func getHourAndMinute() -> (hour: Int, minute: Int) {
+    func getHourAndMinute() -> (hour: Int, minute: Int) {
         let calendar = Calendar.current
         let comp = (calendar as NSCalendar).components([.hour, .minute], from: self)
         return (comp.hour!, comp.minute!)
     }
 
     //  Get Total count of weeks in month from date
-    public func weeksInMonth() -> Int?
+    func weeksInMonth() -> Int?
     {
         var calendar = Calendar(identifier: Calendar.Identifier.gregorian)
         calendar.firstWeekday = 2 // 2 == Monday
@@ -201,7 +201,7 @@ public extension Date {
     }
 
     //  Get Total count of week days in month from date
-    public func weekDaysInMonth() -> Int?
+    func weekDaysInMonth() -> Int?
     {
         guard 1...12 ~= month else { return nil }
 
@@ -221,84 +221,84 @@ public extension Date {
     }
 
     //  Get Total count of days in month from date
-    public func daysInMonth() -> Int? {
+    func daysInMonth() -> Int? {
         let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
         return (calendar as NSCalendar).range(of: .day, in: .month, for: self).length
     }
 
     //  Get Time in AM / PM format
-    public func getTime() -> String {
+    func getTime() -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "hh:mm a"
         return formatter.string(from: self)
     }
 
     //  Get Time short (i.e 12 Mar) format
-    public func getTimeInShortFormat() -> String {
+    func getTimeInShortFormat() -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd MMM"
         return formatter.string(from: self)
     }
 
     //  Get Time short (i.e 12 Mar, 2016) format
-    public func getTimeInFullFormat() -> String {
+    func getTimeInFullFormat() -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd MMM, yyyy"
         return formatter.string(from: self)
     }
 
     //  Get Time standard (i.e 2016-03-12) format
-    public func formateBirthDate() -> String {
+    func formateBirthDate() -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter.string(from: self)
     }
 
     //  Check date is after date
-    public func afterDate(_ date: Date) -> Bool {
+    func afterDate(_ date: Date) -> Bool {
         return self.compare(date) == ComparisonResult.orderedAscending
     }
 
     //  Check date is before date
-    public func beforDate(_ date: Date) -> Bool {
+    func beforDate(_ date: Date) -> Bool {
         return self.compare(date) == ComparisonResult.orderedDescending
     }
 
     //  Check date is equal date
-    public func equalDate(_ date: Date) -> Bool {
+    func equalDate(_ date: Date) -> Bool {
         return (self == date)
     }
 
     //  Get days difference between dates
-    public func daysInBetweenDate(_ date: Date) -> Int {
+    func daysInBetweenDate(_ date: Date) -> Int {
         var difference = self.timeIntervalSinceNow - date.timeIntervalSinceNow
         difference = fabs(difference / 86400)
         return Int(difference)
     }
 
     //  Get hours difference between dates
-    public func hoursInBetweenDate(_ date: Date) -> Int {
+    func hoursInBetweenDate(_ date: Date) -> Int {
         var difference = self.timeIntervalSinceNow - date.timeIntervalSinceNow
         difference = fabs(difference / 3600)
         return Int(difference)
     }
 
     //  Get minutes difference between dates
-    public func minutesInBetweenDate(_ date: Date) -> Int {
+    func minutesInBetweenDate(_ date: Date) -> Int {
         var difference = self.timeIntervalSinceNow - date.timeIntervalSinceNow
         difference = fabs(difference / 60)
         return Int(difference)
     }
 
     //  Get seconds difference between dates
-    public func secondsInBetweenDate(_ date: Date) -> Int {
+    func secondsInBetweenDate(_ date: Date) -> Int {
         var difference = self.timeIntervalSinceNow - date.timeIntervalSinceNow
         difference = fabs(difference)
         return Int(difference)
     }
 
     //  Get time difference between dates
-    public func getDifferenceBetweenDates() -> String {
+    func getDifferenceBetweenDates() -> String {
         let interval = self.timeIntervalSinceNow
         let year: Int = Int(interval) / 31536000
         var finalString = "'"
@@ -350,7 +350,7 @@ public extension Date {
     }
 
     /// set to get the current year
-    public var year: Int {
+    var year: Int {
         get {
             let calendar = Calendar.autoupdatingCurrent
             let components = calendar.dateComponents([.year], from: self)
@@ -367,7 +367,7 @@ public extension Date {
     }
 
     //// set to get the current month
-    public var month: Int {
+    var month: Int {
         get {
             let calendar = Calendar.autoupdatingCurrent
             let components = calendar.dateComponents([.month], from: self)
@@ -384,7 +384,7 @@ public extension Date {
     }
 
     /// set to get the current day
-    public var day: Int {
+    var day: Int {
         get {
             let calendar = Calendar.autoupdatingCurrent
             let components = calendar.dateComponents([.day], from: self)
@@ -401,7 +401,7 @@ public extension Date {
     }
 
     /// set to get the current hours
-    public var hour: Int {
+    var hour: Int {
         get {
             let calendar = Calendar.autoupdatingCurrent
             let components = calendar.dateComponents([.hour], from: self)
@@ -418,7 +418,7 @@ public extension Date {
     }
 
     /// set to get the current minute
-    public var minute: Int {
+    var minute: Int {
         get {
             let calendar = Calendar.autoupdatingCurrent
             let components = calendar.dateComponents([.minute], from: self)
@@ -435,7 +435,7 @@ public extension Date {
     }
 
     /// set to get the current second
-    public var second: Int {
+    var second: Int {
         get {
             let calendar = Calendar.autoupdatingCurrent
             let components = calendar.dateComponents([.second], from: self)
@@ -452,7 +452,7 @@ public extension Date {
     }
 
     /// set to get the current nanosecond
-    public var nanosecond: Int {
+    var nanosecond: Int {
         let calendar = Calendar.autoupdatingCurrent
         let components = calendar.dateComponents([.nanosecond], from: self)
 
@@ -471,7 +471,7 @@ public extension Date {
     /// - 5 - Thursday.
     /// - 6 - Friday.
     /// - 7 - Saturday.
-    public var weekday: Int {
+    var weekday: Int {
         let calendar = Calendar.autoupdatingCurrent
         let components = calendar.dateComponents([.weekday], from: self)
 
@@ -490,7 +490,7 @@ public extension Date {
     /// - hour: Hour component.
     /// - minute: Minute component.
     /// - second: Second component.
-    public enum EditableDateComponents: Int {
+    enum EditableDateComponents: Int {
         case year
         case month
         case day
@@ -502,7 +502,7 @@ public extension Date {
     /// Update the current date component.
     ///
     ///   - components: Need to update the dictionary of components and values
-    public mutating func update(components: [EditableDateComponents: Int]) {
+    mutating func update(components: [EditableDateComponents: Int]) {
         let autoupdatingCalendar = Calendar.autoupdatingCurrent
         var dateComponents = autoupdatingCalendar.dateComponents([.year, .month, .day, .weekday, .hour, .minute, .second, .nanosecond], from: self)
 
@@ -541,7 +541,7 @@ public extension Date {
     ///   - hour: Hour.
     ///   - minute: Minute.
     ///   - second: Second.
-    public init?(year: Int, month: Int, day: Int, hour: Int = 0, minute: Int = 0, second: Int = 0) {
+    init?(year: Int, month: Int, day: Int, hour: Int = 0, minute: Int = 0, second: Int = 0) {
         var components = DateComponents()
         components.year = year
         components.month = month
@@ -560,7 +560,7 @@ public extension Date {
     /// Compare yourself to another date
     ///
     /// - Returns: True if it is the same day, otherwise it is false
-    public func isSame(_ anotherDate: Date) -> Bool {
+    func isSame(_ anotherDate: Date) -> Bool {
         let calendar = Calendar.autoupdatingCurrent
         let componentsSelf = calendar.dateComponents([.year, .month, .day], from: self)
         let componentsAnotherDate = calendar.dateComponents([.year, .month, .day], from: anotherDate)
@@ -569,19 +569,19 @@ public extension Date {
     }
 
     // it is today
-    public func isToday() -> Bool {
+    func isToday() -> Bool {
         return self.isSame(Date())
     }
 
     // it was yesterday
-    public static func isLastDay (dateString: String) -> Bool {
+    static func isLastDay (dateString: String) -> Bool {
         let todayTimestamp = self.getTimestamp(dateString: today())
         let lastdayTimestamp = self.getTimestamp(dateString: dateString)
         return lastdayTimestamp == todayTimestamp - (24 * 60 * 60)
     }
 
     // Get today's date string
-    public static func today() -> String {
+    static func today() -> String {
         let dataFormatter: DateFormatter = DateFormatter()
         dataFormatter.dateFormat = "yyyy-MM-dd"
         let now: Date = Date()
@@ -590,7 +590,7 @@ public extension Date {
 
 
     // yyyy-MM-dd format to MM month dd day
-    public static func formattDay (dataString: String) -> String {
+    static func formattDay (dataString: String) -> String {
         if dataString.lengthOfString <= 0 {
             return "errorDate"
         }
@@ -605,7 +605,7 @@ public extension Date {
         return newDateFormatter.string(from: date)
     }
 
-    public static func formattYYYYMMDDHHMMSS(dateString: String) -> Date {
+    static func formattYYYYMMDDHHMMSS(dateString: String) -> Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         return dateFormatter.date(from: dateString) ?? Date()
@@ -613,7 +613,7 @@ public extension Date {
 
 
     // Get timestamp based on date
-    public static func getTimestamp (dateString: String) -> TimeInterval {
+    static func getTimestamp (dateString: String) -> TimeInterval {
         if dateString.lengthOfString <= 0 {
             return 0
         }
@@ -631,7 +631,7 @@ public extension Date {
     }
 
     // Time stamp conversion time
-    public static func timeStampToString(timeStamp: String) -> String {
+    static func timeStampToString(timeStamp: String) -> String {
 
         let string = NSString(string: timeStamp)
         let timeSta: TimeInterval = string.doubleValue
@@ -644,7 +644,7 @@ public extension Date {
     }
 
     // Get the week
-    public static func weekWithDateString (dateString: String) -> String {
+    static func weekWithDateString (dateString: String) -> String {
         let timestamp = Date.getTimestamp(dateString: dateString)
         let day = Int(timestamp / 86400)
         let array: Array = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
@@ -652,7 +652,7 @@ public extension Date {
 
     }
 
-    public static func currentDayzero() -> Date {
+    static func currentDayzero() -> Date {
         let calendar = Calendar.current
         let unitFlags = Set<Calendar.Component>([.year, .month, .day, .hour, .minute, .second])
         var components = calendar.dateComponents(unitFlags, from: Date())
@@ -666,13 +666,13 @@ public extension Date {
         return Date()
     }
 
-    public var YYYYMMDDDateString: String {
+    var YYYYMMDDDateString: String {
         let dateFormatter: DateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         return dateFormatter.string(from: self)
     }
 
-    public var HHMMDateString: String {
+    var HHMMDateString: String {
         let dateFormatter: DateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
         return dateFormatter.string(from: self)
@@ -686,7 +686,7 @@ public extension Date {
     ///   - usFormat: Set if the timestamp is in US format or not.
     ///   - nanosecond: Set if the timestamp has to have the nanosecond.
     /// - Returns: Returns a String in the following format (dateSeparator = "/", usFormat to false and nanosecond to false). D/M/Y H:M:S. Example: 15/10/2013 10:38:43.
-    public func description(dateSeparator: String = "/", usFormat: Bool = false, nanosecond: Bool = false) -> String {
+    func description(dateSeparator: String = "/", usFormat: Bool = false, nanosecond: Bool = false) -> String {
         var description: String
 
         #if os(Linux)
@@ -709,12 +709,12 @@ public extension Date {
         return description
     }
 
-    public func date_form(str: String?) -> Date? {
+    func date_form(str: String?) -> Date? {
 
         return self.date_from(str: str, formatter: "yyyy-MM-dd HH:mm:ss")
     }
 
-    public func date_from(str: String?, formatter: String?) -> Date? {
+    func date_from(str: String?, formatter: String?) -> Date? {
 
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale.current
@@ -729,7 +729,7 @@ public extension Date {
         return nil
     }
 
-    public func string_from(formatter: String?) -> String {
+    func string_from(formatter: String?) -> String {
 
         if let format = formatter {
             let dateFormatter = DateFormatter()

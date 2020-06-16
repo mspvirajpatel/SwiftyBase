@@ -86,7 +86,7 @@ class DownloadingView: BaseView{
     
     override func setViewlayout() {
         super.setViewlayout()
-        baseLayout.viewDictionary = self.getDictionaryOfVariableBindings(superView: self, viewDic: NSDictionary()) as! [String : AnyObject]
+        baseLayout.viewDictionary = self.getDictionaryOfVariableBindings(superView: self, viewDic: NSDictionary()) as? [String : AnyObject]
         
         let controlTopBottomPadding : CGFloat = ControlConstant.verticalPadding
         let controlLeftRightPadding : CGFloat = ControlConstant.horizontalPadding
@@ -237,7 +237,7 @@ extension DownloadingView : DownloadManagerDelegate{
      */
     func downloadRequestDidFailedWithError(_ error: NSError, downloadModel: AppDownloadModel, index: Int){
         self.refreshCellForIndex(downloadModel, index: index)
-        debugPrint("Error while downloading file: \(downloadModel.fileName)  Error: \(error)")
+        debugPrint("Error while downloading file: \(downloadModel.fileName ?? "")  Error: \(error)")
     }
     
     /**A delegate method called each time whenever specified destination does not exists. It will be called on the session queue. It provides the opportunity to handle error appropriately

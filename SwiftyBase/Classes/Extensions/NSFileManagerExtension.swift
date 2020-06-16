@@ -12,11 +12,11 @@ import Foundation
 public extension FileManager {
     // MARK: - Enums -
     
-    public static func createDirectory(at directoryURL: URL) throws {
+    static func createDirectory(at directoryURL: URL) throws {
         return try self.default.createDirectory(at: directoryURL)
     }
     
-    public func createDirectory(at directoryUrl: URL) throws {
+    func createDirectory(at directoryUrl: URL) throws {
         let fileManager = FileManager.default
         var isDir: ObjCBool = false
         let fileExists = fileManager.fileExists(atPath: directoryUrl.path, isDirectory: &isDir)
@@ -25,15 +25,15 @@ public extension FileManager {
         }
     }
     
-    public static func removeTemporaryFiles(at path: String) throws {
+    static func removeTemporaryFiles(at path: String) throws {
         return try self.default.removeTemporaryFiles()
     }
     
-    public static var document: URL {
+    static var document: URL {
         return self.default.document
     }
     
-    public var document: URL {
+    var document: URL {
         #if os(OSX)
             // On OS X it is, so put files in Application Support. If we aren't running
             // in a sandbox, put it in a subdirectory based on the bundle identifier
@@ -55,18 +55,18 @@ public extension FileManager {
     
     
     
-    public func removeTemporaryFiles() throws {
+    func removeTemporaryFiles() throws {
         let contents = try contentsOfDirectory(atPath: NSTemporaryDirectory())
         for file in contents {
             try removeItem(atPath: NSTemporaryDirectory() + file)
         }
     }
     
-    public static func removeDocumentFiles(at path: String) throws {
+    static func removeDocumentFiles(at path: String) throws {
         return try self.default.removeDocumentFiles()
     }
     
-    public func removeDocumentFiles() throws {
+    func removeDocumentFiles() throws {
         let documentPath = document.path
         let contents = try contentsOfDirectory(atPath: documentPath)
         for file in contents {
@@ -82,7 +82,7 @@ public extension FileManager {
      - Documents:  Documents directory
      - Cache:      Cache directory
      */
-    public enum DirectoryType : Int {
+    enum DirectoryType : Int {
         case MainBundle
         case Library
         case Documents
@@ -99,7 +99,7 @@ public extension FileManager {
      
      - returns: Returns the content of the file a String
      */
-    public static func readTextFile(file: String, ofType: String) throws -> String? {
+    static func readTextFile(file: String, ofType: String) throws -> String? {
         return try String(contentsOfFile: Bundle.main.path(forResource: file, ofType: ofType)!, encoding: String.Encoding.utf8)
     }
     
@@ -112,7 +112,7 @@ public extension FileManager {
      
      - returns: Returns true if the operation was successful, otherwise false
      */
-    public static func saveArrayToPath(directory: DirectoryType, filename: String, array: Array<AnyObject>) -> Bool {
+    static func saveArrayToPath(directory: DirectoryType, filename: String, array: Array<AnyObject>) -> Bool {
         var finalPath: String
         
         switch directory {
@@ -137,7 +137,7 @@ public extension FileManager {
      
      - returns: Returns the loaded array
      */
-    public static func loadArrayFromPath(directory: DirectoryType, filename: String) -> AnyObject? {
+    static func loadArrayFromPath(directory: DirectoryType, filename: String) -> AnyObject? {
         var finalPath: String
         
         switch directory {
@@ -161,7 +161,7 @@ public extension FileManager {
      
      - returns: Returns the path as a String
      */
-    public static func getBundlePathForFile(file: String) -> String {
+    static func getBundlePathForFile(file: String) -> String {
         let fileExtension = file.pathExtension
         var stringdata = ""
         do {
@@ -182,7 +182,7 @@ public extension FileManager {
      
      - returns: Returns the directory as a String
      */
-    public static func getDocumentsDirectoryForFile(file: String) -> String {
+    static func getDocumentsDirectoryForFile(file: String) -> String {
         let documentsDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         return documentsDirectory.stringByAppendingPathComponent(path: String(format: "%@/", file))
     }
@@ -194,7 +194,7 @@ public extension FileManager {
      
      - returns: Returns the directory as a String
      */
-    public static func getLibraryDirectoryForFile(file: String) -> String {
+    static func getLibraryDirectoryForFile(file: String) -> String {
         let libraryDirectory = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true)[0]
         return libraryDirectory.stringByAppendingPathComponent(path: String(format: "%@/", file))
     }
@@ -206,7 +206,7 @@ public extension FileManager {
      
      - returns: Returns the directory as a String
      */
-    public static func getCacheDirectoryForFile(file: String) -> String {
+    static func getCacheDirectoryForFile(file: String) -> String {
         let cacheDirectory = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0]
         return cacheDirectory.stringByAppendingPathComponent(path: String(format: "%@/", file))
     }
@@ -219,7 +219,7 @@ public extension FileManager {
      
      - returns: Returns the file size
      */
-    public static func fileSize(file: String, fromDirectory directory: DirectoryType) throws -> NSNumber? {
+    static func fileSize(file: String, fromDirectory directory: DirectoryType) throws -> NSNumber? {
         if file.count != 0 {
             var path: String
             
@@ -253,7 +253,7 @@ public extension FileManager {
      
      - returns: Returns true if the operation was successful, otherwise false
      */
-    public static func deleteFile(file: String, fromDirectory directory: DirectoryType) throws -> Bool {
+    static func deleteFile(file: String, fromDirectory directory: DirectoryType) throws -> Bool {
         if file.count != 0 {
             var path: String
             
@@ -291,7 +291,7 @@ public extension FileManager {
      
      - returns: Returns true if the operation was successful, otherwise false
      */
-    public static func moveLocalFile(file: String, fromDirectory origin: DirectoryType, toDirectory destination: DirectoryType, withFolderName folderName: String? = nil) throws -> Bool {
+    static func moveLocalFile(file: String, fromDirectory origin: DirectoryType, toDirectory destination: DirectoryType, withFolderName folderName: String? = nil) throws -> Bool {
         var originPath: String
         
         switch origin {
@@ -367,8 +367,7 @@ public extension FileManager {
      
      - returns: Returns true if the operation was successful, otherwise false
      */
-    @available(*, obsoleted: 1.2.0, message: "Use moveLocalFile(_, fromDirectory:, toDirectory:, withFolderName:)")
-    public static func moveLocalFile(file: String, fromDirectory origin: DirectoryType, toDirectory destination: DirectoryType) throws -> Bool {
+    static func moveLocalFile(file: String, fromDirectory origin: DirectoryType, toDirectory destination: DirectoryType) throws -> Bool {
         return try self.moveLocalFile(file: file, fromDirectory: origin, toDirectory: destination, withFolderName: nil)
     }
     
@@ -380,7 +379,7 @@ public extension FileManager {
      
      - returns: Returns true if the operation was successful, otherwise false
      */
-    public static func duplicateFileAtPath(origin: String, toNewPath destination: String) -> Bool {
+    static func duplicateFileAtPath(origin: String, toNewPath destination: String) -> Bool {
         if FileManager.default.fileExists(atPath: origin) {
             do {
                 try FileManager.default.copyItem(atPath: origin, toPath: destination)
@@ -402,7 +401,7 @@ public extension FileManager {
      
      - returns: Returns true if the operation was successful, otherwise false
      */
-    public static func renameFileFromDirectory(origin: DirectoryType, atPath path: String, withOldName oldName: String, andNewName newName: String) -> Bool {
+    static func renameFileFromDirectory(origin: DirectoryType, atPath path: String, withOldName oldName: String, andNewName newName: String) -> Bool {
         var originPath: String
         
         switch origin {
@@ -445,7 +444,7 @@ public extension FileManager {
      
      - returns: Returns the object for the given key
      */
-    public static func getSettings(settings: String, objectForKey: String) -> AnyObject? {
+    static func getSettings(settings: String, objectForKey: String) -> AnyObject? {
         var path: String = self.getLibraryDirectoryForFile(file: "")
         path = path.stringByAppendingPathExtension(ext: "/Preferences/")!
         path = path.stringByAppendingPathExtension(ext: "\(settings)-Settings.plist")!
@@ -469,7 +468,7 @@ public extension FileManager {
      
      - returns: Returns true if the operation was successful, otherwise false
      */
-    public static func setSettings(settings: String, object: AnyObject, forKey objKey: String) -> Bool {
+    static func setSettings(settings: String, object: AnyObject, forKey objKey: String) -> Bool {
         
         var path: String = self.getLibraryDirectoryForFile(file: "")
         path = path.stringByAppendingPathExtension(ext: "/Preferences/")!
@@ -496,7 +495,7 @@ public extension FileManager {
      
      - returns: Returns true if the operation was successful, otherwise false
      */
-    public static func setAppSettingsForObject(object: AnyObject, forKey objKey: String) -> Bool {
+    static func setAppSettingsForObject(object: AnyObject, forKey objKey: String) -> Bool {
         return self.setSettings(settings: App.name, object: object, forKey: objKey)
     }
     
@@ -507,7 +506,7 @@ public extension FileManager {
      
      - returns: Returns the object for the given key
      */
-    public static func getAppSettingsForObjectWithKey(objKey: String) -> AnyObject? {
+    static func getAppSettingsForObjectWithKey(objKey: String) -> AnyObject? {
         return self.getSettings(settings: App.name, objectForKey: objKey)
     }
     

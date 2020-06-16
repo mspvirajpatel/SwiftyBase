@@ -185,7 +185,7 @@ open class BaseScrollView: UIScrollView, UIScrollViewDelegate {
                 }
             }
 
-            self!.lastViewConstraint = NSLayoutConstraint.init(item: self!.container, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: visibleSubView, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1.0, constant: 0.0)
+            self!.lastViewConstraint = NSLayoutConstraint.init(item: self!.container!, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: visibleSubView, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1.0, constant: 0.0)
             self!.addConstraint(self!.lastViewConstraint)
             self!.layoutSubviews()
         }

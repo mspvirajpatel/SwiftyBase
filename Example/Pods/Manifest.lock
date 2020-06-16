@@ -1,5 +1,5 @@
 PODS:
-  - SwiftyBase (1.2.22)
+  - SwiftyBase (1.2.37)
 
 DEPENDENCIES:
   - SwiftyBase (from `../`)
@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  SwiftyBase: 81151b084922f1fa2de0c7b35272291993abd997
+  SwiftyBase: 89fbeed0c2050db4623d3b2088aecae56f1c604c
 
 PODFILE CHECKSUM: 1d156eda79d63e55c5b6d2d69415ac88b74c670a
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.3

@@ -171,8 +171,8 @@ open class AppImageUploadManager: NSObject
             if dicImageParameter == nil {
                 dicImageParameter = NSMutableDictionary()
                 dicImageParameter! .setObject(NSData(contentsOfFile: imagePath)!, forKey: "data" as NSCopying)
-                dicImageParameter! .setObject(_imagename, forKey: "name" as NSCopying)
-                dicImageParameter! .setObject(_imagename, forKey: "fileName" as NSCopying)
+                dicImageParameter! .setObject(_imagename!, forKey: "name" as NSCopying)
+                dicImageParameter! .setObject(_imagename!, forKey: "fileName" as NSCopying)
                 dicImageParameter! .setObject("image/jpeg", forKey: "type" as NSCopying)
             }
 

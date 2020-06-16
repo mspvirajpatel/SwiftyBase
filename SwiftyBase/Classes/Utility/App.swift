@@ -129,11 +129,11 @@ public class App {
 
 public extension App {
 
-    public static var name: String = { return App.string(forKey: "CFBundleName") }()
-    public static var version: String = { return App.string(forKey: "CFBundleShortVersionString") }()
-    public static var build: String = { return App.string(forKey: "CFBundleVersion") }()
-    public static var executable: String = { return App.string(forKey: "CFBundleExecutable") }()
-    public static var bundle: String = { return App.string(forKey: "CFBundleIdentifier") }()
+    static var name: String = { return App.string(forKey: "CFBundleName") }()
+    static var version: String = { return App.string(forKey: "CFBundleShortVersionString") }()
+    static var build: String = { return App.string(forKey: "CFBundleVersion") }()
+    static var executable: String = { return App.string(forKey: "CFBundleExecutable") }()
+    static var bundle: String = { return App.string(forKey: "CFBundleIdentifier") }()
 
     private static func string(forKey key: String) -> String {
         guard let infoDictionary = Bundle.main.infoDictionary,

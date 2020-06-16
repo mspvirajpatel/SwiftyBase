@@ -92,7 +92,7 @@ public extension AppTimer {
 
     private static var timers = [String: DispatchSourceTimer]()
 
-    public static func throttle(interval: DispatchTimeInterval, identifier: String, queue: DispatchQueue = .main, handler: @escaping () -> Void) {
+    static func throttle(interval: DispatchTimeInterval, identifier: String, queue: DispatchQueue = .main, handler: @escaping () -> Void) {
 
         if let previousTimer = timers[identifier] {
             previousTimer.cancel()
@@ -156,7 +156,7 @@ public class SwiftCountDownTimer {
 
 public extension DispatchTimeInterval {
 
-    public static func fromSeconds(_ seconds: Double) -> DispatchTimeInterval {
+    static func fromSeconds(_ seconds: Double) -> DispatchTimeInterval {
         return .nanoseconds(Int(seconds * Double(NSEC_PER_SEC)))
     }
 }

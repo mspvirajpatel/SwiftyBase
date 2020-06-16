@@ -29,7 +29,7 @@ public extension Array {
 
 
     /// EZSE: Returns a random element from the array.
-    public func random() -> Element? {
+    func random() -> Element? {
         guard self.count > 0 else {
             return nil
         }
@@ -39,12 +39,12 @@ public extension Array {
     }
 
     /// EZSE: Prepends an object to the array.
-    public mutating func insertAsFirst(_ newElement: Element) {
+    mutating func insertAsFirst(_ newElement: Element) {
         insert(newElement, at: 0)
     }
 
     /// EZSE: Shuffles the array in-place using the Fisher-Yates-Durstenfeld algorithm.
-    public mutating func shuffle() {
+    mutating func shuffle() {
         var j: Int
 
         for i in 0..<(self.count - 2) {

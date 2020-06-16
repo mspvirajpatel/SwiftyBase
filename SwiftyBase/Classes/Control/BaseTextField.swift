@@ -327,8 +327,8 @@ open class BaseTextField: UITextField, UITextFieldDelegate {
             baseLayout.viewDictionary = ["btnShowPassword": btnShowPassword]
             baseLayout.metrics = ["buttonHeight": textFieldHeight]
             baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|[btnShowPassword]|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
-            baseLayout.position_Right = NSLayoutConstraint(item: btnShowPassword, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1.0, constant: -5.0)
-            baseLayout.size_Width = NSLayoutConstraint(item: btnShowPassword, attribute: .width, relatedBy: .equal, toItem: btnShowPassword, attribute: .height, multiplier: 1.0, constant: 0.0)
+            baseLayout.position_Right = NSLayoutConstraint(item: btnShowPassword!, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1.0, constant: -5.0)
+            baseLayout.size_Width = NSLayoutConstraint(item: btnShowPassword!, attribute: .width, relatedBy: .equal, toItem: btnShowPassword, attribute: .height, multiplier: 1.0, constant: 0.0)
 
             self.addConstraint(baseLayout.size_Width)
             self.addConstraints(baseLayout.control_V)

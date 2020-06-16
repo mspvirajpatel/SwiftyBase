@@ -9,10 +9,10 @@
 import Foundation
 
 public extension Double {
-    public var second:  TimeInterval { return self }
-    public var seconds: TimeInterval { return self }
-    public var minute:  TimeInterval { return self * 60 }
-    public var minutes: TimeInterval { return self * 60 }
-    public var hour:    TimeInterval { return self * 3600 }
-    public var hours:   TimeInterval { return self * 3600 }
+    var second:  TimeInterval { return self }
+    var seconds: TimeInterval { return self }
+    var minute:  TimeInterval { return self * 60 }
+    var minutes: TimeInterval { return self * 60 }
+    var hour:    TimeInterval { return self * 3600 }
+    var hours:   TimeInterval { return self * 3600 }
 }

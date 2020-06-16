@@ -89,16 +89,11 @@ open class BaseViewController: UIViewController, UINavigationControllerDelegate 
         }
     }
 
-    @IBInspectable open var displayMenu: Bool
-    {
-        get {
-            return self.displayMenu
-        }
-        set {
+    @IBInspectable open var displayMenu: Bool = false {
+        didSet {
             self.displayMenuButton(image: nil)
         }
     }
-
 
     // MARK: - Lifecycle -
     override open func awakeFromNib() {

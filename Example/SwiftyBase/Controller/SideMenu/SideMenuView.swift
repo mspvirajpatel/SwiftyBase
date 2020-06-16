@@ -129,7 +129,7 @@ class SideMenuView: BaseView {
     override func setViewlayout() {
         super.setViewlayout()
         
-        baseLayout.viewDictionary = self.getDictionaryOfVariableBindings(superView: self, viewDic: NSDictionary()) as! [String : AnyObject]
+        baseLayout.viewDictionary = self.getDictionaryOfVariableBindings(superView: self, viewDic: NSDictionary()) as? [String : AnyObject]
         baseLayout.metrics = ["hSpace" : ControlConstant.horizontalPadding, "vSpace" : ControlConstant.verticalPadding / 2]
         
         baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|[userProfileView]|", options: NSLayoutConstraint.FormatOptions(rawValue : 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
@@ -232,8 +232,8 @@ class SideMenuView: BaseView {
     
     
     fileprivate func getDataForCell(indexPath : IndexPath) -> NSDictionary{
-        var dicMenu : NSDictionary! = arrMenuData[indexPath.section] as! NSDictionary
-        var arrItem : NSArray! = dicMenu["item"] as! NSArray
+        var dicMenu : NSDictionary! = arrMenuData[indexPath.section] as? NSDictionary
+        var arrItem : NSArray! = dicMenu["item"] as? NSArray
         
         defer {
             dicMenu = nil

@@ -20,7 +20,7 @@ public extension NSMutableDictionary {
      
      - returns: Returns true if has been setted, otherwise false
      */
-    public func safeSetObject(anObject: AnyObject?, forKey: NSCopying) -> Bool {
+    func safeSetObject(anObject: AnyObject?, forKey: NSCopying) -> Bool {
         if anObject == nil {
             return false
         }

@@ -128,7 +128,7 @@ class DownloadInfoCell: UITableViewCell {
         
         layout!.expandView(containerView, insideView: self.contentView, betweenSpace: 10.0)
         
-        layout!.viewDictionary = containerView.getDictionaryOfVariableBindings(superView: containerView, viewDic: NSDictionary()) as! [String : AnyObject]
+        layout!.viewDictionary = containerView.getDictionaryOfVariableBindings(superView: containerView, viewDic: NSDictionary()) as? [String : AnyObject]
         layout!.metrics = ["hSpace" : 10.0,"vSpace" : 10.0,"betweenSpace" : 5.0]
         
         layout!.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|-hSpace-[imgThumb(==50)]-hSpace-[lblFileName]-hSpace-|", options: NSLayoutConstraint.FormatOptions(rawValue : 0), metrics: layout?.metrics, views: layout!.viewDictionary)

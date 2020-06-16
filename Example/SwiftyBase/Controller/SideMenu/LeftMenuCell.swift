@@ -117,17 +117,17 @@ class LeftMenuCell : UITableViewCell {
         self.contentView.addConstraints(baseLayout.control_V)
         
         
-        innerView.addConstraint(NSLayoutConstraint(item: imgIcon, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1.0, constant:KleftCellImgWidthheight))
+        innerView.addConstraint(NSLayoutConstraint(item: imgIcon!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1.0, constant:KleftCellImgWidthheight))
         
-        innerView.addConstraint(NSLayoutConstraint(item: imgIcon, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant:KleftCellImgWidthheight))
+        innerView.addConstraint(NSLayoutConstraint(item: imgIcon!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant:KleftCellImgWidthheight))
         
-        innerView.addConstraint(NSLayoutConstraint(item: imgIcon, attribute: .leading, relatedBy: .equal, toItem: innerView, attribute: .leading, multiplier: 1.0, constant:KleftcellTopbotoompading))
+        innerView.addConstraint(NSLayoutConstraint(item: imgIcon!, attribute: .leading, relatedBy: .equal, toItem: innerView, attribute: .leading, multiplier: 1.0, constant:KleftcellTopbotoompading))
         
-        innerView.addConstraint(NSLayoutConstraint(item: imgIcon, attribute: .centerY, relatedBy: .equal, toItem: innerView, attribute: .centerY, multiplier: 1.0, constant: 0))
+        innerView.addConstraint(NSLayoutConstraint(item: imgIcon!, attribute: .centerY, relatedBy: .equal, toItem: innerView, attribute: .centerY, multiplier: 1.0, constant: 0))
         
-        innerView.addConstraint(NSLayoutConstraint(item: lblMenuText, attribute: .leading, relatedBy: .equal, toItem: imgIcon, attribute: .trailing, multiplier: 1.0, constant:kleftcellleftrightpadding))
+        innerView.addConstraint(NSLayoutConstraint(item: lblMenuText!, attribute: .leading, relatedBy: .equal, toItem: imgIcon, attribute: .trailing, multiplier: 1.0, constant:kleftcellleftrightpadding))
         
-        innerView.addConstraint(NSLayoutConstraint(item: lblMenuText, attribute: .centerY, relatedBy: .equal, toItem: imgIcon, attribute: .centerY, multiplier: 1.0, constant: 0))
+        innerView.addConstraint(NSLayoutConstraint(item: lblMenuText!, attribute: .centerY, relatedBy: .equal, toItem: imgIcon, attribute: .centerY, multiplier: 1.0, constant: 0))
         
         self.layoutIfNeeded()
         

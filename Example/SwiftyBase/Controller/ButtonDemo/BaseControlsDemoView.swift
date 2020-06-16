@@ -281,7 +281,7 @@ class BaseControlsDemoView: BaseView,BaseRadioButtonDelegate,PGTransactionDelega
         
         baseLayout.expandView(scrollView, insideView: self, betweenSpace: 10)
         
-        baseLayout.viewDictionary = self.getDictionaryOfVariableBindings(superView: self, viewDic: NSDictionary()) as! [String : AnyObject]
+        baseLayout.viewDictionary = self.getDictionaryOfVariableBindings(superView: self, viewDic: NSDictionary()) as? [String : AnyObject]
         
         let controlTopBottomPadding : CGFloat = ControlConstant.verticalPadding
         let controlLeftRightPadding : CGFloat = ControlConstant.horizontalPadding
