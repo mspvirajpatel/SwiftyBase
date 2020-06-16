@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SwiftyBase'
-  s.version          = '1.2.29'
+  s.version          = '1.2.30'
   s.summary          = 'Base Project For iOS in Swift 5.0'
 
 # This description is used to generate tags and improve search results.
@@ -30,7 +30,7 @@ Base Project Create for iOS. Into Base Project BaseController, BaseView, BaseNav
 
 Pod::Spec.new do |s|
   s.name             = 'SwiftyBase'
-  s.version          = '1.2.29'
+  s.version          = '1.2.30'
   
   # s.resource_bundles = {
   #   'SwiftyBase' => ['SwiftyBase/Assets/*.png']
