@@ -15,7 +15,7 @@ import Foundation
 
 public extension UITableView {
     
-    public func reloadWithAnimation()
+    func reloadWithAnimation()
     {
         self.reloadData()
         
@@ -36,18 +36,18 @@ public extension UITableView {
         }
     }
     
-    public func estimatedRowHeight(_ height: CGFloat) {
-        self.rowHeight = UITableViewAutomaticDimension
+    func estimatedRowHeight(_ height: CGFloat) {
+        self.rowHeight = UITableView.automaticDimension
         self.estimatedRowHeight = height
     }
     
     /// Hides the space at the top of the section style
-    public func hideHeaderViewSpace(_ margin: CGFloat = 0.1) {
+    func hideHeaderViewSpace(_ margin: CGFloat = 0.1) {
         self.tableHeaderView = UIView(frame: CGRect.init(x: 0, y: 0, width: 0, height: margin))
     }
     
     ///  Hide empty cell
-    public func hideEmptyCells() {
+    func hideEmptyCells() {
         self.tableFooterView = UIView(frame: .zero)
     }
     
@@ -55,7 +55,7 @@ public extension UITableView {
     ///
     /// - Parameter name: UITableViewCell type
     /// - Returns: UITableViewCell object with associated class name (optional value)
-    public func dequeueReusableCell<T: UITableViewCell>(withClass name: T.Type) -> T? {
+    func dequeueReusableCell<T: UITableViewCell>(withClass name: T.Type) -> T? {
         return dequeueReusableCell(withIdentifier: String(describing: name)) as? T
     }
     
@@ -65,7 +65,7 @@ public extension UITableView {
     ///   - name: UITableViewCell type.
     ///   - indexPath: location of cell in tableView.
     /// - Returns: UITableViewCell object with associated class name.
-    public func dequeueReusableCell<T: UITableViewCell>(withClass name: T.Type, for indexPath: IndexPath) -> T {
+    func dequeueReusableCell<T: UITableViewCell>(withClass name: T.Type, for indexPath: IndexPath) -> T {
         return dequeueReusableCell(withIdentifier: String(describing: name), for: indexPath) as! T
     }
     
@@ -73,7 +73,7 @@ public extension UITableView {
     ///
     /// - Parameter name: UITableViewHeaderFooterView type
     /// - Returns: UITableViewHeaderFooterView object with associated class name (optional value)
-    public func dequeueReusableHeaderFooterView<T: UITableViewHeaderFooterView>(withClass name: T.Type) -> T? {
+    func dequeueReusableHeaderFooterView<T: UITableViewHeaderFooterView>(withClass name: T.Type) -> T? {
         return dequeueReusableHeaderFooterView(withIdentifier: String(describing: name)) as? T
     }
     
@@ -82,21 +82,21 @@ public extension UITableView {
     /// - Parameters:
     ///   - nib: Nib file used to create the header or footer view.
     ///   - name: UITableViewHeaderFooterView type.
-    public func register<T: UITableViewHeaderFooterView>(nib: UINib?, withHeaderFooterViewClass name: T.Type) {
+    func register<T: UITableViewHeaderFooterView>(nib: UINib?, withHeaderFooterViewClass name: T.Type) {
         register(nib, forHeaderFooterViewReuseIdentifier: String(describing: name))
     }
     
     /// Register UITableViewHeaderFooterView using class name
     ///
     /// - Parameter name: UITableViewHeaderFooterView type
-    public func register<T: UITableViewHeaderFooterView>(headerFooterViewClassWith name: T.Type) {
+    func register<T: UITableViewHeaderFooterView>(headerFooterViewClassWith name: T.Type) {
         register(T.self, forHeaderFooterViewReuseIdentifier: String(describing: name))
     }
     
     /// Register UITableViewCell using class name
     ///
     /// - Parameter name: UITableViewCell type
-    public func register<T: UITableViewCell>(cellWithClass name: T.Type) {
+    func register<T: UITableViewCell>(cellWithClass name: T.Type) {
         register(T.self, forCellReuseIdentifier: String(describing: name))
     }
     
@@ -105,7 +105,7 @@ public extension UITableView {
     /// - Parameters:
     ///   - nib: Nib file used to create the tableView cell.
     ///   - name: UITableViewCell type.
-    public func register<T: UITableViewCell>(nib: UINib?, withCellClass name: T.Type) {
+    func register<T: UITableViewCell>(nib: UINib?, withCellClass name: T.Type) {
         register(nib, forCellReuseIdentifier: String(describing: name))
     }
     
@@ -113,7 +113,7 @@ public extension UITableView {
     ///
     /// - Parameter section: The section.
     /// - Returns: Return an array with all the IndexPaths.
-    public func indexPaths(section: Int) -> [IndexPath] {
+    func indexPaths(section: Int) -> [IndexPath] {
         var indexPaths: [IndexPath] = []
         let rows: Int = self.numberOfRows(inSection: section)
         for i in 0 ..< rows {
@@ -130,7 +130,7 @@ public extension UITableView {
     ///   - row: Row of the index path.
     ///   - section: Section of the index path
     /// - Returns: Returns the next index path.
-    public func nextIndexPath(row: Int, forSection section: Int) -> IndexPath? {
+    func nextIndexPath(row: Int, forSection section: Int) -> IndexPath? {
         let indexPath: [IndexPath] = self.indexPaths(section: section)
         guard indexPath != [] else {
             return nil
@@ -145,7 +145,7 @@ public extension UITableView {
     ///   - row: Row of the index path.
     ///   - section: Section of the index path.
     /// - Returns: Returns the previous index path.
-    public func previousIndexPath(row: Int, forSection section: Int) -> IndexPath? {
+    func previousIndexPath(row: Int, forSection section: Int) -> IndexPath? {
         let indexPath: [IndexPath] = self.indexPaths(section: section)
         guard indexPath != [] else {
             return nil
@@ -157,7 +157,7 @@ public extension UITableView {
 
 
 public extension UITableView {
-    public func reloadData(_ completion: @escaping ()->()) {
+    func reloadData(_ completion: @escaping ()->()) {
         UIView.animate(withDuration: 0, animations: {
             self.reloadData()
         }, completion:{ _ in
@@ -166,7 +166,7 @@ public extension UITableView {
     }
     
     
-    public func insertRowsAtBottom(_ rows: [IndexPath]) {
+    func insertRowsAtBottom(_ rows: [IndexPath]) {
         
         // ensure that insert row is not splash screen
         
@@ -181,7 +181,7 @@ public extension UITableView {
         UIView.setAnimationsEnabled(true)
     }
     
-    public func totalRows() -> Int {
+    func totalRows() -> Int {
         var i = 0
         var rowCount = 0
         while i < self.numberOfSections {
@@ -191,7 +191,7 @@ public extension UITableView {
         return rowCount
     }
     
-    public var lastIndexPath: IndexPath? {
+    var lastIndexPath: IndexPath? {
         if (self.totalRows()-1) > 0{
             return IndexPath(row: self.totalRows()-1, section: 0)
         } else {
@@ -201,7 +201,7 @@ public extension UITableView {
     
     
     // Call after inserting data
-    public func scrollBottomWithoutFlashing() {
+    func scrollBottomWithoutFlashing() {
         guard let indexPath = self.lastIndexPath else {
             return
         }
@@ -214,7 +214,7 @@ public extension UITableView {
     }
     
     // call after keyboard animation ends
-    public func scrollBottomToLastRow() {
+    func scrollBottomToLastRow() {
         guard let indexPath = self.lastIndexPath else {
             return
         }
@@ -226,11 +226,11 @@ public extension UITableView {
     //        self.setContentOffset(bottomOffset, animated: animated)
     //    }
     
-    public var isContentInsetBottomZero: Bool {
+    var isContentInsetBottomZero: Bool {
         get { return self.contentInset.bottom == 0 }
     }
     
-    public func resetContentInsetAndScrollIndicatorInsets() {
+    func resetContentInsetAndScrollIndicatorInsets() {
         self.contentInset = UIEdgeInsets.zero
         self.scrollIndicatorInsets = UIEdgeInsets.zero
     }

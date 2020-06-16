@@ -22,7 +22,7 @@ class DownloadInfoCell: UITableViewCell {
     
     
     // MARK: - Lifecycle -
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.loadViewControls()
         self.setViewLayout()
@@ -116,7 +116,7 @@ class DownloadInfoCell: UITableViewCell {
         imgThumb = BaseImageView(type: .defaultImg, superView: containerView)
         imgThumb.layer .setValue("imgThumb", forKey: ControlConstant.name)
         
-        progressBar = UIProgressView(progressViewStyle: UIProgressViewStyle.bar)
+        progressBar = UIProgressView(progressViewStyle: UIProgressView.Style.bar)
         progressBar.translatesAutoresizingMaskIntoConstraints = false
         progressBar.layer .setValue("progressBar", forKey: ControlConstant.name)
         self.containerView.addSubview(progressBar)
@@ -131,10 +131,10 @@ class DownloadInfoCell: UITableViewCell {
         layout!.viewDictionary = containerView.getDictionaryOfVariableBindings(superView: containerView, viewDic: NSDictionary()) as! [String : AnyObject]
         layout!.metrics = ["hSpace" : 10.0,"vSpace" : 10.0,"betweenSpace" : 5.0]
         
-        layout!.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|-hSpace-[imgThumb(==50)]-hSpace-[lblFileName]-hSpace-|", options: NSLayoutFormatOptions(rawValue : 0), metrics: layout?.metrics, views: layout!.viewDictionary)
+        layout!.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|-hSpace-[imgThumb(==50)]-hSpace-[lblFileName]-hSpace-|", options: NSLayoutConstraint.FormatOptions(rawValue : 0), metrics: layout?.metrics, views: layout!.viewDictionary)
         containerView.addConstraints(layout!.control_H)
         
-        layout!.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|-vSpace-[imgThumb(==50)]->=vSpace@249-|", options: NSLayoutFormatOptions(rawValue : 0), metrics: layout!.metrics, views: layout!.viewDictionary)
+        layout!.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|-vSpace-[imgThumb(==50)]->=vSpace@249-|", options: NSLayoutConstraint.FormatOptions(rawValue : 0), metrics: layout!.metrics, views: layout!.viewDictionary)
         containerView.addConstraints(layout!.control_V)
         
         lblFileName.topEqualTo(view: imgThumb)

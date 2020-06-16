@@ -30,9 +30,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CAAnimationDelegate {
         //before didFinishLaunchingWithOptions
         
     }
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-       
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        
         BuddyBuildSDK.setup()
        
         // Override point for customization after application launch.
@@ -44,14 +44,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CAAnimationDelegate {
         
         self.loadUI()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.rotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.rotated), name: UIDevice.orientationDidChangeNotification, object: nil)
         
         
         return true
     }
     
     private func dynamicSetValue() {
-        
         APIManager.shared.baseUrlString = API.baseURL
     }
     
@@ -130,11 +129,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CAAnimationDelegate {
     }
     
     @objc func rotated() {
-        if UIDeviceOrientationIsLandscape(UIDevice.current.orientation) {
+        if UIDevice.current.orientation.isLandscape {
             print("Landscape")
         }
         
-        if UIDeviceOrientationIsPortrait(UIDevice.current.orientation) {
+        if UIDevice.current.orientation.isPortrait {
             print("Portrait")
         }
     }

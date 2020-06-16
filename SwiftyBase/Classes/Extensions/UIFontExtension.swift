@@ -10,10 +10,8 @@ import Foundation
 
 public extension UIFont {
     
-    public convenience init(fontString: String) {
-        
-        var stringArray : Array = fontString.components(separatedBy: ";")
+    convenience init(fontString: String) {
+        let stringArray : Array = fontString.components(separatedBy: ";")
         self.init(name: stringArray[0], size:stringArray[1].toFloat())!
-        
     }
 }

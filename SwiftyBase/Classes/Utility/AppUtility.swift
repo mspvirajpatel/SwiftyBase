@@ -409,11 +409,11 @@ open class AppUtility: NSObject {
         return newImage!
     }
 
-    open static let DownloadCompletedNotif: String = {
+    public static let DownloadCompletedNotif: String = {
         return "com.AppDownloadManager.DownloadCompleted"
     }()
 
-    open static let baseFilePath: String = {
+    public static let baseFilePath: String = {
         return (NSHomeDirectory() as NSString).appendingPathComponent("Documents") as String
     }()
 

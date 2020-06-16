@@ -14,21 +14,21 @@
 
 public extension UIViewController {
 
-    public struct AssociatedKeys {
+    struct AssociatedKeys {
         static var viewWillAppearOnceKey = "once_viewWillAppear"
         static var viewDidAppearOnceKey = "once_viewDidAppear"
     }
 
-    public func getBookValue(key: UnsafeRawPointer) -> Bool {
+    func getBookValue(key: UnsafeRawPointer) -> Bool {
         return (objc_getAssociatedObject(self, key) as? Bool) ?? false
     }
 
-    public func setBoolValue(key: UnsafeRawPointer, value: AnyObject?) {
+    func setBoolValue(key: UnsafeRawPointer, value: AnyObject?) {
         if getBookValue(key: key) { return }
         objc_setAssociatedObject(self, key, value, .OBJC_ASSOCIATION_RETAIN)
     }
 
-    public var alreadyCalledViewWillAppearOnce: Bool {
+    var alreadyCalledViewWillAppearOnce: Bool {
         get {
             return getBookValue(key: &AssociatedKeys.viewWillAppearOnceKey)
         }
@@ -37,7 +37,7 @@ public extension UIViewController {
         }
     }
 
-    public var alreadyCalledViewDidAppearOnce: Bool {
+    var alreadyCalledViewDidAppearOnce: Bool {
         get {
             return getBookValue(key: &AssociatedKeys.viewDidAppearOnceKey)
         }
@@ -46,21 +46,21 @@ public extension UIViewController {
         }
     }
 
-    public func callOnce(flag: inout Bool, closure: () -> Void) {
+    func callOnce(flag: inout Bool, closure: () -> Void) {
         if !flag {
             closure()
             flag = true
         }
     }
 
-    public func viewWillAppearOnce(fromFunction: String = #function, closure: () -> Void) {
+    func viewWillAppearOnce(fromFunction: String = #function, closure: () -> Void) {
         guard fromFunction == "viewWillAppear" else {
             return
         }
         callOnce(flag: &alreadyCalledViewWillAppearOnce, closure: closure)
     }
 
-    public func viewDidAppearOnce(fromFunction: String = #function, closure: () -> Void) {
+    func viewDidAppearOnce(fromFunction: String = #function, closure: () -> Void) {
         guard fromFunction == "viewDidAppear" else {
             return
         }
@@ -248,10 +248,10 @@ open class BaseViewController: UIViewController, UINavigationControllerDelegate 
             return
         }
         var origImage: UIImage? = image
-        var tintedImage: UIImage? = origImage!.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        var tintedImage: UIImage? = origImage!.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
 
         btnName = UIButton()
-        btnName.setImage(tintedImage!, for: UIControlState())
+        btnName.setImage(tintedImage!, for: UIControl.State())
         btnName.tintColor = UIColor.white
         btnName.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         btnName.addTarget(self, action: #selector(openslider), for: .touchUpInside)

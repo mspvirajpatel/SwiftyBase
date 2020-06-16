@@ -77,7 +77,7 @@ open class BaseTextView: UITextView, UITextViewDelegate, UIScrollViewDelegate {
             placeHolderLabel.text = self.placeholder
             placeHolderLabel.sizeToFit()
 
-            self.sendSubview(toBack: placeHolderLabel)
+            self.sendSubviewToBack(placeHolderLabel)
 
         }
 
@@ -111,7 +111,7 @@ open class BaseTextView: UITextView, UITextViewDelegate, UIScrollViewDelegate {
     func setCommonProperties() {
 
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.textContainerInset = UIEdgeInsetsMake(5.0, 5.0, 5.0, 5.0)
+        self.textContainerInset = UIEdgeInsets(top: 5.0, left: 5.0, bottom: 5.0, right: 5.0)
         self.autocapitalizationType = .sentences
         self.autocorrectionType = .default
         self.keyboardAppearance = .dark
@@ -278,7 +278,7 @@ open class BaseTextView: UITextView, UITextViewDelegate, UIScrollViewDelegate {
                 let subViewArrayCount: Int = subViewArray!.count
 
                 var isNextTextControlAvailable: Bool = false
-                let currentTextFieldIndex: Int = subViewArray.index(of: self!)!
+                let currentTextFieldIndex: Int = subViewArray.firstIndex(of: self!)!
 
                 var textField: UITextField?
                 var textView: UITextView?

@@ -156,7 +156,7 @@ open class BaseButton: UIButton
 
 
     // MARK: - Lifecycle -
-    public init(type: UIButtonType) {
+    public init(type: UIButton.ButtonType) {
         super.init(frame: CGRect.zero)
     }
 
@@ -224,7 +224,7 @@ open class BaseButton: UIButton
             circleLayer.path = circlePath().cgPath
             fillCircleLayer.frame = bounds
             fillCircleLayer.path = fillCirclePath().cgPath
-            self.titleEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 0)
+            self.titleEdgeInsets = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 0)
 
             break
         default:
@@ -248,9 +248,9 @@ open class BaseButton: UIButton
         case .primary:
 
             self.backgroundColor = AppColor.buttonPrimaryBG.value
-            self.setTitleColor(AppColor.buttonPrimaryTitle.value, for: UIControlState())
+            self.setTitleColor(AppColor.buttonPrimaryTitle.value, for: UIControl.State())
             self.titleLabel?.font = Font(.installed(.AppleMedium), size: .standard(.h3)).instance
-            self.titleEdgeInsets = UIEdgeInsetsMake(3, 0, 0, 0)
+            self.titleEdgeInsets = UIEdgeInsets(top: 3, left: 0, bottom: 0, right: 0)
             //For set Border
             self.setBorder(AppColor.buttonBorder.value, width: 1.5, radius: ControlConstant.borderRadius)
 
@@ -259,9 +259,9 @@ open class BaseButton: UIButton
         case .secondary:
 
             self.backgroundColor = AppColor.buttonSecondaryBG.value
-            self.setTitleColor(AppColor.buttonSecondaryTitle.value, for: UIControlState())
+            self.setTitleColor(AppColor.buttonSecondaryTitle.value, for: UIControl.State())
             self.titleLabel?.font = Font(.installed(.AppleMedium), size: .standard(.h3)).instance
-            self.titleEdgeInsets = UIEdgeInsetsMake(3, 0, 0, 0)
+            self.titleEdgeInsets = UIEdgeInsets(top: 3, left: 0, bottom: 0, right: 0)
             self.setBorder(AppColor.buttonBorder.value, width: 1.5, radius: ControlConstant.borderRadius)
             break
 
@@ -270,7 +270,7 @@ open class BaseButton: UIButton
             self.backgroundColor = UIColor.clear
             self.setTitleColor(AppColor.buttonPrimaryTitle.value, for: .normal)
             self.titleLabel?.font = currentDevice.isIpad ? Font(.installed(.AppleMedium), size: .standard(.h2)).instance : Font(.installed(.AppleMedium), size: .standard(.h3)).instance
-            self.titleEdgeInsets = UIEdgeInsetsMake(3, 0, 0, 0)
+            self.titleEdgeInsets = UIEdgeInsets(top: 3, left: 0, bottom: 0, right: 0)
             break
 
 
@@ -286,9 +286,9 @@ open class BaseButton: UIButton
             fillCircleLayer.fillColor = UIColor.clear.cgColor
             fillCircleLayer.strokeColor = UIColor.clear.cgColor
             layer.addSublayer(fillCircleLayer)
-            self.titleEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 0)
+            self.titleEdgeInsets = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 0)
             self.toggleButon()
-            self.setTitleColor(AppColor.buttonPrimaryTitle.value, for: UIControlState())
+            self.setTitleColor(AppColor.buttonPrimaryTitle.value, for: UIControl.State())
             self.circleColor = AppColor.buttonPrimaryBG.value
             self.titleLabel?.font = Font(.installed(.AppleMedium), size: .standard(.h3)).instance
             self.contentHorizontalAlignment = .left
@@ -300,15 +300,15 @@ open class BaseButton: UIButton
             self.backgroundColor = AppColor.buttonPrimaryBG.value
             self.setTitleColor(AppColor.buttonPrimaryTitle.value, for: .normal)
             self.titleLabel?.font = currentDevice.isIpad ? Font(.installed(.AppleMedium), size: .standard(.h2)).instance : Font(.installed(.AppleMedium), size: .standard(.h3)).instance
-            self.titleEdgeInsets = UIEdgeInsetsMake(3, 0, 0, 0)
+            self.titleEdgeInsets = UIEdgeInsets(top: 3, left: 0, bottom: 0, right: 0)
             self.setBorder(AppColor.buttonBorder.value, width: 1.0, radius: ControlConstant.borderRadius)
             break
 
         case .checkbox:
 
             self.backgroundColor = AppColor.buttonSecondaryBG.value
-            self.setImage(UIImage(named: ""), for: UIControlState.normal)
-            self.setImage(UIImage(named: ""), for: UIControlState.highlighted)
+            self.setImage(UIImage(named: ""), for: UIControl.State.normal)
+            self.setImage(UIImage(named: ""), for: UIControl.State.highlighted)
             self.layer.borderColor = AppColor.buttonBorder.value.cgColor
             self.layer.borderWidth = 1.0
 //            self.setFAIcon(icon: FAType.FACheck, iconSize: 20.0, forState: UIControlState.normal)
@@ -329,7 +329,7 @@ open class BaseButton: UIButton
             self.backgroundColor = AppColor.buttonSecondaryBG.value
             self.setTitleColor(AppColor.buttonPrimaryTitle.value, for: .normal)
             self.titleLabel?.font = Font(.installed(.AppleMedium), size: .standard(.h3)).instance
-            self.titleEdgeInsets = UIEdgeInsetsMake(3, 10, 0, 35)
+            self.titleEdgeInsets = UIEdgeInsets(top: 3, left: 10, bottom: 0, right: 35)
             self.contentHorizontalAlignment = .left
             break
 
@@ -400,7 +400,7 @@ open class BaseButton: UIButton
 
             baseLayout.metrics = ["buttonHeight": buttonHeight]
 
-            baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "V:[button(buttonHeight)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
+            baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "V:[button(buttonHeight)]", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
 
             self.addConstraints(baseLayout.control_H)
 
@@ -419,15 +419,15 @@ open class BaseButton: UIButton
             baseLayout.viewDictionary = ["button": self, "dropDownIcon": dropDownIcon]
             baseLayout.metrics = ["buttonHeight": buttonHeight, "iconSize": 20.0]
 
-            baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "V:[button(buttonHeight)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
+            baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "V:[button(buttonHeight)]", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
             self.addConstraints(baseLayout.control_H)
 
 
-            baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|[dropDownIcon]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
+            baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|[dropDownIcon]|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
 
-            baseLayout.position_Right = NSLayoutConstraint(item: dropDownIcon, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1.0, constant: -5.0)
+            baseLayout.position_Right = NSLayoutConstraint(item: dropDownIcon as Any, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1.0, constant: -5.0)
 
-            baseLayout.size_Width = NSLayoutConstraint(item: dropDownIcon, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: 20.0)
+            baseLayout.size_Width = NSLayoutConstraint(item: dropDownIcon as Any, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: 20.0)
 
             self.addConstraint(baseLayout.size_Width)
             self.addConstraints(baseLayout.control_V)
@@ -441,9 +441,9 @@ open class BaseButton: UIButton
 
             baseLayout.metrics = ["buttonHeight": buttonHeight]
 
-            baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:[button(buttonHeight)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
+            baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:[button(buttonHeight)]", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
 
-            baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:[button(buttonHeight)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
+            baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:[button(buttonHeight)]", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
 
             self.addConstraints(baseLayout.control_H)
             self.addConstraints(baseLayout.control_V)
@@ -454,9 +454,9 @@ open class BaseButton: UIButton
 
             baseLayout.metrics = ["buttonHeight": buttonHeight]
 
-            baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:[button(buttonHeight)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
+            baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:[button(buttonHeight)]", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
 
-            baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:[button(buttonHeight)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
+            baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:[button(buttonHeight)]", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
 
             self.addConstraints(baseLayout.control_H)
             self.addConstraints(baseLayout.control_V)

@@ -31,13 +31,13 @@ public enum PresentationDirection {
 
 public extension UIViewController {
    
-    public var shouldShowBackButton: Bool {
+    var shouldShowBackButton: Bool {
         get {
             return true
         }
     }
     
-    public var tabBarHeight: CGFloat {
+    var tabBarHeight: CGFloat {
         if let me = self as? UINavigationController, let visibleViewController = me.visibleViewController {
             return visibleViewController.tabBarHeight
         }
@@ -47,7 +47,7 @@ public extension UIViewController {
         return 0
     }
     
-    public var navigationBarHeight: CGFloat {
+    var navigationBarHeight: CGFloat {
         if let me = self as? UINavigationController, let visibleViewController = me.visibleViewController {
             return visibleViewController.navigationBarHeight
         }
@@ -57,7 +57,7 @@ public extension UIViewController {
         return 0
     }
     
-    public var isModal: Bool {
+    var isModal: Bool {
         if self.presentingViewController != nil {
             return true
         } else if self.navigationController?.presentingViewController?.presentedViewController == self.navigationController  {
@@ -69,8 +69,8 @@ public extension UIViewController {
     }
     
     
-    public func findChildViewControllerOfType(_ klass: AnyClass) -> UIViewController? {
-        for child in childViewControllers {
+    func findChildViewControllerOfType(_ klass: AnyClass) -> UIViewController? {
+        for child in children {
             if child.isKind(of: klass) {
                 return child
             }
@@ -79,17 +79,17 @@ public extension UIViewController {
     }
     
     // Touch View Hidden Keyboard
-    public func hideKeyboardWhenTappedAround() {
+    func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
     }
     
-    @objc public func dismissKeyboard() {
+    @objc func dismissKeyboard() {
         view.endEditing(true)
     }
     
     
-    public func currentViewController() -> UIViewController {
+    func currentViewController() -> UIViewController {
         func findBestViewController(_ controller: UIViewController?) -> UIViewController? {
             if let presented = controller?.presentedViewController { // Presented
                 return findBestViewController(presented)
@@ -118,7 +118,7 @@ public extension UIViewController {
         return findBestViewController(UIApplication.shared.keyWindow?.rootViewController)!
     }
     
-    public func presentViewController(_ viewController: UIViewController, from: PresentationDirection, completion:  (() -> Void)?) {
+    func presentViewController(_ viewController: UIViewController, from: PresentationDirection, completion:  (() -> Void)?) {
         viewController.view.alpha = 0.0
         viewController.modalPresentationStyle = .overCurrentContext
         guard let windowFrame = self.view.window?.frame else {

@@ -188,7 +188,7 @@ public extension BaseImageView {
 
     //For Loading
 
-    public func setImageURL(_ url: String) {
+    func setImageURL(_ url: String) {
         _ = self.setImageFromURL(url) { (value) in
 
             print("Image : \(value)")
@@ -204,7 +204,7 @@ public extension BaseImageView {
      - returns:
      `ImageDownload` for pause,cancel the download
      */
-    public func setImageFromURL(_ url: String) -> ImageDownload {
+    func setImageFromURL(_ url: String) -> ImageDownload {
         return self.setImageFromURL(url, placeholder: nil, progress: nil, completion: nil)
     }
 
@@ -217,7 +217,7 @@ public extension BaseImageView {
      `ImageDownloader` for pause,cancel the download
      */
 
-    public func setImageFromURL(_ url: String, placeholder: UIImage?) -> ImageDownload {
+    func setImageFromURL(_ url: String, placeholder: UIImage?) -> ImageDownload {
         return self.setImageFromURL(url, placeholder: placeholder, progress: nil, completion: nil)
     }
 
@@ -230,7 +230,7 @@ public extension BaseImageView {
      `ImageDownload` for pause,cancel the download
      */
 
-    public func setImageFromURL(_ url: String, progress: ((_ value: Float) -> Void)?) -> ImageDownload {
+    func setImageFromURL(_ url: String, progress: ((_ value: Float) -> Void)?) -> ImageDownload {
         return self.setImageFromURL(url, placeholder: nil, progress: progress, completion: nil)
     }
 
@@ -244,7 +244,7 @@ public extension BaseImageView {
      `ImageDownloader` for pause,cancel the download
      */
 
-    public func setImageFromURL(_ url: String, placeholder: UIImage?, progress: ((_ value: Float) -> Void)?) -> ImageDownload {
+    func setImageFromURL(_ url: String, placeholder: UIImage?, progress: ((_ value: Float) -> Void)?) -> ImageDownload {
         return self.setImageFromURL(url, placeholder: placeholder, progress: progress, completion: nil)
     }
 
@@ -258,7 +258,7 @@ public extension BaseImageView {
      `ImageDownloader` for pause,cancel the download
      */
 
-    public func setImageFromURL(_ url: String, progress: ((_ value: Float) -> Void)?, completion: ((UIImage?, Bool) -> Void)?) -> ImageDownload {
+    func setImageFromURL(_ url: String, progress: ((_ value: Float) -> Void)?, completion: ((UIImage?, Bool) -> Void)?) -> ImageDownload {
 
         return self.setImageFromURL(url, placeholder: nil, progress: progress, completion: completion)
 
@@ -275,7 +275,7 @@ public extension BaseImageView {
      `ImageDownloader` for pause,cancel the download
      */
 
-    public func setImageFromURL(_ url: String, placeholder: UIImage?, progress: ((_ value: Float) -> Void)?, completion: ((_ image: UIImage?, _ success: Bool) -> Void)?) -> ImageDownload {
+    func setImageFromURL(_ url: String, placeholder: UIImage?, progress: ((_ value: Float) -> Void)?, completion: ((_ image: UIImage?, _ success: Bool) -> Void)?) -> ImageDownload {
 
         progressIndicatorView.layoutSubviews()
         self.progressIndicatorView.frame.origin = self.center
@@ -298,7 +298,7 @@ public extension BaseImageView {
             DispatchQueue.main.async {
                 let animation = CATransition()
                 animation.duration = 0.23
-                animation.type = kCATransitionFade
+                animation.type = CATransitionType.fade
                 animation.isRemovedOnCompletion = true
                 self.layer.add(animation, forKey: "transition")
                 self.image = image

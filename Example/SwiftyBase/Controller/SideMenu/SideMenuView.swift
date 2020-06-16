@@ -132,7 +132,7 @@ class SideMenuView: BaseView {
         baseLayout.viewDictionary = self.getDictionaryOfVariableBindings(superView: self, viewDic: NSDictionary()) as! [String : AnyObject]
         baseLayout.metrics = ["hSpace" : ControlConstant.horizontalPadding, "vSpace" : ControlConstant.verticalPadding / 2]
         
-        baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|[userProfileView]|", options: NSLayoutFormatOptions(rawValue : 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
+        baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|[userProfileView]|", options: NSLayoutConstraint.FormatOptions(rawValue : 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
         
         baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|-20-[userProfileView]-[seperatorView(==1)][tblMenu]|", options: [.alignAllLeading,.alignAllTrailing], metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
         
@@ -142,8 +142,8 @@ class SideMenuView: BaseView {
         baseLayout.expandView(btnlogin, insideView: userProfileView)
         
         // UserProfile View Constraint
-        baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|-vSpace-[imgUser]-vSpace-|", options: NSLayoutFormatOptions(rawValue : 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
-        baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|-hSpace-[imgUser]-hSpace-[lblUserName]-hSpace-|", options: NSLayoutFormatOptions(rawValue : 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
+        baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|-vSpace-[imgUser]-vSpace-|", options: NSLayoutConstraint.FormatOptions(rawValue : 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
+        baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|-hSpace-[imgUser]-hSpace-[lblUserName]-hSpace-|", options: NSLayoutConstraint.FormatOptions(rawValue : 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
         
         userProfileView.addConstraints(baseLayout.control_H)
         userProfileView.addConstraints(baseLayout.control_V)
@@ -282,7 +282,7 @@ extension SideMenuView : UITableViewDataSource{
         
         if cell == nil
         {
-            cell = LeftMenuCell(style: UITableViewCellStyle.default, reuseIdentifier: CellIdentifire.leftMenu)
+            cell = LeftMenuCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: CellIdentifire.leftMenu)
         }
         
         let cellData : NSDictionary = self.getDataForCell(indexPath: indexPath)

@@ -98,7 +98,7 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate, BaseSearchD
         personListTableView.tableHeaderView = UIView(frame: CGRect.zero)
         personListTableView.tableFooterView = UIView(frame: CGRect.zero)
         
-        personListTableView.rowHeight = UITableViewAutomaticDimension
+        personListTableView.rowHeight = UITableView.automaticDimension
         self.addSubview(personListTableView)
         
         personListTableView.delegate = self
@@ -119,7 +119,7 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate, BaseSearchD
                               "controlLeftRightPadding" : controlLeftRightPadding
         ]
         
-        baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|[personListTableView]|", options:NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: baseLayout.viewDictionary)
+        baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|[personListTableView]|", options:NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: baseLayout.viewDictionary)
         
         baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|[imgView(150)][personListTableView]|", options:[.alignAllLeading , .alignAllTrailing], metrics: nil, views: baseLayout.viewDictionary)
         
@@ -182,7 +182,7 @@ class ListView: BaseView,UITableViewDataSource, UITableViewDelegate, BaseSearchD
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
         
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
         
     }
     

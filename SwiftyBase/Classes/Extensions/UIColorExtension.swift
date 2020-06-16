@@ -15,7 +15,7 @@ import Foundation
 
 public extension UIColor {
     
-    public convenience init(rgbValue: Int, alpha: CGFloat) {
+    convenience init(rgbValue: Int, alpha: CGFloat) {
         
         self.init(red:   CGFloat( (rgbValue & 0xFF0000) >> 16 ) / 255.0,
                   green: CGFloat( (rgbValue & 0x00FF00) >> 8 ) / 255.0,
@@ -24,12 +24,12 @@ public extension UIColor {
         
     }
     
-    public convenience init(rgbValue: Int) {
+    convenience init(rgbValue: Int) {
         self.init(rgbValue: rgbValue, alpha: 1.0)
         
     }
     
-    public func lighterColorForColor() -> UIColor? {
+    func lighterColorForColor() -> UIColor? {
         
         var r: CGFloat = 0
         var g: CGFloat = 0
@@ -48,7 +48,7 @@ public extension UIColor {
         
     }
     
-    public func darkerColorForColor() -> UIColor? {
+    func darkerColorForColor() -> UIColor? {
         
         var r: CGFloat = 0
         var g: CGFloat = 0

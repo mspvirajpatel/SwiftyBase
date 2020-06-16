@@ -19,17 +19,24 @@ import UIKit
 
 public extension String {
     
-    public subscript (i: Int) -> String {
-        return self[Range(i ..< i + 1)]
+    subscript(i: Int) -> String { String(self[index(startIndex, offsetBy: i)]) }
+    
+//    subscript (i: Int) -> String {
+//        return self[Range(i ..< i + 1)]
+//    }
+    
+    subscript(r: Range<Int>) -> String {
+        let startIndex = index(self.startIndex, offsetBy: r.lowerBound)
+        return String(self[startIndex..<index(startIndex, offsetBy: r.count)])
     }
     
-    public subscript (r: Range<Int>) -> String {
-        let range = Range(uncheckedBounds: (lower: max(0, min(count, r.lowerBound)),
-                                            upper: min(count, max(0, r.upperBound))))
-        let start = index(startIndex, offsetBy: range.lowerBound)
-        let end = index(start, offsetBy: range.upperBound - range.lowerBound)
-        return String(self[Range(start ..< end)])
-    }
+//    subscript (r: Range<Int>) -> String {
+//        let range = Range(uncheckedBounds: (lower: max(0, min(count, r.lowerBound)),
+//                                            upper: min(count, max(0, r.upperBound))))
+//        let start = index(startIndex, offsetBy: range.lowerBound)
+//        let end = index(start, offsetBy: range.upperBound - range.lowerBound)
+//        return String(self[Range(start ..< end)])
+//    }
 }
 public extension String {
     
@@ -40,7 +47,7 @@ public extension String {
     fileprivate static let ONLY_CHAR = "c"
     fileprivate static let ONLY_NUMBER = "n"
     
-    public func format(_ format: String, oldString: String) -> String {
+    func format(_ format: String, oldString: String) -> String {
         let stringUnformated = self.unformat(format, oldString: oldString)
         var newString = String()
         var counter = 0
@@ -98,7 +105,7 @@ public extension String {
         return newString
     }
     
-    public func unformat(_ format: String, oldString: String) -> String {
+    func unformat(_ format: String, oldString: String) -> String {
         var string: String = self
         var undefineChars = [String]()
         for i in 0..<format.count {
@@ -166,15 +173,15 @@ public extension String {
         return string
     }
     
-    public func isChar() -> Bool {
+    func isChar() -> Bool {
         return regexControlString(pattern: "[a-zA-ZğüşöçıİĞÜŞÖÇ]")
     }
     
-    public func isNumber() -> Bool {
+    func isNumber() -> Bool {
         return regexControlString(pattern: "^[0-9]*$")
     }
     
-    public func regexControlString(pattern: String) -> Bool {
+    func regexControlString(pattern: String) -> Bool {
         do {
             let regex = try NSRegularExpression(pattern: pattern, options: [])
             let numberOfMatches = regex.numberOfMatches(in: self, options: [], range: NSRange(location: 0, length: self.count))
@@ -187,16 +194,16 @@ public extension String {
 
 
 public extension String {
-    public func index(from: Int) -> Index {
+    func index(from: Int) -> Index {
         return self.index(startIndex, offsetBy: from)
     }
     
-    public func substring(fromValue: Int) -> String {
+    func substring(fromValue: Int) -> String {
         let start = index(startIndex, offsetBy: fromValue)
         return String(self[start ..< endIndex])
     }
     
-    public func substring(toValue: Int) -> String {
+    func substring(toValue: Int) -> String {
         let start = index(startIndex, offsetBy: toValue)
         return String(self[start ... endIndex])
     }
@@ -213,38 +220,38 @@ public extension String {
 //        return String(self[Range(start ..< end)])
 //    }
     
-    public func substring(withValue r: Range<Int>) -> String {
+    func substring(withValue r: Range<Int>) -> String {
         return String(self[r])
         
     }
     
-    public func stringHeightWithFontSize(_ fontSize: CGFloat,width: CGFloat) -> CGFloat {
+    func stringHeightWithFontSize(_ fontSize: CGFloat,width: CGFloat) -> CGFloat {
         let font = UIFont(name: UIView.toastFontName(), size: BaseToastFontSize)
         let size = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineBreakMode = .byWordWrapping
-        let attributes = [NSAttributedStringKey.font:font!,
-                          NSAttributedStringKey.paragraphStyle:paragraphStyle.copy()]
+        let attributes = [NSAttributedString.Key.font:font!,
+                          NSAttributedString.Key.paragraphStyle:paragraphStyle.copy()]
         
         let text = self as NSString
         let rect = text.boundingRect(with: size, options:.usesLineFragmentOrigin, attributes: attributes, context:nil)
         return rect.size.height
     }
     
-    public func withoutWhitespace() -> String {
+    func withoutWhitespace() -> String {
         return self.replacingOccurrences(of: "\n", with: "")
             .replacingOccurrences(of: "\r", with: "")
             .replacingOccurrences(of: "\0", with: "")
     }
     
-    public func isEqualToString(find: String) -> Bool {
+    func isEqualToString(find: String) -> Bool {
         return String(format: self) == find
     }
     
-    public var isEven:Bool     {return (self.toInt()! % 2 == 0)}
-    public var isOdd:Bool      {return (self.toInt()! % 2 != 0)}
+    var isEven:Bool     {return (self.toInt()! % 2 == 0)}
+    var isOdd:Bool      {return (self.toInt()! % 2 != 0)}
     
-    public func localize(comment: String?) -> String {
+    func localize(comment: String?) -> String {
         if comment != nil
         {
             return NSLocalizedString(self, comment: comment!)
@@ -255,20 +262,20 @@ public extension String {
         }
     }
     
-    public func localize() -> String {
+    func localize() -> String {
         
         return NSLocalizedString(self, comment: "")
         
     }
   
-    public var urlEncoded: String {
+    var urlEncoded: String {
         var allowed: CharacterSet = .urlQueryAllowed
         allowed.remove(charactersIn: "\n:#/?@!$&'()*+,;=")
         
         return self.addingPercentEncoding(withAllowedCharacters: allowed) ?? self
     }
     
-    public var queryParameters: [String: String] {
+    var queryParameters: [String: String] {
         var parameters = [String: String]()
         
         let scanner = Scanner(string: self)
@@ -299,7 +306,7 @@ public extension String {
      "abc123".subReplace("abc", "ABC")               //ABC123
      "abc123".subReplace("([a-z]+)(\\d+)", "$2$1")   //"123abc"
      */
-    @discardableResult public func subReplace(_ pattern: String, _ template: String) -> String {
+    @discardableResult func subReplace(_ pattern: String, _ template: String) -> String {
         let options = NSRegularExpression.Options(rawValue: 0)
         
         if let exp = try? NSRegularExpression(pattern: pattern, options: options) {
@@ -325,12 +332,12 @@ public extension String {
     
     
     /// Return the float value
-    public var floatValue: Float {
+    var floatValue: Float {
         return (self as NSString).floatValue
     }
     
     
-    public var parseJSONString: AnyObject?
+    var parseJSONString: AnyObject?
     {
         let data = self.data(using: String.Encoding.utf8, allowLossyConversion: false)
         if let jsonData = data
@@ -365,7 +372,7 @@ public extension String {
      
      - returns: Returns if self is a valid UUID or not
      */
-    public func isUUID() -> Bool {
+    func isUUID() -> Bool {
         do {
             let regex: NSRegularExpression = try NSRegularExpression(pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$", options: .caseInsensitive)
             let matches: Int = regex.numberOfMatches(in: self as String, options: .reportCompletion, range: NSMakeRange(0, self.lengthOfString))
@@ -375,7 +382,7 @@ public extension String {
         }
     }
     
-    public func convertToAPNSUUID() -> NSString {
+    func convertToAPNSUUID() -> NSString {
         
         return self.trimmingCharacters(in: NSCharacterSet(charactersIn: "<>") as CharacterSet).replacingOccurrences(of: "", with: "").replacingOccurrences(of:"-", with: "") as NSString
     }
@@ -386,7 +393,7 @@ public extension String {
      
      - returns: Returns if self is a valid UUID for APNS (Apple Push Notification System) or not
      */
-    public func isUUIDForAPNS() -> Bool {
+    func isUUIDForAPNS() -> Bool {
         do {
             let regex: NSRegularExpression = try NSRegularExpression(pattern: "^[0-9a-f]{32}$", options: .caseInsensitive)
             
@@ -403,7 +410,7 @@ public extension String {
      
      - returns: Returns the created UUID string
      */
-    public static func generateUUID() -> String {
+    static func generateUUID() -> String {
         let theUUID: CFUUID? = CFUUIDCreate(kCFAllocatorDefault)
         let string: CFString? = CFUUIDCreateString(kCFAllocatorDefault, theUUID)
         return string! as String
@@ -632,7 +639,7 @@ public extension String {
      
      - returns: Returns the encoded string
      */
-    public static func encodeToBase64(string: String) -> String {
+    static func encodeToBase64(string: String) -> String {
         let data: NSData = string.data(using: String.Encoding.utf8)! as NSData
         return data.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
     }
@@ -644,7 +651,7 @@ public extension String {
      
      - returns: Returns the decoded string
      */
-    public static func decodeBase64(string: String) -> String {
+    static func decodeBase64(string: String) -> String {
         let data: NSData = NSData(base64Encoded: string as String, options: NSData.Base64DecodingOptions(rawValue: 0))!
         return NSString(data: data as Data, encoding: String.Encoding.utf8.rawValue)! as String
     }
@@ -654,7 +661,7 @@ public extension String {
      
      - returns: String without additional spaces
      */
-    public func removeSpaces() -> String {
+    func removeSpaces() -> String {
         return self.removeExtraSpaces() as String
     }
     
@@ -676,10 +683,10 @@ public extension String {
      
      - returns: Returns the calculated height of string within width using given font
      */
-    public func heightForWidth(width: CGFloat, font: UIFont) -> CGFloat {
+    func heightForWidth(width: CGFloat, font: UIFont) -> CGFloat {
         var size: CGSize = CGSize.zero
         if self.lengthOfString > 0 {
-            let frame: CGRect = self.boundingRect(with: CGSize.init(width: width, height: 999999), options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font : font], context: nil)
+            let frame: CGRect = self.boundingRect(with: CGSize.init(width: width, height: 999999), options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font : font], context: nil)
             size = CGSize.init(width: frame.size.width, height: frame.size.height)
             
         }
@@ -688,7 +695,7 @@ public extension String {
 
     
     /// Converted into CGFloat
-    public func toFloat() -> CGFloat{
+    func toFloat() -> CGFloat{
         
         var floatNumber : CGFloat = 0.0
         
@@ -701,12 +708,12 @@ public extension String {
     }
     
     /// Converted into Int
-    public func toUInt() -> UInt? {
+    func toUInt() -> UInt? {
         return UInt(self)
     }
     
     /// Converted into Double
-    public var toDouble: Double? {
+    var toDouble: Double? {
         let numberFormatter = NumberFormatter()
         return numberFormatter.number(from: self)?.doubleValue
     }
@@ -718,7 +725,7 @@ public extension String {
     ///		"False".bool -> false
     ///		"Hello".bool = nil
     ///
-    public var bool: Bool? {
+    var bool: Bool? {
         let selfLowercased = trimmed.lowercased()
         if selfLowercased == "true" || selfLowercased == "1" {
             return true
@@ -729,46 +736,46 @@ public extension String {
     }
     
     /// True if it is palindrome, false otherwise.
-    public func isPalindrome() -> Bool {
+    func isPalindrome() -> Bool {
         let selfString = self.lowercased().replacingOccurrences(of: " ", with: "")
         let otherString = String(selfString.reversed())
         return selfString == otherString
     }
     
     /// Cut blank and newline characters
-    public mutating func trim() {
+    mutating func trim() {
         self = trimmed
     }
     
     /// Cut a space and a newline character, returning a new string.
-    public var trimmed: String {
+    var trimmed: String {
         return trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
     /// Delete two or more duplicate spaces
-    public func removeExtraSpaces() -> String {
+    func removeExtraSpaces() -> String {
         let squashed = replacingOccurrences(of: "[ ]+", with: " ", options: .regularExpression, range: nil)
         return squashed.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
     }
     
     /// Converted into Data
-    public var data: Data? {
+    var data: Data? {
         return self.data(using: .utf8)
     }
     
-    public func addToPasteboard() {
+    func addToPasteboard() {
         UIPasteboard.general.string = self
     }
     
-    public func capitalize() -> String {
+    func capitalize() -> String {
         return capitalized
     }
     
-    public func contains(_ substring: String) -> Bool {
+    func contains(_ substring: String) -> Bool {
         return range(of: substring) != nil
     }
     
-    public func chompLeft(_ prefix: String) -> String {
+    func chompLeft(_ prefix: String) -> String {
         if let prefixRange = range(of: prefix) {
             if prefixRange.upperBound >= endIndex {
                 return String(self[startIndex..<prefixRange.lowerBound])
@@ -779,7 +786,7 @@ public extension String {
         return self
     }
     
-    public func chompRight(_ suffix: String) -> String {
+    func chompRight(_ suffix: String) -> String {
         if let suffixRange = range(of: suffix, options: .backwards) {
             if suffixRange.upperBound >= endIndex {
                 return String(self[startIndex..<suffixRange.lowerBound])
@@ -790,12 +797,12 @@ public extension String {
         return self
     }
     
-    public func collapseWhitespace() -> String {
+    func collapseWhitespace() -> String {
         let components = self.components(separatedBy: CharacterSet.whitespacesAndNewlines).filter { !$0.isEmpty }
         return components.joined(separator: " ")
     }
     
-    public func clean(with: String, allOf: String...) -> String {
+    func clean(with: String, allOf: String...) -> String {
         var string = self
         for target in allOf {
             string = string.replacingOccurrences(of: target, with: with)
@@ -803,15 +810,15 @@ public extension String {
         return string
     }
     
-    public func count(_ substring: String) -> Int {
+    func count(_ substring: String) -> Int {
         return components(separatedBy: substring).count-1
     }
     
-    public func endsWith(_ suffix: String) -> Bool {
+    func endsWith(_ suffix: String) -> Bool {
         return hasSuffix(suffix)
     }
     
-    public func ensureLeft(_ prefix: String) -> String {
+    func ensureLeft(_ prefix: String) -> String {
         if startsWith(prefix) {
             return self
         } else {
@@ -819,7 +826,7 @@ public extension String {
         }
     }
     
-    public func ensureRight(_ suffix: String) -> String {
+    func ensureRight(_ suffix: String) -> String {
         if endsWith(suffix) {
             return self
         } else {
@@ -829,7 +836,7 @@ public extension String {
     
     //Calculate the number of symbols
     
-    public func countSymbols() -> Int {
+    func countSymbols() -> Int {
         var countSymbol = 0
         for i in 0 ..< self.lengthOfString {
             guard let character = UnicodeScalar((NSString(string: self)).character(at: i)) else {
@@ -845,7 +852,7 @@ public extension String {
     }
     
     /// Calculate the number of Numbers
-    public func countNumbers() -> Int {
+    func countNumbers() -> Int {
         var countNumber = 0
         for i in 0 ..< self.lengthOfString {
             guard let character = UnicodeScalar((NSString(string: self)).character(at: i)) else {
@@ -867,7 +874,7 @@ public extension String {
     ///                             **Example:**
     ///                                 "Let's try this function?" ->
     ///                                 "?noitcnuf siht yrt S'tel"
-    public func reversed(preserveFormat: Bool = false) -> String {
+    func reversed(preserveFormat: Bool = false) -> String {
         guard !self.isEmpty else {
             return ""
         }
@@ -903,12 +910,12 @@ public extension String {
     /// Converts self to an UUID APNS valid (No "<>" or "-" or spaces).
     ///
     /// - Returns: Converts self to an UUID APNS valid (No "<>" or "-" or spaces).
-    public func readableUUID() -> String {
+    func readableUUID() -> String {
         return self.trimmingCharacters(in: CharacterSet(charactersIn: "<>")).replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "-", with: "")
     }
     
    
-    public func isAlpha() -> Bool {
+    func isAlpha() -> Bool {
         for chr in self {
             if (!(chr >= "a" && chr <= "z") && !(chr >= "A" && chr <= "Z") ) {
                 return false
@@ -918,41 +925,41 @@ public extension String {
     }
     
     
-    public func indexOf(_ substring: String) -> Int? {
+    func indexOf(_ substring: String) -> Int? {
         if let range = range(of: substring) {
             return distance(from: startIndex, to: range.lowerBound)
         }
         return nil
     }
     
-    public func isAlphaNumeric() -> Bool {
+    func isAlphaNumeric() -> Bool {
         let alphaNumeric = CharacterSet.alphanumerics
         return components(separatedBy: alphaNumeric).joined(separator: "").lengthOfString == 0
     }
     
-    public func isEmpty() -> Bool {
+    func isEmpty() -> Bool {
         return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).lengthOfString == 0
     }
     
-    public func join<S: Sequence>(_ elements: S) -> String {
+    func join<S: Sequence>(_ elements: S) -> String {
         return elements.map{String(describing: $0)}.joined(separator: self)
     }
     
-    public func latinize() -> String {
+    func latinize() -> String {
         return self.folding(options: .diacriticInsensitive, locale: Locale.current)
     }
     
-    public func lines() -> [String] {
+    func lines() -> [String] {
         return self.components(separatedBy: CharacterSet.newlines)
     }
     
-    public var lengthOfString: Int {
+    var lengthOfString: Int {
         get {
             return self.count
         }
     }
     
-    public func slugify(withSeparator separator: Character = "-") -> String {
+    func slugify(withSeparator separator: Character = "-") -> String {
         let slugCharacterSet = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\(separator)")
         return latinize().lowercased()
             .components(separatedBy: slugCharacterSet.inverted)
@@ -960,29 +967,29 @@ public extension String {
             .joined(separator: String(separator))
     }
     
-    public func split(_ separator: Character) -> [String] {
+    func split(_ separator: Character) -> [String] {
         return split{$0 == separator}.map(String.init)
     }
     
-    public func startsWith(_ prefix: String) -> Bool {
+    func startsWith(_ prefix: String) -> Bool {
         return hasPrefix(prefix)
     }
     
-    public func toFloat() -> Float? {
+    func toFloat() -> Float? {
         if let number = defaultNumberFormatter().number(from: self) {
             return number.floatValue
         }
         return nil
     }
     
-    public func toInt() -> Int? {
+    func toInt() -> Int? {
         if let number = defaultNumberFormatter().number(from: self) {
             return number.intValue
         }
         return nil
     }
     
-    public func toBool() -> Bool? {
+    func toBool() -> Bool? {
         let trimmed = self.trimmed.lowercased()
         if trimmed == "true" || trimmed == "false" {
             return (trimmed as NSString).boolValue
@@ -990,22 +997,22 @@ public extension String {
         return nil
     }
     
-    public func toDate(_ format: String = "yyyy-MM-dd") -> Date? {
+    func toDate(_ format: String = "yyyy-MM-dd") -> Date? {
         return dateFormatter(format).date(from: self)
     }
     
-    public func toDateTime(_ format: String = "yyyy-MM-dd HH:mm:ss") -> Date? {
+    func toDateTime(_ format: String = "yyyy-MM-dd HH:mm:ss") -> Date? {
         return toDate(format)
     }
     
-    public func trimmedLeft() -> String {
+    func trimmedLeft() -> String {
         if let range = rangeOfCharacter(from: CharacterSet.whitespacesAndNewlines.inverted) {
             return String(self[range.lowerBound..<endIndex])
         }
         return self
     }
     
-    public func trimmedRight() -> String {
+    func trimmedRight() -> String {
         if let range = rangeOfCharacter(from: CharacterSet.whitespacesAndNewlines.inverted, options: NSString.CompareOptions.backwards) {
             return String(self[startIndex..<range.upperBound])
         }
@@ -1021,7 +1028,7 @@ public extension String {
 
     
     /// Returns the last path component
-    public var lastPathComponent: String {
+    var lastPathComponent: String {
         get {
             return (self as NSString).lastPathComponent
         }
@@ -1040,7 +1047,7 @@ public extension String {
      
      - returns: Returns the encoded string
      */
-    public func encodeToBase64() -> String {
+    func encodeToBase64() -> String {
         return String.encodeToBase64(string: self)
     }
     
@@ -1049,7 +1056,7 @@ public extension String {
      
      - returns: Returns the decoded string
      */
-    public func decodeBase64() -> String {
+    func decodeBase64() -> String {
         return String.decodeBase64(string: self)
     }
     
@@ -1058,7 +1065,7 @@ public extension String {
      
      - returns: Returns self as NSData
      */
-    public func convertToNSData() -> NSData {
+    func convertToNSData() -> NSData {
         return NSString.convertToNSData(string: self as NSString)
     }
     
@@ -1071,35 +1078,35 @@ public extension String {
      
      - returns: Returns a new string containing matching regular expressions replaced with the template string
      */
-    public func stringByReplacingWithRegex(regexString: NSString, withString replacement: NSString) throws -> NSString {
+    func stringByReplacingWithRegex(regexString: NSString, withString replacement: NSString) throws -> NSString {
         let regex: NSRegularExpression = try NSRegularExpression(pattern: regexString as String, options: .caseInsensitive)
         return regex.stringByReplacingMatches(in: self, options: NSRegularExpression.MatchingOptions(rawValue: 0), range:NSMakeRange(0, self.lengthOfString), withTemplate: "") as NSString
     }
     
     
     /// Returns the path extension
-    public var pathExtension: String {
+    var pathExtension: String {
         get {
             return (self as NSString).pathExtension
         }
     }
     
     /// Delete the last path component
-    public var stringByDeletingLastPathComponent: String {
+    var stringByDeletingLastPathComponent: String {
         get {
             return (self as NSString).deletingLastPathComponent
         }
     }
     
     /// Delete the path extension
-    public var stringByDeletingPathExtension: String {
+    var stringByDeletingPathExtension: String {
         get {
             return (self as NSString).deletingPathExtension
         }
     }
     
     /// Returns an array of path components
-    public var pathComponents: [String] {
+    var pathComponents: [String] {
         get {
             return (self as NSString).pathComponents
         }
@@ -1112,7 +1119,7 @@ public extension String {
      
      - returns: Returns all the string
      */
-    public func stringByAppendingPathComponent(path: String) -> String {
+    func stringByAppendingPathComponent(path: String) -> String {
         let string = self as NSString
         
         return string.appendingPathComponent(path)
@@ -1125,13 +1132,13 @@ public extension String {
      
      - returns: returns all the string
      */
-    public func stringByAppendingPathExtension(ext: String) -> String? {
+    func stringByAppendingPathExtension(ext: String) -> String? {
         let nsSt = self as NSString
         
         return nsSt.appendingPathExtension(ext)
     }
    
-    public func substring(_ startIndex: Int, length: Int) -> String {
+    func substring(_ startIndex: Int, length: Int) -> String {
         let start = self.index(self.startIndex, offsetBy: startIndex)
         let end = self.index(self.startIndex, offsetBy: startIndex + length)
         return String(self[start..<end])
@@ -1139,19 +1146,19 @@ public extension String {
     
 
     // Returns true if the string has at least one character in common with matchCharacters.
-    public func containsCharactersIn(_ matchCharacters: String) -> Bool {
+    func containsCharactersIn(_ matchCharacters: String) -> Bool {
         let characterSet = CharacterSet(charactersIn: matchCharacters)
         return self.rangeOfCharacter(from: characterSet) != nil
     }
     
     // Returns true if the string contains only characters found in matchCharacters.
-    public func containsOnlyCharactersIn(_ matchCharacters: String) -> Bool {
+    func containsOnlyCharactersIn(_ matchCharacters: String) -> Bool {
         let disallowedCharacterSet = CharacterSet(charactersIn: matchCharacters).inverted
         return self.rangeOfCharacter(from: disallowedCharacterSet) == nil
     }
     
     // Returns true if the string has no characters in common with matchCharacters.
-    public func doesNotContainCharactersIn(_ matchCharacters: String) -> Bool {
+    func doesNotContainCharactersIn(_ matchCharacters: String) -> Bool {
         let characterSet = CharacterSet(charactersIn: matchCharacters)
         return self.rangeOfCharacter(from: characterSet) == nil
     }
@@ -1159,7 +1166,7 @@ public extension String {
     // Returns true if the string represents a proper numeric value.
     // This method uses the device's current locale setting to determine
     // which decimal separator it will accept.
-    public func isNumeric() -> Bool
+    func isNumeric() -> Bool
     {
         let scanner = Scanner(string: self)
         
@@ -1176,9 +1183,9 @@ public extension String {
     
     
     /// String size
-    public func toSize(size: CGSize, fontSize: CGFloat, maximumNumberOfLines: Int = 0) -> CGSize {
+    func toSize(size: CGSize, fontSize: CGFloat, maximumNumberOfLines: Int = 0) -> CGSize {
         let font = UIFont.systemFont(ofSize: fontSize)
-        var size = self.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes:[NSAttributedStringKey.font : font], context: nil).size
+        var size = self.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes:[NSAttributedString.Key.font : font], context: nil).size
         if maximumNumberOfLines > 0 {
             size.height = min(size.height, CGFloat(maximumNumberOfLines) * font.lineHeight)
         }
@@ -1186,47 +1193,47 @@ public extension String {
     }
     
     /// String width
-    public func toWidth(fontSize: CGFloat, maximumNumberOfLines: Int = 0) -> CGFloat {
+    func toWidth(fontSize: CGFloat, maximumNumberOfLines: Int = 0) -> CGFloat {
         let size = CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
         return toSize(size: size, fontSize: fontSize, maximumNumberOfLines: maximumNumberOfLines).width
     }
     
     /// String Height
-    public func toHeight(width: CGFloat, fontSize: CGFloat, maximumNumberOfLines: Int = 0) -> CGFloat {
+    func toHeight(width: CGFloat, fontSize: CGFloat, maximumNumberOfLines: Int = 0) -> CGFloat {
         let size = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
         return toSize(size: size, fontSize: fontSize, maximumNumberOfLines: maximumNumberOfLines).height
     }
     
     /// Calculate the height of the string and limit the width
-    public func heightWithConstrainedWidth(_ width: CGFloat, font: UIFont) -> CGFloat {
+    func heightWithConstrainedWidth(_ width: CGFloat, font: UIFont) -> CGFloat {
         let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
         let boundingBox = self.boundingRect(
             with: constraintRect,
             options: .usesLineFragmentOrigin,
-            attributes: [NSAttributedStringKey.font: font],
+            attributes: [NSAttributedString.Key.font: font],
             context: nil)
         return boundingBox.height
     }
     
     /// Underline
-    public func underline() -> NSAttributedString {
-        let underlineString = NSAttributedString(string: self, attributes: [NSAttributedStringKey.underlineStyle: NSUnderlineStyle.styleSingle.rawValue])
+    func underline() -> NSAttributedString {
+        let underlineString = NSAttributedString(string: self, attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
         return underlineString
     }
     
     // italic
-    public func italic() -> NSAttributedString {
-        let italicString = NSMutableAttributedString(string: self, attributes: [NSAttributedStringKey.font: UIFont.italicSystemFont(ofSize: UIFont.systemFontSize)])
+    func italic() -> NSAttributedString {
+        let italicString = NSMutableAttributedString(string: self, attributes: [NSAttributedString.Key.font: UIFont.italicSystemFont(ofSize: UIFont.systemFontSize)])
         return italicString
     }
     
     /// Set the specified text color
-    public func makeSubstringColor(_ text: String, color: UIColor) -> NSAttributedString {
+    func makeSubstringColor(_ text: String, color: UIColor) -> NSAttributedString {
         let attributedText = NSMutableAttributedString(string: self)
         
         let range = (self as NSString).range(of: text)
         if range.location != NSNotFound {
-            attributedText.setAttributes([NSAttributedStringKey.foregroundColor: color], range: range)
+            attributedText.setAttributes([NSAttributedString.Key.foregroundColor: color], range: range)
         }
         
         return attributedText
@@ -1238,7 +1245,7 @@ public extension String {
 public extension String {
    
     /// Whether it is a mailbox
-    public func isEmail() -> Bool {
+    func isEmail() -> Bool {
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
         //        let emailRegex = "^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\\.[a-zA-Z0-9_-]{2,3}){1,2})$"
         let testPredicate = NSPredicate(format:"SELF MATCHES %@", emailRegex)
@@ -1247,7 +1254,7 @@ public extension String {
     
     
     /// Whether it is a mobile phone number at the beginning
-    public func isPhoneNumber() -> Bool {
+    func isPhoneNumber() -> Bool {
         let regex = "^1\\d{10}$"
         let testPredicate = NSPredicate(format:"SELF MATCHES %@", regex)
         return testPredicate.evaluate(with: self)
@@ -1255,7 +1262,7 @@ public extension String {
     
     
     /// Regular match phone number
-    public func checkMobile() -> Bool {
+    func checkMobile() -> Bool {
         /**
          * cellphone number:
          * 13[0-9], 14[5,7], 15[0, 1, 2, 3, 5, 6, 7, 8, 9], 17[6, 7, 8], 18[0-9], 170[0-9]
@@ -1291,21 +1298,21 @@ public extension String {
     
 
     /// Regular match user password 6-18 digits and letter combination
-    public func checkPassword() -> Bool {
+    func checkPassword() -> Bool {
         let pattern = "^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,18}"
         let pred = NSPredicate(format: "SELF MATCHES %@", pattern)
         return pred.evaluate(with: self)
     }
     
     /// Regular match URL
-    public func checkURL() -> Bool {
+    func checkURL() -> Bool {
         let pattern = "^[0-9A-Za-z]{1,50}"
         let pred = NSPredicate(format: "SELF MATCHES %@", pattern)
         return pred.evaluate(with: self)
     }
     
     /// Regular match user name, 20 English
-    public func checkUserName() -> Bool {
+    func checkUserName() -> Bool {
         let pattern = "^[a-zA-Z\\u4E00-\\u9FA5]{1,20}"
         let pred = NSPredicate(format: "SELF MATCHES %@", pattern)
         return pred.evaluate(with: self)
@@ -1321,7 +1328,7 @@ public extension String {
 //    }
    
     ///*
-    public func matchRegex(_ pattern: String) -> Bool {
+    func matchRegex(_ pattern: String) -> Bool {
         /*
          guard let searchResults = range(of: pattern, options: .regularExpression) else {return false}
          return searchResults.lowerBound == startIndex && searchResults.count == characters.count
@@ -1334,7 +1341,7 @@ public extension String {
 
     
     ///Verify that it contains "special characters"
-    public func isSpecialCharacter() -> Bool {
+    func isSpecialCharacter() -> Bool {
         let character = CharacterSet(charactersIn: "@／:;（）¥「」!,.?<>£＂、[]{}#%-*+=_\\|~＜＞$€^•'@#$%^&*()_+'\"/" +
             "")
         
@@ -1343,7 +1350,7 @@ public extension String {
         return specialrang.location != NSNotFound
     }
     
-    public func containerWD() -> Bool {
+    func containerWD() -> Bool {
         let regex = "^\\w+:\\d+:\\w+;$"
         let testPredicate = NSPredicate(format:"SELF MATCHES %@", regex)
         return testPredicate.evaluate(with: self)

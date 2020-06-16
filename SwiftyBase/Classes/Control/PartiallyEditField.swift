@@ -144,15 +144,15 @@ open class PartiallyEditField: UITextField {
         let range: NSRange? = (str as NSString).range(of: preText)
         let string = NSMutableAttributedString(string: str)
         if isText {
-            string.addAttribute(NSAttributedStringKey.foregroundColor, value: originalColor as Any, range: NSRange(location: 0, length: (str.count)))
+            string.addAttribute(NSAttributedString.Key.foregroundColor, value: originalColor as Any, range: NSRange(location: 0, length: (str.count)))
         }
         else {
             if (placeHolderColor != nil) {
-                string.addAttribute(NSAttributedStringKey.foregroundColor, value: placeHolderColor as Any, range: NSRange(location: 0, length: (str.count)))
+                string.addAttribute(NSAttributedString.Key.foregroundColor, value: placeHolderColor as Any, range: NSRange(location: 0, length: (str.count)))
             }
         }
         if (preTextColor != nil) {
-            string.addAttribute(NSAttributedStringKey.foregroundColor, value: preTextColor as Any, range: range ?? NSRange())
+            string.addAttribute(NSAttributedString.Key.foregroundColor, value: preTextColor as Any, range: range ?? NSRange())
         }
         return string
     }

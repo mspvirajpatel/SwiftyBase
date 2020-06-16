@@ -136,7 +136,7 @@ public extension UIDevice {
      
      - returns: Returns the device platform string
      */
-    public static func devicePlatform() -> String {
+    static func devicePlatform() -> String {
         
         var sysinfo = utsname()
         uname(&sysinfo)
@@ -151,7 +151,7 @@ public extension UIDevice {
      
      - returns: Returns the user-friendly device platform string
      */
-    public static func devicePlatformString() -> String {
+    static func devicePlatformString() -> String {
         let platform: String = self.devicePlatform()
         
         switch platform {
@@ -234,7 +234,7 @@ public extension UIDevice {
      
      - returns: Returns true if it's an iPad, fasle if not
      */
-    public static func isiPad() -> Bool {
+    static func isiPad() -> Bool {
         if self.devicePlatform() == "iPad" {
             return true
         } else {
@@ -247,7 +247,7 @@ public extension UIDevice {
      
      - returns: Returns true if it's an iPhone, false if not
      */
-    public static func isiPhone() -> Bool {
+    static func isiPhone() -> Bool {
         if self.devicePlatform() == "iPhone" {
             return true
         } else {
@@ -260,7 +260,7 @@ public extension UIDevice {
      
      - returns: Returns true if it's an iPod, false if not
      */
-    public static func isiPod() -> Bool {
+    static func isiPod() -> Bool {
         if self.devicePlatform() == "iPod" {
             return true
         } else {
@@ -275,7 +275,7 @@ public extension UIDevice {
      
      - returns: Returns true if it's a Simulator, false if not
      */
-    public static func isSimulator() -> Bool {
+    static func isSimulator() -> Bool {
         if self.devicePlatform() == "i386" || self.devicePlatform() == "x86_64" {
             return true
         } else {
@@ -289,7 +289,7 @@ public extension UIDevice {
      
      - returns: Returns the iOS version
      */
-    public static func iOSVersionName() -> NSString {
+    static func iOSVersionName() -> NSString {
         
         return UIDevice.current.systemVersion as NSString
     }
@@ -299,7 +299,7 @@ public extension UIDevice {
      
      - returns: Returns the current device total disk space
      */
-    //    public static func totalDiskSpace() throws -> AnyObject {
+    //    static func totalDiskSpace() throws -> AnyObject {
     //        let attributes: NSDictionary = try FileManager.default.attributesOfFileSystem(forPath: NSHomeDirectory()) as NSDictionary
     //        return attributes.object(forKey: FileAttributeKey.systemSize)! as AnyObject
     //    }
@@ -309,7 +309,7 @@ public extension UIDevice {
      
      - returns: Returns the current device free disk space
      */
-    //    public static func freeDiskSpace() throws -> AnyObject {
+    //    static func freeDiskSpace() throws -> AnyObject {
     //        let attributes: NSDictionary = try FileManager.default.attributesOfFileSystem(forPath: NSHomeDirectory()) as NSDictionary
     //        return attributes.object(forKey: FileAttributeKey.systemFreeSize)! as AnyObject
     //    }
@@ -319,7 +319,7 @@ public extension UIDevice {
      
      - returns: Returns a unique identifier as a String
      */
-    public static func uniqueIdentifier() -> String {
+    static func uniqueIdentifier() -> String {
         var UUID: String?
         if UIDevice.current.responds(to: #selector(getter: UIDevice.identifierForVendor)) {
             UUID = UIDevice.current.identifierForVendor!.uuidString
@@ -343,7 +343,7 @@ public extension UIDevice {
      - parameter block:            The execution block that know if the unique identifier is valid and has to be updated. You have to handle the case if it is valid and the update is needed or not
      */
     
-    public static func isNull(someObject: AnyObject?) -> Bool {
+    static func isNull(someObject: AnyObject?) -> Bool {
         guard let someObject = someObject else {
             return true
         }
@@ -351,7 +351,7 @@ public extension UIDevice {
         return (someObject is NSNull)
     }
     
-    public static func updateUniqueIdentifier(uniqueIdentifier: NSObject, block: (_ isValid: Bool, _ hasToUpdateUniqueIdentifier: Bool, _ oldUUID: String?) -> ()) {
+    static func updateUniqueIdentifier(uniqueIdentifier: NSObject, block: (_ isValid: Bool, _ hasToUpdateUniqueIdentifier: Bool, _ oldUUID: String?) -> ()) {
         var userUUID: String = ""
         var savedUUID: String? = nil
         var isValid = false, hasToUpdate = false

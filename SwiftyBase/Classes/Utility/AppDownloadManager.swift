@@ -162,7 +162,7 @@ extension AppDownloadManager {
 
         do {
             var resumeDictionary: AnyObject!
-            resumeDictionary = try PropertyListSerialization.propertyList(from: resumeData!, options: PropertyListSerialization.MutabilityOptions(), format: nil) as AnyObject!
+            resumeDictionary = try PropertyListSerialization.propertyList(from: resumeData!, options: PropertyListSerialization.MutabilityOptions(), format: nil) as AnyObject?
             var localFilePath = (resumeDictionary?["NSURLSessionResumeInfoLocalPath"] as? String)
 
             if localFilePath == nil || localFilePath?.count < 1 {
@@ -474,7 +474,7 @@ extension AppDownloadManager {
         let application = UIApplication.shared
         let applicationState = application.applicationState
 
-        if applicationState == UIApplicationState.background {
+        if applicationState == UIApplication.State.background {
             let localNotification = UILocalNotification()
             localNotification.alertBody = notifBody
             localNotification.alertAction = notifAction

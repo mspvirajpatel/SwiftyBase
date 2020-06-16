@@ -41,11 +41,11 @@ class AppImageSelection: NSObject {
         }
 
         let cameraAction = UIAlertAction(title: "Camera", style: .default) { action in
-            self.selectPictureFrom(UIImagePickerControllerSourceType.camera, allowEditing: allowEditing)
+            self.selectPictureFrom(UIImagePickerController.SourceType.camera, allowEditing: allowEditing)
         }
 
         let photoGelleryAction = UIAlertAction(title: "Photo Gallery", style: .default) { action in
-            self.selectPictureFrom(UIImagePickerControllerSourceType.photoLibrary, allowEditing: allowEditing)
+            self.selectPictureFrom(UIImagePickerController.SourceType.photoLibrary, allowEditing: allowEditing)
         }
 
         alertController.addAction(cancelAction)
@@ -56,7 +56,7 @@ class AppImageSelection: NSObject {
     }
 
     //used to open UIImagePickerController with selected sourceType
-    fileprivate func selectPictureFrom(_ sourceType: UIImagePickerControllerSourceType, allowEditing: Bool)
+    fileprivate func selectPictureFrom(_ sourceType: UIImagePickerController.SourceType, allowEditing: Bool)
     {
         let picker = UIImagePickerController()
         picker.allowsEditing = allowEditing
@@ -79,11 +79,11 @@ extension AppImageSelection: UIImagePickerControllerDelegate, UINavigationContro
     }
 
     //this method triggers when user select Photo
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         var newImage: UIImage? = nil
-        if let possibleImage = info[UIImagePickerControllerEditedImage] as? UIImage {
+        if let possibleImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             newImage = possibleImage
-        } else if let possibleImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+        } else if let possibleImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             newImage = possibleImage
         }
 

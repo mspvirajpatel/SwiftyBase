@@ -56,7 +56,7 @@ public final class BaseCountriesPicker: UIViewController, UISearchBarDelegate, U
     }
 
     /// Lazy var for table view
-    open fileprivate(set) lazy var tableView: UITableView = {
+    public fileprivate(set) lazy var tableView: UITableView = {
 
         let tableView: UITableView = UITableView()
         tableView.backgroundColor = .white
@@ -65,7 +65,7 @@ public final class BaseCountriesPicker: UIViewController, UISearchBarDelegate, U
     }()
 
     /// Lazy var for table view
-    open fileprivate(set) lazy var searchBar: UISearchBar = {
+    public fileprivate(set) lazy var searchBar: UISearchBar = {
 
         let searchBar: UISearchBar = UISearchBar()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
@@ -74,7 +74,7 @@ public final class BaseCountriesPicker: UIViewController, UISearchBarDelegate, U
     }()
 
     /// Lazy var for global stackview container
-    open fileprivate(set) lazy var stackView: UIStackView = {
+    public fileprivate(set) lazy var stackView: UIStackView = {
 
         let stackView = UIStackView(arrangedSubviews: [self.searchBar, self.tableView])
         stackView.axis = .vertical
@@ -99,7 +99,7 @@ public final class BaseCountriesPicker: UIViewController, UISearchBarDelegate, U
 
         self.navigationItem.title = allowMultipleSelection ? "Select Countries" : "Select Country"
 
-        cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.cancel, target: self, action: #selector(BaseCountriesPicker.cancel))
+        cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.cancel, target: self, action: #selector(BaseCountriesPicker.cancel))
         self.navigationItem.leftBarButtonItem = cancelButton
 
         if allowMultipleSelection {
@@ -129,14 +129,14 @@ public final class BaseCountriesPicker: UIViewController, UISearchBarDelegate, U
         //constraint for stackview
         let stackView_H = NSLayoutConstraint.constraints(
             withVisualFormat: "H:|-0-[stackView]-0-|",
-            options: NSLayoutFormatOptions(rawValue: 0),
+            options: NSLayoutConstraint.FormatOptions(rawValue: 0),
             metrics: nil,
             views: viewsDictionary
         )
         //constraint for stackview
         let stackView_V = NSLayoutConstraint.constraints(
             withVisualFormat: "V:|-[stackView]-0-|",
-            options: NSLayoutFormatOptions(rawValue: 0),
+            options: NSLayoutConstraint.FormatOptions(rawValue: 0),
             metrics: nil,
             views: viewsDictionary
         )
@@ -204,7 +204,7 @@ public final class BaseCountriesPicker: UIViewController, UISearchBarDelegate, U
         /// If some countries are selected, scroll to the first
         if let selectedCountry = selectedCountries.first {
             for (index, countries) in unfilteredCountries.enumerated() {
-                if let countryIndex = countries.index(of: selectedCountry) {
+                if let countryIndex = countries.firstIndex(of: selectedCountry) {
                     let indexPath = IndexPath(row: countryIndex, section: index)
                     tableView.scrollToRow(at: indexPath, at: .top, animated: true)
                     break
@@ -228,7 +228,7 @@ public final class BaseCountriesPicker: UIViewController, UISearchBarDelegate, U
         /// Obtain a cell
         let cell: UITableViewCell = {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") else {
-                return UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "Cell")
+                return UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: "Cell")
             }
             return cell
         }()
@@ -237,7 +237,7 @@ public final class BaseCountriesPicker: UIViewController, UISearchBarDelegate, U
         let country = filteredCountries[indexPath.section][indexPath.row]
         cell.textLabel?.text = country.name
         cell.detailTextLabel?.text = "+" + country.phoneExtension
-        cell.accessoryType = (selectedCountries.index(of: country) != nil) ? .checkmark : .none
+        cell.accessoryType = (selectedCountries.firstIndex(of: country) != nil) ? .checkmark : .none
 
         return cell
     }

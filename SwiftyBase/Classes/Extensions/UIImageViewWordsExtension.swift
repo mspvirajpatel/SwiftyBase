@@ -19,13 +19,13 @@ import UIKit
 
 public extension UIImageView {
     
-    public func image(with word: String, color: UIColor? = nil, circular: Bool = true, fontAttributes: [NSAttributedStringKey : Any] = [:]){
+    func image(with word: String, color: UIColor? = nil, circular: Bool = true, fontAttributes: [NSAttributedString.Key : Any] = [:]){
         var imageViewString: String = ""
         
         let wordsArray = word.split{$0 == " "}.map(String.init)
         
         for word in wordsArray {
-            imageViewString += word[0]
+            imageViewString += word.first
             if imageViewString.count >= 2 {
                 break
             }
@@ -34,17 +34,17 @@ public extension UIImageView {
         imageSnapShotFromWords(snapShotString: imageViewString, color: color, circular: circular, fontAttributes: fontAttributes)
     }
     
-    fileprivate func imageSnapShotFromWords(snapShotString: String, color: UIColor?, circular: Bool, fontAttributes: [NSAttributedStringKey : Any]?) {
+    fileprivate func imageSnapShotFromWords(snapShotString: String, color: UIColor?, circular: Bool, fontAttributes: [NSAttributedString.Key : Any]?) {
         
-        let attributes: [NSAttributedStringKey : Any]
+        let attributes: [NSAttributedString.Key : Any]
         
         if let attr = fontAttributes, attr.keys.count > 0 {
             attributes = attr
         }
         else {
             attributes = [
-                NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue) : UIColor.white,
-                NSAttributedStringKey(rawValue: NSAttributedStringKey.font.rawValue) : UIFont.systemFont(ofSize: self.bounds.width * 0.4)
+                NSAttributedString.Key(rawValue: NSAttributedString.Key.foregroundColor.rawValue) : UIColor.white,
+                NSAttributedString.Key(rawValue: NSAttributedString.Key.font.rawValue) : UIFont.systemFont(ofSize: self.bounds.width * 0.4)
             ]
         }
         

@@ -108,17 +108,17 @@ public class BaseScrollViewController: UIViewController, UIScrollViewDelegate {
                                     height: view.height
         )
 
-        addChildViewController(leftVc)
-        addChildViewController(middleVertScrollVc)
-        addChildViewController(rightVc)
+        addChild(leftVc)
+        addChild(middleVertScrollVc)
+        addChild(rightVc)
 
         scrollView.addSubview(leftVc.view)
         scrollView.addSubview(middleVertScrollVc.view)
         scrollView.addSubview(rightVc.view)
 
-        leftVc.didMove(toParentViewController: self)
-        middleVertScrollVc.didMove(toParentViewController: self)
-        rightVc.didMove(toParentViewController: self)
+        leftVc.didMove(toParent: self)
+        middleVertScrollVc.didMove(toParent: self)
+        rightVc.didMove(toParent: self)
 
         scrollView.contentOffset.x = middleVertScrollVc.view.frame.origin.x
         scrollView.delegate = self

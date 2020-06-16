@@ -13,13 +13,13 @@ import Foundation
 public extension UIButton {
     
     //  Apply corner radius
-    public func applyCornerRadius(_ mask : Bool) {
+    func applyCornerRadius(_ mask : Bool) {
         self.layer.masksToBounds = mask
         self.layer.cornerRadius = self.frame.size.width/2
     }
     
     //  Set background color for state
-    public func setBackgroundColor(_ color: UIColor, forState: UIControlState) {
+    func setBackgroundColor(_ color: UIColor, forState: UIControl.State) {
         UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
         UIGraphicsGetCurrentContext()?.setFillColor(color.cgColor)
         UIGraphicsGetCurrentContext()?.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
@@ -30,76 +30,76 @@ public extension UIButton {
     }
     
     //  Set title text for all state
-    public func textForAllState(_ titleText : String) {
-        self.setTitle(titleText, for: UIControlState())
+    func textForAllState(_ titleText : String) {
+        self.setTitle(titleText, for: UIControl.State())
         self.setTitle(titleText, for: .selected)
         self.setTitle(titleText, for: .highlighted)
         self.setTitle(titleText, for: .disabled)
     }
     
     //  Set title text for only normal state
-    public func textForNormal(_ titleText : String) {
-        self.setTitle(titleText, for: UIControlState())
+    func textForNormal(_ titleText : String) {
+        self.setTitle(titleText, for: UIControl.State())
     }
     
     //  Set title text for only selected state
-    public func textForSelected(_ titleText : String) {
+    func textForSelected(_ titleText : String) {
         self.setTitle(titleText, for: .selected)
     }
     
     //  Set title text for only highlight state
-    public func textForHighlighted(_ titleText : String) {
+    func textForHighlighted(_ titleText : String) {
         self.setTitle(titleText, for: .highlighted)
     }
     
     //  Set image for all state
-    public func imageForAllState(_ image : UIImage) {
-        self.setImage(image, for: UIControlState())
+    func imageForAllState(_ image : UIImage) {
+        self.setImage(image, for: UIControl.State())
         self.setImage(image, for: .selected)
         self.setImage(image, for: .highlighted)
         self.setImage(image, for: .disabled)
     }
     
     //  Set image for only normal state
-    public func imageForNormal(_ image : UIImage) {
-        self.setImage(image, for: UIControlState())
+    func imageForNormal(_ image : UIImage) {
+        self.setImage(image, for: UIControl.State())
     }
     
     //  Set image for only selected state
-    public func imageForSelected(_ image : UIImage) {
+    func imageForSelected(_ image : UIImage) {
         self.setImage(image, for: .selected)
     }
     
     //  Set image for only highlighted state
-    public func imageForHighlighted(_ image : UIImage) {
+    func imageForHighlighted(_ image : UIImage) {
         self.setImage(image, for: .highlighted)
     }
     
     //  Set title color for all state
-    public func colorOfTitleLabelForAllState(_ color : UIColor) {
-        self.setTitleColor(color, for: UIControlState())
+    func colorOfTitleLabelForAllState(_ color : UIColor) {
+        self.setTitleColor(color, for: UIControl.State())
         self.setTitleColor(color, for: .selected)
         self.setTitleColor(color, for: .highlighted)
         self.setTitleColor(color, for: .disabled)
     }
     
     //  Set title color for normal state
-    public func colorOfTitleLabelForNormal(_ color : UIColor) {
-        self.setTitleColor(color, for: UIControlState())
+    func colorOfTitleLabelForNormal(_ color : UIColor) {
+        self.setTitleColor(color, for: UIControl.State())
     }
     
     //  Set title color for selected state
-    public func colorOfTitleLabelForSelected(_ color : UIColor) {
+    func colorOfTitleLabelForSelected(_ color : UIColor) {
         self.setTitleColor(color, for: .selected)
     }
     
     //  Set title color for highkighted state
-    public func colorForHighlighted(_ color : UIColor) {
+    func colorForHighlighted(_ color : UIColor) {
         self.setTitleColor(color, for: .highlighted)
     }
     
     //  Set image behind the text in button
-    public func setImageBehindTextWithCenterAlignment(_ imageWidth : CGFloat, buttonWidth : CGFloat, space : CGFloat) {
+    func setImageBehindTextWithCenterAlignment(_ imageWidth : CGFloat, buttonWidth : CGFloat, space : CGFloat) {
         let titleLabelWidth:CGFloat = 50.0
         let buttonMiddlePoint = buttonWidth/2
         let fullLenght = titleLabelWidth + space + imageWidth
@@ -107,30 +107,30 @@ public extension UIButton {
         let imageInset = buttonMiddlePoint + fullLenght/2 - imageWidth + space
         let buttonInset = buttonMiddlePoint - fullLenght/2 - imageWidth
         
-        self.imageEdgeInsets = UIEdgeInsetsMake(0, imageInset, 0, 0)
-        self.titleEdgeInsets = UIEdgeInsetsMake(0, buttonInset, 0, 0)
+        self.imageEdgeInsets = UIEdgeInsets(top: 0, left: imageInset, bottom: 0, right: 0)
+        self.titleEdgeInsets = UIEdgeInsets(top: 0, left: buttonInset, bottom: 0, right: 0)
     }
     
     //  Set image behind text in left alignment
-    public func setImageBehindTextWithLeftAlignment(_ imageWidth : CGFloat, buttonWidth : CGFloat) {
+    func setImageBehindTextWithLeftAlignment(_ imageWidth : CGFloat, buttonWidth : CGFloat) {
         let titleLabelWidth:CGFloat = 40.0
         let fullLenght = titleLabelWidth + 5 + imageWidth
         
         let imageInset = fullLenght - imageWidth + 5
         let buttonInset = CGFloat(-10.0)
         
-        self.imageEdgeInsets = UIEdgeInsetsMake(0, imageInset, 0, 0)
-        self.titleEdgeInsets = UIEdgeInsetsMake(0, buttonInset, 0, 0)
+        self.imageEdgeInsets = UIEdgeInsets(top: 0, left: imageInset, bottom: 0, right: 0)
+        self.titleEdgeInsets = UIEdgeInsets(top: 0, left: buttonInset, bottom: 0, right: 0)
     }
     
     //  Set image behind text in right alignment
-    public func setImageOnRightAndTitleOnLeft(_ imageWidth : CGFloat, buttonWidth : CGFloat)  {
+    func setImageOnRightAndTitleOnLeft(_ imageWidth : CGFloat, buttonWidth : CGFloat)  {
         let imageInset = CGFloat(buttonWidth - imageWidth - 10)
         
         let buttonInset = CGFloat(-10.0)
         
-        self.imageEdgeInsets = UIEdgeInsetsMake(0, imageInset, 0, 0)
-        self.titleEdgeInsets = UIEdgeInsetsMake(0, buttonInset, 0, 0)
+        self.imageEdgeInsets = UIEdgeInsets(top: 0, left: imageInset, bottom: 0, right: 0)
+        self.titleEdgeInsets = UIEdgeInsets(top: 0, left: buttonInset, bottom: 0, right: 0)
     }
 }
 
@@ -144,7 +144,7 @@ public extension UIButton {
     ///   - titlePosition: UIViewContentModeTop, UIViewContentModeBottom, UIViewContentModeLeft or UIViewContentModeRight
     ///   - additionalSpacing: Spacing between image and title
     ///   - state: State to apply this behaviour
-    @objc public func set(image: UIImage?, title: String, titlePosition: UIViewContentMode, additionalSpacing: CGFloat, state: UIControlState){
+    @objc func set(image: UIImage?, title: String, titlePosition: UIView.ContentMode, additionalSpacing: CGFloat, state: UIControl.State){
         imageView?.contentMode = .center
         setImage(image, for: state)
         
@@ -163,7 +163,7 @@ public extension UIButton {
     ///   - titlePosition: UIViewContentModeTop, UIViewContentModeBottom, UIViewContentModeLeft or UIViewContentModeRight
     ///   - additionalSpacing: Spacing between image and title
     ///   - state: State to apply this behaviour
-    @objc public func set(image: UIImage?, attributedTitle title: NSAttributedString, at position: UIViewContentMode, width spacing: CGFloat, state: UIControlState){
+    @objc func set(image: UIImage?, attributedTitle title: NSAttributedString, at position: UIView.ContentMode, width spacing: CGFloat, state: UIControl.State){
         imageView?.contentMode = .center
         setImage(image, for: state)
         
@@ -176,34 +176,34 @@ public extension UIButton {
     
     // MARK: Private Methods
     
-    private func adjust(title: NSAttributedString, at position: UIViewContentMode, with spacing: CGFloat) {
+    private func adjust(title: NSAttributedString, at position: UIView.ContentMode, with spacing: CGFloat) {
         let imageRect: CGRect = self.imageRect(forContentRect: frame)
         let titleSize = title.size()
         
         arrange(titleSize: titleSize, imageRect: imageRect, atPosition: position, withSpacing: spacing)
     }
     
-    private func adjust(title: NSString, at position: UIViewContentMode, with spacing: CGFloat) {
+    private func adjust(title: NSString, at position: UIView.ContentMode, with spacing: CGFloat) {
         let imageRect: CGRect = self.imageRect(forContentRect: frame)
         
         // Use predefined font, otherwise use the default
         let titleFont: UIFont = titleLabel?.font ?? UIFont()
-        let titleSize: CGSize = title.size(withAttributes: [NSAttributedStringKey.font: titleFont])
+        let titleSize: CGSize = title.size(withAttributes: [NSAttributedString.Key.font: titleFont])
         
         arrange(titleSize: titleSize, imageRect: imageRect, atPosition: position, withSpacing: spacing)
     }
     
-    private func positionLabelRespectToImage(title: String, position: UIViewContentMode, spacing: CGFloat) {
+    private func positionLabelRespectToImage(title: String, position: UIView.ContentMode, spacing: CGFloat) {
         let imageRect: CGRect = self.imageRect(forContentRect: frame)
         
         // Use predefined font, otherwise use the default
         let titleFont: UIFont = titleLabel?.font ?? UIFont()
-        let titleSize: CGSize = title.size(withAttributes: [NSAttributedStringKey.font: titleFont])
+        let titleSize: CGSize = title.size(withAttributes: [NSAttributedString.Key.font: titleFont])
         
         arrange(titleSize: titleSize, imageRect: imageRect, atPosition: position, withSpacing: spacing)
     }
     
-    private func arrange(titleSize: CGSize, imageRect:CGRect, atPosition position: UIViewContentMode, withSpacing spacing: CGFloat) {
+    private func arrange(titleSize: CGSize, imageRect:CGRect, atPosition position: UIView.ContentMode, withSpacing spacing: CGFloat) {
         var titleInsets: UIEdgeInsets
         var imageInsets: UIEdgeInsets
         

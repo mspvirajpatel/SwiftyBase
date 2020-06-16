@@ -40,7 +40,7 @@ open class BaseRadioButton: NSObject
     public init(buttons: BaseButton...) {
         super.init()
         for aButton in buttons {
-            aButton.addTarget(self, action: #selector(BaseRadioButton.pressed(_:)), for: UIControlEvents.touchUpInside)
+            aButton.addTarget(self, action: #selector(BaseRadioButton.pressed(_:)), for: UIControl.Event.touchUpInside)
         }
         self.buttonsArray = buttons
     }
@@ -51,7 +51,7 @@ open class BaseRadioButton: NSObject
      */
     open func addButton(_ aButton: BaseButton) {
         buttonsArray.append(aButton)
-        aButton.addTarget(self, action: #selector(BaseRadioButton.pressed(_:)), for: UIControlEvents.touchUpInside)
+        aButton.addTarget(self, action: #selector(BaseRadioButton.pressed(_:)), for: UIControl.Event.touchUpInside)
     }
 
     /**
@@ -72,7 +72,7 @@ open class BaseRadioButton: NSObject
 
         if(iteratingButton != nil) {
             buttonsArray.remove(at: iteration)
-            iteratingButton!.removeTarget(self, action: #selector(BaseRadioButton.pressed(_:)), for: UIControlEvents.touchUpInside)
+            iteratingButton!.removeTarget(self, action: #selector(BaseRadioButton.pressed(_:)), for: UIControl.Event.touchUpInside)
             if currentSelectedButton == iteratingButton {
                 currentSelectedButton = nil
             }
@@ -85,7 +85,7 @@ open class BaseRadioButton: NSObject
      */
     func setButtonsArray(_ aButtonsArray: [BaseButton]) {
         for aButton in aButtonsArray {
-            aButton.addTarget(self, action: #selector(BaseRadioButton.pressed(_:)), for: UIControlEvents.touchUpInside)
+            aButton.addTarget(self, action: #selector(BaseRadioButton.pressed(_:)), for: UIControl.Event.touchUpInside)
         }
         buttonsArray = aButtonsArray
     }

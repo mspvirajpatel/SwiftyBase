@@ -66,7 +66,7 @@ class APIDemoView: BaseView,UITableViewDataSource, UITableViewDelegate {
         listTableView.tableHeaderView = UIView(frame: CGRect.zero)
         listTableView.tableFooterView = UIView(frame: CGRect.zero)
         
-        listTableView.rowHeight = UITableViewAutomaticDimension
+        listTableView.rowHeight = UITableView.automaticDimension
         self.addSubview(listTableView)
         
         listTableView.delegate = self
@@ -87,7 +87,7 @@ class APIDemoView: BaseView,UITableViewDataSource, UITableViewDelegate {
                               "controlLeftRightPadding" : controlLeftRightPadding
         ]
         
-        baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|[listTableView]|", options:NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: baseLayout.viewDictionary)
+        baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|[listTableView]|", options:NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: baseLayout.viewDictionary)
         
         baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|[listTableView]|", options:[.alignAllLeading , .alignAllTrailing], metrics: nil, views: baseLayout.viewDictionary)
         
@@ -178,7 +178,7 @@ class APIDemoView: BaseView,UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
         
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
         
     }
     

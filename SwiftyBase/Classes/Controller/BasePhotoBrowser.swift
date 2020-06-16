@@ -529,10 +529,8 @@ class PhotoViewCell: UICollectionViewCell {
         return screenSize.width >= screenSize.height
     }
 
-    fileprivate var downloadTask: RetrieveImageTask?
-
-    fileprivate(set) lazy var imageView: AnimatedImageView = { [unowned self] in
-        let imageView = AnimatedImageView()
+    fileprivate(set) lazy var imageView: UIImageView = { [unowned self] in
+        let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.isUserInteractionEnabled = true
         imageView.backgroundColor = UIColor.black
@@ -571,8 +569,7 @@ class PhotoViewCell: UICollectionViewCell {
     }
 
     deinit {
-        downloadTask?.cancel()
-        downloadTask = nil
+        ImageCacheManager.shared.session.finishTasksAndInvalidate()
         print("\(self.debugDescription) ---")
     }
 
@@ -662,7 +659,7 @@ extension PhotoViewCell {
         }
 
         guard let urlString = photo.imageUrlString, let url = URL(string: urlString) else {
-            assert(false, "设置的url不合法")
+            assert(false, "")
             return
         }
 
@@ -673,35 +670,13 @@ extension PhotoViewCell {
         }
 
         image = image ?? UIImage(named: "2")
-        downloadTask = imageView.kf.setImage(with: url, placeholder: image, options: nil, progressBlock: { [weak self] (receivedSize, totalSize) in
-            _ = Double(receivedSize) / Double(totalSize)
-
-            if self != nil {
-
-//                sSelf.hud?.progress = progress
-            }
-        }, completionHandler: { [weak self] (image, error, cacheType, imageURL) in
-
-            let strongSelf = self
-            guard let `self` = strongSelf else { return }
-
-
-            self.image = image
+        imageView.loadImage(urlString: urlString, placeholder: image) {
+            (success, error) in
             BaseProgressHUD.shared.hide()
-
-            if let _ = image {
-
-                return
-            }
-
-        })
-
-
-
-
-
-
-
+            
+            // 'success' is a 'Bool' indicating success or failure.
+            // 'error' is an 'Error?' containing the error (if any) when 'success' is 'false'.
+        }
     }
 
     fileprivate func setupImageViewFrame() {
@@ -782,9 +757,9 @@ class PhotoToolBar: UIView {
     fileprivate lazy var saveBtn: UIButton = {
 
         let saveBtn = UIButton()
-        saveBtn.setTitleColor(UIColor.white, for: UIControlState())
+        saveBtn.setTitleColor(UIColor.white, for: UIControl.State())
         saveBtn.backgroundColor = UIColor.clear
-        saveBtn.setImage(UIImage(named: "feed_video_icon_download_white"), for: UIControlState())
+        saveBtn.setImage(UIImage(named: "feed_video_icon_download_white"), for: UIControl.State())
         saveBtn.addTarget(self, action: #selector(self.saveBtnOnClick(_:)), for: .touchUpInside)
 
         //        saveBtn.hidden = self.toolBarStyle.showSaveBtn
@@ -793,9 +768,9 @@ class PhotoToolBar: UIView {
 
     fileprivate lazy var extraBtn: UIButton = {
         let extraBtn = UIButton()
-        extraBtn.setTitleColor(UIColor.white, for: UIControlState())
+        extraBtn.setTitleColor(UIColor.white, for: UIControl.State())
         extraBtn.backgroundColor = UIColor.clear
-        extraBtn.setImage(UIImage(named: "more"), for: UIControlState())
+        extraBtn.setImage(UIImage(named: "more"), for: UIControl.State())
         extraBtn.addTarget(self, action: #selector(self.extraBtnOnClick(_:)), for: .touchUpInside)
         //        extraBtn.hidden = self.toolBarStyle.showExtraBtn
 

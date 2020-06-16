@@ -35,7 +35,7 @@ open class UITableViewVibrantCell: UITableViewCell {
         // shouldn't be needed but backgroundColor is set to white on iPad:
         backgroundColor = UIColor.clear
 
-        if !UIAccessibilityIsReduceTransparencyEnabled() && SideMenuManager.menuBlurEffectStyle != nil {
+        if !UIAccessibility.isReduceTransparencyEnabled && SideMenuManager.menuBlurEffectStyle != nil {
             let blurEffect = UIBlurEffect(style: SideMenuManager.menuBlurEffectStyle!)
             vibrancyView.effect = UIVibrancyEffect(blurEffect: blurEffect)
 

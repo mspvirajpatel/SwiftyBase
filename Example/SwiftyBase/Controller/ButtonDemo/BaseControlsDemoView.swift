@@ -102,7 +102,7 @@ class BaseControlsDemoView: BaseView,BaseRadioButtonDelegate,PGTransactionDelega
         
         btnPrimary = BaseButton.init(ibuttonType: .primary, iSuperView: containerView)
         btnPrimary.layer.setValue("btnPrimary", forKey: ControlConstant.name)
-        btnPrimary.setTitle("Login", for: UIControlState())
+        btnPrimary.setTitle("Login", for: UIControl.State())
         btnPrimary.setButtonTouchUpInsideEvent { (sender, object) in
            
             //Create Custome Body Paramenters
@@ -122,7 +122,7 @@ class BaseControlsDemoView: BaseView,BaseRadioButtonDelegate,PGTransactionDelega
         
         btnSecondary = BaseButton.init(ibuttonType: .secondary, iSuperView: containerView)
         btnSecondary.layer.setValue("btnSecondary", forKey: ControlConstant.name)
-        btnSecondary.setTitle("SignUp", for: UIControlState())
+        btnSecondary.setTitle("SignUp", for: UIControl.State())
         btnSecondary.setButtonTouchUpInsideEvent { (sender, object) in
             BasePopOverMenu.showForSender(sender: (sender as!    UIButton),
                                               with: ["Facebook","Google","Outlook"],
@@ -146,7 +146,7 @@ class BaseControlsDemoView: BaseView,BaseRadioButtonDelegate,PGTransactionDelega
         
         btnPaytmBuy = BaseButton.init(ibuttonType: .secondary, iSuperView: containerView)
         btnPaytmBuy.layer.setValue("btnPaytmBuy", forKey: ControlConstant.name)
-        btnPaytmBuy.setTitle("Paytm Buy Demo", for: UIControlState())
+        btnPaytmBuy.setTitle("Paytm Buy Demo", for: UIControl.State())
         btnPaytmBuy.setButtonTouchUpInsideEvent { (sender, object) in
             
             
@@ -195,7 +195,7 @@ class BaseControlsDemoView: BaseView,BaseRadioButtonDelegate,PGTransactionDelega
         self.addSubview(roundMenuButton)
         roundMenuButton.badge(text: nil)
 
-        roundMenuButton.setTitle("@", for: UIControlState())
+        roundMenuButton.setTitle("@", for: UIControl.State())
         roundMenuButton.buttonActionDidSelected = { (indexSelected) in
             
             switch indexSelected {
@@ -237,13 +237,13 @@ class BaseControlsDemoView: BaseView,BaseRadioButtonDelegate,PGTransactionDelega
         }
         
         male = BaseButton(ibuttonType:.radio,iSuperView: containerView)
-        male.setTitle("Male", for: UIControlState())
+        male.setTitle("Male", for: UIControl.State())
         male.tag = 1
         male.layer.setValue("male", forKey: ControlConstant.name)
         radioButtonController?.addButton(male)
         
         female = BaseButton(ibuttonType:.radio,iSuperView: containerView)
-        female.setTitle("Female", for: UIControlState())
+        female.setTitle("Female", for: UIControl.State())
         female.tag = 2
         female.layer.setValue("female", forKey: ControlConstant.name)
         radioButtonController?.addButton(female)
@@ -293,7 +293,7 @@ class BaseControlsDemoView: BaseView,BaseRadioButtonDelegate,PGTransactionDelega
                               "widthTextField" : widthTextField
         ]
         
-        baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|-20@1000-[baseEmailTextField(widthTextField)]-20@1000-|", options:NSLayoutFormatOptions(rawValue: 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
+        baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|-20@1000-[baseEmailTextField(widthTextField)]-20@1000-|", options:NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
         
         baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|-20-[baseEmailTextField]-controlTopBottomPadding-[baseTextField]-controlTopBottomPadding-[baseTextView(120)]-controlTopBottomPadding-[btnPrimary]-controlTopBottomPadding-[btnSecondary]-controlTopBottomPadding-[btnPaytmBuy]-controlTopBottomPadding-[baseSegment]-controlTopBottomPadding-[male][female]-60-[editField(40)]-|", options:[.alignAllLeading , .alignAllTrailing], metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
         

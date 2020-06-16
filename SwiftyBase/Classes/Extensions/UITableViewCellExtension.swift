@@ -24,7 +24,7 @@ extension UITableViewCell {
         
         positionAnimation.path = path.cgPath
         positionAnimation.duration = duration
-        positionAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+        positionAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
         
         CATransaction.begin()
         self.layer.add(positionAnimation, forKey: nil)
