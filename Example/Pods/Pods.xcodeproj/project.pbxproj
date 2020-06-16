@@ -460,38 +460,14 @@
 		828C475524978A9900534715 /* SwiftImageLoader */ = {
 			isa = PBXGroup;
 			children = (
-				828C475624978A9900534715 /* Managers */,
-				828C475824978A9900534715 /* Miscellaneous */,
-				828C475A24978A9900534715 /* Extensions */,
-			);
-			path = SwiftImageLoader;
-			sourceTree = "<group>";
-		};
-		828C475624978A9900534715 /* Managers */ = {
-			isa = PBXGroup;
-			children = (
 				828C475724978A9900534715 /* ImageCacheManager.swift */,
-			);
-			path = Managers;
-			sourceTree = "<group>";
-		};
-		828C475824978A9900534715 /* Miscellaneous */ = {
-			isa = PBXGroup;
-			children = (
 				828C475924978A9900534715 /* Utilities.swift */,
-			);
-			path = Miscellaneous;
-			sourceTree = "<group>";
-		};
-		828C475A24978A9900534715 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
 				828C475B24978A9900534715 /* MKAnnotationViewExtensions.swift */,
 				828C475C24978A9900534715 /* WKInterfaceImageExtensions.swift */,
 				828C475D24978A9900534715 /* UIButtonExtensions.swift */,
 				828C475E24978A9900534715 /* UIImageViewExtensions.swift */,
 			);
-			path = Extensions;
+			path = SwiftImageLoader;
 			sourceTree = "<group>";
 		};
 		918677D7B76E211928BBCC289D9E0EFA /* Targets Support Files */ = {
