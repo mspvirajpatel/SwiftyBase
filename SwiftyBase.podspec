@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SwiftyBase'
-  s.version          = '1.2.32'
+  s.version          = '1.2.28'
   s.summary          = 'Base Project For iOS in Swift 5.0'
 
 # This description is used to generate tags and improve search results.
@@ -28,9 +28,10 @@ Base Project Create for iOS. Into Base Project BaseController, BaseView, BaseNav
   s.source           = { :git => 'https://github.com/mspvirajpatel/SwiftyBase.git', :tag => s.version }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-Pod::Spec.new do |s|
-  s.name             = 'SwiftyBase'
-  s.version          = '1.2.32'
+  s.ios.deployment_target = '9.0'
+
+  s.source_files = 'SwiftyBase/Classes/**/*'
+#  s.swift_version = '5.0'
   
   # s.resource_bundles = {
   #   'SwiftyBase' => ['SwiftyBase/Assets/*.png']
