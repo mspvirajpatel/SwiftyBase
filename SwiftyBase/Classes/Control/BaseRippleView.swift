@@ -94,7 +94,7 @@ open class BaseRippleView: UIView {
 
     open override func didMoveToSuperview() {
         fillSuperview()
-        superview?.sendSubview(toBack: self)
+        superview?.sendSubviewToBack(self)
     }
 
     // MARK: - Standard Methods
@@ -134,7 +134,7 @@ open class BaseRippleView: UIView {
     }
 
     open func animateToNormal() {
-        UIView.animate(withDuration: 0.1, delay: 0, options: UIViewAnimationOptions.allowUserInteraction, animations: {
+        UIView.animate(withDuration: 0.1, delay: 0, options: UIView.AnimationOptions.allowUserInteraction, animations: {
             self.rippleBackgroundView.alpha = 1
         }, completion: { _ in
             UIView.animate(withDuration: self.touchUpAnimationTime, delay: 0, options: .allowUserInteraction, animations: {

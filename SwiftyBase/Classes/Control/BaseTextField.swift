@@ -139,8 +139,8 @@ open class BaseTextField: UITextField, UITextFieldDelegate {
         if(self.placeholder!.responds(to: #selector(NSString.draw(at: withAttributes:))))
         {
 
-            var attributes: [NSAttributedStringKey: Any]! = [NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue): AppColor.textFieldPlaceholder.withAlpha(0.45),
-                NSAttributedStringKey.font: self.font!]
+            var attributes: [NSAttributedString.Key: Any]! = [NSAttributedString.Key(rawValue: NSAttributedString.Key.foregroundColor.rawValue): AppColor.textFieldPlaceholder.withAlpha(0.45),
+                                                              NSAttributedString.Key.font: self.font!]
 
             var boundingRect: CGRect! = self.placeholder!.boundingRect(with: rect.size, options: NSStringDrawingOptions(rawValue: 0), attributes: attributes, context: nil)
 
@@ -302,7 +302,7 @@ open class BaseTextField: UITextField, UITextFieldDelegate {
 
         baseLayout.metrics = ["textFieldHeight": textFieldHeight, "textFieldWidth": textFieldWidth]
 
-        baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:[textField(textFieldHeight)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
+        baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:[textField(textFieldHeight)]", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
 
         self.addConstraints(baseLayout.control_V)
 
@@ -310,14 +310,14 @@ open class BaseTextField: UITextField, UITextFieldDelegate {
         {
         case .showPassword:
 
-            btnShowPassword = UIButton(type: UIButtonType.custom)
+            btnShowPassword = UIButton(type: UIButton.ButtonType.custom)
             btnShowPassword.translatesAutoresizingMaskIntoConstraints = false
             btnShowPassword.backgroundColor = self.backgroundColor
             if _showImage != nil {
-                btnShowPassword .setImage(_showImage, for: UIControlState.normal)
+                btnShowPassword .setImage(_showImage, for: UIControl.State.normal)
             }
             if _hideImage != nil {
-                btnShowPassword .setImage(_hideImage, for: UIControlState.selected)
+                btnShowPassword .setImage(_hideImage, for: UIControl.State.selected)
             }
 
             btnShowPassword .addTarget(self, action: #selector(self.btnShowPassword(sender:)), for: .touchUpInside)
@@ -326,7 +326,7 @@ open class BaseTextField: UITextField, UITextFieldDelegate {
 
             baseLayout.viewDictionary = ["btnShowPassword": btnShowPassword]
             baseLayout.metrics = ["buttonHeight": textFieldHeight]
-            baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|[btnShowPassword]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
+            baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|[btnShowPassword]|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
             baseLayout.position_Right = NSLayoutConstraint(item: btnShowPassword, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1.0, constant: -5.0)
             baseLayout.size_Width = NSLayoutConstraint(item: btnShowPassword, attribute: .width, relatedBy: .equal, toItem: btnShowPassword, attribute: .height, multiplier: 1.0, constant: 0.0)
 
@@ -337,7 +337,7 @@ open class BaseTextField: UITextField, UITextFieldDelegate {
 
         case .withoutClear:
 
-            baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:[textField(textFieldWidth)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
+            baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:[textField(textFieldWidth)]", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: baseLayout.metrics, views: baseLayout.viewDictionary)
             self.addConstraints(baseLayout.control_H)
             break
 
@@ -483,11 +483,11 @@ open class BaseTextField: UITextField, UITextFieldDelegate {
                     return
                 }
 
-                var subViewArray: Array! = (self!.superview?.subviews)!
+                let subViewArray: Array! = (self!.superview?.subviews)!
                 let subViewArrayCount: Int = subViewArray.count
 
                 var isNextTextControlAvailable: Bool = false
-                let currentTextFieldIndex: Int = subViewArray.index(of: self!)!
+                let currentTextFieldIndex: Int = subViewArray.firstIndex(of: self!)!
 
                 var textField: UITextField?
                 var textView: UITextView?

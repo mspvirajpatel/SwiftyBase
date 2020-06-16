@@ -51,7 +51,7 @@ open class BaseDrawerMenuItem: UIBarButtonItem {
                 layer.strokeColor = strokeColor.cgColor
                 layer.lineWidth = 1
                 layer.miterLimit = 2
-                layer.lineCap = kCALineCapSquare
+                layer.lineCap = CAShapeLayerLineCap.square
                 layer.masksToBounds = true
 
                 if let path = layer.path, let strokingPath = CGPath(__byStroking: path, transform: nil, lineWidth: 1, lineCap: .square, lineJoin: .miter, miterLimit: 4) {
@@ -118,7 +118,7 @@ open class BaseDrawerMenuItem: UIBarButtonItem {
 
     public convenience init(target: AnyObject?, action: Selector, menuIconColor: UIColor, animatable: Bool) {
         let menuButton = AnimatedMenuButton(frame: CGRect(x: 0, y: 0, width: 26, height: 26), strokeColor: menuIconColor)
-        menuButton.addTarget(target, action: action, for: UIControlEvents.touchUpInside)
+        menuButton.addTarget(target, action: action, for: UIControl.Event.touchUpInside)
         self.init(customView: menuButton)
 
         self.menuButton = menuButton

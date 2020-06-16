@@ -19,7 +19,7 @@ public extension NSArray {
      
      - returns: Returns the object at a given index in safe mode (nil if self is empty or out of range)
      */
-    public func safeObjectAtIndex(index: Int) -> AnyObject? {
+    func safeObjectAtIndex(index: Int) -> AnyObject? {
         if self.count > 0 && self.count > index {
             return self[index] as AnyObject?
         } else {
@@ -32,7 +32,7 @@ public extension NSArray {
      
      - returns: Returns the reversed array
      */
-    public func reversedArray() -> NSArray {
+    func reversedArray() -> NSArray {
         return NSArray.reversedArray(array: self)
     }
     
@@ -41,7 +41,7 @@ public extension NSArray {
      
      - returns: Returns the JSON as String or nil if error while parsing
      */
-    public func arrayToJSON() throws -> NSString {
+    func arrayToJSON() throws -> NSString {
         return try NSArray.arrayToJSON(array: self)
     }
     
@@ -52,7 +52,7 @@ public extension NSArray {
      
      - returns: Returns the object at a given index
      */
-    public func objectAtCircleIndex(index: Int) -> AnyObject {
+    func objectAtCircleIndex(index: Int) -> AnyObject {
         return self[self.superCircle(index: index, size: self.count)] as AnyObject
     }
     
@@ -86,7 +86,7 @@ public extension NSArray {
      
      - returns: Returns the reversed array
      */
-    public static func reversedArray(array: NSArray) -> NSArray {
+    static func reversedArray(array: NSArray) -> NSArray {
         let arrayTemp: NSMutableArray = NSMutableArray.init(capacity: array.count)
         let enumerator: NSEnumerator = array.reverseObjectEnumerator()
         
@@ -104,7 +104,7 @@ public extension NSArray {
      
      - returns: Returns the JSON as String or nil if error while parsing
      */
-    public static func arrayToJSON(array: AnyObject) throws -> NSString {
+    static func arrayToJSON(array: AnyObject) throws -> NSString {
         let data = try JSONSerialization.data(withJSONObject: array, options: JSONSerialization.WritingOptions())
         return NSString(data: data, encoding: String.Encoding.utf8.rawValue)!
     }
@@ -112,7 +112,7 @@ public extension NSArray {
     
     //Json String
     
-    public func JSONString() -> NSString{
+    func JSONString() -> NSString{
         var jsonString : NSString = ""
         
         do
@@ -130,13 +130,13 @@ public extension NSArray {
     
     
     //  Make Comma separated String from array
-    public var toCommaString: String! {
+    var toCommaString: String! {
         return self.componentsJoined(by: ",")
     }
     
     
     //  Chack Array contain specific object
-    public func containsObject<T:AnyObject>(_ item:T) -> Bool
+    func containsObject<T:AnyObject>(_ item:T) -> Bool
     {
         for element in self
         {
@@ -149,7 +149,7 @@ public extension NSArray {
     }
     
     //  Get Index of specific object
-    public func indexOfObject<T : Equatable>(_ x:T) -> Int? {
+    func indexOfObject<T : Equatable>(_ x:T) -> Int? {
         for i in 0...self.count {
             if self[i] as! T == x {
                 return i
@@ -159,7 +159,7 @@ public extension NSArray {
     }
     
     //  Gets the object at the specified index, if it exists.
-    public func get(_ index: Int) -> Element? {
+    func get(_ index: Int) -> Element? {
         return index >= 0 && index < count ? self[index] : nil
     }
     

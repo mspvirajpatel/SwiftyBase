@@ -73,7 +73,7 @@ class PhotoCollectionCell: UICollectionViewCell {
         
         feedImageView = BaseImageView.init(type: BaseImageViewType.defaultImg, superView: self.contentView)
         //feedImageView.setupForImageViewer()
-        feedImageView.contentMode = UIViewContentMode.scaleAspectFill
+        feedImageView.contentMode = UIView.ContentMode.scaleAspectFill
         
         feedImageView.setBorder(UIColor.red, width: 1.0, radius: 7.0)
     }

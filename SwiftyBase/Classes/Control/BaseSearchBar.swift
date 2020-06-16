@@ -119,31 +119,31 @@ open class BaseSearchBar: UIView, UITextFieldDelegate, UIGestureRecognizerDelega
      *  The borderedframe of the search bar. Visible only when search mode is active.
      */
 
-    open let searchFrame: UIView
+    public let searchFrame: UIView
 
     /**
      *  The text field used for entering search queries. Visible only when search is active.
      */
 
-    open let searchField: UITextField
+    public let searchField: UITextField
 
     /**
      *  The image view containing the search magnifying glass icon in white. Visible when search is not active.
      */
 
-    open let searchImageViewOff: UIImageView
+    public let searchImageViewOff: UIImageView
 
     /**
      *  The image view containing the search magnifying glass icon in blue. Visible when search is active.
      */
 
-    open let searchImageViewOn: UIImageView
+    public let searchImageViewOn: UIImageView
 
     /**
      *  The image view containing the circle part of the magnifying glass icon in blue.
      */
 
-    open let searchImageCircle: UIImageView
+    public let searchImageCircle: UIImageView
 
     /**
      *  The image view containing the left cross part of the magnifying glass icon in blue.
@@ -226,12 +226,12 @@ open class BaseSearchBar: UIView, UITextFieldDelegate, UIGestureRecognizerDelega
         self.searchFrame.layer.cornerRadius = self.bounds.height / 2
         self.searchFrame.layer.borderWidth = 1.0
         self.searchFrame.layer.borderColor = UIColor.clear.cgColor
-        self.searchFrame.contentMode = UIViewContentMode.redraw
+        self.searchFrame.contentMode = UIView.ContentMode.redraw
 
         self.addSubview(self.searchFrame)
 
         self.searchField.frame = CGRect(x: kBaseSearchBarInset, y: 3.0, width: self.bounds.width - (2 * kBaseSearchBarInset) - kBaseSearchBarImageSize, height: self.bounds.height - 6.0)
-        self.searchField.borderStyle = UITextBorderStyle.none
+        self.searchField.borderStyle = UITextField.BorderStyle.none
         self.searchField.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.searchField.font = UIFont(name: "AvenirNext-Regular", size: 16.0)
         self.searchField.textColor = self.searchOnColor
@@ -291,9 +291,9 @@ open class BaseSearchBar: UIView, UITextFieldDelegate, UIGestureRecognizerDelega
         self.keyboardDismissGestureRecognizer.cancelsTouchesInView = false
         self.keyboardDismissGestureRecognizer.delegate = self
 
-        NotificationCenter.default.addObserver(self, selector: #selector(BaseSearchBar.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(BaseSearchBar.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(UITextInputDelegate.textDidChange(_:)), name: NSNotification.Name.UITextFieldTextDidChange, object: self.searchField)
+        NotificationCenter.default.addObserver(self, selector: #selector(BaseSearchBar.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(BaseSearchBar.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(UITextInputDelegate.textDidChange(_:)), name: UITextField.textDidChangeNotification, object: self.searchField)
     }
 
     required public init(coder aDecoder: NSCoder) {
@@ -302,9 +302,9 @@ open class BaseSearchBar: UIView, UITextFieldDelegate, UIGestureRecognizerDelega
 
     deinit
     {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UITextFieldTextDidChange, object: self.searchField)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UITextField.textDidChangeNotification, object: self.searchField)
     }
 
     // MARK: animation

@@ -66,8 +66,8 @@ class TabBarController: UITabBarController {
         var font: UIFont? = Font(.installed(.AppleMedium), size: SystemConstants.IS_IPAD ? .standard(.h2) : .standard(.h3)).instance
 
         let appearance = UITabBarItem.appearance()
-        appearance.setTitleTextAttributes([NSAttributedStringKey.font: font!], for: .normal)
-        appearance.setTitleTextAttributes([NSAttributedStringKey.font: font!], for: .selected)
+        appearance.setTitleTextAttributes([NSAttributedString.Key.font: font!], for: .normal)
+        appearance.setTitleTextAttributes([NSAttributedString.Key.font: font!], for: .selected)
 
 //        for arrayControllers in arrayControllers {
 //
@@ -85,7 +85,7 @@ class TabBarController: UITabBarController {
         self.viewControllers = arrayControllers
 
 
-        defer {
+        do {
             font = nil
         }
     }

@@ -21,8 +21,7 @@ class LeftMenuCell : UITableViewCell {
     
     
     // MARK: - Lifecycle -
-    
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         self.loadViewControls()
@@ -111,10 +110,10 @@ class LeftMenuCell : UITableViewCell {
         let KleftcellTopbotoompading : CGFloat = 30
         let kleftcellleftrightpadding : CGFloat = 15
         
-        baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[innerView]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics:nil, views: baseLayout.viewDictionary)
+        baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[innerView]-0-|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics:nil, views: baseLayout.viewDictionary)
         self.contentView.addConstraints(baseLayout.control_H)
         
-        baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[innerView]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics:nil, views: baseLayout.viewDictionary)
+        baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[innerView]-0-|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics:nil, views: baseLayout.viewDictionary)
         self.contentView.addConstraints(baseLayout.control_V)
         
         

@@ -26,7 +26,7 @@ public enum dateformat: String {
 open class BaseDatePicker: UIViewController {
 
     public var buttonColor: UIColor = UIColor.blue
-    public var pickerMode: UIDatePickerMode = .dateAndTime
+    public var pickerMode: UIDatePicker.Mode = .dateAndTime
     public var minimumDate: Date? = nil
     public var maximumDate: Date? = nil
     public var date_format: dateformat = .yyyy_To_ss

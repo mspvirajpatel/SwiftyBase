@@ -150,12 +150,12 @@ open class BaseSilder: UISlider {
 
     @objc internal func setThumbForSliderValue(_ value: Float) {
         if let selectionImage = thumbForSliderValue(value) {
-            let image: UIImage = selectionImage.resizableImage(withCapInsets: UIEdgeInsets.init(top: -30, left: -30, bottom: -30, right: -30), resizingMode: UIImageResizingMode.stretch)
+            let image: UIImage = selectionImage.resizableImage(withCapInsets: UIEdgeInsets.init(top: -30, left: -30, bottom: -30, right: -30), resizingMode: UIImage.ResizingMode.stretch)
             let newImage: UIImage = image.scaleToSize(newSize: CGSize.init(width: 30, height: 30))
 
-            self.setThumbImage(newImage, for: UIControlState())
-            self.setThumbImage(newImage, for: UIControlState.selected)
-            self.setThumbImage(newImage, for: UIControlState.highlighted)
+            self.setThumbImage(newImage, for: UIControl.State())
+            self.setThumbImage(newImage, for: UIControl.State.selected)
+            self.setThumbImage(newImage, for: UIControl.State.highlighted)
         }
     }
 
@@ -311,8 +311,8 @@ open class BaseSilder: UISlider {
             UIGraphicsBeginImageContextWithOptions(CGSize(width: 1, height: 1), false, 0.0)
             let transparentImage = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
-            setMaximumTrackImage(transparentImage, for: UIControlState())
-            setMinimumTrackImage(transparentImage, for: UIControlState())
+            setMaximumTrackImage(transparentImage, for: UIControl.State())
+            setMinimumTrackImage(transparentImage, for: UIControl.State())
 
             // Draw custom track
             ctx?.setFillColor(trackColor.cgColor)

@@ -50,8 +50,8 @@ public class BasePopConfiguration: NSObject {
     public var textAlignment: NSTextAlignment = NSTextAlignment.left
     public var ignoreImageOriginalColor: Bool = false
     public var menuSeparatorColor: UIColor = UIColor.lightGray
-    public var menuSeparatorInset: UIEdgeInsets = UIEdgeInsetsMake(0, DefaultCellMargin, 0, DefaultCellMargin)
-    public var cellSelectionStyle: UITableViewCellSelectionStyle = .none
+    public var menuSeparatorInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: DefaultCellMargin, bottom: 0, right: DefaultCellMargin)
+    public var cellSelectionStyle: UITableViewCell.SelectionStyle = .none
 
     public static var shared: BasePopConfiguration {
         struct StaticConfig {
@@ -334,7 +334,7 @@ extension BasePopOverMenu {
 
     fileprivate func addOrientationChangeNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(onChangeStatusBarOrientationNotification(notification:)),
-                                               name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation,
+                                               name: UIApplication.didChangeStatusBarOrientationNotification,
                                                object: nil)
 
     }
@@ -380,7 +380,7 @@ private class BasePopOverMenuView: UIControl {
     }()
 
     lazy var menuTableView: UITableView = {
-        let tableView = UITableView.init(frame: CGRect.zero, style: UITableViewStyle.plain)
+        let tableView = UITableView.init(frame: CGRect.zero, style: UITableView.Style.plain)
         tableView.backgroundColor = UIColor.clear
         tableView.delegate = self
         tableView.dataSource = self
@@ -553,7 +553,7 @@ extension BasePopOverMenuView: UITableViewDataSource {
         }
         cell.setupCellWith(menuName: menuNameArray[indexPath.row], menuImage: imageName)
         if (indexPath.row == menuNameArray.count - 1) {
-            cell.separatorInset = UIEdgeInsetsMake(0, self.bounds.size.width, 0, 0)
+            cell.separatorInset = UIEdgeInsets(top: 0, left: self.bounds.size.width, bottom: 0, right: 0)
         } else {
             cell.separatorInset = configuration.menuSeparatorInset
         }
@@ -572,7 +572,7 @@ class BasePopOverMenuCell: UITableViewCell {
     fileprivate lazy var iconImageView: UIImageView = {
         let imageView = UIImageView(frame: CGRect.zero)
         imageView.backgroundColor = UIColor.clear
-        imageView.contentMode = UIViewContentMode.scaleAspectFit
+        imageView.contentMode = UIView.ContentMode.scaleAspectFit
         self.contentView.addSubview(imageView)
         return imageView
     }()
@@ -589,7 +589,7 @@ class BasePopOverMenuCell: UITableViewCell {
         if menuImage != nil {
             if var iconImage: UIImage = menuImage {
                 if configuration.ignoreImageOriginalColor {
-                    iconImage = iconImage.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+                    iconImage = iconImage.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
                 }
                 iconImageView.tintColor = configuration.textColor
                 iconImageView.frame = CGRect(x: DefaultCellMargin, y: (configuration.menuRowHeight - DefaultMenuIconSize) / 2, width: DefaultMenuIconSize, height: DefaultMenuIconSize)

@@ -97,10 +97,10 @@ open class BaseSegment: UIView {
             segementButton.titleLabel?.lineBreakMode = .byWordWrapping
             segementButton.titleLabel?.textAlignment = .center
 
-            segementButton.setTitle(titleString, for: UIControlState())
+            segementButton.setTitle(titleString, for: UIControl.State())
 
             segementButton.titleLabel?.font = kSegmentButtonFont
-            segementButton.setTitleColor(KSegementDeselectedTitleColor, for: UIControlState())
+            segementButton.setTitleColor(KSegementDeselectedTitleColor, for: UIControl.State())
             segementButton.tag = segementButtonTag
             segementButton.addTarget(self, action: #selector(segmentTabbed), for: .touchUpInside)
 
@@ -125,9 +125,9 @@ open class BaseSegment: UIView {
         let viewDictionary = ["BBSegmentView": self]
         let metrics = ["BBSegmentViewHeight": segmentViewHeight]
 
-        control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:[BBSegmentView(>=0)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewDictionary)
+        control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:[BBSegmentView(>=0)]", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: viewDictionary)
 
-        control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:[BBSegmentView(BBSegmentViewHeight)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: viewDictionary)
+        control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:[BBSegmentView(BBSegmentViewHeight)]", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: metrics, views: viewDictionary)
 
         self.addConstraints(control_H!)
         self.addConstraints(control_V!)
@@ -146,7 +146,7 @@ open class BaseSegment: UIView {
                     "prevSegementSubView": prevSegementSubView!]
             }
 
-            segementSubViewConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|[segementSubView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: segementSubViewDictionary!)
+            segementSubViewConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|[segementSubView]|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: metrics, views: segementSubViewDictionary!)
             self.addConstraints(segementSubViewConstraints!)
 
             segementSubViewConstraints = nil
@@ -157,7 +157,7 @@ open class BaseSegment: UIView {
 
                 case 0:
 
-                    segementSubViewConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[segementSubView]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: segementSubViewDictionary!)
+                    segementSubViewConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[segementSubView]", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: segementSubViewDictionary!)
 
                     break
 
@@ -181,7 +181,7 @@ open class BaseSegment: UIView {
 
                 case 0:
 
-                    segementSubViewConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[segementSubView]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: segementSubViewDictionary!)
+                    segementSubViewConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[segementSubView]", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: segementSubViewDictionary!)
 
                     break
 
@@ -219,7 +219,7 @@ open class BaseSegment: UIView {
             for titleString in titleArray {
 
                 let button: UIButton = self.subviews[i] as! UIButton
-                button.setTitle(titleString, for: UIControlState())
+                button.setTitle(titleString, for: UIControl.State())
 
                 i = i + 1
             }
@@ -249,14 +249,14 @@ open class BaseSegment: UIView {
 
                 let currentButton: UIButton = self!.subviews[index] as! UIButton
                 currentButton.setBottomBorder(self!.KSegmentBorderColor, width: self!.KSegmentBorderWidth)
-                currentButton.setTitleColor(self!.KSegementSelectedTitleColor, for: UIControlState())
+                currentButton.setTitleColor(self!.KSegementSelectedTitleColor, for: UIControl.State())
 
                 for view in self!.subviews {
 
                     let button: UIButton = view as! UIButton
 
                     if(button.tag != currentButton.tag) {
-                        button.setTitleColor(self!.KSegementDeselectedTitleColor, for: UIControlState())
+                        button.setTitleColor(self!.KSegementDeselectedTitleColor, for: UIControl.State())
                         button.setBottomBorder(UIColor.clear, width: self!.KSegmentBorderWidth)
                     }
                 }
@@ -269,7 +269,7 @@ open class BaseSegment: UIView {
     @objc public func segmentTabbed(_ sender: AnyObject) {
         let currentButton: UIButton = (sender as? UIButton)!
         currentButton.setBottomBorder(KSegmentBorderColor, width: KSegmentBorderWidth)
-        currentButton.setTitleColor(KSegementSelectedTitleColor, for: UIControlState())
+        currentButton.setTitleColor(KSegementSelectedTitleColor, for: UIControl.State())
 
         for view in self.subviews {
 
@@ -277,7 +277,7 @@ open class BaseSegment: UIView {
 
             if(button.tag != currentButton.tag) {
 
-                button.setTitleColor(KSegementDeselectedTitleColor, for: UIControlState())
+                button.setTitleColor(KSegementDeselectedTitleColor, for: UIControl.State())
                 button.setBottomBorder(UIColor.clear, width: KSegmentBorderWidth)
             }
         }

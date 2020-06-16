@@ -162,7 +162,7 @@ open class AppInterfaceUtility: NSObject {
     /// MARK: Calls action when a screen shot is taken
     public static func detectScreenShot(_ action: @escaping () -> ()) {
         let mainQueue = OperationQueue.main
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationUserDidTakeScreenshot, object: nil, queue: mainQueue) { notification in
+        NotificationCenter.default.addObserver(forName: UIApplication.userDidTakeScreenshotNotification, object: nil, queue: mainQueue) { notification in
             // executes after screenshot
             action()
         }

@@ -191,7 +191,7 @@ public extension NSDate {
      
      - returns: Returns the days between the two dates
      */
-    public func daysBetweenDate(anotherDate: NSDate) -> Int {
+    func daysBetweenDate(anotherDate: NSDate) -> Int {
         let time: TimeInterval = self.timeIntervalSince(anotherDate as Date)
         return Int(abs(time / 60 / 60 / 24))
     }
@@ -201,7 +201,7 @@ public extension NSDate {
      
      - returns: Returns if self is today
      */
-    public func isToday() -> Bool {
+    func isToday() -> Bool {
         return self.isSameDay(anotherDate: NSDate())
     }
     

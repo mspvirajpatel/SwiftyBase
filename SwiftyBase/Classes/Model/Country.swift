@@ -14,9 +14,9 @@ open class Country: NSObject {
     open var phoneExtension: String
     open var isMain: Bool
 
-    open static var emptyCountry: Country { return Country(countryCode: "", phoneExtension: "", isMain: true) }
+    public static var emptyCountry: Country { return Country(countryCode: "", phoneExtension: "", isMain: true) }
 
-    open static var currentCountry: Country {
+    public static var currentCountry: Country {
 
         let localIdentifier = Locale.current.identifier //returns identifier of your telephones country/region settings
 

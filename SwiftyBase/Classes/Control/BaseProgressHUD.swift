@@ -158,8 +158,8 @@ open class BaseProgressHUD: UIView {
             {
             progressIndicator?.removeFromSuperview()
         }
-        progressIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
-        progressIndicator?.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        progressIndicator = UIActivityIndicatorView(style: .whiteLarge)
+        progressIndicator?.style = UIActivityIndicatorView.Style.whiteLarge
         progressIndicator?.color = loaderColor
         progressIndicator?.backgroundColor = UIColor.clear
         progressIndicator?.startAnimating()

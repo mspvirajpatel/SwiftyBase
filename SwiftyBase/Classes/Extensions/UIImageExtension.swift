@@ -11,7 +11,7 @@ import Foundation
 public extension CGSize {
     
     // get scale of image size with max dimention
-    public func scale(max: CGFloat) -> CGFloat {
+    func scale(max: CGFloat) -> CGFloat {
         if width > height{
             if width > max {
                 return max / width
@@ -28,7 +28,7 @@ public extension CGSize {
 
 public extension UIImage {
     
-    public func scaleToSize(newSize: CGSize) -> UIImage {
+    func scaleToSize(newSize: CGSize) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
         draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
         let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
@@ -37,7 +37,7 @@ public extension UIImage {
     }
     
     // resize image with max dimention option & compressRatio like 0.5
-    public func compressImage(to maxDimention: CGFloat,compressRatio:CGFloat) -> UIImage {
+    func compressImage(to maxDimention: CGFloat,compressRatio:CGFloat) -> UIImage {
        
         // Reducing file size to a 10th
         
@@ -78,7 +78,7 @@ public extension UIImage {
         UIGraphicsBeginImageContext(rect.size)
         self.draw(in: rect)
         let img = UIGraphicsGetImageFromCurrentImageContext()
-        let imageData = UIImageJPEGRepresentation(img!, compressionQuality)
+        let imageData = img!.jpegData(compressionQuality: compressionQuality)
         UIGraphicsEndImageContext()
         
         return UIImage.init(data: imageData!)!
@@ -89,7 +89,7 @@ public extension UIImage {
 
 public extension UIImage{
     
-    public func maskWithColor(_ color: UIColor) -> UIImage? {
+    func maskWithColor(_ color: UIColor) -> UIImage? {
         
         let maskImage = self.cgImage
         let width = self.size.width
@@ -115,16 +115,16 @@ public extension UIImage{
         }
     }
     
-    public func croppedImage(_ bound : CGRect) -> UIImage
+    func croppedImage(_ bound : CGRect) -> UIImage
     {
         let scaledBounds : CGRect = CGRect(x: bound.origin.x * self.scale, y: bound.origin.y * self.scale, width: bound.size.width * self.scale, height: bound.size.height * self.scale)
         let imageRef = self.cgImage?.cropping(to: scaledBounds)
-        let croppedImage : UIImage = UIImage(cgImage: imageRef!, scale: self.scale, orientation: UIImageOrientation.up)
+        let croppedImage : UIImage = UIImage(cgImage: imageRef!, scale: self.scale, orientation: UIImage.Orientation.up)
         return croppedImage;
     }
     
     
-    public func normalizeBitmapInfo(_ bI: CGBitmapInfo) -> UInt32 {
+    func normalizeBitmapInfo(_ bI: CGBitmapInfo) -> UInt32 {
         var alphaInfo: UInt32 = bI.rawValue & CGBitmapInfo.alphaInfoMask.rawValue
         
         if alphaInfo == CGImageAlphaInfo.last.rawValue {
@@ -142,16 +142,16 @@ public extension UIImage{
         return newBI
     }
     
-    public enum WaterMarkCorner{
+    enum WaterMarkCorner{
         case TopLeft
         case TopRight
         case BottomLeft
         case BottomRight
     }
     
-    public func waterMarkedImage(waterMarkText:String, corner:WaterMarkCorner = .BottomRight, margin:CGPoint = CGPoint(x: 20, y: 20), waterMarkTextColor:UIColor = UIColor.white, waterMarkTextFont:UIFont = UIFont.systemFont(ofSize: 20), backgroundColor:UIColor = UIColor.clear) -> UIImage{
+    func waterMarkedImage(waterMarkText:String, corner:WaterMarkCorner = .BottomRight, margin:CGPoint = CGPoint(x: 20, y: 20), waterMarkTextColor:UIColor = UIColor.white, waterMarkTextFont:UIFont = UIFont.systemFont(ofSize: 20), backgroundColor:UIColor = UIColor.clear) -> UIImage{
         
-        let textAttributes = [NSAttributedStringKey.foregroundColor:waterMarkTextColor, NSAttributedStringKey.font:waterMarkTextFont]
+        let textAttributes = [NSAttributedString.Key.foregroundColor:waterMarkTextColor, NSAttributedString.Key.font:waterMarkTextFont]
         let textSize = NSString(string: waterMarkText).size(withAttributes: textAttributes)
         var textFrame = CGRect.init(x: 0, y: 0, width: textSize.width, height: textSize.width)
         
@@ -179,7 +179,7 @@ public extension UIImage{
         return waterMarkedImage!
     }
     
-    public func editWithText(text : String,setImage : UIImage) -> UIImage? {
+    func editWithText(text : String,setImage : UIImage) -> UIImage? {
         
         let font : UIFont! = Font(.installed(.AppleMedium), size:  SystemConstants.IS_IPAD ? .standard(.h) : .standard(.h) ).instance
         let paragraphStyle = NSMutableParagraphStyle()
@@ -190,7 +190,7 @@ public extension UIImage{
         let context = UIGraphicsGetCurrentContext()
         self.draw(at: .zero)
         
-        let stringBox : CGSize = NSString(string: text).size(withAttributes: [NSAttributedStringKey.font : font])
+        let stringBox : CGSize = NSString(string: text).size(withAttributes: [NSAttributedString.Key.font : font as Any])
         
         
         //Ractangle
@@ -207,7 +207,7 @@ public extension UIImage{
         
         //Labale
         let lableRact = CGRect(x: 90, y: (imageSize.height) - stringBox.height, width: stringBox.width, height: stringBox.height)
-        text.draw(in: lableRact.integral, withAttributes: [NSAttributedStringKey.font : font, NSAttributedStringKey.foregroundColor : UIColor.white , NSAttributedStringKey.paragraphStyle : paragraphStyle])
+        text.draw(in: lableRact.integral, withAttributes: [NSAttributedString.Key.font : font!, NSAttributedString.Key.foregroundColor : UIColor.white , NSAttributedString.Key.paragraphStyle : paragraphStyle])
         
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()

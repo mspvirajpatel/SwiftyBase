@@ -183,7 +183,7 @@ class DisplayAllImageView: BaseView,UICollectionViewDelegate,UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsetsMake(5.0, 5.0, 5.0, 5.0)
+        return UIEdgeInsets(top: 5.0, left: 5.0, bottom: 5.0, right: 5.0)
     }
     
     

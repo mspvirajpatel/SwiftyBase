@@ -63,7 +63,7 @@ class DownloadingView: BaseView{
         
         baseStartDownload = BaseButton.init(ibuttonType: .primary, iSuperView: self)
         baseStartDownload.layer.setValue("baseStartDownload", forKey: ControlConstant.name)
-        baseStartDownload.setTitle("Download", for: UIControlState())
+        baseStartDownload.setTitle("Download", for: UIControl.State())
         baseStartDownload.setButtonTouchUpInsideEvent { (sender, object) in
             DownloadManager.shared.downloadFiles(arrURL: ["http://wallpaperswide.com/download/just_live-wallpaper-1440x900.jpg","https://www.planwallpaper.com/static/images/6768666-1080p-wallpapers.jpg","https://www.planwallpaper.com/static/images/HD-Wallpapers1_FOSmVKg.jpeg","https://www.planwallpaper.com/static/images/canada-winter-moraine-lake-alberta-hd-high-511002.jpg"])
         }
@@ -79,7 +79,7 @@ class DownloadingView: BaseView{
         tblCurrentDownload.delegate = self
         tblCurrentDownload.dataSource = self
         tblCurrentDownload.estimatedRowHeight = 200.0
-        tblCurrentDownload.rowHeight = UITableViewAutomaticDimension
+        tblCurrentDownload.rowHeight = UITableView.automaticDimension
         self.addSubview(tblCurrentDownload)
         
     }
@@ -96,7 +96,7 @@ class DownloadingView: BaseView{
                               "controlLeftRightPadding" : controlLeftRightPadding
         ]
         
-        baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|[baseStartDownload]|", options:NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: baseLayout.viewDictionary)
+        baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|[baseStartDownload]|", options:NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: baseLayout.viewDictionary)
         
         baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|[baseStartDownload][tblCurrentDownload]|", options:[.alignAllLeading , .alignAllTrailing], metrics: nil, views: baseLayout.viewDictionary)
         
@@ -150,7 +150,7 @@ extension DownloadingView : UITableViewDelegate{
         cell = tableView.dequeueReusableCell(withIdentifier: "download", for: indexPath) as? DownloadInfoCell
         
         if cell == nil{
-            cell = DownloadInfoCell(style: UITableViewCellStyle.default, reuseIdentifier: "download")
+            cell = DownloadInfoCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: "download")
         }
         
         cell.displayCellData(indexPath: indexPath, downloadModel: downloadManager.downloadingArray[indexPath.row])
@@ -186,7 +186,7 @@ extension DownloadingView : DownloadManagerDelegate{
      */
     func downloadRequestStarted(downloadModel : AppDownloadModel , index : Int){
         let indexPath = IndexPath.init(row: index, section: 0)
-        tblCurrentDownload.insertRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+        tblCurrentDownload.insertRows(at: [indexPath], with: UITableView.RowAnimation.fade)
     }
     
     /**A delegate method called each time whenever running download task is paused. If task is already paused the action will be ignored
@@ -215,7 +215,7 @@ extension DownloadingView : DownloadManagerDelegate{
         
         if index < tblCurrentDownload.numberOfRows(inSection: 0){
             let indexPath = IndexPath.init(row: index, section: 0)
-            tblCurrentDownload.deleteRows(at: [indexPath], with: UITableViewRowAnimation.left)
+            tblCurrentDownload.deleteRows(at: [indexPath], with: UITableView.RowAnimation.left)
         }
     }
     
@@ -229,7 +229,7 @@ extension DownloadingView : DownloadManagerDelegate{
         
         if tblCurrentDownload.numberOfRows(inSection: 0) > index{
             let indexPath = IndexPath.init(row: index, section: 0)
-            tblCurrentDownload.deleteRows(at: [indexPath], with: UITableViewRowAnimation.left)
+            tblCurrentDownload.deleteRows(at: [indexPath], with: UITableView.RowAnimation.left)
         }
     }
     
@@ -308,7 +308,7 @@ extension DownloadingView
         alertController.addAction(cancelAction)
         self.getViewControllerFromSubView()!.present(alertController, animated: true, completion: nil)
         
-        defer {
+        do {
             pauseAction = nil
             removeAction = nil
             cancelAction = nil
@@ -342,7 +342,7 @@ extension DownloadingView
         alertController.addAction(cancelAction)
         self.getViewControllerFromSubView()!.present(alertController, animated: true, completion: nil)
         
-        defer {
+        do {
             retryAction = nil
             removeAction = nil
             cancelAction = nil
@@ -375,7 +375,7 @@ extension DownloadingView
         alertController.addAction(cancelAction)
         self.getViewControllerFromSubView()!.present(alertController, animated: true, completion: nil)
         
-        defer {
+        do {
             startAction = nil
             removeAction = nil
             cancelAction = nil

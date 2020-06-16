@@ -15,7 +15,7 @@ private var activityIndicatorAssociationKey: UInt8 = 0
 
 public extension UIView {
    
-    public func convertLocalizables() {
+    func convertLocalizables() {
         if subviews.isEmpty {
             return
         }
@@ -38,7 +38,7 @@ public extension UIView {
         }
     }
     
-    public var x: CGFloat {
+    var x: CGFloat {
         get {
             return self.frame.origin.x
         }
@@ -49,7 +49,7 @@ public extension UIView {
         }
     }
     
-    public var y: CGFloat{
+    var y: CGFloat{
         get {
             return self.frame.origin.y
         }
@@ -60,7 +60,7 @@ public extension UIView {
         }
     }
     
-    public var width: CGFloat{
+    var width: CGFloat{
         get {
             return self.frame.size.width
         }
@@ -72,7 +72,7 @@ public extension UIView {
     }
     
     
-    public var height: CGFloat{
+    var height: CGFloat{
         get {
             return self.frame.size.height
         }
@@ -84,7 +84,7 @@ public extension UIView {
     }
     
     
-    public var bottom: CGFloat{
+    var bottom: CGFloat{
         get {
             return self.frame.origin.y + self.frame.size.height
         }
@@ -97,7 +97,7 @@ public extension UIView {
     }
     
     
-    public var right: CGFloat{
+    var right: CGFloat{
         get {
             return self.frame.origin.x + self.frame.size.width
         }
@@ -109,7 +109,7 @@ public extension UIView {
         }
     }
     
-    public var size: CGSize{
+    var size: CGSize{
         get {
             return self.frame.size
         }
@@ -121,7 +121,7 @@ public extension UIView {
         }
     }
     
-    public var centerPoint: CGPoint{
+    var centerPoint: CGPoint{
         get {
             return self.center
         }
@@ -133,7 +133,7 @@ public extension UIView {
         }
     }
     
-    public var centerX: CGFloat{
+    var centerX: CGFloat{
         get {
             return self.center.x
         }
@@ -146,7 +146,7 @@ public extension UIView {
     }
     
     
-    public var centerY: CGFloat{
+    var centerY: CGFloat{
         get {
             return self.center.y
         }
@@ -158,7 +158,7 @@ public extension UIView {
         }
     }
     
-    public var top: CGFloat{
+    var top: CGFloat{
         get {
             return self.frame.origin.y
         }
@@ -171,7 +171,7 @@ public extension UIView {
     }
     
     
-    public var left: CGFloat{
+    var left: CGFloat{
         get {
             return self.frame.origin.x
         }
@@ -182,7 +182,7 @@ public extension UIView {
         }
     }
    
-    public var origin: CGPoint{
+    var origin: CGPoint{
         get {
             return self.frame.origin
         }
@@ -193,7 +193,7 @@ public extension UIView {
         }
     }
     
-    public var activityIndicat: UIActivityIndicatorView! {
+    var activityIndicat: UIActivityIndicatorView! {
         get {
             return objc_getAssociatedObject(self, &activityIndicatorAssociationKey) as? UIActivityIndicatorView
         }
@@ -202,14 +202,14 @@ public extension UIView {
         }
     }
     
-    public func showActivityIndicator() {
+    func showActivityIndicator() {
         
         if (self.activityIndicat == nil) {
-            self.activityIndicat = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+            self.activityIndicat = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
             
             self.activityIndicat.hidesWhenStopped = true
             self.activityIndicat.frame = CGRect.init(x: 0, y: 0, width: 40, height: 40)
-            self.activityIndicat.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+            self.activityIndicat.style = UIActivityIndicatorView.Style.whiteLarge
             self.activityIndicat.center = CGPoint.init(x: self.frame.size.width / 2, y: self.frame.size.height / 2)
             self.activityIndicat.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
             
@@ -222,7 +222,7 @@ public extension UIView {
         }
     }
     
-    public func hideActivityIndicator() {
+    func hideActivityIndicator() {
         OperationQueue.main.addOperation({
             if self.activityIndicat != nil
             {
@@ -231,11 +231,11 @@ public extension UIView {
         })
     }
     
-    public func applyGradient(colours: [UIColor])  {
+    func applyGradient(colours: [UIColor])  {
         self.applyGradient(colours: colours, locations: nil)
     }
     
-    public func applyGradient(colours: [UIColor], locations: [NSNumber]?) {
+    func applyGradient(colours: [UIColor], locations: [NSNumber]?) {
         let gradient: CAGradientLayer = CAGradientLayer()
         gradient.frame = self.bounds
         gradient.colors = colours.map { $0.cgColor }
@@ -243,28 +243,28 @@ public extension UIView {
         self.layer.insertSublayer(gradient, at: 0)
     }
     
-    public func hideShadow() {
+    func hideShadow() {
         self.layer.shadowOpacity = 0
     }
 
-    public func roundCorner(_ radius:CGFloat)
+    func roundCorner(_ radius:CGFloat)
     {
         self.layer.cornerRadius = radius
     }
     
-    public func isTextControl() -> Bool{
+    func isTextControl() -> Bool{
         return (self.isTextFieldControl() || self.isTextViewControl())
     }
     
-    public func isTextFieldControl() -> Bool{
+    func isTextFieldControl() -> Bool{
         return self.isKind(of: UITextField.self)
     }
     
-    public func isTextViewControl() -> Bool{
+    func isTextViewControl() -> Bool{
         return self.isKind(of: UITextView.self)
     }
     
-    public func getRequestDictionaryFromView() -> [String: String]{
+    func getRequestDictionaryFromView() -> [String: String]{
         
         var textControl : AnyObject?
         var textFromTextControl : String?
@@ -307,7 +307,7 @@ public extension UIView {
         
     }
     
-    public func getDictionaryOfVariableBindings(superView : UIView , viewDic : NSDictionary) -> NSDictionary
+    func getDictionaryOfVariableBindings(superView : UIView , viewDic : NSDictionary) -> NSDictionary
     {
         var dicView : NSMutableDictionary = viewDic.mutableCopy() as! NSMutableDictionary
         
@@ -342,7 +342,7 @@ public extension UIView {
         return dicView
     }
     
-    public func fillSuperview() {
+    func fillSuperview() {
         guard let superview = self.superview else {
             return
         }
@@ -408,7 +408,7 @@ public extension UIView {
         return anchors
     }
     
-    public func removeAllConstraints() {
+    func removeAllConstraints() {
         var view: UIView? = self
         while let currentView = view {
             currentView.removeConstraints(currentView.constraints.filter {
@@ -418,7 +418,7 @@ public extension UIView {
         }
     }
     
-    public func getDictionaryOfVariableBindings(viewArray : [UIView]) -> NSDictionary{
+    func getDictionaryOfVariableBindings(viewArray : [UIView]) -> NSDictionary{
         
         let dicView : NSMutableDictionary = NSMutableDictionary()
         
@@ -431,7 +431,7 @@ public extension UIView {
         return dicView
     }
     
-    public func setBorder(_ borderColor: UIColor, width: CGFloat, radius: CGFloat){
+    func setBorder(_ borderColor: UIColor, width: CGFloat, radius: CGFloat){
         
         self.layer.borderColor = borderColor.cgColor
         self.layer.borderWidth = width
@@ -439,7 +439,7 @@ public extension UIView {
         
     }
     
-    public func setTopBorder(_ borderColor: UIColor, width: CGFloat) {
+    func setTopBorder(_ borderColor: UIColor, width: CGFloat) {
         
         let layerName: String = "upper_layer"
         var upperBorder: CALayer?
@@ -464,7 +464,7 @@ public extension UIView {
         self.layer.addSublayer(upperBorder!)
     }
     
-    public func setBottomBorder(_ borderColor: UIColor, width: CGFloat) {
+    func setBottomBorder(_ borderColor: UIColor, width: CGFloat) {
         
         let layerName: String = "bottom_layer"
         var bottomBorder: CALayer?
@@ -490,7 +490,7 @@ public extension UIView {
         
     }
     
-    public func setLeftBorder(_ borderColor: UIColor, width: CGFloat) {
+    func setLeftBorder(_ borderColor: UIColor, width: CGFloat) {
         
         let layerName: String = "left_layer"
         var leftBorder: CALayer?
@@ -515,7 +515,7 @@ public extension UIView {
         self.layer.addSublayer(leftBorder!)
     }
     
-    public func setRightBorder(_ borderColor: UIColor, width: CGFloat) {
+    func setRightBorder(_ borderColor: UIColor, width: CGFloat) {
         
         let layerName: String = "right_layer"
         var rightBorder: CALayer?
@@ -622,7 +622,7 @@ public extension UIView {
     }
     
     
-    public func setCircleViewWith(_ borderColor: UIColor, width: CGFloat) {
+    func setCircleViewWith(_ borderColor: UIColor, width: CGFloat) {
         
         self.layer.cornerRadius = (self.frame.size.width / 2)
         self.layer.masksToBounds = (true)
@@ -639,7 +639,7 @@ public extension UIView {
         
     }
     
-    public func removeIndicatorFromView() {
+    func removeIndicatorFromView() {
         
         let layerNamebox: String = "bottom_box_layer"
         let layerNamepoint: String = "bottom_point_layer"
@@ -660,7 +660,7 @@ public extension UIView {
         
     }
     
-    public func getViewControllerFromSubView() -> UIViewController? {
+    func getViewControllerFromSubView() -> UIViewController? {
         
         var responder: UIResponder = self
         responder = responder.next!
@@ -675,29 +675,29 @@ public extension UIView {
         return nil
     }
     //  Get End X point of view
-    public var endX : CGFloat {
+    var endX : CGFloat {
         return frame.origin.x + frame.width
     }
     
     //  Get End Y point of view
-    public var endY : CGFloat {
+    var endY : CGFloat {
         return frame.origin.y + frame.height
     }
    
     //  Get Parent View controller
-    public var parentViewController: UIViewController? {
+    var parentViewController: UIViewController? {
         var parentResponder: UIResponder? = self
         while parentResponder != nil {
             parentResponder = parentResponder!.next
             if parentResponder is UIViewController {
-                return parentResponder as! UIViewController!
+                return parentResponder as! UIViewController?
             }
         }
         return nil
     }
     
     //  Apply plain shadow to view
-    public func applyPlainShadow() {
+    func applyPlainShadow() {
         let layer = self.layer
         
         layer.shadowColor = UIColor.black.cgColor
@@ -707,25 +707,25 @@ public extension UIView {
     }
     
     //  Apply boarder to view
-    public func applyBorder() {
+    func applyBorder() {
         self.layer.borderWidth = 1.0
         self.layer.borderColor = UIColor.gray.cgColor
     }
     
     //  Apply corner radius
-    public func applyCornerRadius(_ corenrRadius : CGFloat , mask : Bool) {
+    func applyCornerRadius(_ corenrRadius : CGFloat , mask : Bool) {
         self.layer.masksToBounds = mask
         self.layer.cornerRadius = corenrRadius
     }
     
     //  Add only bottom border
-    public func applyBottomBorder() {
+    func applyBottomBorder() {
         self.layer.borderWidth = 1.0
         self.layer.borderColor = UIColor.gray.cgColor
     }
     
     //  Add Top Border
-    public func addTopBorderWithColor(_ color: UIColor, width: CGFloat) {
+    func addTopBorderWithColor(_ color: UIColor, width: CGFloat) {
         let border = CALayer()
         border.backgroundColor = color.cgColor
         border.frame = CGRect(x: 0, y: 0, width: self.width, height: width)
@@ -733,7 +733,7 @@ public extension UIView {
     }
     
     //  Add Right Border
-    public func addRightBorderWithColor(_ color: UIColor, width: CGFloat) {
+    func addRightBorderWithColor(_ color: UIColor, width: CGFloat) {
         let border = CALayer()
         border.backgroundColor = color.cgColor
         border.frame = CGRect(x: self.width - width, y: 0, width: width, height: self.height)
@@ -741,7 +741,7 @@ public extension UIView {
     }
     
     //  Add Bottom Border
-    public func addBottomBorderWithColor(_ color: UIColor, width: CGFloat) {
+    func addBottomBorderWithColor(_ color: UIColor, width: CGFloat) {
         let border = CALayer()
         border.backgroundColor = color.cgColor
         border.frame = CGRect(x: 0, y: self.height - width, width: self.width, height: width)
@@ -749,7 +749,7 @@ public extension UIView {
     }
     
     //  Add Left Border
-    public func addLeftBorderWithColor(_ color: UIColor, width: CGFloat) {
+    func addLeftBorderWithColor(_ color: UIColor, width: CGFloat) {
         let border = CALayer()
         border.backgroundColor = color.cgColor
         border.frame = CGRect(x: 0, y: 0, width: width, height: self.height)
@@ -758,69 +758,69 @@ public extension UIView {
     
     
     // TODO: Autolayout Constraint
-    public func topEqualTo(view : UIView) -> Void{
+    func topEqualTo(view : UIView) -> Void{
         self.superview?.addConstraint(NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: 0.0))
     }
     
-    public func topSpaceToSuper(space : CGFloat) -> Void{
+    func topSpaceToSuper(space : CGFloat) -> Void{
         self.superview?.addConstraint(NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal, toItem: self.superview, attribute: .top, multiplier: 1.0, constant: space))
     }
     
-    public func topSpaceTo(view : UIView,space : CGFloat){
+    func topSpaceTo(view : UIView,space : CGFloat){
         self.superview?.addConstraint(NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: space))
     }
     
-    public func bottomEqualTo(view : UIView){
+    func bottomEqualTo(view : UIView){
         self.superview?.addConstraint(NSLayoutConstraint(item: self, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: 0.0))
     }
     
-    public func bottomSpaceToSuper(spcae : CGFloat) -> Void{
+    func bottomSpaceToSuper(spcae : CGFloat) -> Void{
         self.superview?.addConstraint(NSLayoutConstraint(item: self, attribute: .bottom, relatedBy: .equal, toItem: self.superview, attribute: .bottom, multiplier: 1.0, constant: spcae))
     }
     
-    public func bottomSpaceTo(view : UIView,space : CGFloat){
+    func bottomSpaceTo(view : UIView,space : CGFloat){
         self.superview?.addConstraint(NSLayoutConstraint(item: self, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: space))
     }
     
-    public func leftMarginTo(view : UIView){
+    func leftMarginTo(view : UIView){
         self.superview?.addConstraint(NSLayoutConstraint(item: self, attribute: .left, relatedBy: .equal, toItem: view, attribute: .left, multiplier: 1.0, constant: 0.0))
     }
     
-    public func leftMarginTo(view : UIView,margin : CGFloat){
+    func leftMarginTo(view : UIView,margin : CGFloat){
         self.superview?.addConstraint(NSLayoutConstraint(item: self, attribute: .left, relatedBy: .equal, toItem: view, attribute: .left, multiplier: 1.0, constant: margin))
     }
     
-    public func rightMarginTo(view : UIView){
+    func rightMarginTo(view : UIView){
         self.superview?.addConstraint(NSLayoutConstraint(item: self, attribute: .right, relatedBy: .equal, toItem: view, attribute: .right, multiplier: 1.0, constant: 0.0))
     }
     
-    public func rightMarginTo(view : UIView,margin : CGFloat){
+    func rightMarginTo(view : UIView,margin : CGFloat){
         self.superview?.addConstraint(NSLayoutConstraint(item: self, attribute: .right, relatedBy: .equal, toItem: view, attribute: .right, multiplier: 1.0, constant: margin))
     }
     
-    public func horizontalSpace(view : UIView, space : CGFloat){
+    func horizontalSpace(view : UIView, space : CGFloat){
         self.superview?.addConstraint(NSLayoutConstraint(item: self, attribute: .right, relatedBy: .equal, toItem: view, attribute: .left, multiplier: 1.0, constant: space))
     }
     
-    public func verticalSpace(view : UIView, space : CGFloat){
+    func verticalSpace(view : UIView, space : CGFloat){
         self.superview?.addConstraint(NSLayoutConstraint(item: self, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: space))
     }
     
-    public func edgeEqualTo(view : UIView){
+    func edgeEqualTo(view : UIView){
         self.leftMarginTo(view: view)
         self.rightMarginTo(view: view)
         self.topEqualTo(view: view)
         self.bottomEqualTo(view: view)
     }
     
-    public func edgeToSuperView(top : CGFloat,left : CGFloat,bottom : CGFloat,right : CGFloat){
+    func edgeToSuperView(top : CGFloat,left : CGFloat,bottom : CGFloat,right : CGFloat){
         self.topSpaceTo(view: self.superview!, space: top)
         self.bottomSpaceToSuper(spcae: bottom)
         self.leftMarginTo(view: self.superview!, margin: left)
         self.rightMarginTo(view: self.superview!, margin: right)
     }
     
-    public func verticalSpace(Views : [UIView],space : CGFloat) -> Void{
+    func verticalSpace(Views : [UIView],space : CGFloat) -> Void{
         
         var verticalString : String = ""
         
@@ -835,11 +835,11 @@ public extension UIView {
         
         var viewDic : NSDictionary! = self.getDictionaryOfVariableBindings(viewArray: Views)
         
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:\(verticalString)", options: NSLayoutFormatOptions(rawValue : 0), metrics: nil, views: viewDic as! [String : Any]))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:\(verticalString)", options: NSLayoutConstraint.FormatOptions(rawValue : 0), metrics: nil, views: viewDic as! [String : Any]))
         viewDic = nil
     }
     
-    public func horizontalSpace(Views : [UIView],space : CGFloat) -> Void{
+    func horizontalSpace(Views : [UIView],space : CGFloat) -> Void{
         var horizontalSpace : String = ""
         
         for (index,view) in Views.enumerated(){
@@ -853,7 +853,7 @@ public extension UIView {
         
         var viewDic : NSDictionary! = self.getDictionaryOfVariableBindings(viewArray: Views)
         
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:\(horizontalSpace)", options: NSLayoutFormatOptions(rawValue : 0), metrics: nil, views: viewDic as! [String : Any]))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:\(horizontalSpace)", options: NSLayoutConstraint.FormatOptions(rawValue : 0), metrics: nil, views: viewDic as! [String : Any]))
         viewDic = nil
     }
     
@@ -867,7 +867,7 @@ public extension UIView {
      - FromRight:  Flip animation from right
      - FromBottom: Flip animation from bottom
      */
-    public enum UIViewAnimationFlipDirection : Int {
+    enum UIViewAnimationFlipDirection : Int {
         case FromTop
         case FromLeft
         case FromRight
@@ -880,7 +880,7 @@ public extension UIView {
      - FromLeftToRight: Translation from left to right
      - FromRightToLeft: Translation from right to left
      */
-    public enum UIViewAnimationTranslationDirection : Int {
+    enum UIViewAnimationTranslationDirection : Int {
         case FromLeftToRight
         case FromRightToLeft
     }
@@ -895,7 +895,7 @@ public extension UIView {
      - DiagonalFromRightToLeftAndTopToDown: Linear gradient from right to left and top to down
      - DiagonalFromRightToLeftAndDownToTop: Linear gradient from right to left and down to top
      */
-    public enum UIViewLinearGradientDirection : Int {
+    enum UIViewLinearGradientDirection : Int {
         case Vertical
         case Horizontal
         case DiagonalFromLeftToRightAndTopToDown
@@ -913,7 +913,7 @@ public extension UIView {
      - parameter radius: Border's radius
      - parameter width:  Border's width
      */
-    public func createBordersWithColor(color: UIColor, radius: CGFloat, width: CGFloat) {
+    func createBordersWithColor(color: UIColor, radius: CGFloat, width: CGFloat) {
         self.layer.borderWidth = width
         self.layer.cornerRadius = radius
         self.layer.shouldRasterize = false
@@ -928,7 +928,7 @@ public extension UIView {
     /**
      Remove the borders around the UIView
      */
-    public func removeBorders() {
+    func removeBorders() {
         self.layer.borderWidth = 0
         self.layer.cornerRadius = 0
         self.layer.borderColor = nil
@@ -937,7 +937,7 @@ public extension UIView {
     /**
      Remove the shadow around the UIView
      */
-    public func removeShadow() {
+    func removeShadow() {
         self.layer.shadowColor = UIColor.clear.cgColor
         self.layer.shadowOpacity = 0.0
         self.layer.shadowOffset = CGSize.init(width: 0.0, height: 0.0)
@@ -949,7 +949,7 @@ public extension UIView {
      
      - parameter radius: Radius value
      */
-    public func setCornerRadius(radius: CGFloat) {
+    func setCornerRadius(radius: CGFloat) {
         self.layer.cornerRadius = radius
         self.layer.masksToBounds = true
     }
@@ -960,7 +960,7 @@ public extension UIView {
      - parameter corners: Corners to apply radius
      - parameter radius: Radius value
      */
-    public func cornerRadius(corners: UIRectCorner, radius: CGFloat) {
+    func cornerRadius(corners: UIRectCorner, radius: CGFloat) {
         let rectShape = CAShapeLayer()
         rectShape.bounds = self.frame
         rectShape.position = self.center
@@ -975,7 +975,7 @@ public extension UIView {
      - parameter opacity: Shadow's opacity
      - parameter radius:  Shadow's radius
      */
-    public func createRectShadowWithOffset(offset: CGSize, opacity: Float, radius: CGFloat) {
+    func createRectShadowWithOffset(offset: CGSize, opacity: Float, radius: CGFloat) {
         self.layer.shadowColor = UIColor.black.cgColor
         self.layer.shadowOpacity = opacity
         self.layer.shadowOffset = offset
@@ -991,7 +991,7 @@ public extension UIView {
      - parameter opacity:      Shadow's opacity
      - parameter radius:       Shadow's radius
      */
-    public func createCornerRadiusShadowWithCornerRadius(cornerRadius: CGFloat, offset: CGSize, opacity: Float, radius: CGFloat) {
+    func createCornerRadiusShadowWithCornerRadius(cornerRadius: CGFloat, offset: CGSize, opacity: Float, radius: CGFloat) {
         self.layer.shadowColor = UIColor.black.cgColor
         self.layer.shadowOpacity = opacity
         self.layer.shadowOffset = offset
@@ -1008,7 +1008,7 @@ public extension UIView {
      - parameter colors:    Array of UIColor instances
      - parameter direction: Direction of the gradient
      */
-    public func createGradientWithColors(colors: Array<UIColor>, direction: UIViewLinearGradientDirection) {
+    func createGradientWithColors(colors: Array<UIColor>, direction: UIViewLinearGradientDirection) {
         let gradient: CAGradientLayer = CAGradientLayer()
         gradient.frame = self.bounds
         
@@ -1045,7 +1045,7 @@ public extension UIView {
     /**
      Create a shake effect on the UIView
      */
-    public func shakeView() {
+    func shakeView() {
         let shake: CAKeyframeAnimation = CAKeyframeAnimation(keyPath: "transform")
         shake.values = [NSValue(caTransform3D: CATransform3DMakeTranslation(-5.0, 0.0, 0.0)), NSValue(caTransform3D: CATransform3DMakeTranslation(5.0, 0.0, 0.0))]
         shake.autoreverses = true
@@ -1060,7 +1060,7 @@ public extension UIView {
      
      - parameter duration: Seconds of animation
      */
-    public func pulseViewWithDuration(duration: CGFloat) {
+    func pulseViewWithDuration(duration: CGFloat) {
         UIView.animate(withDuration: TimeInterval(duration / 6), animations: { () -> Void in
             self.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
         }) { (finished) -> Void in
@@ -1099,7 +1099,7 @@ public extension UIView {
     /**
      Adds a motion effect to the view
      */
-    public func applyMotionEffects() {
+    func applyMotionEffects() {
         let horizontalEffect: UIInterpolatingMotionEffect = UIInterpolatingMotionEffect(keyPath: "center.x", type: .tiltAlongHorizontalAxis)
         horizontalEffect.minimumRelativeValue = -10.0
         horizontalEffect.maximumRelativeValue = 10.0
@@ -1118,7 +1118,7 @@ public extension UIView {
      - parameter duration:  Seconds of animation
      - parameter direction: Direction of the flip animation
      */
-    public func flipWithDuration(duration: TimeInterval, direction: UIViewAnimationFlipDirection) {
+    func flipWithDuration(duration: TimeInterval, direction: UIViewAnimationFlipDirection) {
         var subtype: String = ""
         
         switch(direction) {
@@ -1136,8 +1136,8 @@ public extension UIView {
         
         transition.startProgress = 0
         transition.endProgress = 1.0
-        transition.type = "flip"
-        transition.subtype = subtype
+        transition.type = CATransitionType(rawValue: "flip")
+        transition.subtype = CATransitionSubtype(rawValue: subtype)
         transition.duration = duration
         transition.repeatCount = 1
         transition.autoreverses = true
@@ -1154,7 +1154,7 @@ public extension UIView {
      - parameter repeatAnimation: If the animation must be repeat or no
      - parameter startFromEdge:   If the animation must start from the edge
      */
-    public func translateAroundTheView(topView: UIView, duration: CGFloat, direction: UIViewAnimationTranslationDirection, repeatAnimation: Bool = true, startFromEdge: Bool = true) {
+    func translateAroundTheView(topView: UIView, duration: CGFloat, direction: UIViewAnimationTranslationDirection, repeatAnimation: Bool = true, startFromEdge: Bool = true) {
         var startPosition: CGFloat = self.center.x, endPosition: CGFloat
         switch(direction) {
         case .FromLeftToRight:
@@ -1191,7 +1191,7 @@ public extension UIView {
      
      - returns: Returns screenshot as UIImage
      */
-    public func screenshot() -> UIImage {
+    func screenshot() -> UIImage {
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, UIScreen.main.scale)
         
         self.drawHierarchy(in: self.bounds, afterScreenUpdates: true)
@@ -1199,7 +1199,7 @@ public extension UIView {
         var image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         
-        let imageData: NSData = UIImagePNGRepresentation(image)! as NSData
+        let imageData: NSData = image.pngData()! as NSData
         image = UIImage(data: imageData as Data)!
         
         return image
@@ -1210,7 +1210,7 @@ public extension UIView {
      
      - returns: Returns screenshot as UIImage
      */
-    public func saveScreenshot() -> UIImage {
+    func saveScreenshot() -> UIImage {
         let image: UIImage = self.screenshot()
         UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
         
@@ -1220,7 +1220,7 @@ public extension UIView {
     /**
      Removes all subviews from current view
      */
-    public func removeAllSubviews() {
+    func removeAllSubviews() {
         self.subviews.forEach { (subview) -> () in
             subview.removeFromSuperview()
         }

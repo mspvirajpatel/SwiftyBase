@@ -11,7 +11,7 @@ import Foundation
 public class AppAlert {
     private var alertController: UIAlertController
 
-    public init(title: String? = nil, message: String? = nil, preferredStyle: UIAlertControllerStyle) {
+    public init(title: String? = nil, message: String? = nil, preferredStyle: UIAlertController.Style) {
         self.alertController = UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
     }
 
@@ -45,12 +45,12 @@ public class AppAlert {
         return self
     }
 
-    public func addAction(title: String = "", style: UIAlertActionStyle = .default, handler: @escaping ((UIAlertAction!) -> Void) = { _ in }) -> Self {
+    public func addAction(title: String = "", style: UIAlertAction.Style = .default, handler: @escaping ((UIAlertAction?) -> Void) = { _ in }) -> Self {
         alertController.addAction(UIAlertAction(title: title, style: style, handler: handler))
         return self
     }
 
-    public func addTextFieldHandler(_ handler: @escaping ((UITextField!) -> Void) = { _ in }) -> Self {
+    public func addTextFieldHandler(_ handler: @escaping ((UITextField?) -> Void) = { _ in }) -> Self {
         alertController.addTextField(configurationHandler: handler)
         return self
     }

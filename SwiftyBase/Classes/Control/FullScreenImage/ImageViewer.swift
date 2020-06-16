@@ -79,10 +79,10 @@ open class ImageViewer: UIViewController {
 
     fileprivate func configureCloseButton() {
         closeButton.alpha = 0.0
-        closeButton.setTitle("x", for: UIControlState())
-        closeButton.setTitleColor(UIColor.black, for: UIControlState())
+        closeButton.setTitle("x", for: UIControl.State())
+        closeButton.setTitleColor(UIColor.black, for: UIControl.State())
         closeButton.translatesAutoresizingMaskIntoConstraints = false
-        closeButton.addTarget(self, action: #selector(ImageViewer.closeButtonTapped(_:)), for: UIControlEvents.touchUpInside)
+        closeButton.addTarget(self, action: #selector(ImageViewer.closeButtonTapped(_:)), for: UIControl.Event.touchUpInside)
         view.addSubview(closeButton)
 
         view.setNeedsUpdateConstraints()
@@ -123,8 +123,8 @@ open class ImageViewer: UIViewController {
         ]
 
         constraints.append(NSLayoutConstraint(item: closeButton, attribute: .centerX, relatedBy: .equal, toItem: closeButton.superview, attribute: .centerX, multiplier: 1.0, constant: 0))
-        constraints.append(contentsOf: NSLayoutConstraint.constraints(withVisualFormat: "V:[closeButton(==64)]-40-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-        constraints.append(contentsOf: NSLayoutConstraint.constraints(withVisualFormat: "H:[closeButton(==64)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+        constraints.append(contentsOf: NSLayoutConstraint.constraints(withVisualFormat: "V:[closeButton(==64)]-40-|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: views))
+        constraints.append(contentsOf: NSLayoutConstraint.constraints(withVisualFormat: "H:[closeButton(==64)]", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: views))
 
         NSLayoutConstraint.activate(constraints)
     }
@@ -174,7 +174,7 @@ open class ImageViewer: UIViewController {
         }
         self.imageView.frame = self.originalFrameRelativeToScreen
 
-        UIView.animate(withDuration: 0.4, delay: 0.0, options: UIViewAnimationOptions(rawValue: 0), animations: {
+        UIView.animate(withDuration: 0.4, delay: 0.0, options: UIView.AnimationOptions(rawValue: 0), animations: {
             self.imageView.frame = self.centerFrameFromImage(image)
             self.closeButton.alpha = 1.0
             self.maskView.alpha = 1.0
@@ -220,7 +220,7 @@ open class ImageViewer: UIViewController {
         maskView.alpha = max(1 - yDiff / (windowSize.height / 0.95), kMinMaskViewAlpha)
         closeButton.alpha = max(1 - yDiff / (windowSize.height / 0.95), kMinMaskViewAlpha) / 2
 
-        if (panGesture.state == UIGestureRecognizerState.ended || panGesture.state == UIGestureRecognizerState.cancelled)
+        if (panGesture.state == UIGestureRecognizer.State.ended || panGesture.state == UIGestureRecognizer.State.cancelled)
             && scrollView.zoomScale == 1.0 {
             maskView.alpha < 0.85 ? dismissViewController() : rollbackViewController()
         }
@@ -268,7 +268,7 @@ open class ImageViewer: UIViewController {
         }
 
         isAnimating = true
-        UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.6, options: UIViewAnimationOptions.beginFromCurrentState, animations: { () in
+        UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.6, options: UIView.AnimationOptions.beginFromCurrentState, animations: { () in
             self.imageView.frame = self.centerFrameFromImage(image)
             self.maskView.alpha = 1.0
             self.closeButton.alpha = 1.0
@@ -286,15 +286,15 @@ open class ImageViewer: UIViewController {
                 self.closeButton.alpha = 0.0
             })
 
-            UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.6, options: [UIViewAnimationOptions.beginFromCurrentState, UIViewAnimationOptions.curveEaseInOut], animations: { () in
+            UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.6, options: [UIView.AnimationOptions.beginFromCurrentState, UIView.AnimationOptions.curveEaseInOut], animations: { () in
                 self.imageView.frame = self.originalFrameRelativeToScreen
                 self.rootViewController.view.transform = CGAffineTransform.identity.scaledBy(x: 1.0, y: 1.0)
                 self.view.transform = CGAffineTransform.identity.scaledBy(x: 1.0, y: 1.0)
                 self.maskView.alpha = 0.0
             }, completion: { (finished) in
-                self.willMove(toParentViewController: nil)
+                self.willMove(toParent: nil)
                 self.view.removeFromSuperview()
-                self.removeFromParentViewController()
+                self.removeFromParent()
                 self.senderView.alpha = 1.0
                 self.isAnimating = false
             })
@@ -302,10 +302,10 @@ open class ImageViewer: UIViewController {
     }
 
     func presentFromRootViewController() {
-        willMove(toParentViewController: rootViewController)
+        willMove(toParent: rootViewController)
         rootViewController.view.addSubview(view)
-        rootViewController.addChildViewController(self)
-        didMove(toParentViewController: rootViewController)
+        rootViewController.addChild(self)
+        didMove(toParent: rootViewController)
     }
 }
 
@@ -336,7 +336,7 @@ extension ImageViewer: UIScrollViewDelegate {
 
 public extension UIImageView {
 
-    public func setupForImageViewer(_ backgroundColor: UIColor = UIColor.white) {
+    func setupForImageViewer(_ backgroundColor: UIColor = UIColor.white) {
         isUserInteractionEnabled = true
         let gestureRecognizer = ImageViewerTapGestureRecognizer(target: self, action: #selector(UIImageView.didTap(_:)), backgroundColor: backgroundColor)
         addGestureRecognizer(gestureRecognizer)

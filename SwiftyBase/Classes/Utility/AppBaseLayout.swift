@@ -46,15 +46,15 @@ open class AppBaseLayout: NSObject {
         let dictionary: Dictionary = ["superView": superView, "control": control]
         let metrics: Dictionary = ["space": space]
 
-        self.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|-space-[control]-space-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: dictionary)
+        self.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|-space-[control]-space-|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: metrics, views: dictionary)
         superView.addConstraints(self.control_H)
     }
 
 
     open func expandViewInsideView(_ mainView: UIView) {
 
-        self.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|[view]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["view": view])
-        self.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|[view]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["view": view])
+        self.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|[view]|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: ["view": view])
+        self.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|[view]|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: ["view": view])
 
         mainView.addConstraints(self.control_H)
         mainView.addConstraints(self.control_V)
@@ -64,8 +64,8 @@ open class AppBaseLayout: NSObject {
 
         let dictionary: Dictionary = ["containerView": containerView]
 
-        self.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|[containerView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dictionary)
-        self.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|[containerView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dictionary)
+        self.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|[containerView]|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: dictionary)
+        self.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|[containerView]|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: dictionary)
 
         mainView.addConstraints(self.control_H)
         mainView.addConstraints(self.control_V)
@@ -77,8 +77,8 @@ open class AppBaseLayout: NSObject {
         let dictionary: Dictionary = ["containerView": containerView]
 
         let metrics: Dictionary = ["space": space]
-        self.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|-space-[containerView]-space-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: dictionary)
-        self.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|-space-[containerView]-space-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: dictionary)
+        self.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|-space-[containerView]-space-|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: metrics, views: dictionary)
+        self.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|-space-[containerView]-space-|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: metrics, views: dictionary)
 
         mainView.addConstraints(self.control_H)
         mainView.addConstraints(self.control_V)

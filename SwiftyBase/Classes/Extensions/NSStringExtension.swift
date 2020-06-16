@@ -22,7 +22,7 @@ public extension NSString {
      
      - returns: Returns true if founded, false if not
      */
-    public func hasString(string: NSString, caseSensitive: Bool = true) -> Bool {
+    func hasString(string: NSString, caseSensitive: Bool = true) -> Bool {
         if caseSensitive {
             return !(self.range(of: string as String).location == NSNotFound)
         } else {
@@ -35,7 +35,7 @@ public extension NSString {
      
      - returns: Returns true if it's an email, false if not
      */
-    public func isEmail() -> Bool {
+    func isEmail() -> Bool {
         return NSString.isEmail(email: self)
     }
     
@@ -44,7 +44,7 @@ public extension NSString {
      
      - returns: Returns the encoded string
      */
-    public func encodeToBase64() -> NSString {
+    func encodeToBase64() -> NSString {
         return NSString.encodeToBase64(string: self)
     }
     
@@ -53,7 +53,7 @@ public extension NSString {
      
      - returns: Returns the decoded string
      */
-    public func decodeBase64() -> NSString {
+    func decodeBase64() -> NSString {
         return NSString.decodeBase64(string: self)
     }
     
@@ -62,7 +62,7 @@ public extension NSString {
      
      - returns: Returns self as NSData
      */
-    public func convertToNSData() -> NSData {
+    func convertToNSData() -> NSData {
         return NSString.convertToNSData(string: self)
     }
     
@@ -72,7 +72,7 @@ public extension NSString {
      
      - returns: Returns the capitalized sentence string
      */
-    public func sentenceCapitalizedString() -> NSString {
+    func sentenceCapitalizedString() -> NSString {
         if self.length == 0 {
             return ""
         }
@@ -88,7 +88,7 @@ public extension NSString {
      
      - returns: Returns a human legible string from a timestamp
      */
-    public func dateFromTimestamp() -> NSString {
+    func dateFromTimestamp() -> NSString {
         let year: NSString = self.substring(to: 4) as NSString
         var month: NSString = self.substring(from: 5) as NSString
         month = month.substring(to: 4) as NSString
@@ -103,7 +103,7 @@ public extension NSString {
         return "\(day)/\(month)/\(year) \(hours):\(minutes)" as NSString
     }
     
-    public func convertToAPNSUUID() -> NSString {
+    func convertToAPNSUUID() -> NSString {
         
         return self.trimmingCharacters(in: NSCharacterSet(charactersIn: "<>") as CharacterSet).replacingOccurrences(of: "", with: "").replacingOccurrences(of:"-", with: "") as NSString
     }
@@ -113,7 +113,7 @@ public extension NSString {
      
      - returns: Returns the encoded NSString
      */
-    public func URLEncode() -> NSString {
+    func URLEncode() -> NSString {
         return self.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlHostAllowed)! as NSString
     }
     
@@ -125,7 +125,7 @@ public extension NSString {
      
      - returns: Returns a new string containing matching regular expressions replaced with the template string
      */
-    public func stringByReplacingWithRegex(regexString: NSString, withString replacement: NSString) throws -> NSString {
+    func stringByReplacingWithRegex(regexString: NSString, withString replacement: NSString) throws -> NSString {
         let regex: NSRegularExpression = try NSRegularExpression(pattern: regexString as String, options: .caseInsensitive)
         return regex.stringByReplacingMatches(in: self as String, options: NSRegularExpression.MatchingOptions(rawValue: 0), range:NSMakeRange(0, self.length), withTemplate: "") as NSString
     }
@@ -135,7 +135,7 @@ public extension NSString {
      
      - returns: Returns if self is a valid UUID or not
      */
-    public func isUUID() -> Bool {
+    func isUUID() -> Bool {
         do {
             let regex: NSRegularExpression = try NSRegularExpression(pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$", options: .caseInsensitive)
             let matches: Int = regex.numberOfMatches(in: self as String, options: .reportCompletion, range: NSMakeRange(0, self.length))
@@ -150,7 +150,7 @@ public extension NSString {
      
      - returns: Returns if self is a valid UUID for APNS (Apple Push Notification System) or not
      */
-    public func isUUIDForAPNS() -> Bool {
+    func isUUIDForAPNS() -> Bool {
         do {
             let regex: NSRegularExpression = try NSRegularExpression(pattern: "^[0-9a-f]{32}$", options: .caseInsensitive)
             let matches: Int = regex.numberOfMatches(in: self as String, options: .reportCompletion, range: NSMakeRange(0, self.length))
@@ -169,10 +169,10 @@ public extension NSString {
      
      - returns: Returns the calculated height of string within width using given font
      */
-    public func heightForWidth(width: CGFloat, font: UIFont) -> CGFloat {
+    func heightForWidth(width: CGFloat, font: UIFont) -> CGFloat {
         var size: CGSize = CGSize.zero
         if self.length > 0 {
-            let frame: CGRect = self.boundingRect(with:CGSize.init(width: width, height: 999999), options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font : font], context: nil)
+            let frame: CGRect = self.boundingRect(with:CGSize.init(width: width, height: 999999), options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font : font], context: nil)
             size = CGSize.init(width: frame.size.width, height: frame.size.height + 1)
             
         }
@@ -190,7 +190,7 @@ public extension NSString {
      
      - returns: Returns true if it's an email, false if not
      */
-    public static func isEmail(email: NSString) -> Bool {
+    static func isEmail(email: NSString) -> Bool {
         let emailRegEx: NSString = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
         
         let regExPredicate: NSPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
@@ -205,7 +205,7 @@ public extension NSString {
      
      - returns: Returns the encoded string
      */
-    public static func encodeToBase64(string: NSString) -> NSString {
+    static func encodeToBase64(string: NSString) -> NSString {
         let data: NSData = string.convertToNSData()
         return data.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0)) as NSString
     }
@@ -217,7 +217,7 @@ public extension NSString {
      
      - returns: Returns the decoded string
      */
-    public static func decodeBase64(string: NSString) -> NSString {
+    static func decodeBase64(string: NSString) -> NSString {
         let data: NSData = NSData(base64Encoded: string as String, options: NSData.Base64DecodingOptions(rawValue: 0))!
         return data.convertToUTF8String() as NSString
     }
@@ -229,7 +229,7 @@ public extension NSString {
      
      - returns: Returns the converted NSString as NSData
      */
-    public static func convertToNSData(string: NSString) -> NSData {
+    static func convertToNSData(string: NSString) -> NSData {
         return string.data(using: String.Encoding.utf8.rawValue)! as NSData
     }
     
@@ -244,7 +244,7 @@ public extension NSString {
     //    }
     
     
-    public func removeExtraSpaces() -> NSString {
+    func removeExtraSpaces() -> NSString {
         return components(separatedBy: .whitespaces).joined(separator: "") as NSString
     }
     /**
@@ -255,7 +255,7 @@ public extension NSString {
      
      - returns: Returns a new string containing matching regular expressions replaced with the template string
      */
-    public func stringByReplacingWithRegex(regexString: NSString, replacement: NSString) -> NSString? {
+    func stringByReplacingWithRegex(regexString: NSString, replacement: NSString) -> NSString? {
         do {
             let regex: NSRegularExpression = try NSRegularExpression(pattern: regexString as String, options: .caseInsensitive)
             return regex.stringByReplacingMatches(in: self as String, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, self.length), withTemplate: "") as NSString?
@@ -272,7 +272,7 @@ public extension NSString {
      
      - returns: Returns the created UUID string
      */
-    public static func generateUUID() -> NSString {
+    static func generateUUID() -> NSString {
         let theUUID: CFUUID? = CFUUIDCreate(kCFAllocatorDefault)
         let string: CFString? = CFUUIDCreateString(kCFAllocatorDefault, theUUID)
         return string!

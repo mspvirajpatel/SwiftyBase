@@ -12,7 +12,7 @@ public extension UINavigationController {
     
       
     @discardableResult
-    public func replace(with controller: UIViewController, animated: Bool = true) -> UIViewController? {
+    func replace(with controller: UIViewController, animated: Bool = true) -> UIViewController? {
         var controllers = viewControllers
         let current = controllers.popLast()
         controllers.append(controller)
@@ -23,19 +23,19 @@ public extension UINavigationController {
     }
     
     @discardableResult
-    public func popAllAndReplace(with controller: UIViewController) -> [UIViewController] {
+    func popAllAndReplace(with controller: UIViewController) -> [UIViewController] {
         let transition = CATransition()
         transition.duration = 0.5
-        transition.type = kCATransitionMoveIn
-        transition.subtype = kCATransitionFromLeft
-        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        transition.type = CATransitionType.moveIn
+        transition.subtype = CATransitionSubtype.fromLeft
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         view.layer.add(transition, forKey: nil)
         
         return replaceAll(with: controller, animated: false)
     }
     
     @discardableResult
-    public func replaceAll(with controller: UIViewController, animated: Bool = true) -> [UIViewController] {
+    func replaceAll(with controller: UIViewController, animated: Bool = true) -> [UIViewController] {
         let currentControllers = viewControllers
         
         setViewControllers([controller], animated: animated)

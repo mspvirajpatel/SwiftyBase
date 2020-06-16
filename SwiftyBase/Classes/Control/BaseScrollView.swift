@@ -134,24 +134,24 @@ open class BaseScrollView: UIScrollView, UIScrollViewDelegate {
         switch type {
         case .vertical:
 
-            baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|[container(==self)]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: baseLayout.viewDictionary)
-            baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|[container(==self@250)]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: baseLayout.viewDictionary)
+            baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|[container(==self)]|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: baseLayout.viewDictionary)
+            baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|[container(==self@250)]|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: baseLayout.viewDictionary)
             self.addConstraints(baseLayout.control_H)
             self.addConstraints(baseLayout.control_V)
             break
 
         case .horizontal:
 
-            baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|[container(==self@250)]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: baseLayout.viewDictionary)
-            baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|[container(==self)]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: baseLayout.viewDictionary)
+            baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|[container(==self@250)]|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: baseLayout.viewDictionary)
+            baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|[container(==self)]|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: baseLayout.viewDictionary)
             self.addConstraints(baseLayout.control_H)
             self.addConstraints(baseLayout.control_V)
             break
 
         case .both:
 
-            baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|[container(==self@250)]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: baseLayout.viewDictionary)
-            baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|[container(==self@250)]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: baseLayout.viewDictionary)
+            baseLayout.control_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|[container(==self@250)]|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: baseLayout.viewDictionary)
+            baseLayout.control_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|[container(==self@250)]|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: baseLayout.viewDictionary)
             self.addConstraints(baseLayout.control_H)
             self.addConstraints(baseLayout.control_V)
             break
@@ -185,7 +185,7 @@ open class BaseScrollView: UIScrollView, UIScrollViewDelegate {
                 }
             }
 
-            self!.lastViewConstraint = NSLayoutConstraint.init(item: self!.container, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: visibleSubView, attribute: NSLayoutAttribute.bottom, multiplier: 1.0, constant: 0.0)
+            self!.lastViewConstraint = NSLayoutConstraint.init(item: self!.container, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: visibleSubView, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1.0, constant: 0.0)
             self!.addConstraint(self!.lastViewConstraint)
             self!.layoutSubviews()
         }

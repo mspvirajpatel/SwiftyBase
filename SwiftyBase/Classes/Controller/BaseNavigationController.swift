@@ -81,14 +81,14 @@ open class BaseNavigationController: UINavigationController, CAAnimationDelegate
             self.navigationBar.prefersLargeTitles = true
             self.navigationItem.largeTitleDisplayMode = .automatic
 
-            self.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue): AppColor.navigationBG.value,
-                NSAttributedStringKey(rawValue: NSAttributedStringKey.font.rawValue): navigationLargeFont!]
+            self.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key(rawValue: NSAttributedString.Key.foregroundColor.rawValue): AppColor.navigationBG.value,
+                                                           NSAttributedString.Key(rawValue: NSAttributedString.Key.font.rawValue): navigationLargeFont!]
         } else {
             // Fallback on earlier versions
         }
 
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue): AppColor.navigationBG.value,
-            NSAttributedStringKey(rawValue: NSAttributedStringKey.font.rawValue): navigationBarFont!]
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key(rawValue: NSAttributedString.Key.foregroundColor.rawValue): AppColor.navigationBG.value,
+                                                            NSAttributedString.Key(rawValue: NSAttributedString.Key.font.rawValue): navigationBarFont!]
 
         self.navigationBar.tintColor = AppColor.navigationBG.value
         self.navigationBar.barTintColor = AppColor.appPrimaryBG.value
@@ -104,7 +104,7 @@ open class BaseNavigationController: UINavigationController, CAAnimationDelegate
         //        self.navigationBar.isTranslucent = true
 
 
-        defer {
+        do {
             navigationBarFont = nil
         }
     }
@@ -122,7 +122,7 @@ open class BaseNavigationController: UINavigationController, CAAnimationDelegate
         let maskBgView = UIView(frame: self.view.frame)
         maskBgView.backgroundColor = UIColor.white
         self.view.addSubview(maskBgView)
-        self.view.bringSubview(toFront: maskBgView)
+        self.view.bringSubviewToFront(maskBgView)
 
         // logo mask animation
         let transformAnimation = CAKeyframeAnimation(keyPath: "bounds")
@@ -134,15 +134,15 @@ open class BaseNavigationController: UINavigationController, CAAnimationDelegate
         let finalBounds = NSValue.init(cgRect: CGRect(x: 0, y: 0, width: 2000, height: 2000))
         transformAnimation.values = [initalBounds, secondBounds, finalBounds]
         transformAnimation.keyTimes = [0, 0.5, 1]
-        transformAnimation.timingFunctions = [CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut), CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)]
+        transformAnimation.timingFunctions = [CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut), CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)]
         transformAnimation.isRemovedOnCompletion = false
-        transformAnimation.fillMode = kCAFillModeForwards
+        transformAnimation.fillMode = CAMediaTimingFillMode.forwards
         self.view.layer.mask?.add(transformAnimation, forKey: "maskAnimation")
 
         // logo mask background view animation
         UIView.animate(withDuration: 0.1,
                        delay: 1.35,
-                       options: UIViewAnimationOptions.curveEaseIn,
+                       options: UIView.AnimationOptions.curveEaseIn,
                        animations: {
                            maskBgView.alpha = 0.0
                        },
@@ -153,14 +153,14 @@ open class BaseNavigationController: UINavigationController, CAAnimationDelegate
         // root view animation
         UIView.animate(withDuration: 0.25,
                        delay: 1.3,
-                       options: UIViewAnimationOptions.transitionCrossDissolve,
+                       options: UIView.AnimationOptions.transitionCrossDissolve,
                        animations: {
                            (AppUtility.getDelegate() as! UIApplicationDelegate).window!!.rootViewController!.view.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
                        },
                        completion: { finished in
                            UIView.animate(withDuration: 0.3,
                                           delay: 0.0,
-                                          options: UIViewAnimationOptions.curveEaseInOut,
+                                          options: UIView.AnimationOptions.curveEaseInOut,
                                           animations: {
                                               (AppUtility.getDelegate() as! UIApplicationDelegate).window!!.rootViewController!.view.transform = CGAffineTransform.identity
                                           },

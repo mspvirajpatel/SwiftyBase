@@ -177,12 +177,12 @@ class searchCell: UITableViewCell {
         il.textColor = UIColor.gray
         return il
     }()
-
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: "Cell")
         self.addSubview(itemLabel)
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }

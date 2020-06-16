@@ -17,7 +17,7 @@ public extension NSData {
      
      - returns: Returns self as UTF8 NSString
      */
-    public func convertToUTF8String() -> String {
+    func convertToUTF8String() -> String {
         return NSData.convertToUTF8String(data: self)
     }
     
@@ -26,7 +26,7 @@ public extension NSData {
      
      - returns: Returns self as ASCII NSString
      */
-    public func convertToASCIIString() -> String {
+    func convertToASCIIString() -> String {
         return NSData.convertToASCIIString(data: self)
     }
     
@@ -41,7 +41,7 @@ public extension NSData {
      
      - returns: Returns the converted NSData as UTF8 String
      */
-    public static func convertToUTF8String(data: NSData) -> String {
+    static func convertToUTF8String(data: NSData) -> String {
         return NSString(data: data as Data, encoding: String.Encoding.utf8.rawValue)! as String
     }
     
@@ -52,7 +52,7 @@ public extension NSData {
      
      - returns: Returns the converted NSData as ASCII String
      */
-    public static func convertToASCIIString(data: NSData) -> String {
+    static func convertToASCIIString(data: NSData) -> String {
         return NSString(data: data as Data, encoding: String.Encoding.ascii.rawValue)! as String
     }
 }

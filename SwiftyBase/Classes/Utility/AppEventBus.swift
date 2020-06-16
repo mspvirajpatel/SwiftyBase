@@ -84,7 +84,7 @@ open class AppEventBus {
     ////////////////////////////////////
 
     @discardableResult
-    open class func on(_ target: AnyObject, name: String, sender: AnyObject?, queue: OperationQueue?, handler: @escaping ((Notification!) -> Void)) -> NSObjectProtocol {
+    open class func on(_ target: AnyObject, name: String, sender: AnyObject?, queue: OperationQueue?, handler: @escaping ((Notification?) -> Void)) -> NSObjectProtocol {
         let id = UInt(bitPattern: ObjectIdentifier(target))
         let observer = NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: name), object: sender, queue: queue, using: handler)
         let namedObserver = NamedObserver(observer: observer, name: name)
@@ -101,22 +101,22 @@ open class AppEventBus {
     }
 
     @discardableResult
-    open class func onMainThread(_ target: AnyObject, name: String, handler: @escaping ((Notification!) -> Void)) -> NSObjectProtocol {
+    open class func onMainThread(_ target: AnyObject, name: String, handler: @escaping ((Notification?) -> Void)) -> NSObjectProtocol {
         return AppEventBus.on(target, name: name, sender: nil, queue: OperationQueue.main, handler: handler)
     }
 
     @discardableResult
-    open class func onMainThread(_ target: AnyObject, name: String, sender: AnyObject?, handler: @escaping ((Notification!) -> Void)) -> NSObjectProtocol {
+    open class func onMainThread(_ target: AnyObject, name: String, sender: AnyObject?, handler: @escaping ((Notification?) -> Void)) -> NSObjectProtocol {
         return AppEventBus.on(target, name: name, sender: sender, queue: OperationQueue.main, handler: handler)
     }
 
     @discardableResult
-    open class func onBackgroundThread(_ target: AnyObject, name: String, handler: @escaping ((Notification!) -> Void)) -> NSObjectProtocol {
+    open class func onBackgroundThread(_ target: AnyObject, name: String, handler: @escaping ((Notification?) -> Void)) -> NSObjectProtocol {
         return AppEventBus.on(target, name: name, sender: nil, queue: OperationQueue(), handler: handler)
     }
 
     @discardableResult
-    open class func onBackgroundThread(_ target: AnyObject, name: String, sender: AnyObject?, handler: @escaping ((Notification!) -> Void)) -> NSObjectProtocol {
+    open class func onBackgroundThread(_ target: AnyObject, name: String, sender: AnyObject?, handler: @escaping ((Notification?) -> Void)) -> NSObjectProtocol {
         return AppEventBus.on(target, name: name, sender: sender, queue: OperationQueue(), handler: handler)
     }
 

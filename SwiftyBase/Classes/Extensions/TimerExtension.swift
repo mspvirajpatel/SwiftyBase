@@ -22,25 +22,25 @@ private class NSTimerActor {
 }
 
 public extension Timer {
-    public class func new(after interval: TimeInterval, _ block: @escaping () -> ()) -> Timer {
+    class func new(after interval: TimeInterval, _ block: @escaping () -> ()) -> Timer {
         let actor = NSTimerActor(block)
         return self.init(timeInterval: interval, target: actor, selector: #selector(NSTimerActor.fire), userInfo: nil, repeats: false)
     }
     
-    public class func new(every interval: TimeInterval, _ block: @escaping () -> ()) -> Timer {
+    class func new(every interval: TimeInterval, _ block: @escaping () -> ()) -> Timer {
         let actor = NSTimerActor(block)
         return self.init(timeInterval: interval, target: actor, selector: #selector(NSTimerActor.fire), userInfo: nil, repeats: true)
     }
     
-    public class func after(interval: TimeInterval, _ block: @escaping () -> ()) -> Timer {
+    class func after(interval: TimeInterval, _ block: @escaping () -> ()) -> Timer {
         let timer = Timer.new(after: interval, block)
-        RunLoop.current.add(timer, forMode: RunLoopMode.defaultRunLoopMode)
+        RunLoop.current.add(timer, forMode: RunLoop.Mode.default)
         return timer
     }
     
-    public class func every(interval: TimeInterval, _ block: @escaping () -> ()) -> Timer {
+    class func every(interval: TimeInterval, _ block: @escaping () -> ()) -> Timer {
         let timer = Timer.new(every: interval, block)
-        RunLoop.current.add(timer, forMode: RunLoopMode.defaultRunLoopMode)
+        RunLoop.current.add(timer, forMode: RunLoop.Mode.default)
         return timer
     }
 }

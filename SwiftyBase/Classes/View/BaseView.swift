@@ -206,7 +206,7 @@ open class BaseView: UIView {
 
         let screenSize: CGSize = UIScreen.main.bounds.size
 
-        footerIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .white)
+        footerIndicatorView = UIActivityIndicatorView(style: .white)
         tableFooterHeight = footerIndicatorView.frame.size.height + 20.0
 
         tableFooterView = UIView()
@@ -236,14 +236,14 @@ open class BaseView: UIView {
         var viewControlIndex: Int = -1
 
         if((superview.subviews.contains(textControl))) {
-            textControlIndex = superview.subviews.index(of: textControl)!
+            textControlIndex = superview.subviews.firstIndex(of: textControl)!
         }
 
         for view in (superview.subviews) {
 
             if(view.isTextControl() && textControl != view) {
 
-                viewControlIndex = superview.subviews.index(of: view)!
+                viewControlIndex = superview.subviews.firstIndex(of: view)!
 
                 if(viewControlIndex < textControlIndex) {
                     isFirstTextControl = false
@@ -267,14 +267,14 @@ open class BaseView: UIView {
         var viewControlIndex: Int = -1
 
         if((superview.subviews.contains(textControl))) {
-            textControlIndex = superview.subviews.index(of: textControl)!
+            textControlIndex = superview.subviews.firstIndex(of: textControl)!
         }
 
         for view in (superview.subviews) {
 
             if(view.isTextControl() && textControl != view) {
 
-                viewControlIndex = superview.subviews.index(of: view)!
+                viewControlIndex = superview.subviews.firstIndex(of: view)!
 
                 if(viewControlIndex > textControlIndex) {
                     isLastTextControl = false
@@ -332,13 +332,13 @@ open class BaseView: UIView {
                 self!.errorMessageLabel.text = ""
 
                 if(self!.errorMessageLabel.tag == -1) {
-                    self!.sendSubview(toBack: self!.errorMessageLabel)
+                    self!.sendSubviewToBack(self!.errorMessageLabel)
                 }
 
                 if(errorMessage != nil) {
 
                     if(self!.errorMessageLabel.tag == -1) {
-                        self!.bringSubview(toFront: self!.errorMessageLabel)
+                        self!.bringSubviewToFront(self!.errorMessageLabel)
                     }
 
                     self!.errorMessageLabel.isHidden = false

@@ -124,7 +124,7 @@ open class AppImageUploadManager: NSObject
             print("imagePath:- \(String(describing: imagePath))")
             var img: UIImage? = image.compressImage(to: 500, compressRatio: 0.4)
 
-            var imageData: Data? = UIImageJPEGRepresentation(img!, 0.7)!
+            var imageData: Data? = img!.jpegData(compressionQuality: 0.7)!
 
             do {
 

@@ -20,14 +20,14 @@ public extension UITextField {
     /// - emailAddress: UITextField is used to enter email addresses.
     /// - password: UITextField is used to enter passwords.
     /// - generic: UITextField is used to enter generic text.
-    public enum TextType {
+    enum TextType {
         case emailAddress
         case password
         case generic
     }
     
     /// Set textField for common text types.
-    public var textType: TextType {
+    var textType: TextType {
         get {
             if keyboardType == .emailAddress {
                 return .emailAddress
@@ -57,7 +57,7 @@ public extension UITextField {
         }
     }
     
-    public var fontSize: CGFloat {
+    var fontSize: CGFloat {
         get {
             return self.font?.pointSize ?? 17
         }
@@ -67,21 +67,21 @@ public extension UITextField {
     }
     
     /// Add left padding to the text in textfield
-    public func addLeftTextPadding(_ blankSize: CGFloat) {
+    func addLeftTextPadding(_ blankSize: CGFloat) {
         let leftView = UIView()
         leftView.frame = CGRect(x: 0, y: 0, width: blankSize, height: frame.height)
         self.leftView = leftView
-        self.leftViewMode = UITextFieldViewMode.always
+        self.leftViewMode = UITextField.ViewMode.always
     }
     
     /// Add a image icon on the left side of the textfield
-    public func addLeftIcon(_ image: UIImage?, frame: CGRect, imageSize: CGSize) {
+    func addLeftIcon(_ image: UIImage?, frame: CGRect, imageSize: CGSize) {
         let leftView = UIView(frame: frame)
         let imgView = UIImageView()
         imgView.frame = CGRect(x: frame.width - 8 - imageSize.width, y: (frame.height - imageSize.height) / 2, width: imageSize.width, height: imageSize.height)
         imgView.image = image
         leftView.addSubview(imgView)
         self.leftView = leftView
-        self.leftViewMode = UITextFieldViewMode.always
+        self.leftViewMode = UITextField.ViewMode.always
     }
 }
