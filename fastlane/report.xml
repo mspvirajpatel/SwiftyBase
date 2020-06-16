@@ -5,52 +5,54 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: Verifying required fastlane version" time="0.001527">
+      <testcase classname="fastlane.lanes" name="0: Verifying fastlane version" time="0.000449">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.001181">
+      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.000193">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: ensure_git_branch" time="0.716425">
+      <testcase classname="fastlane.lanes" name="2: ensure_git_branch" time="0.010014">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: version_bump_podspec" time="0.063167">
+      <testcase classname="fastlane.lanes" name="3: version_bump_podspec" time="0.000669">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="4: git_commit" time="1.554067">
+      <testcase classname="fastlane.lanes" name="4: git_commit" time="0.022974">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="5: push_to_git_remote" time="7.807549">
+      <testcase classname="fastlane.lanes" name="5: push_to_git_remote" time="7.888167">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="6: changelog_from_git_commits" time="0.035181">
+      <testcase classname="fastlane.lanes" name="6: changelog_from_git_commits" time="0.027745">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="7: set_github_release" time="248.821022">
+      <testcase classname="fastlane.lanes" name="7: set_github_release" time="82.33682">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="8: git fetch --tags" time="4.500497">
+      <testcase classname="fastlane.lanes" name="8: git fetch --tags" time="0.751349">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="9: pod_push" time="649.237429">
+      <testcase classname="fastlane.lanes" name="9: pod_push" time="0.047345">
+        
+          <failure message="/usr/local/Cellar/fastlane/2.149.1/libexec/gems/fastlane-2.149.1/fastlane/lib/fastlane/actions/actions_helper.rb:48:in `execute_action'&#10;/usr/local/Cellar/fastlane/2.149.1/libexec/gems/fastlane-2.149.1/fastlane/lib/fastlane/runner.rb:253:in `block in execute_action'&#10;/usr/local/Cellar/fastlane/2.149.1/libexec/gems/fastlane-2.149.1/fastlane/lib/fastlane/runner.rb:227:in `chdir'&#10;/usr/local/Cellar/fastlane/2.149.1/libexec/gems/fastlane-2.149.1/fastlane/lib/fastlane/runner.rb:227:in `execute_action'&#10;/usr/local/Cellar/fastlane/2.149.1/libexec/gems/fastlane-2.149.1/fastlane/lib/fastlane/runner.rb:157:in `trigger_action_by_name'&#10;/usr/local/Cellar/fastlane/2.149.1/libexec/gems/fastlane-2.149.1/fastlane/lib/fastlane/fast_file.rb:159:in `method_missing'&#10;Fastfile:41:in `block (2 levels) in parsing_binding'&#10;/usr/local/Cellar/fastlane/2.149.1/libexec/gems/fastlane-2.149.1/fastlane/lib/fastlane/lane.rb:33:in `call'&#10;/usr/local/Cellar/fastlane/2.149.1/libexec/gems/fastlane-2.149.1/fastlane/lib/fastlane/runner.rb:49:in `block in execute'&#10;/usr/local/Cellar/fastlane/2.149.1/libexec/gems/fastlane-2.149.1/fastlane/lib/fastlane/runner.rb:45:in `chdir'&#10;/usr/local/Cellar/fastlane/2.149.1/libexec/gems/fastlane-2.149.1/fastlane/lib/fastlane/runner.rb:45:in `execute'&#10;/usr/local/Cellar/fastlane/2.149.1/libexec/gems/fastlane-2.149.1/fastlane/lib/fastlane/lane_manager.rb:47:in `cruise_lane'&#10;/usr/local/Cellar/fastlane/2.149.1/libexec/gems/fastlane-2.149.1/fastlane/lib/fastlane/command_line_handler.rb:36:in `handle'&#10;/usr/local/Cellar/fastlane/2.149.1/libexec/gems/fastlane-2.149.1/fastlane/lib/fastlane/commands_generator.rb:108:in `block (2 levels) in run'&#10;/usr/local/Cellar/fastlane/2.149.1/libexec/gems/commander-fastlane-4.4.6/lib/commander/command.rb:178:in `call'&#10;/usr/local/Cellar/fastlane/2.149.1/libexec/gems/commander-fastlane-4.4.6/lib/commander/command.rb:153:in `run'&#10;/usr/local/Cellar/fastlane/2.149.1/libexec/gems/commander-fastlane-4.4.6/lib/commander/runner.rb:476:in `run_active_command'&#10;/usr/local/Cellar/fastlane/2.149.1/libexec/gems/fastlane-2.149.1/fastlane_core/lib/fastlane_core/ui/fastlane_runner.rb:76:in `run!'&#10;/usr/local/Cellar/fastlane/2.149.1/libexec/gems/commander-fastlane-4.4.6/lib/commander/delegates.rb:15:in `run!'&#10;/usr/local/Cellar/fastlane/2.149.1/libexec/gems/fastlane-2.149.1/fastlane/lib/fastlane/commands_generator.rb:352:in `run'&#10;/usr/local/Cellar/fastlane/2.149.1/libexec/gems/fastlane-2.149.1/fastlane/lib/fastlane/commands_generator.rb:41:in `start'&#10;/usr/local/Cellar/fastlane/2.149.1/libexec/gems/fastlane-2.149.1/fastlane/lib/fastlane/cli_tools_distributor.rb:119:in `take_off'&#10;/usr/local/Cellar/fastlane/2.149.1/libexec/gems/fastlane-2.149.1/bin/fastlane:23:in `&lt;top (required)&gt;'&#10;/usr/local/Cellar/fastlane/2.149.1/libexec/bin/fastlane:23:in `load'&#10;/usr/local/Cellar/fastlane/2.149.1/libexec/bin/fastlane:23:in `&lt;main&gt;'&#10;&#10;Exit status of command 'pod trunk push --allow-warnings --verbose' was 1 instead of 0.&#10;/usr/local/Cellar/ruby@2.5/2.5.8/lib/ruby/2.5.0/rubygems.rb:284:in `find_spec_for_exe': can't find gem cocoapods (&gt;= 0.a) with executable pod (Gem::GemNotFoundException)&#10;	from /usr/local/Cellar/ruby@2.5/2.5.8/lib/ruby/2.5.0/rubygems.rb:303:in `activate_bin_path'&#10;	from /usr/local/bin/pod:23:in `&lt;main&gt;'&#10;" />
         
       </testcase>
     
