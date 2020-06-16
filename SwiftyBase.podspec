@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SwiftyBase'
-  s.version          = '1.2.34'
+  s.version          = '1.2.35'
   s.summary          = 'Base Project For iOS in Swift 5.0'
 
 # This description is used to generate tags and improve search results.
